@@ -157,6 +157,12 @@ tr.pricerow td
     padding-top: 5px;
 }
 
+
+.parallax img
+{
+    max-width: 760px;
+}
+
 /* Responsive Full Background Image Using CSS
  * Tutorial URL: http://sixrevisions.com/css/responsive-background-image/
 */

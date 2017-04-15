@@ -325,6 +325,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo2.png" />
     <Content Include="Images\logo2.svg" />
+    <Content Include="Images\logocover.png" />
     <Content Include="Images\picnicbg.jpg" />
     <Content Include="Images\sangria.jpg" />
     <Content Include="Images\smflower.png" />
