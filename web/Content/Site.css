@@ -1,0 +1,201 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* Custom Stylesheet */
+/**
+    * Use this file to override Materialize files so you can update
+    * the core Materialize files in the future
+    *
+    * Made By MaterializeCSS.com
+    */
+
+nav ul a,
+nav .brand-logo {
+    color: #444;
+}
+
+p {
+    line-height: 2rem;
+}
+
+.button-collapse {
+    color: #26a69a;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+}
+.parallax-container .section {
+    width: 100%;
+}
+
+@media only screen and (max-width : 992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%;
+    }
+    #index-banner .section {
+        top: 10%;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    #index-banner .section {
+        top: 0;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+footer.page-footer {
+    margin: 0;
+}
+
+.top-zero {
+    margin-top: 0;
+}
+
+.top-space {
+    margin-top: 5rem;
+}
+
+/*
+#logo
+{
+    width: 140.94054px;
+    height: 64px;
+
+    background-image: url(../Images/logo.png);
+  
+    /* Image is centered vertically and horizontally at all times
+    background-position: center center;
+  
+    /* Image doesn't repeat
+    background-repeat: no-repeat;
+}
+*/
+
+#logo-container
+{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.navlogotxt
+{
+    font-size: .63em;
+    font-weight: bold;
+    font-family: 'Cinzel Decorative', cursive;
+    margin-bottom: 5px;
+}
+
+.collapsible {
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+}
+
+#question li, #answer li { opacity: 0; }
+
+ul.normal li
+{
+    list-style-type: disc;
+}
+
+p.normal
+{
+    line-height: normal;
+}
+
+.price-title, .price-subtitle
+{
+    /*
+    width: 100%;
+    height: 75px;
+    text-align: center;
+    */
+    padding: 6px 0 6px 0;
+    text-shadow: 0 1px 1px rgba(0,0,0,.5) !important;
+}
+
+.pricetbl
+{
+    width: 100%;
+    color: #333;
+    margin-bottom: 25px;
+    line-height: normal !important;
+    font-family: Calibri, Arial, sans-serif;
+}
+
+.pricetbl
+{
+}
+
+tr.pricerow td
+{
+    /*width: 100%;*/
+    min-height: 26px;
+    padding-top: 5px;
+}
+
+/* Responsive Full Background Image Using CSS
+ * Tutorial URL: http://sixrevisions.com/css/responsive-background-image/
+*/
+div.cover {
+    /* Location of the image */
+    background-image: url(../Images/bgsquash.jpg);
+  
+    /* Image is centered vertically and horizontally at all times */
+    background-position: center center;
+  
+    /* Image doesn't repeat */
+    background-repeat: no-repeat;
+  
+    /* Makes the image fixed in the viewport so that it doesn't move when 
+        the content height is greater than the image height
+    background-attachment: fixed; */
+  
+    /* This is what makes the background image rescale based on its container's size */
+    background-size: cover;
+  
+    /* Pick a solid background color that will be displayed while the background image is loading */
+    background-color:#464646;
+ 
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    z-index: -3;
+    display: table;
+ 
+  /* SHORTHAND CSS NOTATION
+   * background: url(background-photo.jpg) center center cover no-repeat fixed;
+   */
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+    body {
+        /* The file size of this background image is 93% smaller
+        * to improve page load speed on mobile internet connections */
+        background-image: url(images/background-photo-mobile-devices.jpg);
+    }
+}
