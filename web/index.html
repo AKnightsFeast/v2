@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="cssanimations">
     <head>
         <!-- Standard Meta -->
         <meta charset="utf-8" />
@@ -10,8 +10,10 @@
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="/Content/reset.css" media="screen,projection" />
         <link type="text/css" rel="stylesheet" href="/Content/materialize/css/materialize.min.css" media="screen,projection" />
-        <link type="text/css" rel="stylesheet" href="/Content/Site.css" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="/Content/site.css" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="/Content/timeline.css" media="screen,projection" />
     </head>
 
     <body>
@@ -238,8 +240,8 @@
 
         <div class="divider"></div>
 
+        <!-- Question and Answer Section -->
         <div class="container">
-            <!-- Question and Answer Section -->
             <div class="section"></div>
             <div class="section">
                 <div class="row">
@@ -303,16 +305,95 @@
             <div class="parallax"><img src="/Images/bgcands.jpg" alt="Unsplashed background img 2"></div>
         </div>
 
-        <section class="pink darken-1 white-text">
-            <div class="container">
+        <!-- How it Works -->
+        <section class="light-green lighten-4">
+            <div class="container white-text">
                 <div class="section">
                     <div class="row">
                         <div class="col s12 center-align">
-                            <h3><u>How It Works</u></h3>
+                            <h3>How It Works</h3>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- How it Works -->
+            <section id="cd-timeline" class="cd-container green-text text-darken-4">
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-picture">
+                        <i class="material-icons">people</i>
+                    </div>
+                    <div class="cd-timeline-content">
+                        <h2>1. Chat</h2>
+                        <p>First I meet with you to discuss your dining wants and needs.</p>
+                        <ul class="justify normal">
+                            <li>What are your favorite foods, flavors, and textures?</li>
+                            <li>Do you have a family favorite that you just don’t have time to prepare?</li>
+                            <li>Do you want to follow a diet plan?</li>
+                            <li>Do you have any allergies or foods you don’t like?</li>
+                            <li>What international foods do you enjoy?</li>
+                        </ul>
+                        <p class="justify highlight normal">
+                            You can also complete a <a href="@Url.Action(" ", " Assessment")"><i class="fa fa-edit"></i> Client Assessment Form</a>
+                            online so I can come up with a menu for you quicker!
+                        </p>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-location">
+                        <i class="material-icons">create</i>
+                    </div>
+                    <div class="cd-timeline-content">
+                        <h2>2. Design</h2>
+                        <p class="justify normal">Your menu is designed and sent to you for approval.</p>
+                        <p class="justify normal">
+                            A list of suggestions will be sent you.  It must be approved within 48 hours of
+                            your cook date.  Feel free to make suggestions of what you’re craving!
+                        </p>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-picture">
+                        <i class="material-icons">shopping_cart</i>
+                    </div>
+                    <div class="cd-timeline-content">
+                        <h2>3. Shop</h2>
+                        <p class="justify normal">Your food is purchased fresh the day of your cook date.</p>
+                        <p class="justify normal">
+                            Chef Laura will shop at the best local grocery stores and local farmers’ markets to
+                            ensure your meals are produced from the absolute freshest ingredients.
+                        </p>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-location">
+                        <i class="material-icons">whatshot</i>
+                    </div>
+                    <div class="cd-timeline-content">
+                        <h2>4. Cook</h2>
+                        <p class="justify normal">Your food will be prepared fresh by Chef Laura for delivery to your home.</p>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-picture">
+                        <i class="material-icons">kitchen</i>
+                    </div>
+                    <div class="cd-timeline-content">
+                        <h2>5. Pack</h2>
+                        <p class="justify normal">
+                            All meals will be packaged with instructions on how to serve. Your kitchen will be clean of all evidence of
+                            your chef being there — all except for the pleasant smell of fresh food.
+                        </p>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+            </section>
+
+            <div class="container white-text">
+                <div class="section">
+                    <!--
                     <div class="row flow-text">
                         <div class="col s12 m4">
                             <div class="icon-block">
@@ -340,6 +421,8 @@
                             </p>
                         </div>
                     </div>
+                    -->
+                    <!--
                     <div class="row flow-text">
                         <div class="col s12 m6">
                             <div class="icon-block">
@@ -366,6 +449,8 @@
                             </div>
                         </div>
                     </div>
+                    -->
+                    <!--
                     <div class="row flow-text">
                         <div class="col s12 m6">
                             <div class="icon-block">
@@ -388,6 +473,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                     <div class="row flow-text">
                         <div class="s12 center"><h2>It's that easy!!!</h2></div>
                     </div>
@@ -417,6 +503,7 @@
 
         <div class="divider"></div>
 
+        <!-- Prices -->
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -651,16 +738,16 @@
                     </div>
                     <div class="col l3 s12">
                         <h5 class="white-text">Connect</h5>
-                        <ul>
+                        <ul class="footer-ul">
                             <li>
-                                <a class="white-text" href="#!">
+                                <a class="white-text" href="https://twitter.com/chefknight" target="_blank">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="#000000" d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33Z" />
                                     </svg>
                                 </a>
                             </li>
                             <li>
-                                <a class="white-text" href="#!">
+                                <a class="white-text" href="https://facebook.com/aknightsfeast" target="_blank">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="#000000" d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
                                     </svg>
@@ -710,6 +797,32 @@
                     , { selector: '#answer', offset: 130, callback: 'Materialize.showStaggeredList("#answer")' }
                     //, { selector: '#chefquestion', offset: 140, callback: 'Materialize.showStaggeredList("#chefquestion")' }
                 ]);
+
+                var offset = 0.8;
+                var $window = $(window);
+                var timelineBlocks = $('.cd-timeline-block');
+
+                //hide timeline blocks which are outside the viewport
+                hideBlocks(timelineBlocks, offset);
+
+                //on scolling, show/animate timeline blocks when enter the viewport
+                $window.on('scroll', function () {
+                    (!window.requestAnimationFrame)
+                        ? setTimeout(function () { showBlocks(timelineBlocks, offset); }, 100)
+                        : window.requestAnimationFrame(function () { showBlocks(timelineBlocks, offset); });
+                });
+
+                function hideBlocks(blocks, offset) {
+                    blocks.each(function () {
+                        ($(this).offset().top > $window.scrollTop() + $window.height() * offset) && $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+                    });
+                }
+
+                function showBlocks(blocks, offset) {
+                    blocks.each(function () {
+                        ($(this).offset().top <= $window.scrollTop() + $window.height() * offset && $(this).find('.cd-timeline-img').hasClass('is-hidden')) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+                    });
+                }
             });
         </script>
     </body>
