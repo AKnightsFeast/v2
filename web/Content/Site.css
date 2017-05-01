@@ -131,37 +131,6 @@ p.normal
     line-height: normal;
 }
 
-.price-title, .price-subtitle
-{
-    /*
-    width: 100%;
-    height: 75px;
-    text-align: center;
-    */
-    padding: 6px 0 6px 0;
-    text-shadow: 0 1px 1px rgba(0,0,0,.5) !important;
-}
-
-.pricetbl
-{
-    width: 100%;
-    color: #333;
-    margin-bottom: 25px;
-    line-height: normal !important;
-    font-family: Calibri, Arial, sans-serif;
-}
-
-.pricetbl
-{
-}
-
-tr.pricerow td
-{
-    /*width: 100%;*/
-    min-height: 26px;
-    padding-top: 5px;
-}
-
 .footer-ul li
 {
     margin-bottom: 5px;
@@ -221,6 +190,17 @@ div.coverblock
 div.quote
 {
     padding: 15px 10px 2px 15px;
+}
+
+#prices p
+{
+    margin-bottom: 20px;
+}
+
+#prices ul li
+{
+    margin-left: 25px;
+    list-style-type: circle;
 }
 
 /* For mobile devices */
