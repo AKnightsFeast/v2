@@ -33,6 +33,11 @@ p {
     color: #26a69a;
 }
 
+.question, .answer
+{
+    height: 350px;
+}
+
 .parallax-container {
     min-height: 380px;
     line-height: 0;
@@ -202,11 +207,15 @@ div.covercontent
     margin-top: 20%;
 }
 
+div.coverblock, div.quote
+{
+    background-color: #fff;
+    background-color: rgba(255,255,255,0.75);
+}
+
 div.coverblock
 {
     padding: 10px 0px 10px 0px;
-    background-color: #fff;
-    background-color: rgba(255,255,255,0.75);
 }
 
 div.quote
