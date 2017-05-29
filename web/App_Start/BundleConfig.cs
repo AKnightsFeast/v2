@@ -19,8 +19,7 @@ namespace v2.web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js",
+            bundles.Add(new ScriptBundle("~/bundles/respond").Include(
                 "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/book").Include(
@@ -33,10 +32,6 @@ namespace v2.web
             bundles.Add(new StyleBundle("~/Content/home").Include(
                       "~/Content/home.css",
                       "~/Content/timeline.css"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
         }
     }
 }

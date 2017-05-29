@@ -10,11 +10,10 @@
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="/Content/reset.css" media="screen,projection" />
-        <link type="text/css" rel="stylesheet" href="/Content/materialize/css/materialize.min.css" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/reset.css")" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/materialize/css/materialize.min.css")" media="screen,projection" />
 
         @RenderSection("styles", false)
-        @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
@@ -188,21 +187,20 @@
                             <a href="javascript:void(0);" class="collapsible-header white-text">Menus</a>
                             <div class="collapsible-body pink">
                                 <ul>
-                                    <li title="Monthly menus"><a class="waves-effect white-text" href="javascript:void(0);">Monthly</a></li>
-                                    <li title="Personal menus"><a class="waves-effect white-text" href="javascript:void(0);">Personal</a></li>
-                                    <li title="Menus for themed events"><a class="waves-effect white-text" href="javascript:void(0);">Themed Events</a></li>
-                                    <li title="Pack your freezer"><a class="waves-effect white-text" href="javascript:void(0);">Pack Your Freezer</a></li>
+                                    <li title="Monthly Menus">@Html.ActionLink("Monthly", "Index", "Monthly", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Personal Menus">@Html.ActionLink("Personal", "Index", "Personal", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Menus for Themed Events">@Html.ActionLink("Themed Events", "Index", "Themed", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Pack Your Freezer">@Html.ActionLink("Pack Your Freezer", "Index", "Freezer", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
                                 </ul>
                             </div>
                         </li>
-                        <li title="Chef Laura's policies"><a class="waves-effect white-text" href="javascript:void(0);">Policies</a></li>
-                        <li title="Hear what people are saying!"><a class="waves-effect white-text" href="javascript:void(0);">Testimonials</a></li>
-                        <li title="About Chef Laura"><a class="waves-effect white-text" href="javascript:void(0);">About</a></li>
-                        <li title="Friends of Chef Laura"><a class="waves-effect white-text" href="javascript:void(0);">Friends</a></li>
+                        <li title="Chef Laura's Policies">@Html.ActionLink("Policies", "Index", "Policies", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                        <li title="Hear what people are saying!">@Html.ActionLink("Testimonials", "Index", "Testimonials", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                        <li title="About Chef Laura">@Html.ActionLink("About", "Index", "About", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                        <li title="Friends of Chef Laura">@Html.ActionLink("Friends", "Index", "Friends", new { area = "" }, new { @class = "waves-effect white-text" })</li>
                         <li><div class="divider"></div></li>
                         <li title="Weekly Service Client Assessment Form"><a class="waves-effect white-text" href="javascript:void(0);">Assessment</a></li>
                     </ul>
-
                     <ul class="right">
                         <li>
                             <a href="javascript:void(0);" data-activates="slide-out" class="sidenav-activator pink-text text-darken-3"><i class="material-icons pink-text text-darken-3">menu</i></a>
@@ -228,16 +226,16 @@
                             <li>Menus</li>
                             <li>
                                 <ul style="margin-left: 15px;">
-                                    <li title="Monthly menus"><a class="waves-effect white-text" href="javascript:void(0);">Monthly</a></li>
-                                    <li title="Personal menus"><a class="waves-effect white-text" href="javascript:void(0);">Personal</a></li>
-                                    <li title="Menus for themed events"><a class="waves-effect white-text" href="javascript:void(0);">Themed Events</a></li>
-                                    <li title="Pack your freezer"><a class="waves-effect white-text" href="javascript:void(0);">Pack Your Freezer</a></li>
+                                    <li title="Monthly Menus">@Html.ActionLink("Monthly", "Index", "Monthly", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Personal Menus">@Html.ActionLink("Personal", "Index", "Personal", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Menus for Themed Events">@Html.ActionLink("Themed Events", "Index", "Themed", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
+                                    <li title="Pack Your Freezer">@Html.ActionLink("Pack Your Freezer", "Index", "Freezer", new { area = "Menus" }, new { @class = "waves-effect white-text" })</li>
                                 </ul>
                             </li>
-                            <li title="Chef Laura's policies"><a class="waves-effect white-text" href="javascript:void(0);">Policies</a></li>
-                            <li title="Hear what people are saying!"><a class="waves-effect white-text" href="javascript:void(0);">Testimonials</a></li>
-                            <li title="About Chef Laura"><a class="waves-effect white-text" href="javascript:void(0);">About</a></li>
-                            <li title="Friends of Chef Laura"><a class="waves-effect white-text" href="javascript:void(0);">Friends</a></li>
+                            <li title="Chef Laura's Policies">@Html.ActionLink("Policies", "Index", "Policies", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                            <li title="Hear what people are saying!">@Html.ActionLink("Testimonials", "Index", "Testimonials", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                            <li title="About Chef Laura">@Html.ActionLink("About", "Index", "About", new { area = "" }, new { @class = "waves-effect white-text" })</li>
+                            <li title="Friends of Chef Laura">@Html.ActionLink("Friends", "Index", "Friends", new { area = "" }, new { @class = "waves-effect white-text" })</li>
                             <li title="Weekly Service Client Assessment Form"><a class="waves-effect white-text" href="javascript:void(0);">Assessment</a></li>
                         </ul>
                     </div>
@@ -269,29 +267,6 @@
                 </div>
             </div>
         </footer>
-
-
-
-        @*
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        *@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/materialize");

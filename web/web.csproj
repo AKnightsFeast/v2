@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Assessment\AssessmentAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -226,6 +227,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Menus\Controllers\FreezerController.cs" />
+    <Compile Include="Areas\Menus\Controllers\MonthlyController.cs" />
+    <Compile Include="Areas\Menus\Controllers\PersonalController.cs" />
+    <Compile Include="Areas\Menus\Controllers\ThemedController.cs" />
+    <Compile Include="Areas\Menus\MenusAreaRegistration.cs" />
     <Compile Include="Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Attributes\NoCacheAttribute.cs" />
     <Compile Include="Attributes\ValidateJsonAntiForgeryTokenAttribute.cs" />
@@ -237,7 +243,6 @@
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\GiftCertificatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\PoliciesController.cs" />
     <Compile Include="Controllers\StringRenderableController.cs" />
     <Compile Include="Controllers\TestimonialsController.cs" />
@@ -366,9 +371,16 @@
     <Content Include="Images\smflower.png" />
     <Content Include="Images\smflower.svg" />
     <Content Include="Images\smvines.png" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Areas\Menus\Views\web.config" />
+    <Content Include="Areas\Assessment\Views\web.config" />
+    <Content Include="Areas\Menus\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Menus\Views\Themed\Index.cshtml" />
+    <Content Include="Areas\Menus\Views\Personal\Index.cshtml" />
+    <Content Include="Areas\Menus\Views\Monthly\Index.cshtml" />
+    <Content Include="Areas\Menus\Views\Freezer\Index.cshtml" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -402,29 +414,21 @@
     <Content Include="Views\Assessment\Details.cshtml" />
     <Content Include="Views\Assessment\Index.cshtml" />
     <Content Include="Views\Assessment\ViewAll.cshtml" />
-    <Content Include="Views\Friends\About\Index.cshtml" />
-    <Content Include="Views\Friends\Assessment\All.cshtml" />
-    <Content Include="Views\Friends\Assessment\Details.cshtml" />
-    <Content Include="Views\Friends\Assessment\Index.cshtml" />
-    <Content Include="Views\Friends\Assessment\ViewAll.cshtml" />
     <Content Include="Views\Friends\Index.cshtml" />
     <Content Include="Views\GiftCertificates\Index.cshtml" />
-    <Content Include="Views\Menus\Freezer.cshtml" />
-    <Content Include="Views\Menus\Monthly.cshtml" />
-    <Content Include="Views\Menus\Personal.cshtml" />
-    <Content Include="Views\Menus\Special.cshtml" />
-    <Content Include="Views\Menus\ThemedEvents.cshtml" />
     <Content Include="Views\Policies\Index.cshtml" />
     <Content Include="Views\Testimonials\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Assessment\Controllers\" />
+    <Folder Include="Areas\Assessment\Models\" />
+    <Folder Include="Areas\Assessment\Views\Shared\" />
+    <Folder Include="Areas\Menus\Models\" />
+    <Folder Include="Areas\Menus\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\database\database.csproj">
@@ -435,6 +439,9 @@
       <Project>{ce5089aa-2bce-4738-b7de-5b17606385c5}</Project>
       <Name>models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
