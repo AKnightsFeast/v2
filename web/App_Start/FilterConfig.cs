@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace v2
+namespace v2.web
 {
     public class FilterConfig
     {

@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace v2.Models
+namespace v2.models
 {
     // Models used as parameters to AccountController actions.
 

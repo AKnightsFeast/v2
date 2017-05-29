@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace v2.Models
+namespace v2.models
 {
     // Models returned by AccountController actions.
 
