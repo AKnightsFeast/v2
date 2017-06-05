@@ -246,7 +246,6 @@
     <Compile Include="Controllers\PoliciesController.cs" />
     <Compile Include="Controllers\StringRenderableController.cs" />
     <Compile Include="Controllers\TestimonialsController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -378,6 +377,7 @@
     <Content Include="Areas\Menus\Views\Personal\Index.cshtml" />
     <Content Include="Areas\Menus\Views\Monthly\Index.cshtml" />
     <Content Include="Areas\Menus\Views\Freezer\Index.cshtml" />
+    <Content Include="Areas\Menus\Views\Shared\_MenusLayout.cshtml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
@@ -425,7 +425,6 @@
     <Folder Include="Areas\Assessment\Models\" />
     <Folder Include="Areas\Assessment\Views\Shared\" />
     <Folder Include="Areas\Menus\Models\" />
-    <Folder Include="Areas\Menus\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles
+{
+    @RenderSection("styles", false)
+
+    <style type="text/css">
+        div.menu {
+            display: none;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 justify">
+            <div class="leftnav frame">
+                @RenderSection("leftnav", true)
+            </div>
+        </div>
+        <div>
+            <div id="initdiv">
+                Click a menu link to see a menu.
+            </div>
+        </div>
+        <div class="col-md-9 justify">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @RenderSection("scripts", false)
+
+    <script type="text/javascript">
+        var _currMenu = "initdiv";
+
+        $('a.menulnk').click(function (e) {
+            var menu = $(this).data("menu");
+
+            $('#' + _currMenu).fadeOut('slow', function () {
+                $('#' + menu).fadeIn('slow');
+                _currMenu = menu;
+            });
+        });
+    </script>
+}
