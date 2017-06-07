@@ -7,22 +7,68 @@
     @RenderSection("styles", false)
 
     <style type="text/css">
-        div.menu {
+        ul.menulnks,
+        div.menu ul
+        {
+            margin-left: 0;
+            text-indent: -1em;
+        }
+
+        ul.menulnks li,
+        div.menu ul li
+        {
+            margin-top: 10px;
+            padding-left: 1em;
+        }
+
+        ul.menulnks li:first-child,
+        div.menu ul li:first-child
+        {
+            margin-top: 0px;
+        }
+
+        div.menu
+        {
             display: none;
+        }
+
+        div.header
+        {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        div.summary
+        {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        a.menulnk
+        {
+            cursor: pointer;
+        }
+
+        a.menulnk:active
+        {
+
         }
     </style>
 }
 
+<h2><i class="fa fa-cutlery"></i> @ViewBag.Title</h2>
 <div class="container">
-    <div class="row">
-        <div class="leftnav">
-            @RenderSection("leftnav", true)
-        </div>
-        <div>
-            <div id="initdiv">
-                Click a menu link to see a menu.
+    <div class="section">
+        <div class="row">
+            <div class="col s12 m3">
+                @RenderSection("leftnav", true)
             </div>
-            @RenderBody()
+            <div class="col s12 m9">
+                <div id="initdiv">
+                    Click a menu link to see a menu.
+                </div>
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>
