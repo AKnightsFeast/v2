@@ -32,6 +32,8 @@ namespace v2.web
             bundles.Add(new StyleBundle("~/Content/home").Include(
                       "~/Content/home.css",
                       "~/Content/timeline.css"));
+
+            bundles.Add(new StyleBundle("~/Content/site").Include("~/Content/site.css"));
         }
     }
 }

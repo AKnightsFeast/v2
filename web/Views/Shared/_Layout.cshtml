@@ -13,6 +13,7 @@
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/reset.css")" media="screen,projection" />
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/materialize/css/materialize.min.css")" media="screen,projection" />
 
+        @Styles.Render("~/Content/site")
         @RenderSection("styles", false)
         @Scripts.Render("~/bundles/modernizr")
     </head>
@@ -20,7 +21,7 @@
         <div class="navbar-fixed">
             <nav class="white" role="navigation">
                 <div class="nav-wrapper">
-                    <a id="logo-container" href="#" class="brand-logo">
+                    <a id="logo-container" href="/" class="brand-logo">
                         <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
                              xmlns:cc="http://creativecommons.org/ns#"
                              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -270,6 +271,17 @@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/materialize");
+
+        <script type="text/javascript">
+            $(function () {
+                $('.sidenav-activator').sideNav({
+                    menuWidth: 300, // Default is 300
+                    edge: 'right', // Choose the horizontal origin
+                    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                    draggable: true // Choose whether you can drag to open on touch screens
+                });
+            });
+        </script>
 
         @RenderSection("scripts", required: false)
     </body>

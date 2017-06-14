@@ -4,13 +4,6 @@
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 
 /* Custom Stylesheet */
 /**
@@ -19,11 +12,6 @@ textarea {
     *
     * Made By MaterializeCSS.com
     */
-
-nav ul a,
-nav .brand-logo {
-    color: #444;
-}
 
 p {
     line-height: 2rem;
@@ -71,10 +59,6 @@ p {
     font-size: inherit;
 }
 
-footer.page-footer {
-    margin: 0;
-}
-
 .top-zero {
     margin-top: 0;
 }
@@ -105,20 +89,6 @@ footer.page-footer {
     margin-left: 5px;
 }
 
-.navlogotxt
-{
-    font-size: .63em;
-    font-weight: bold;
-    font-family: 'Cinzel Decorative', cursive;
-    margin-bottom: 5px;
-}
-
-.collapsible {
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-}
-
 #question li, #answer li { opacity: 0; }
 
 ul.normal li
@@ -129,12 +99,6 @@ ul.normal li
 p.normal
 {
     line-height: normal;
-}
-
-.footer-ul li
-{
-    margin-bottom: 5px;
-    list-style-type: none;
 }
 
 /* Responsive Full Background Image Using CSS

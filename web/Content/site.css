@@ -1,0 +1,40 @@
+﻿body {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+nav ul a,
+nav .brand-logo {
+    color: #444;
+}
+
+.navlogotxt
+{
+    font-size: .63em;
+    font-weight: bold;
+    font-family: 'Cinzel Decorative', cursive;
+    margin-bottom: 5px;
+}
+
+.collapsible {
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+}
+
+.footer-ul li
+{
+    margin-bottom: 5px;
+    list-style-type: none;
+}
+
+footer.page-footer {
+    margin: 0;
+}

@@ -44,14 +44,16 @@
             margin-bottom: 10px;
         }
 
+        div.note
+        {
+            margin-top: 10px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
         a.menulnk
         {
             cursor: pointer;
-        }
-
-        a.menulnk:active
-        {
-
         }
     </style>
 }
@@ -78,14 +80,20 @@
     @RenderSection("scripts", false)
 
     <script type="text/javascript">
+        var _$currLink;
         var _currMenu = "initdiv";
 
         $('a.menulnk').click(function (e) {
-            var menu = $(this).data("menu");
+            var $link = $(this);
+            var menu = $link.data("menu");
 
             $('#' + _currMenu).fadeOut('slow', function () {
                 $('#' + menu).fadeIn('slow');
                 _currMenu = menu;
+
+                if (_$currLink) _$currLink.removeClass("pink-text darken-4");
+                $link.addClass("pink-text darken-4");
+                _$currLink = $link;
             });
         });
     </script>
