@@ -18,7 +18,7 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
-        <div class="navbar-fixed">
+        <div id="headernav" class="navbar-fixed">
             <nav class="white" role="navigation">
                 <div class="nav-wrapper">
                     <a id="logo-container" href="/" class="brand-logo">
@@ -213,7 +213,13 @@
 
         @RenderBody()
 
-        <footer class="page-footer light-green">
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a id="scrolltop" class="btn-floating pink" title="Scroll to top">
+                <i class="material-icons">keyboard_arrow_up</i>
+            </a>
+        </div>
+
+        <footer id="footernav" class="page-footer light-green">
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
@@ -270,10 +276,16 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/materialize");
+        @Scripts.Render("~/bundles/materialize")
 
         <script type="text/javascript">
             $(function () {
+                $window = $(window);
+
+                $("a#scrolltop").click(function () {
+                    $window.scrollTop(0);
+                });
+
                 $('.sidenav-activator').sideNav({
                     menuWidth: 300, // Default is 300
                     edge: 'right', // Choose the horizontal origin

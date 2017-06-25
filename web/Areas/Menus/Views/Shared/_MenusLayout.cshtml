@@ -58,12 +58,14 @@
     </style>
 }
 
-<h2><i class="fa fa-cutlery"></i> @ViewBag.Title</h2>
+<h2 id="menutitle"><i class="fa fa-cutlery"></i> @ViewBag.Title</h2>
 <div class="container">
     <div class="section">
         <div class="row">
             <div class="col s12 m3">
-                @RenderSection("leftnav", true)
+                <div id="menunav">
+                    @RenderSection("menunav", true)
+                </div>
             </div>
             <div class="col s12 m9">
                 <div id="initdiv">
@@ -80,20 +82,22 @@
     @RenderSection("scripts", false)
 
     <script type="text/javascript">
-        var _$currLink;
-        var _currMenu = "initdiv";
+        $(function () {
+            var _$currLink;
+            var _currMenu = "initdiv";
 
-        $('a.menulnk').click(function (e) {
-            var $link = $(this);
-            var menu = $link.data("menu");
+            $('a.menulnk').click(function () {
+                var $link = $(this);
+                var menu = $link.data("menu");
 
-            $('#' + _currMenu).fadeOut('slow', function () {
-                $('#' + menu).fadeIn('slow');
-                _currMenu = menu;
+                $('#' + _currMenu).fadeOut('slow', function () {
+                    $('#' + menu).fadeIn('slow');
+                    _currMenu = menu;
 
-                if (_$currLink) _$currLink.removeClass("pink-text darken-4");
-                $link.addClass("pink-text darken-4");
-                _$currLink = $link;
+                    if (_$currLink) _$currLink.removeClass("pink-text darken-4");
+                    $link.addClass("pink-text darken-4");
+                    _$currLink = $link;
+                });
             });
         });
     </script>
