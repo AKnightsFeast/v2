@@ -1,0 +1,32 @@
+{
+  "name": "a_knights_feast",
+  "version": "2.0.0",
+  "description": "React pages for A Knight's Feast website",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "react": "^15.6.1",
+    "webpack": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AKnightsFeast/v2.git"
+  },
+  "keywords": [
+    "A",
+    "Knight's",
+    "Feast",
+    "personal",
+    "chef"
+  ],
+  "author": "Rufus Knight",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AKnightsFeast/v2/issues"
+  },
+  "homepage": "https://github.com/AKnightsFeast/v2#readme"
+}
