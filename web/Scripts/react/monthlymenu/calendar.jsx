@@ -1,15 +1,18 @@
 ﻿import React from 'react';
-import { compose } from 'recompose';
+import { render } from 'react-dom';
+import { compose, lifecycle } from 'recompose';
 
-const Calendar = () =>
-(
-    <div id="calendar"></div>
-);
+import $ from 'jquery';
+import 'fullcalendar/dist/fullcalendar';
 
-export default compose({
-    lifecycle: {
+const Calendar = () => <div ref="calendar"></div>
+
+const EnhancedCalendar = compose(
+    lifecycle({
         componentDidMount() {
-            $('#calendar').fullCalendar({
+            let { calendar } = this.refs;
+
+            $(calendar).fullCalendar({
                 header: {
                     center: 'title',
                     left: 'prev,next today',
@@ -25,6 +28,13 @@ export default compose({
                     }
                 }
             })
+        },
+
+        componentWillUnmount() {
+            let { calendar } = this.refs;
+
+            $(calendar).fullCalendar('destroy');
         }
-    }
-})(Calendar);
+    }))(Calendar);
+
+render(<EnhancedCalendar />, document.getElementById('root'));

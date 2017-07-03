@@ -3,5 +3,10 @@
     ViewBag.Title = "Monthly Menus";
 }
 
-<h2>Monthly Menus</h2>
+@section scripts
+{
+    @Scripts.Render("~/bundles/calendar")
+}
 
+<h2>Monthly Menus</h2>
+<div id="root"></div>

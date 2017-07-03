@@ -29,6 +29,9 @@ namespace v2.web
                 "~/Scripts/pageturn/jquery.bookblock.js",
                 "~/Scripts/pageturn/page.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/calendar").Include(
+                "~/Scripts/react/dist/calendar.js"));
+
             bundles.Add(new StyleBundle("~/Content/home").Include(
                       "~/Content/home.css",
                       "~/Content/timeline.css"));
