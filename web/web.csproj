@@ -266,6 +266,7 @@
     <Content Include="Content\materialize\css\materialize.min.css" />
     <Content Include="Content\materialize\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Content\menus.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\timeline.css" />
@@ -394,6 +395,7 @@
     <Content Include="Scripts\pageturn\jquerypp.custom.js" />
     <Content Include="Scripts\pageturn\modernizr.custom.79639.js" />
     <Content Include="Scripts\pageturn\page.js" />
+    <Content Include="Scripts\react\dist\calendar.css" />
     <Content Include="Scripts\react\dist\calendar.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -424,6 +426,7 @@
     <Content Include="Views\Policies\Index.cshtml" />
     <Content Include="Views\Testimonials\Index.cshtml" />
     <Content Include="Scripts\react\dist\calendar.js.map" />
+    <Content Include="Scripts\react\dist\calendar.css.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -431,7 +434,6 @@
     <Folder Include="Areas\Assessment\Models\" />
     <Folder Include="Areas\Assessment\Views\Shared\" />
     <Folder Include="Areas\Menus\Models\" />
-    <Folder Include="Scripts\react\assessments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

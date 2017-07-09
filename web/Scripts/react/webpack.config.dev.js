@@ -36,11 +36,14 @@ var calendarConfig = {
                 use: ExtractTextPlugin.extract({
                     use: "css-loader",
                     fallback: "style-loader",
-                    publicPath: SRC_DIR
+                    publicPath: BUILD_DIR
                 })
             }
         ]
     },
+    plugins: [
+        new ExtractTextPlugin('[name].css')
+    ],
     resolve: {
         extensions: ['.js', '.jsx']
     }

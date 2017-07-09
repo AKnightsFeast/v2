@@ -1,0 +1,48 @@
+﻿ul.menulnks,
+div.menu ul
+{
+    margin-left: 0;
+    text-indent: -1em;
+}
+
+ul.menulnks li,
+div.menu ul li
+{
+    margin-top: 10px;
+    padding-left: 1em;
+}
+
+ul.menulnks li:first-child,
+div.menu ul li:first-child
+{
+    margin-top: 0px;
+}
+
+div.menu
+{
+    display: none;
+}
+
+div.header
+{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+div.summary
+{
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+div.note
+{
+    margin-top: 10px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+a.menulnk
+{
+    cursor: pointer;
+}

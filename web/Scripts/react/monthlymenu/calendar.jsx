@@ -4,6 +4,7 @@ import { compose, lifecycle } from 'recompose';
 
 import $ from 'jquery';
 import 'fullcalendar/dist/fullcalendar';
+import 'fullcalendar/dist/fullcalendar.css';
 
 const Calendar = () => <div ref="calendar"></div>
 
@@ -16,7 +17,8 @@ const EnhancedCalendar = compose(
                 header: {
                     center: 'title',
                     left: 'prev,next today',
-                    right: 'month,agendaWeek,agendaDay'
+                    //right: 'month,agendaWeek,agendaDay'
+                    right: 'agendaWeek'
                 },
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar

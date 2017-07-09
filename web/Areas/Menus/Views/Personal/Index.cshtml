@@ -3,6 +3,11 @@
     Layout = "../Shared/_MenusLayout.cshtml";
 }
 
+@section styles
+{
+    @Styles.Render("~/Content/menu")
+}
+
 @section menunav
 {
     <ul class="menulnks">

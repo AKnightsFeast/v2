@@ -37,6 +37,11 @@ namespace v2.web
                       "~/Content/timeline.css"));
 
             bundles.Add(new StyleBundle("~/Content/site").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/menu").Include("~/Content/menus.css"));
+
+            bundles.Add(new StyleBundle("~/Content/calendar").Include(
+                "~/Scripts/react/dist/calendar.css"));
         }
     }
 }

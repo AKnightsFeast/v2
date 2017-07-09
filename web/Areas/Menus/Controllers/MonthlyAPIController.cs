@@ -49,6 +49,7 @@ namespace v2.web.Areas.Menus.Controllers
 
                 foreach (var file in Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Content/media/menus")))
                 {
+
                     var fileName = Path.GetFileName(file);
                     var fileYear = int.Parse(fileName.Substring(0, 4));
                     var fileMonth = int.Parse(fileName.Substring(4, 2));
