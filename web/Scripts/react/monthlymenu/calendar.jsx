@@ -1,12 +1,28 @@
 ﻿import React from 'react';
+import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 import { compose, lifecycle } from 'recompose';
 
 import $ from 'jquery';
 import 'fullcalendar/dist/fullcalendar';
-import 'fullcalendar/dist/fullcalendar.css';
+import DatePicker from 'react-datepicker';
 
-const Calendar = () => <div ref="calendar"></div>
+import './calendar.css';
+import 'fullcalendar/dist/fullcalendar.css';
+import 'react-datepicker/dist/react-datepicker.css';
+
+const DateButton = ({ onClick, icon }) => <i onClick={ onClick } className='material-icons'>{ icon }</i>
+
+DateButton.propTypes = {
+  icon: PropTypes.string,
+  onClick: PropTypes.func
+};
+
+const Calendar = () =>
+    <div>
+        <DatePicker customInput={ <DateButton icon={ 'today' } /> } />
+        <div ref="calendar"></div>
+    </div>
 
 const EnhancedCalendar = compose(
     lifecycle({
@@ -14,11 +30,11 @@ const EnhancedCalendar = compose(
             let { calendar } = this.refs;
 
             $(calendar).fullCalendar({
+                defaultView: 'basicWeek',
                 header: {
-                    center: 'title',
+                    /*center: 'title',
                     left: 'prev,next today',
-                    //right: 'month,agendaWeek,agendaDay'
-                    right: 'agendaWeek'
+                    right: 'month,agendaWeek,agendaDay'*/
                 },
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
