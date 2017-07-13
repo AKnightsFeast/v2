@@ -5,12 +5,13 @@ import { compose, lifecycle } from 'recompose';
 
 import $ from 'jquery';
 import 'fullcalendar/dist/fullcalendar';
-import DatePicker from 'react-datepicker';
+import Flatpickr from 'react-flatpickr';
 
-import './calendar.css';
+//import './calendar.css';
+import 'flatpickr/dist/themes/material_green.css';
 import 'fullcalendar/dist/fullcalendar.css';
-import 'react-datepicker/dist/react-datepicker.css';
 
+/*
 const DateButton = ({ onClick, icon }) => <i onClick={ onClick } className='material-icons'>{ icon }</i>
 
 DateButton.propTypes = {
@@ -18,9 +19,12 @@ DateButton.propTypes = {
   onClick: PropTypes.func
 };
 
+<DatePicker customInput={ <DateButton icon={ 'today' } /> } />
+*/
+
 const Calendar = () =>
     <div>
-        <DatePicker customInput={ <DateButton icon={ 'today' } /> } />
+        <Flatpickr onChange={v => console.info(v)} />
         <div ref="calendar"></div>
     </div>
 
@@ -30,14 +34,10 @@ const EnhancedCalendar = compose(
             let { calendar } = this.refs;
 
             $(calendar).fullCalendar({
-                defaultView: 'basicWeek',
-                header: {
-                    /*center: 'title',
-                    left: 'prev,next today',
-                    right: 'month,agendaWeek,agendaDay'*/
-                },
+                header: false,
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
+                defaultView: 'basicWeek',
                 drop: function() {
                     // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
