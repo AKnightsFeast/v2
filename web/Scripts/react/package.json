@@ -31,6 +31,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-flatpickr": "^3.4.0",
+    "react-materialize": "^1.0.4",
     "react-redux": "^5.0.5",
     "recompose": "^0.23.5",
     "redux": "^3.7.1",
@@ -38,7 +39,9 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^2.4.2"
+  },
   "scripts": {
     "dev": "webpack --config webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"

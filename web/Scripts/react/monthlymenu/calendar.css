@@ -1,0 +1,7 @@
+div#MonthYearPicker div.datepart + div.datepart {
+    margin-left: 20px;
+}
+
+div.datepart {
+    display: inline;
+}
