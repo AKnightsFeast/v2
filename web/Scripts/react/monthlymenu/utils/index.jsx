@@ -11,8 +11,8 @@ export const LeftPad = (number, padLength) => {
 }
 
 export const GetTuesdays = (month, year) => {
-    const tuesdayCacheKey = new String(year) + LeftPad(new Number(month), 2);
-    let tuesdays = tuesdayCache[tuesdayCacheKey];
+    const dateKey = new String(year) + LeftPad(new Number(month), 2);
+    let tuesdays = tuesdayCache[dateKey];
 
     if (!tuesdays) {
         var d = new Date(year, month);//,
@@ -35,7 +35,7 @@ export const GetTuesdays = (month, year) => {
             d.setDate(d.getDate() + 7);
         }
 
-        tuesdayCache[tuesdayCacheKey] = tuesdays;
+        tuesdayCache[dateKey] = tuesdays;
     }
 
     return tuesdays;

@@ -1,5 +1,4 @@
 import { Observable } from "rxjs/Observable";
-//import "rxjs/add/operator/map";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/from";
@@ -8,7 +7,7 @@ import "rxjs/add/operator/switchMap";
 
 import { combineEpics } from "redux-observable";
 
-import { GetTuesdays } from 'Utils';
+import { GetTuesdays, GetDateKey } from 'Utils';
 import { LOAD_MENUS, LOAD_DAYS } from 'Constants';
 import { ShowMenusForDate, ShowDaysForDate, LoadMenusErr } from 'Reducers';
 
@@ -16,17 +15,9 @@ const LoadDaysForDateEpic = (action$, store) =>
     action$
         .ofType(LOAD_DAYS)
         .switchMap(action => {
-            console.log("Getting days for month...");
-
-            let { selectedmonth, selectedyear } = action;
-
-            // return Observable
-            //         .from(GetTuesdays(selectedmonth, selectedyear))
-            //         .mergeMap(days => {
-            //             return Observable.of(ShowDaysForDate(days));
-            //         });
-            return Observable.of(ShowDaysForDate(GetTuesdays(selectedmonth, selectedyear)));
-        })
+            const { selectedmonth, selectedyear } = action;
+            return Observable.of(ShowDaysForDate(GetTuesdays(selectedmonth, selectedyear), selectedmonth, selectedyear));
+        });
 
 const LoadMenusForDateEpic = (action$, store) =>
     action$
@@ -65,19 +56,6 @@ const LoadMenusForDateEpic = (action$, store) =>
         });
 
 export default combineEpics(
-    // LoginUser,
-    // LogoutUser,
-    // CreateReportEpic,
-    // LoadReportsEpic,
-    // // SubmitReportEpic,
-    // // LoadExaminerReportsListEpic,
-    // LoadSupervisorReportsListEpic,
-    // // ApproveReportEpic,
-    // AssignReportEpic,
-    // PeerCompleteReportEpic,
-    // ReviewReportEpic,
-    // SaveReportEpic,
-    // GetReportEpic
     LoadDaysForDateEpic,
     LoadMenusForDateEpic
 );

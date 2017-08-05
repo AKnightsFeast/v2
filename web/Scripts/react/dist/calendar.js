@@ -7889,8 +7889,8 @@ var LeftPad = exports.LeftPad = function LeftPad(number, padLength) {
 };
 
 var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
-    var tuesdayCacheKey = new String(year) + LeftPad(new Number(month), 2);
-    var tuesdays = tuesdayCache[tuesdayCacheKey];
+    var dateKey = new String(year) + LeftPad(new Number(month), 2);
+    var tuesdays = tuesdayCache[dateKey];
 
     if (!tuesdays) {
         var d = new Date(year, month); //,
@@ -7913,7 +7913,7 @@ var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
             d.setDate(d.getDate() + 7);
         }
 
-        tuesdayCache[tuesdayCacheKey] = tuesdays;
+        tuesdayCache[dateKey] = tuesdays;
     }
 
     return tuesdays;
@@ -7955,42 +7955,45 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _redux = __webpack_require__(58);
 
-var _Utils = __webpack_require__(66);
-
 var _Constants = __webpack_require__(127);
+
+var _Utils = __webpack_require__(66);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var years = [];
 var todaysDate = new Date();
 var todaysYear = todaysDate.getFullYear();
 var todaysMonth = todaysDate.getMonth() + 1;
 
-for (var year = 2013; year <= todaysYear; year++) {
-    years.push(year);
-}
-
 var initialState = {
-    years: years,
+    years: function (startYear, endYear) {
+        var years = [];
+
+        for (var year = startYear; year <= endYear; year++) {
+            years.push(year);
+        }
+
+        return years;
+    }(2013, todaysYear),
     menus: [],
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
     date: new Date(todaysYear, todaysMonth, 1),
-    days: _defineProperty({}, (0, _Utils.GetDateKey)(todaysMonth, todaysYear), (0, _Utils.GetTuesdays)(todaysMonth, todaysYear)),
+    days: (0, _Utils.GetTuesdays)(todaysMonth, todaysYear),
     months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 };
 
 var LoadMenusForDate = exports.LoadMenusForDate = function LoadMenusForDate(date) {
     return {
         type: _Constants.LOAD_MENUS,
-        date: date
+        payload: { date: date }
     };
 };
 
 var ShowMenusForDate = exports.ShowMenusForDate = function ShowMenusForDate(menus) {
     return {
         type: _Constants.SHOW_MENUS,
-        menus: menus
+        payload: { menus: menus }
     };
 };
 
@@ -8003,15 +8006,19 @@ var LoadMenusErr = exports.LoadMenusErr = function LoadMenusErr() {
 var LoadDaysForDate = exports.LoadDaysForDate = function LoadDaysForDate(selectedmonth, selectedyear) {
     return {
         type: _Constants.LOAD_DAYS,
-        selectedmonth: selectedmonth,
-        selectedyear: selectedyear
+        selectedyear: selectedyear,
+        selectedmonth: selectedmonth
     };
 };
 
-var ShowDaysForDate = exports.ShowDaysForDate = function ShowDaysForDate(days) {
+var ShowDaysForDate = exports.ShowDaysForDate = function ShowDaysForDate(days, selectedmonth, selectedyear) {
     return {
         type: _Constants.SHOW_DAYS,
-        days: days
+        payload: {
+            days: days,
+            selectedyear: selectedyear,
+            selectedmonth: selectedmonth
+        }
     };
 };
 
@@ -8026,11 +8033,6 @@ var monthlyMenuReducer = (0, _Utils.CreateReducer)(initialState, (_CreateReducer
 }), _CreateReducer));
 
 exports.default = (0, _redux.combineReducers)({
-    //auth,
-    //report,
-    //reports,
-    //examiner,
-    //supervisor
     monthlymenu: monthlyMenuReducer
 });
 
@@ -13102,7 +13104,6 @@ Object.defineProperty(exports, "__esModule", {
 var LOAD_MENUS = exports.LOAD_MENUS = "LOAD_MENUS";
 var SHOW_MENUS = exports.SHOW_MENUS = "SHOW_MENUS";
 var LOAD_MENUS_ERR = exports.LOAD_MENUS_ERR = "LOAD_MENUS_ERR";
-
 var LOAD_DAYS = exports.LOAD_DAYS = "LOAD_DAYS";
 var SHOW_DAYS = exports.SHOW_DAYS = "SHOW_DAYS";
 
@@ -29474,22 +29475,12 @@ var _Reducers = __webpack_require__(67);
 
 var LoadDaysForDateEpic = function LoadDaysForDateEpic(action$, store) {
     return action$.ofType(_Constants.LOAD_DAYS).switchMap(function (action) {
-        console.log("Getting days for month...");
-
         var selectedmonth = action.selectedmonth,
             selectedyear = action.selectedyear;
 
-        // return Observable
-        //         .from(GetTuesdays(selectedmonth, selectedyear))
-        //         .mergeMap(days => {
-        //             return Observable.of(ShowDaysForDate(days));
-        //         });
-
-        return (0, _Reducers.ShowDaysForDate)((0, _Utils.GetTuesdays)(selectedmonth, selectedyear));
+        return _Observable.Observable.of((0, _Reducers.ShowDaysForDate)((0, _Utils.GetTuesdays)(selectedmonth, selectedyear), selectedmonth, selectedyear));
     });
 };
-//import "rxjs/add/operator/map";
-
 
 var LoadMenusForDateEpic = function LoadMenusForDateEpic(action$, store) {
     return action$.ofType(_Constants.LOAD_MENUS).switchMap(function (action) {
@@ -29518,21 +29509,7 @@ var LoadMenusForDateEpic = function LoadMenusForDateEpic(action$, store) {
     });
 };
 
-exports.default = (0, _reduxObservable.combineEpics)(
-// LoginUser,
-// LogoutUser,
-// CreateReportEpic,
-// LoadReportsEpic,
-// // SubmitReportEpic,
-// // LoadExaminerReportsListEpic,
-// LoadSupervisorReportsListEpic,
-// // ApproveReportEpic,
-// AssignReportEpic,
-// PeerCompleteReportEpic,
-// ReviewReportEpic,
-// SaveReportEpic,
-// GetReportEpic
-LoadDaysForDateEpic, LoadMenusForDateEpic);
+exports.default = (0, _reduxObservable.combineEpics)(LoadDaysForDateEpic, LoadMenusForDateEpic);
 
 /***/ }),
 /* 278 */
@@ -29916,16 +29893,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var DayTabs = function DayTabs(_ref) {
     var months = _ref.months,
         selectedmonth = _ref.selectedmonth,
-        selectedyear = _ref.selectedyear,
         days = _ref.days;
 
     var monthName = months[selectedmonth - 1];
-    var dateKey = (0, _Utils.GetDateKey)(selectedmonth, selectedyear);
 
     return _react2.default.createElement(
         'div',
         null,
-        days[dateKey].map(function (day, index) {
+        days.map(function (day, index) {
             return _react2.default.createElement(
                 'div',
                 { key: index },
@@ -29941,7 +29916,6 @@ exports.default = (0, _recompose.compose)((0, _reactRedux.connect)(function (sto
     return {
         days: store.monthlymenu.days,
         months: store.monthlymenu.months,
-        selectedyear: store.monthlymenu.selectedyear,
         selectedmonth: store.monthlymenu.selectedmonth
     };
 }))(DayTabs);
