@@ -1,14 +1,19 @@
 ﻿import React from 'react';
 //import { number } from 'prop-types';
 import { render } from 'react-dom';
-import { compose, lifecycle } from 'recompose';
+import { Provider } from 'react-redux';
+//import { compose, lifecycle } from 'recompose';
 
-import $ from 'jquery';
-import 'fullcalendar/dist/fullcalendar';
-import { Icon } from 'react-materialize';
+//import $ from 'jquery';
+//import 'fullcalendar/dist/fullcalendar';
+//import { Icon } from 'react-materialize';
 
-import './calendar.css';
-import 'fullcalendar/dist/fullcalendar.css';
+//import 'fullcalendar/dist/fullcalendar.css';
+
+import store from 'Stores';
+
+import DayTabs from 'Components/DayTabs';
+import MonthYearPicker from 'Components/MonthYearPicker';
 
 /*
 const DateButton = ({ onClick, icon }) => <i onClick={ onClick } className='material-icons'>{ icon }</i>
@@ -21,55 +26,6 @@ DateButton.propTypes = {
 <DatePicker customInput={ <DateButton icon={ 'today' } /> } />
 
 style={{ display: 'none' }} 
-*/
-
-const MonthYearPicker = ({ startYear }) =>
-{
-    let years = [];
-    let todaysDate = new Date();
-    let currentMonth = todaysDate.getMonth();
-    let currentYear = todaysDate.getFullYear();
-    let year = Math.min(new Number(startYear), currentYear);
-
-    for (; year <= currentYear; year++)
-    {
-        years.push(year);
-    }
-
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let monthTds = months.map((month, index) => (<td key={ index + 1 }>{ month }</td>));
-
-    return (
-        <div id="MonthYearPicker">
-            <div className="datepart">
-                <label className="dropdown btn" data-activates="months-dropdown">{ months[currentMonth] }</label>
-                <table id="months-dropdown" className="dropdown-content">
-                    <tbody>
-                        <tr>{ monthTds.slice(0, 3) }</tr>
-                        <tr>{ monthTds.slice(3, 6) }</tr>
-                        <tr>{ monthTds.slice(6, 9) }</tr>
-                        <tr>{ monthTds.slice(9) }</tr>
-                    </tbody>
-                </table>
-            </div>
-            <div className="datepart">
-                <label className="dropdown btn" data-activates="years-dropdown">{ currentYear }</label>
-                <ul id="years-dropdown" className="dropdown-content">
-                    { years.map((year, index) => (<li key={ year }>{ year }</li>)) }
-                </ul>
-            </div>
-        </div>
-    );
-}
-
-MonthYearPicker.PropTypes = {
-    startYear: function(props, propName, componentName) {
-        if (/20\d\d/.test(props[startYear])) {
-            return new Error('Provide a start year after 2000');
-        }
-    }
-};
 
 const Calendar = () =>
     <div>
@@ -83,10 +39,12 @@ const EnhancedCalendar = compose(
             let { calendar } = this.refs;
 
             $(calendar).fullCalendar({
+                width: 600,
+                height: 550,
                 header: false,
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
-                defaultView: 'basicWeek',
+                defaultView: 'month',
                 drop: function() {
                     // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
@@ -105,3 +63,21 @@ const EnhancedCalendar = compose(
     }))(Calendar);
 
 render(<EnhancedCalendar />, document.getElementById('root'));
+*/
+
+const Calendar = () =>
+    <div>
+        <div>
+            <MonthYearPicker startYear={ 2016 } />
+        </div>
+        <div>
+            <DayTabs />
+        </div>
+    </div>
+
+render(
+    <Provider store={ store }>
+        <Calendar />
+    </Provider>,
+    document.getElementById('root')
+);

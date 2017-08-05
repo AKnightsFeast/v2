@@ -3,23 +3,25 @@ var webpack = require('webpack');
 //var HtmlWebPackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var SRC_DIR = path.resolve(__dirname);
+//var SRC_DIR = path.resolve(__dirname);
+var CALENDAR_SRC_DIR = path.resolve(__dirname, 'monthlymenu');
+
 //var BUILD_DIR = path.join(__dirname, 'wwwroot');
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 
 var EXCLUDE = /node_modules|bower_components/;
 
-const HOST = 'localhost';
-const PORT = process.env.PORT || 3000;
+//const HOST = 'localhost';
+//const PORT = process.env.PORT || 3000;
 
 
 var calendarConfig = {
     entry: {
-        calendar: [path.resolve(SRC_DIR, 'monthlymenu', 'calendar.jsx')]
+        calendar: [path.resolve(CALENDAR_SRC_DIR, 'calendar.jsx')]
     },
     output: {
-        path: BUILD_DIR,
         publicPath: '',
+        path: BUILD_DIR,
         filename: '[name].js',
         libraryTarget: 'this'
     },
@@ -45,7 +47,27 @@ var calendarConfig = {
         new ExtractTextPlugin('[name].css')
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            //Services: path.resolve(SRC_DIR, "services"),
+            Assets: path.resolve(CALENDAR_SRC_DIR, "assets"),
+
+            Utils: path.resolve(CALENDAR_SRC_DIR, 'utils'),
+            //Services: path.resolve(SRC_DIR, 'services'),
+            Components: path.resolve(CALENDAR_SRC_DIR, 'components'),
+
+            Constants: path.resolve(CALENDAR_SRC_DIR, 'constants'),
+            //ActionTypes: path.resolve(CALENDAR_SRC_DIR, 'constants', 'actiontypes'),
+
+            Epics: path.resolve(CALENDAR_SRC_DIR, 'redux', 'epics'),
+            Stores: path.resolve(CALENDAR_SRC_DIR, 'redux', 'stores'),
+            //Actions: path.resolve(CALENDAR_SRC_DIR, 'redux', 'actions'),
+            Reducers: path.resolve(CALENDAR_SRC_DIR, 'redux', 'reducers')//,
+
+            //Pages: path.resolve(CALENDAR_SRC_DIR, 'components', 'pages'),
+            //Layouts: path.resolve(CALENDAR_SRC_DIR, 'components', 'layouts'),
+            //Controls: path.resolve(CALENDAR_SRC_DIR, 'components', 'controls')
+        }
     }
 }
 /*
