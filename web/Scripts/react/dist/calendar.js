@@ -7894,13 +7894,12 @@ var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
 
     if (!tuesdays) {
         var d = new Date(year, month); //,
-        //month = d.getMonth(),
 
         tuesdays = [];
 
         //d.setDate(1);
 
-        // // Get the first Monday in the month
+        // Get the first Monday in the month
         // while (d.getDay() !== 2) {
         //     d.setDate(d.getDate() + 1);
         // }
@@ -7962,8 +7961,8 @@ var _Utils = __webpack_require__(66);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var todaysDate = new Date();
+var todaysMonth = todaysDate.getMonth();
 var todaysYear = todaysDate.getFullYear();
-var todaysMonth = todaysDate.getMonth() + 1;
 
 var initialState = {
     years: function (startYear, endYear) {
@@ -29895,7 +29894,7 @@ var DayTabs = function DayTabs(_ref) {
         selectedmonth = _ref.selectedmonth,
         days = _ref.days;
 
-    var monthName = months[selectedmonth - 1];
+    var monthName = months[selectedmonth];
 
     return _react2.default.createElement(
         'div',
@@ -30004,15 +30003,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var GetMonthButtons = function GetMonthButtons(months, year, _onClick) {
     return months.map(function (month, index) {
-        var monthNumber = index + 1;
-
         return _react2.default.createElement(
             'td',
-            { key: monthNumber },
+            { key: index },
             _react2.default.createElement(
                 'a',
                 { className: 'button monthbtn', onClick: function onClick() {
-                        return _onClick(monthNumber, year);
+                        return _onClick(index, year);
                     } },
                 month
             )
@@ -30038,7 +30035,7 @@ var MonthYearPicker = function MonthYearPicker(_ref) {
             _react2.default.createElement(
                 'label',
                 { className: 'dropdown btn', 'data-activates': 'months-dropdown' },
-                months[selectedmonth - 1]
+                months[selectedmonth]
             ),
             _react2.default.createElement(
                 'table',

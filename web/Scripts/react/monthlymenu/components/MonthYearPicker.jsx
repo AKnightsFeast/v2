@@ -6,15 +6,11 @@ import 'Assets/calendar.css';
 import { LoadDaysForDate } from 'Reducers';
 
 const GetMonthButtons = (months, year, onClick) =>
-    months.map((month, index) => {
-        let monthNumber = index + 1;
-
-        return (
-            <td key={ monthNumber }>
-                <a className="button monthbtn" onClick={ () => onClick(monthNumber, year) }>{ month }</a>
-            </td>
-        );
-    });
+    months.map((month, index) => (
+        <td key={ index }>
+            <a className="button monthbtn" onClick={ () => onClick(index, year) }>{ month }</a>
+        </td>
+    ));
 
 const MonthYearPicker = ({ OnChangeDate, months, years, selectedyear, selectedmonth }) => {
     const monthButtons = GetMonthButtons(months, selectedyear, OnChangeDate);
@@ -22,7 +18,7 @@ const MonthYearPicker = ({ OnChangeDate, months, years, selectedyear, selectedmo
     return (
         <div id="MonthYearPicker">
             <div className="datepart">
-                <label className="dropdown btn" data-activates="months-dropdown">{ months[selectedmonth - 1] }</label>
+                <label className="dropdown btn" data-activates="months-dropdown">{ months[selectedmonth] }</label>
                 <table id="months-dropdown" className="dropdown-content">
                     <tbody>
                         <tr>{ monthButtons.slice(0, 3) }</tr>

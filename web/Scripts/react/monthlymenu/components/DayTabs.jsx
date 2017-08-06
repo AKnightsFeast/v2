@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { GetDateKey } from 'Utils';
 
 const DayTabs = ({ months, selectedmonth, days }) => {
-    const monthName = months[selectedmonth - 1];
+    const monthName = months[selectedmonth];
 
     return (
         <div>

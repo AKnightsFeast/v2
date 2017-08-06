@@ -11,8 +11,8 @@ import {
 import { GetTuesdays, GetDateKey, CreateReducer } from 'Utils';
 
 const todaysDate = new Date();
+const todaysMonth = todaysDate.getMonth();
 const todaysYear = todaysDate.getFullYear();
-const todaysMonth = todaysDate.getMonth() + 1;
 
 const initialState = {
     years: ((startYear, endYear) => {

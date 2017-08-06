@@ -15,24 +15,17 @@ export const GetTuesdays = (month, year) => {
     let tuesdays = tuesdayCache[dateKey];
 
     if (!tuesdays) {
-        var d = new Date(year, month);//,
-            //month = d.getMonth(),
+        var d = new Date(year, month);
 
         tuesdays = [];
 
-        //d.setDate(1);
-
-        // // Get the first Monday in the month
-        // while (d.getDay() !== 2) {
-        //     d.setDate(d.getDate() + 1);
-        // }
-
+        // Get the first Tuesday in the month
         d.setDate(d.getDate() + (9 - d.getDay()) % 7);
 
         // Get all the other Tuesdays in the month
         while (d.getMonth() === month) {
             tuesdays.push(LeftPad(new Date(d.getTime()).getDate(), 2));
-            d.setDate(d.getDate() + 7);
+            d.setDate(d.getDate() + 7); // Get the next Tuesday
         }
 
         tuesdayCache[dateKey] = tuesdays;
