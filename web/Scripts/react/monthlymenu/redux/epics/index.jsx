@@ -23,32 +23,31 @@ const LoadMenusForDateEpic = (action$, store) =>
     action$
         .ofType(LOAD_MENUS)
         .switchMap(action => {
-            let { date } = action;
+            let { selecteddate } = action;
 
-            console.log("Getting menus for " + date + "...");
+            console.log("Getting menus for " + selecteddate + "...");
 
-            // if the menus for the date have been loaded
-            // pull them from the store...
+            // // if the menus for the date have been loaded
+            // // pull them from the store...
 
-            //... otherwise make a REST call
+            // //... otherwise make a REST call
 
-            return Observable.from(
-                // put(WORKFLOWURL.PEER_COMPLETE + workflowProcessId, {
-                //     reviewedById,
-                //     peerReviewComplete: true
-                // })
-            )
-            .mergeMap(response => {
-                return Observable.of(
-                    ShowMenusForDate()//,
-                    //LoadReports({ tabView, page, pageSize })
-                );
-            })
-            .catch(err => {
-                console.error("Error Approving report tasking", err);
+            // return Observable.from(
+            //     // put(WORKFLOWURL.PEER_COMPLETE + workflowProcessId, {
+            //     //     reviewedById,
+            //     //     peerReviewComplete: true
+            //     // })
+            // )
+            // .mergeMap(response => {
+            //     return Observable.of(
+            //         ShowMenusForDate()
+            //     );
+            // })
+            // .catch(err => {
+            //     console.error("Error loading menus", err);
 
-                return Observable.of(LoadMenusErr(err));
-            });
+            //     return Observable.of(LoadMenusErr(err));
+            // });
         })
         .catch((error, caught) => {
             console.error("Error retrieving menus", error);

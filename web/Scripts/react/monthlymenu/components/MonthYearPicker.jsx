@@ -3,22 +3,33 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import 'Assets/calendar.css';
+import { GetMonthArray } from 'Utils';
 import { LoadDaysForDate } from 'Reducers';
 
-const GetMonthButtons = (months, year, onClick) =>
-    months.map((month, index) => (
+const _months = GetMonthArray();
+
+const _years = ((startYear, endYear) => {
+    let years = [];
+
+    for (let year = startYear; year <= endYear; year++) { years.push(year); }
+
+    return years;
+})(2013, new Date().getFullYear());
+
+const GetMonthButtons = (year, onClick) =>
+    _months.map((month, index) => (
         <td key={ index }>
             <a className="button monthbtn" onClick={ () => onClick(index, year) }>{ month }</a>
         </td>
     ));
 
-const MonthYearPicker = ({ OnChangeDate, months, years, selectedyear, selectedmonth }) => {
-    const monthButtons = GetMonthButtons(months, selectedyear, OnChangeDate);
+const MonthYearPicker = ({ OnChangeDate, selectedyear, selectedmonth }) => {
+    const monthButtons = GetMonthButtons(selectedyear, OnChangeDate);
 
     return (
         <div id="MonthYearPicker">
-            <div className="datepart">
-                <label className="dropdown btn" data-activates="months-dropdown">{ months[selectedmonth] }</label>
+            <div className="monthpicker inline">
+                <label className="dropdown btn" data-activates="months-dropdown">{ _months[selectedmonth] }</label>
                 <table id="months-dropdown" className="dropdown-content">
                     <tbody>
                         <tr>{ monthButtons.slice(0, 3) }</tr>
@@ -28,10 +39,10 @@ const MonthYearPicker = ({ OnChangeDate, months, years, selectedyear, selectedmo
                     </tbody>
                 </table>
             </div>
-            <div className="datepart">
+            <div className="inline">
                 <label className="dropdown btn" data-activates="years-dropdown">{ selectedyear }</label>
                 <ul id="years-dropdown" className="dropdown-content">
-                    { years.map((year, index) => (
+                    { _years.map((year, index) => (
                         <li key={ year }>
                             <a className="button yearbtn" onClick={ () => OnChangeDate(selectedmonth, year) }>{ year }</a>
                         </li>
@@ -45,8 +56,6 @@ const MonthYearPicker = ({ OnChangeDate, months, years, selectedyear, selectedmo
 export default compose(
     connect(
         store => ({
-            years: store.monthlymenu.years,
-            months: store.monthlymenu.months,
             selectedyear: store.monthlymenu.selectedyear,
             selectedmonth: store.monthlymenu.selectedmonth
         }),

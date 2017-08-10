@@ -1,8 +1,27 @@
-div#MonthYearPicker div.datepart + div.datepart {
-    margin-left: 20px;
+div#MonthYearPicker
+{
+    margin-bottom: 50px;
 }
 
-div.datepart {
+div#MonthYearPicker div.monthpicker
+{
+    margin-right: 20px;
+}
+
+div#DayTabs div.daypicker {
+    border: solid 1px White;
+    background-color: transparent;
+}
+
+div#DayTabs div.daypicker.selected {
+    background-color: Red;
+}
+
+div#DayTabs div.daypicker + div.daypicker {
+    margin-left: 70px;
+}
+
+div.inline {
     display: inline;
 }
 /*# sourceMappingURL=calendar.css.map*/

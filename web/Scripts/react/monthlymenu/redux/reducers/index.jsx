@@ -15,24 +15,16 @@ const todaysMonth = todaysDate.getMonth();
 const todaysYear = todaysDate.getFullYear();
 
 const initialState = {
-    years: ((startYear, endYear) => {
-        let years = [];
-
-        for (let year = startYear; year <= endYear; year++) { years.push(year); }
-
-        return years;
-    })(2013, todaysYear),
     menus: [],
+    selecteddate: todaysDate,
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
-    date: new Date(todaysYear, todaysMonth, 1),
-    days: GetTuesdays(todaysMonth, todaysYear),
-    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    days: GetTuesdays(todaysMonth, todaysYear)
 };
 
-export const LoadMenusForDate = (date) => ({
+export const LoadMenusForDate = (selecteddate) => ({
     type: LOAD_MENUS,
-    payload: { date }
+    payload: { selecteddate }
 });
 
 export const ShowMenusForDate = (menus) => ({
