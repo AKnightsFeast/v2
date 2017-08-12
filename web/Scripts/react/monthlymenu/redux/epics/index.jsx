@@ -39,9 +39,9 @@ const LoadMenusForDateEpic = (action$, store) =>
             //     // })
             // )
             // .mergeMap(response => {
-            //     return Observable.of(
-            //         ShowMenusForDate()
-            //     );
+                return Observable.of(
+                    ShowMenusForDate({})
+                );
             // })
             // .catch(err => {
             //     console.error("Error loading menus", err);

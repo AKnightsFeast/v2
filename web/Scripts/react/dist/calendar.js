@@ -30304,9 +30304,7 @@ var LoadMenusForDateEpic = function LoadMenusForDateEpic(action$, store) {
         //     // })
         // )
         // .mergeMap(response => {
-        //     return Observable.of(
-        //         ShowMenusForDate()
-        //     );
+        return _Observable.Observable.of((0, _Reducers.ShowMenusForDate)({}));
         // })
         // .catch(err => {
         //     console.error("Error loading menus", err);
@@ -30713,10 +30711,12 @@ var DayTabs = function DayTabs(_ref) {
         selecteddate = _ref.selecteddate,
         days = _ref.days;
 
+    var today = new Date();
+
     return _react2.default.createElement(
         _reactMaterialize.Tabs,
         { className: 'z-depth-0', onChange: function onChange(index, e) {
-                return OnDayTabClick(index, e);
+                return OnDayTabClick(index, e, selectedyear);
             } },
         days.map(function (day, index) {
             var tabDate = new Date(selectedyear, selectedmonth, new Number(day));
@@ -30727,10 +30727,11 @@ var DayTabs = function DayTabs(_ref) {
             var satDate = new Date();
             satDate.setDate(tabDate.getDate() + 3);
 
-            var activeAttr = {};
-            if (sunDate <= selecteddate && satDate >= selecteddate) activeAttr.active = true;
+            var tabAttr = {};
 
-            return _react2.default.createElement(_reactMaterialize.Tab, _extends({ key: index, title: tabDate.toLocaleDateString("en-US", { month: 'short', day: '2-digit' }) }, activeAttr));
+            if (tabDate > today) tabAttr.disabled = true;else if (sunDate <= selecteddate && satDate >= selecteddate) tabAttr.active = true;
+
+            return _react2.default.createElement(_reactMaterialize.Tab, _extends({ key: index, title: tabDate.toLocaleDateString("en-US", { month: 'short', day: '2-digit' }) }, tabAttr));
         })
     );
 };
@@ -30744,10 +30745,8 @@ exports.default = (0, _recompose.compose)((0, _reactRedux.connect)(function (sto
     };
 }, function (dispatch) {
     return {
-        OnDayTabClick: function OnDayTabClick(index, e) {
-            console.log(index);
-            console.log(e);
-            //dispatch(LoadMenusForDate(e.target.));
+        OnDayTabClick: function OnDayTabClick(index, e, year) {
+            dispatch((0, _Reducers.LoadMenusForDate)(new Date(e.target.text + " " + year)));
         }
     };
 }))(DayTabs);

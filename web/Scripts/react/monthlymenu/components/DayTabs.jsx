@@ -7,23 +7,28 @@ import { LoadMenusForDate } from 'Reducers';
 import { GetDateKey } from 'Utils';
 
 const DayTabs = ({ OnDayTabClick, selectedyear, selectedmonth, selecteddate, days }) => {   
+    const today = new Date();
+
     return (
-        <Tabs className='z-depth-0' onChange={(index, e) => OnDayTabClick(index, e)}>
+        <Tabs className='z-depth-0' onChange={(index, e) => OnDayTabClick(index, e, selectedyear)}>
         {
             days.map((day, index) => {
-                const today = new Date();
                 const tabDate = new Date(selectedyear, selectedmonth, new Number(day));
 
                 let sunDate = new Date();
-                today.setDate(tabDate.getDate() - 2);
+                sunDate.setDate(tabDate.getDate() - 2);
 
                 let satDate = new Date();
-                today.setDate(tabDate.getDate() + 3);
+                satDate.setDate(tabDate.getDate() + 3);
 
-                let activeAttr = {};
-                if (sunDate <= selecteddate && satDate >= selecteddate) activeAttr.active = true;
+                let tabAttr = {};
 
-                return <Tab key={ index } title={ tabDate.toLocaleDateString("en-US", { month: 'short', day: '2-digit' }) } { ...activeAttr } />;
+                if (tabDate > today)
+                    tabAttr.disabled = true;
+                else if (sunDate <= selecteddate && satDate >= selecteddate)
+                    tabAttr.active = true;
+
+                return <Tab key={ index } title={ tabDate.toLocaleDateString("en-US", { month: 'short', day: '2-digit' }) } { ...tabAttr } />;
             })
         }
         </Tabs>
@@ -39,10 +44,8 @@ export default compose(
             selectedmonth: store.monthlymenu.selectedmonth
         }),
         dispatch => ({
-            OnDayTabClick: (index, e) => {
-                console.log(index);
-                console.log(e);
-                //dispatch(LoadMenusForDate(e.target.));
+            OnDayTabClick: (index, e, year) => {
+                dispatch(LoadMenusForDate(new Date(e.target.text + " " + year)));
             }
         })
     )
