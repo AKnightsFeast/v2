@@ -9412,14 +9412,14 @@ var initialState = {
 var LoadMenusForDate = exports.LoadMenusForDate = function LoadMenusForDate(selecteddate) {
     return {
         type: _Constants.LOAD_MENUS,
-        payload: { selecteddate: selecteddate }
+        selecteddate: selecteddate
     };
 };
 
 var ShowMenusForDate = exports.ShowMenusForDate = function ShowMenusForDate(menus) {
     return {
         type: _Constants.SHOW_MENUS,
-        payload: { menus: menus }
+        menus: menus
     };
 };
 

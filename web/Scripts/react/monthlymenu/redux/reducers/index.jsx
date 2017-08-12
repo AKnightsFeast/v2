@@ -24,12 +24,12 @@ const initialState = {
 
 export const LoadMenusForDate = (selecteddate) => ({
     type: LOAD_MENUS,
-    payload: { selecteddate }
+    selecteddate
 });
 
 export const ShowMenusForDate = (menus) => ({
     type: SHOW_MENUS,
-    payload: { menus }
+    menus
 });
 
 export const LoadMenusErr = () => ({
