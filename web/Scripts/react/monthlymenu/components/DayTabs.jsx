@@ -3,8 +3,6 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { Tabs, Tab } from 'react-materialize';
 
-import { GetDateKey } from 'Utils';
-
 const today = new Date();
 
 export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }) => {   

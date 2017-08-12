@@ -7,7 +7,7 @@ import "rxjs/add/operator/switchMap";
 
 import { combineEpics } from "redux-observable";
 
-import { GetTuesdays, GetDateKey } from 'Utils';
+import { GetTuesdays } from 'Utils';
 import { LOAD_MENUS, LOAD_DAYS } from 'Constants';
 import { ShowMenusForDate, ShowDaysForDate, LoadMenusErr } from 'Reducers';
 

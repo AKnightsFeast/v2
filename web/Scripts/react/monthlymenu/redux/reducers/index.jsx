@@ -8,7 +8,7 @@ import {
     LOAD_MENUS_ERR
 } from 'Constants';
 
-import { GetTuesdays, GetDateKey, CreateReducer } from 'Utils';
+import { GetTuesdays, CreateReducer } from 'Utils';
 
 const todaysDate = new Date();
 const todaysMonth = todaysDate.getMonth();

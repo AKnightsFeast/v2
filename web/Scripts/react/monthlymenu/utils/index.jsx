@@ -34,10 +34,6 @@ export const GetTuesdays = (month, year) => {
     return tuesdays;
 };
 
-export const GetDateKey = (month, year) => {
-    return year.toString() + LeftPad(month, 2);
-}
-
 export const GetMonthArray = () => (
     ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 );
