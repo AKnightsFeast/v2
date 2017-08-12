@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import 'Assets/calendar.css';
 import { GetMonthArray } from 'Utils';
-import { LoadDaysForDate } from 'Reducers';
 
 const _months = GetMonthArray();
 
@@ -19,12 +18,12 @@ const _years = ((startYear, endYear) => {
 const GetMonthButtons = (year, onClick) =>
     _months.map((month, index) => (
         <td key={ index }>
-            <a className="button monthbtn" onClick={ () => onClick(index, year) }>{ month }</a>
+            <a className="button monthbtn" onClick={ (e) => onClick(e, index, year) }>{ month }</a>
         </td>
     ));
 
-const MonthYearPicker = ({ OnChangeDate, selectedyear, selectedmonth }) => {
-    const monthButtons = GetMonthButtons(selectedyear, OnChangeDate);
+export default ({ OnDateChange, selectedyear, selectedmonth }) => {
+    const monthButtons = GetMonthButtons(selectedyear, OnDateChange);
 
     return (
         <div id="MonthYearPicker">
@@ -44,23 +43,11 @@ const MonthYearPicker = ({ OnChangeDate, selectedyear, selectedmonth }) => {
                 <ul id="years-dropdown" className="dropdown-content">
                     { _years.map((year, index) => (
                         <li key={ year }>
-                            <a className="button yearbtn" onClick={ () => OnChangeDate(selectedmonth, year) }>{ year }</a>
+                            <a className="button yearbtn" onClick={ (e) => OnDateChange(e, selectedmonth, year) }>{ year }</a>
                         </li>
                     )) }
                 </ul>
             </div>
         </div>
     );
-}
-
-export default compose(
-    connect(
-        store => ({
-            selectedyear: store.monthlymenu.selectedyear,
-            selectedmonth: store.monthlymenu.selectedmonth
-        }),
-        dispatch => ({
-            OnChangeDate: (month, year) => { dispatch(LoadDaysForDate(month, year)) },
-        })
-    )
-)(MonthYearPicker);
+};

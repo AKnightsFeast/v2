@@ -16,10 +16,10 @@ const todaysYear = todaysDate.getFullYear();
 
 const initialState = {
     menus: [],
-    selecteddate: todaysDate,
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
-    days: GetTuesdays(todaysMonth, todaysYear)
+    days: GetTuesdays(todaysMonth, todaysYear),
+    selecteddate: new Date(todaysYear, todaysMonth, todaysDate.getDate())
 };
 
 export const LoadMenusForDate = (selecteddate) => ({
@@ -42,10 +42,11 @@ export const LoadDaysForDate = (selectedmonth, selectedyear) => ({
     selectedmonth
 });
 
-export const ShowDaysForDate = (days, selectedmonth, selectedyear) => ({
+export const ShowDaysForDate = (days, selecteddate, selectedyear, selectedmonth) => ({
     type: SHOW_DAYS,
     payload: {
         days,
+        selecteddate,
         selectedyear,
         selectedmonth
     }

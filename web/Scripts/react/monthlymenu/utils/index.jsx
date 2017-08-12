@@ -24,7 +24,7 @@ export const GetTuesdays = (month, year) => {
 
         // Get all the other Tuesdays in the month
         while (d.getMonth() === month) {
-            tuesdays.push(LeftPad(new Date(d.getTime()).getDate(), 2));
+            tuesdays.push(new Date(d));
             d.setDate(d.getDate() + 7); // Get the next Tuesday
         }
 

@@ -16,7 +16,11 @@ const LoadDaysForDateEpic = (action$, store) =>
         .ofType(LOAD_DAYS)
         .switchMap(action => {
             const { selectedmonth, selectedyear } = action;
-            return Observable.of(ShowDaysForDate(GetTuesdays(selectedmonth, selectedyear), selectedmonth, selectedyear));
+            const tuesdays = GetTuesdays(selectedmonth, selectedyear);
+
+            return Observable.of(
+                ShowDaysForDate(tuesdays, tuesdays[0], selectedyear, selectedmonth)
+            );
         });
 
 const LoadMenusForDateEpic = (action$, store) =>
