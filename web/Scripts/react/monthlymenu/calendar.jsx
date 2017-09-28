@@ -13,6 +13,16 @@ import DayTabs from 'Components/DayTabs';
 import MonthYearPicker from 'Components/MonthYearPicker';
 import { LoadDaysForDate, LoadMenusForDate } from 'Reducers';
 
+import { GetMonthArray } from 'Utils';
+
+const yearslist = ((startYear, endYear) => {
+    let years = [];
+
+    for (let year = startYear; year <= endYear; year++) { years.push(year); }
+
+    return years;
+})(2013, new Date().getFullYear());
+
 /*
 const DateButton = ({ onClick, icon }) => <i onClick={ onClick } className='material-icons'>{ icon }</i>
 */
@@ -27,17 +37,46 @@ const Calendar = ({
     selecteddate
 }) =>
     <div id="MonthlyMenus">
-        <MonthYearPicker
-            OnDateChange={ OnDateChange }
-            selectedyear={ selectedyear }
-            selectedmonth={ selectedmonth } />
-        <DayTabs
-            OnDayChange={ OnDayChange }
-            selectedyear={ selectedyear }
-            selectedmonth={ selectedmonth }
-            selecteddate={ selecteddate }
-            days={ days } />
-        <Menus menus={ menus } />
+        <div className="row">
+            <div className="col s12 m12 l3">
+                <div className="search-title-filter">
+                    <div className="nav-wrapper">
+                        <MonthYearPicker OnDateChange={ OnDateChange }
+                                         yearslist={ yearslist }
+                                         monthslist={ GetMonthArray() }
+                                         selectedyear={ selectedyear }
+                                         selectedmonth={ selectedmonth } />
+                    </div>
+                </div>
+  
+                <ul className="collapsible" data-collapsible="expandable">
+                    <li className="">
+                        <div className="collapsible-header active"><i className="material-icons">{ "event_note" }</i>{ "Date" }</div>
+                        <div className="collapsible-body filter-container"
+                             style={ {
+                                display: "none",
+                                marginTop: "0px",
+                                paddingTop: "0px",
+                                marginBottom: "0px",
+                                paddingBottom: "0px"
+                            } }>
+                            <form action="#">
+                                <DayTabs OnDayChange={ OnDayChange }
+                                         selectedyear={ selectedyear }
+                                         selectedmonth={ selectedmonth }
+                                         selecteddate={ selecteddate }
+                                         days={ days } />
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div className="col s12 m12 l9">
+                <h4>{ "Monthly Menus" }</h4>
+                <Menus menus={ menus } selecteddate={ selecteddate } selectedmonth={ selectedmonth } />
+            </div>
+        </div>
     </div>
 
 const EnhancedCalendar = compose(

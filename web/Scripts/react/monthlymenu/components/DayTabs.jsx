@@ -1,13 +1,12 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Tabs, Tab } from 'react-materialize';
 
 const today = new Date();
 
 export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }) => {   
     return (
-        <Tabs className='z-depth-0' onChange={(index, e) => OnDayChange(index, e, selectedyear)}>
+        <ul>
         {
             days.map((day, index) => {
                 let tabAttr = {};
@@ -17,15 +16,21 @@ export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }
                 const dayYear = day.getFullYear();
                 const sunDate = new Date(dayYear, dayMonth, dayDate - 2);
                 const satDate = new Date(dayYear, dayMonth, dayDate + 4);
+                const dateDisplay = day.toLocaleDateString("en-US", { month: 'short', day: '2-digit' });
 
                 if (day > today)
                     tabAttr.disabled = true;
                 else if ((day === selecteddate) || (sunDate <= selecteddate && satDate >= selecteddate))
-                    tabAttr.active = true;
+                    tabAttr.disabled = false;
 
-                return <Tab key={ index } title={ day.toLocaleDateString("en-US", { month: 'short', day: '2-digit' }) } { ...tabAttr } />;
+                return (
+                    <li key={ index }>
+                        <input className="with-gap" name="dates" type="radio" id={ "day" + index } { ...tabAttr }  />
+                        <label htmlFor={ "day" + index }>{ dateDisplay + " " + selectedyear }</label>
+                    </li>
+                );
             })
         }
-        </Tabs>
+        </ul>
     );
 };

@@ -3,24 +3,46 @@ import React from 'react';
 import 'Assets/calendar.css';
 import Menu from 'Components/Menu';
 
-export default ({ menus }) => {
+export default ({ menus, selectedday, selectedmonth }) => {
     return (
-        <div>
-            <ul id="nav">
-                <li className="lowercase"><label htmlFor="put-cards-down">(Put cards down)</label></li>
-                <li><label htmlFor="toggle-card-1">Menu 1</label></li>
-                <li><label htmlFor="toggle-card-2">Menu 2</label></li>
-                <li><label htmlFor="toggle-card-3">Menu 3</label></li>
-            </ul> 
+        <div id="card-container">
             {
                 menus.map((item, index) => (
-                    <Menu key={ index }
-                        id={ "toggle-card-${index}" }
-                        title={ item.title }
-                        content={ item.content } />
+                    <div className="col s12 m6 l4">
+                    <div className="card">
+                      <div className="card-content white-text">
+                        <div className="card__date">
+                          <span className="card__date__day">{ selectedday }</span>
+                          <span className="card__date__month">{ selectedmonth }</span>
+                        </div>
+                        <div className="card__meta">
+                          <a href="#"><i className="small material-icons">room</i>Savoy dance club</a>
+                          <time>17th March</time>
+                        </div>
+                        <span className="card-title grey-text text-darken-4">Savoy swing up</span>
+          
+                        <p className="card-subtitle grey-text text-darken-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia...lacus eleifend lacinia... go!</p>
+                        <div className="row card-row">
+                          <span className="text-darken-2 card-info"><i className="small material-icons">label</i>&nbsp;lindy hop, balboa, charleston</span>
+                        </div>
+                        <div className="row card-row">
+                          <span className="text-darken-2 card-info"><i className="small material-icons">place</i>&nbsp;lindy hop, balboa, charleston</span>
+                        </div>
+                        <div className="row card-row">
+                          <span className="text-darken-2 card-info"><i className="small material-icons">event</i>&nbsp;lindy hop, balboa, charleston</span>
+                        </div>
+                        <div className="row card-row">
+                          <span className="text-darken-2 card-info"><i className="small material-icons">schedule</i>&nbsp;lindy hop, balboa, charleston</span>
+                        </div>
+                      </div>
+                      <div className="card-action">
+                        <a href="#"><i className="material-icons">&nbsp;language</i>VISIT WEB</a>
+                        <a href="#" className="card-action-right"><i className="material-icons">&nbsp;share</i>SHARE</a>
+                      </div>
+                    </div>
+                  </div>
                 ))
             }
-            <input type="radio" name="cards" className="card-checkbox" id="put-cards-down" />
         </div>
     )
 };

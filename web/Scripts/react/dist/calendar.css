@@ -1,6 +1,7 @@
 div#MonthYearPicker
 {
-    margin-bottom: 50px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 div#MonthYearPicker div.monthpicker

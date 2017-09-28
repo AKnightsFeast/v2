@@ -14,13 +14,13 @@ import { ShowMenusForDate, ShowDaysForDate, LoadMenusErr } from 'Reducers';
 const menus = [
     {
         title: "Menu 1",
-        content: {
-            classic: "Spinach and Feta Spanakopita",
-            keto: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
-            paleo: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
-            veggie: "Spinach and Feta Spanakopita",
-            vegan: "Roasted Eggplant, Zucchini and Peppers over Farro"
-        }
+        content: [
+            { type: "classic", item: "Spinach and Feta Spanakopita" },
+            { type: "keto", item: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers" },
+            { type: "paleo", item: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers" },
+            { type: "veggie", item: "Spinach and Feta Spanakopita" },
+            { type: "vegan", item: "Roasted Eggplant, Zucchini and Peppers over Farro" }
+        ]
     },
     {
         title: "Menu 2",
