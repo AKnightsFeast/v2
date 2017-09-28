@@ -16,6 +16,7 @@ const todaysYear = todaysDate.getFullYear();
 
 const initialState = {
     menus: [],
+    menuurl: '',
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
     days: GetTuesdays(todaysMonth, todaysYear),
@@ -27,9 +28,12 @@ export const LoadMenusForDate = (selecteddate) => ({
     selecteddate
 });
 
-export const ShowMenusForDate = (menus) => ({
+export const ShowMenusForDate = (menus, menuurl) => ({
     type: SHOW_MENUS,
-    menus
+    payload: {
+        menus,
+        menuurl
+    }
 });
 
 export const LoadMenusErr = () => ({

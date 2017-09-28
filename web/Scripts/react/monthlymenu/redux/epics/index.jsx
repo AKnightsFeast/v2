@@ -11,6 +11,39 @@ import { GetTuesdays } from 'Utils';
 import { LOAD_MENUS, LOAD_DAYS } from 'Constants';
 import { ShowMenusForDate, ShowDaysForDate, LoadMenusErr } from 'Reducers';
 
+const menus = [
+    {
+        title: "Menu 1",
+        content: {
+            classic: "Spinach and Feta Spanakopita",
+            keto: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
+            paleo: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
+            veggie: "Spinach and Feta Spanakopita",
+            vegan: "Roasted Eggplant, Zucchini and Peppers over Farro"
+        }
+    },
+    {
+        title: "Menu 2",
+        content: {
+            classic: "Soup au Pistou - French Chicken and Lentil Stew",
+            keto: "French Chicken and Vegetable Stew",
+            paleo: "French Chicken and Vegetable Stew",
+            veggie: "French Lentil Stew",
+            vegan: "French Lentil Stew"
+        }
+    },
+    {
+        title: "Menu 3",
+        content: {
+            classic: "Thai Chicken and Peanut butter Burgers over Bok Choy and Rice Stir Fry",
+            keto: "Thai Chicken and Peanutbutter Burgers over Bok Choy and Pepper Fry",
+            paleo: "Thai Chicken and Almond butter Burgers over Bok Choy and Pepper Stir Fry",
+            veggie: "Thai Lentil and Peanutbutter Burgers over Bok Choy and Pepper Fry",
+            vegan: "Thai Lentil and Peanutbutter Burgers over Bok Choy and Pepper Fry"
+        }
+    }
+];
+
 const LoadDaysForDateEpic = (action$, store) =>
     action$
         .ofType(LOAD_DAYS)
@@ -44,7 +77,7 @@ const LoadMenusForDateEpic = (action$, store) =>
             // )
             // .mergeMap(response => {
                 return Observable.of(
-                    ShowMenusForDate({})
+                    ShowMenusForDate(menus, "http://docs.google.com/gview?url=https://www.aknightsfeast.com/Content/media/201708.xlsx&embedded=true")
                 );
             // })
             // .catch(err => {
