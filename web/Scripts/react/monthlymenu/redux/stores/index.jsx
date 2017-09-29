@@ -4,10 +4,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import epic from 'Epics';
 import reducer from 'Reducers';
 
-const today = new Date();
-const todaysMonth = today.getMonth();
-const todaysYear = today.getFullYear();
-
 const enhancer = compose(
   applyMiddleware(
       createEpicMiddleware(epic)

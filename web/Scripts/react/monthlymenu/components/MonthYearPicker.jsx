@@ -1,8 +1,4 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
-
-import 'Assets/calendar.css';
 
 export default ({ OnDateChange, yearslist, monthslist, selectedyear, selectedmonth }) => {
     const monthLinks = monthslist.map((month, index) => (

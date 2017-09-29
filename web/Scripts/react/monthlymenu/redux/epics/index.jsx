@@ -8,19 +8,19 @@ import "rxjs/add/operator/switchMap";
 import { combineEpics } from "redux-observable";
 
 import { GetTuesdays } from 'Utils';
-import { LOAD_MENUS, LOAD_DAYS } from 'Constants';
-import { ShowMenusForDate, ShowDaysForDate, LoadMenusErr } from 'Reducers';
+import { LOAD_MENUS, LOAD_DAYS, SHOW_MENU } from 'Constants';
+import { ShowMenusForDate, ShowDaysForDate, ShowMenu, LoadMenusErr } from 'Reducers';
 
 const menus = [
     {
         title: "Menu 1",
-        content: [
-            { type: "classic", item: "Spinach and Feta Spanakopita" },
-            { type: "keto", item: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers" },
-            { type: "paleo", item: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers" },
-            { type: "veggie", item: "Spinach and Feta Spanakopita" },
-            { type: "vegan", item: "Roasted Eggplant, Zucchini and Peppers over Farro" }
-        ]
+        content: {
+            classic: "Spinach and Feta Spanakopita",
+            keto: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
+            paleo: "Greek Lamb Burgers with Roasted Eggplant, Zucchini and Peppers",
+            veggie: "Spinach and Feta Spanakopita",
+            vegan: "Roasted Eggplant, Zucchini and Peppers over Farro"
+        }
     },
     {
         title: "Menu 2",
@@ -77,7 +77,7 @@ const LoadMenusForDateEpic = (action$, store) =>
             // )
             // .mergeMap(response => {
                 return Observable.of(
-                    ShowMenusForDate(menus, "http://docs.google.com/gview?url=https://www.aknightsfeast.com/Content/media/201708.xlsx&embedded=true")
+                    ShowMenusForDate(menus)
                 );
             // })
             // .catch(err => {

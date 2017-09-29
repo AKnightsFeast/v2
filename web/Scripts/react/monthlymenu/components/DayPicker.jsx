@@ -1,6 +1,4 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
 
 const today = new Date();
 
@@ -10,6 +8,7 @@ export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }
         {
             days.map((day, index) => {
                 let tabAttr = {};
+                let dayId = "day" + index;
 
                 const dayDate = day.getDate();
                 const dayMonth = day.getMonth();
@@ -21,12 +20,12 @@ export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }
                 if (day > today)
                     tabAttr.disabled = true;
                 else if ((day === selecteddate) || (sunDate <= selecteddate && satDate >= selecteddate))
-                    tabAttr.disabled = false;
+                    tabAttr.checked = true;
 
                 return (
                     <li key={ index }>
-                        <input className="with-gap" name="dates" type="radio" id={ "day" + index } { ...tabAttr }  />
-                        <label htmlFor={ "day" + index }>{ dateDisplay + " " + selectedyear }</label>
+                        <input className="with-gap" name="dates" type="radio" id={ dayId } { ...tabAttr }  />
+                        <label htmlFor={ dayId }>{ dateDisplay + " " + selectedyear }</label>
                     </li>
                 );
             })
