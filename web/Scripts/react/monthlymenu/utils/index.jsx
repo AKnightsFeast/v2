@@ -1,4 +1,42 @@
-let tuesdayCache = {};
+import React from 'react';
+
+export const BindClosures = (closuresMap) => {
+    return (Component) => {
+        const componentName = Component.displayName || Component.name || 'Component';
+        const closureNames = Object.keys(closuresMap);
+
+        const spec = closureNames.reduce((memo, closureName) => {
+            const injectedClosure = closuresMap[closureName];
+
+            memo[closureName] = function boundClosure(...args) {
+                return injectedClosure(this.props, ...args);
+            };
+
+            return memo;
+        }, {});
+
+        spec.componentWillMount = function componentWillMount() {
+            this.__closures = closureNames.reduce((memo, closureName) => {
+                memo[closureName] = this[closureName];
+                return memo;
+            }, {});
+        };
+
+        spec.render = function render() {
+            const newProps = {
+                ...this.props,
+                ...this.__closures
+            };
+
+            return Component(newProps);
+        };
+
+        const Wrapper = React.createClass(spec);
+        Wrapper.displayName = 'ClosureWrapper(' + componentName + ')';
+
+        return Wrapper;
+    };
+};
 
 export const LeftPad = (number, padLength) => {
     let output = number + '';
@@ -10,8 +48,18 @@ export const LeftPad = (number, padLength) => {
     return output;
 }
 
+export const GetFormattedDate = (date, format) => {
+    format = format || { month: 'short', day: '2-digit' };
+
+    return date.toLocaleDateString("en-US", format) + " " + date.getFullYear();
+}
+
+let tuesdayCache = {};
+
 export const GetTuesdays = (month, year) => {
-    const dateKey = new String(year) + LeftPad(new Number(month), 2);
+    const today = new Date();
+    const dateKey = year + LeftPad(month, 2);
+
     let tuesdays = tuesdayCache[dateKey];
 
     if (!tuesdays) {
@@ -24,24 +72,48 @@ export const GetTuesdays = (month, year) => {
 
         // Get all the other Tuesdays in the month
         while (d.getMonth() === month) {
-            tuesdays.push(new Date(d));
+            tuesdays.push({
+                attr: {},
+                date: new Date(d),
+                label: GetFormattedDate(d)
+            });
+
             d.setDate(d.getDate() + 7); // Get the next Tuesday
         }
 
         tuesdayCache[dateKey] = tuesdays;
     }
 
+    tuesdays.forEach((tues) => {
+        let day = tues.date;
+
+        let dayDate = day.getDate();
+        let dayMonth = day.getMonth();
+        let dayYear = day.getFullYear();
+        let sunDate = new Date(dayYear, dayMonth, dayDate - 2);
+        let satDate = new Date(dayYear, dayMonth, dayDate + 4);
+        
+        tues.attr.disabled = day > today;
+        tues.attr.checked = (day === today) || (sunDate <= today && satDate >= today);
+    });
+
     return tuesdays;
 };
 
-export const GetMonthArray = () => (
-    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-);
+export const YearArray = ((startYear, endYear) => {
+    let years = [];
+
+    for (let year = startYear; year <= endYear; year++) { years.push(year); }
+
+    return years;
+})(2013, new Date().getFullYear());
+
+export const MonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 /**
  * Returns reducer based on key-type "action.type"
  */
-export function CreateReducer(initialState, handlers) {
+export const CreateReducer = (initialState, handlers) => {
     return (state = initialState, action) => {
         const handler = handlers[action.type];
 

@@ -52,7 +52,7 @@ const LoadDaysForDateEpic = (action$, store) =>
             const tuesdays = GetTuesdays(selectedmonth, selectedyear);
 
             return Observable.of(
-                ShowDaysForDate(tuesdays, tuesdays[0], selectedyear, selectedmonth)
+                ShowDaysForDate(tuesdays, tuesdays[0].date, selectedyear, selectedmonth)
             );
         });
 

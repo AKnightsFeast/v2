@@ -1,9 +1,22 @@
 import React from 'react';
+import { BindClosures } from 'Utils';
+
+const DateLink = BindClosures({
+    OnDateChange: (props) => { props.OnDateChange(props.month, props.year); }
+})(
+    ({ OnDateChange, month, year, dateClass, label }) => (
+        <a className={ "button " + dateClass } onClick={ OnDateChange }>{ label }</a>
+    )
+);
 
 export default ({ OnDateChange, yearslist, monthslist, selectedyear, selectedmonth }) => {
     const monthLinks = monthslist.map((month, index) => (
         <td key={ index }>
-            <a className="button monthbtn" onClick={ (e) => OnDateChange(e, index, selectedyear) }>{ month }</a>
+            <DateLink label={ month }
+                      month={ index }
+                      year={ selectedyear }
+                      dateClass={ "monthbtn "}
+                      OnDateChange={ OnDateChange } />
         </td>
     ));
 
@@ -25,7 +38,11 @@ export default ({ OnDateChange, yearslist, monthslist, selectedyear, selectedmon
                 <ul id="years-dropdown" className="dropdown-content">
                     { yearslist.map((year, index) => (
                         <li key={ year }>
-                            <a className="button yearbtn" onClick={ (e) => OnDateChange(e, selectedmonth, year) }>{ year }</a>
+                            <DateLink label={ year }
+                                      year={ year }
+                                      month={ selectedmonth }
+                                      dateClass={ "yearbtn "}
+                                      OnDateChange={ OnDateChange } />
                         </li>
                     )) }
                 </ul>

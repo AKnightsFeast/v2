@@ -1,32 +1,33 @@
 import React from 'react';
+import { BindClosures } from 'Utils';
 
-const today = new Date();
+const DayItem = BindClosures({
+    OnDayChange: (props) => { props.OnDayChange(props.date); }
+})(
+    ({ OnDayChange, date, id, label, attr }) => (
+        <li>
+            <input id={ id } onChange={ OnDayChange }
+                   name="dates"
+                   type="radio"
+                   className="with-gap"
+                   { ...attr } />
+            <label htmlFor={ id }>{ label }</label>
+        </li>
+    )
+);
 
-export default ({ OnDayChange, selectedyear, selectedmonth, selecteddate, days }) => {   
+export default ({ OnDayChange, days }) => {
     return (
         <ul>
         {
             days.map((day, index) => {
-                let tabAttr = {};
-                let dayId = "day" + index;
-
-                const dayDate = day.getDate();
-                const dayMonth = day.getMonth();
-                const dayYear = day.getFullYear();
-                const sunDate = new Date(dayYear, dayMonth, dayDate - 2);
-                const satDate = new Date(dayYear, dayMonth, dayDate + 4);
-                const dateDisplay = day.toLocaleDateString("en-US", { month: 'short', day: '2-digit' });
-
-                if (day > today)
-                    tabAttr.disabled = true;
-                else if ((day === selecteddate) || (sunDate <= selecteddate && satDate >= selecteddate))
-                    tabAttr.checked = true;
-
                 return (
-                    <li key={ index }>
-                        <input className="with-gap" name="dates" type="radio" id={ dayId } { ...tabAttr }  />
-                        <label htmlFor={ dayId }>{ dateDisplay + " " + selectedyear }</label>
-                    </li>
+                    <DayItem key={ index }
+                             id={ "d" + index }
+                             attr={ day.attr }
+                             date={ day.date }
+                             label={ day.label }
+                             OnDayChange={ OnDayChange } />
                 );
             })
         }

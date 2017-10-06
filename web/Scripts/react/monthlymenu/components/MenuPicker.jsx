@@ -8,7 +8,7 @@ export default ({ OnMenuChange, menus }) =>
 
             return (
                 <li key={ index }>
-                    <input className="with-gap" name="menus" type="radio" id={ menuId } />
+                    <input id={ menuId } onChange={ (index) => { OnMenuChange(index); } } className="with-gap" name="menus" type="radio" />
                     <label htmlFor={ menuId }>{ menu.title }</label>
                 </li>
             );
