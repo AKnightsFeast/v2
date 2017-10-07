@@ -85,9 +85,9 @@ export const GetTuesdays = (month, year) => {
     }
 
     tuesdays.forEach((tues) => {
-    /*
         let day = tues.date;
 
+    /*
         let dayDate = day.getDate();
         let dayMonth = day.getMonth();
         let dayYear = day.getFullYear();
