@@ -3523,6 +3523,155 @@ module.exports = DOMLazyTree;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CreateReducer = exports.MonthArray = exports.YearArray = exports.GetTuesdays = exports.GetFormattedDate = exports.LeftPad = exports.BindClosures = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BindClosures = exports.BindClosures = function BindClosures(closuresMap) {
+    return function (Component) {
+        var componentName = Component.displayName || Component.name || 'Component';
+        var closureNames = Object.keys(closuresMap);
+
+        var spec = closureNames.reduce(function (memo, closureName) {
+            var injectedClosure = closuresMap[closureName];
+
+            memo[closureName] = function boundClosure() {
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                return injectedClosure.apply(undefined, [this.props].concat(args));
+            };
+
+            return memo;
+        }, {});
+
+        spec.componentWillMount = function componentWillMount() {
+            var _this = this;
+
+            this.__closures = closureNames.reduce(function (memo, closureName) {
+                memo[closureName] = _this[closureName];
+                return memo;
+            }, {});
+        };
+
+        spec.render = function render() {
+            var newProps = _extends({}, this.props, this.__closures);
+
+            return Component(newProps);
+        };
+
+        var Wrapper = _react2.default.createClass(spec);
+        Wrapper.displayName = 'ClosureWrapper(' + componentName + ')';
+
+        return Wrapper;
+    };
+};
+
+var LeftPad = exports.LeftPad = function LeftPad(number, padLength) {
+    var output = number + '';
+
+    while (output.length < padLength) {
+        output = '0' + output;
+    }
+
+    return output;
+};
+
+var GetFormattedDate = exports.GetFormattedDate = function GetFormattedDate(date, format) {
+    format = format || { month: 'short', day: '2-digit' };
+
+    return date.toLocaleDateString("en-US", format) + " " + date.getFullYear();
+};
+
+var tuesdayCache = {};
+
+var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
+    var today = new Date();
+    var dateKey = year + LeftPad(month, 2);
+
+    var tuesdays = tuesdayCache[dateKey];
+
+    if (!tuesdays) {
+        var d = new Date(year, month);
+
+        tuesdays = [];
+
+        // Get the first Tuesday in the month
+        d.setDate(d.getDate() + (9 - d.getDay()) % 7);
+
+        // Get all the other Tuesdays in the month
+        while (d.getMonth() === month) {
+            tuesdays.push({
+                attr: {},
+                date: new Date(d),
+                label: GetFormattedDate(d)
+            });
+
+            d.setDate(d.getDate() + 7); // Get the next Tuesday
+        }
+
+        tuesdayCache[dateKey] = tuesdays;
+    }
+
+    tuesdays.forEach(function (tues) {
+        var day = tues.date;
+
+        var dayDate = day.getDate();
+        var dayMonth = day.getMonth();
+        var dayYear = day.getFullYear();
+        var sunDate = new Date(dayYear, dayMonth, dayDate - 2);
+        var satDate = new Date(dayYear, dayMonth, dayDate + 4);
+
+        tues.attr.disabled = day > today;
+        tues.attr.checked = day === today || sunDate <= today && satDate >= today;
+    });
+
+    return tuesdays;
+};
+
+var YearArray = exports.YearArray = function (startYear, endYear) {
+    var years = [];
+
+    for (var year = startYear; year <= endYear; year++) {
+        years.push(year);
+    }
+
+    return years;
+}(2013, new Date().getFullYear());
+
+var MonthArray = exports.MonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/**
+ * Returns reducer based on key-type "action.type"
+ */
+var CreateReducer = exports.CreateReducer = function CreateReducer(initialState, handlers) {
+    return function () {
+        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+        var action = arguments[1];
+
+        var handler = handlers[action.type];
+
+        return handler ? handler(state, action.payload) : state;
+    };
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3535,7 +3684,7 @@ module.exports = DOMLazyTree;
 
 
 
-var EventPluginHub = __webpack_require__(25);
+var EventPluginHub = __webpack_require__(26);
 var EventPluginUtils = __webpack_require__(42);
 
 var accumulateInto = __webpack_require__(75);
@@ -3659,7 +3808,7 @@ module.exports = EventPropagators;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3939,7 +4088,7 @@ module.exports = EventPluginHub;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4003,7 +4152,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4052,155 +4201,6 @@ var ReactInstanceMap = {
 };
 
 module.exports = ReactInstanceMap;
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.CreateReducer = exports.MonthArray = exports.YearArray = exports.GetTuesdays = exports.GetFormattedDate = exports.LeftPad = exports.BindClosures = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(13);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BindClosures = exports.BindClosures = function BindClosures(closuresMap) {
-    return function (Component) {
-        var componentName = Component.displayName || Component.name || 'Component';
-        var closureNames = Object.keys(closuresMap);
-
-        var spec = closureNames.reduce(function (memo, closureName) {
-            var injectedClosure = closuresMap[closureName];
-
-            memo[closureName] = function boundClosure() {
-                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                    args[_key] = arguments[_key];
-                }
-
-                return injectedClosure.apply(undefined, [this.props].concat(args));
-            };
-
-            return memo;
-        }, {});
-
-        spec.componentWillMount = function componentWillMount() {
-            var _this = this;
-
-            this.__closures = closureNames.reduce(function (memo, closureName) {
-                memo[closureName] = _this[closureName];
-                return memo;
-            }, {});
-        };
-
-        spec.render = function render() {
-            var newProps = _extends({}, this.props, this.__closures);
-
-            return Component(newProps);
-        };
-
-        var Wrapper = _react2.default.createClass(spec);
-        Wrapper.displayName = 'ClosureWrapper(' + componentName + ')';
-
-        return Wrapper;
-    };
-};
-
-var LeftPad = exports.LeftPad = function LeftPad(number, padLength) {
-    var output = number + '';
-
-    while (output.length < padLength) {
-        output = '0' + output;
-    }
-
-    return output;
-};
-
-var GetFormattedDate = exports.GetFormattedDate = function GetFormattedDate(date, format) {
-    format = format || { month: 'short', day: '2-digit' };
-
-    return date.toLocaleDateString("en-US", format) + " " + date.getFullYear();
-};
-
-var tuesdayCache = {};
-
-var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
-    var today = new Date();
-    var dateKey = year + LeftPad(month, 2);
-
-    var tuesdays = tuesdayCache[dateKey];
-
-    if (!tuesdays) {
-        var d = new Date(year, month);
-
-        tuesdays = [];
-
-        // Get the first Tuesday in the month
-        d.setDate(d.getDate() + (9 - d.getDay()) % 7);
-
-        // Get all the other Tuesdays in the month
-        while (d.getMonth() === month) {
-            tuesdays.push({
-                attr: {},
-                date: new Date(d),
-                label: GetFormattedDate(d)
-            });
-
-            d.setDate(d.getDate() + 7); // Get the next Tuesday
-        }
-
-        tuesdayCache[dateKey] = tuesdays;
-    }
-
-    tuesdays.forEach(function (tues) {
-        var day = tues.date;
-
-        var dayDate = day.getDate();
-        var dayMonth = day.getMonth();
-        var dayYear = day.getFullYear();
-        var sunDate = new Date(dayYear, dayMonth, dayDate - 2);
-        var satDate = new Date(dayYear, dayMonth, dayDate + 4);
-
-        tues.attr.disabled = day > today;
-        tues.attr.checked = day === today || sunDate <= today && satDate >= today;
-    });
-
-    return tuesdays;
-};
-
-var YearArray = exports.YearArray = function (startYear, endYear) {
-    var years = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        years.push(year);
-    }
-
-    return years;
-}(2013, new Date().getFullYear());
-
-var MonthArray = exports.MonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-/**
- * Returns reducer based on key-type "action.type"
- */
-var CreateReducer = exports.CreateReducer = function CreateReducer(initialState, handlers) {
-    return function () {
-        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-        var action = arguments[1];
-
-        var handler = handlers[action.type];
-
-        return handler ? handler(state, action.payload) : state;
-    };
-};
 
 /***/ }),
 /* 29 */
@@ -4770,7 +4770,7 @@ module.exports = TransactionImpl;
 
 
 
-var SyntheticUIEvent = __webpack_require__(26);
+var SyntheticUIEvent = __webpack_require__(27);
 var ViewportMetrics = __webpack_require__(82);
 
 var getEventModifierState = __webpack_require__(46);
@@ -6760,7 +6760,7 @@ module.exports = KeyEscapeUtils;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(11);
-var ReactInstanceMap = __webpack_require__(27);
+var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(12);
 
@@ -8015,34 +8015,25 @@ var _redux = __webpack_require__(58);
 
 var _Constants = __webpack_require__(125);
 
-var _Utils = __webpack_require__(28);
+var _Utils = __webpack_require__(24);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var todaysDate = new Date();
-var todaysMonth = todaysDate.getMonth();
-var todaysYear = todaysDate.getFullYear();
-
-var initialState = {
-    menus: [],
-    selectedmenuindex: 0,
-    selectedyear: todaysYear,
-    selectedmonth: todaysMonth,
-    days: (0, _Utils.GetTuesdays)(todaysMonth, todaysYear),
-    selecteddate: new Date(todaysYear, todaysMonth, todaysDate.getDate())
-};
 
 var ShowMenu = exports.ShowMenu = function ShowMenu(selectedmenuindex) {
     return {
         type: _Constants.SHOW_MENU,
-        selectedmenuindex: selectedmenuindex
+        payload: {
+            selectedmenuindex: selectedmenuindex
+        }
     };
 };
 
 var LoadMenusForDate = exports.LoadMenusForDate = function LoadMenusForDate(selecteddate) {
     return {
         type: _Constants.LOAD_MENUS,
-        selecteddate: selecteddate
+        payload: {
+            selecteddate: selecteddate
+        }
     };
 };
 
@@ -8064,24 +8055,25 @@ var LoadMenusErr = exports.LoadMenusErr = function LoadMenusErr() {
 var LoadDaysForDate = exports.LoadDaysForDate = function LoadDaysForDate(selectedmonth, selectedyear) {
     return {
         type: _Constants.LOAD_DAYS,
-        selectedyear: selectedyear,
-        selectedmonth: selectedmonth
-    };
-};
-
-var ShowDaysForDate = exports.ShowDaysForDate = function ShowDaysForDate(days, selecteddate, selectedyear, selectedmonth) {
-    return {
-        type: _Constants.SHOW_DAYS,
         payload: {
-            days: days,
-            selecteddate: selecteddate,
+            menus: [],
             selectedyear: selectedyear,
             selectedmonth: selectedmonth
         }
     };
 };
 
-var monthlyMenuReducer = (0, _Utils.CreateReducer)(initialState, (_CreateReducer = {}, _defineProperty(_CreateReducer, _Constants.LOAD_DAYS, function (state, payload) {
+var ShowDaysForDate = exports.ShowDaysForDate = function ShowDaysForDate(days, selecteddate) {
+    return {
+        type: _Constants.SHOW_DAYS,
+        payload: {
+            days: days,
+            selecteddate: selecteddate
+        }
+    };
+};
+
+var monthlyMenuReducer = (0, _Utils.CreateReducer)({}, (_CreateReducer = {}, _defineProperty(_CreateReducer, _Constants.LOAD_DAYS, function (state, payload) {
     return _extends({}, state, payload);
 }), _defineProperty(_CreateReducer, _Constants.SHOW_DAYS, function (state, payload) {
     return _extends({}, state, payload);
@@ -11233,7 +11225,7 @@ var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMContainerInfo = __webpack_require__(218);
 var ReactDOMFeatureFlags = __webpack_require__(219);
 var ReactFeatureFlags = __webpack_require__(79);
-var ReactInstanceMap = __webpack_require__(27);
+var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactMarkupChecksum = __webpack_require__(220);
 var ReactReconciler = __webpack_require__(22);
@@ -13177,7 +13169,7 @@ var _MonthYearPicker2 = _interopRequireDefault(_MonthYearPicker);
 
 var _Reducers = __webpack_require__(66);
 
-var _Utils = __webpack_require__(28);
+var _Utils = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15558,7 +15550,7 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(24);
+var EventPropagators = __webpack_require__(25);
 var ExecutionEnvironment = __webpack_require__(7);
 var FallbackCompositionState = __webpack_require__(147);
 var SyntheticCompositionEvent = __webpack_require__(148);
@@ -16130,8 +16122,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(25);
-var EventPropagators = __webpack_require__(24);
+var EventPluginHub = __webpack_require__(26);
+var EventPropagators = __webpack_require__(25);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(12);
@@ -17187,7 +17179,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(24);
+var EventPropagators = __webpack_require__(25);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticMouseEvent = __webpack_require__(33);
 
@@ -17989,7 +17981,7 @@ var DOMLazyTree = __webpack_require__(23);
 var DOMNamespaces = __webpack_require__(48);
 var DOMProperty = __webpack_require__(15);
 var DOMPropertyOperations = __webpack_require__(86);
-var EventPluginHub = __webpack_require__(25);
+var EventPluginHub = __webpack_require__(26);
 var EventPluginRegistry = __webpack_require__(31);
 var ReactBrowserEventEmitter = __webpack_require__(36);
 var ReactDOMComponentFlags = __webpack_require__(74);
@@ -19559,7 +19551,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(25);
+var EventPluginHub = __webpack_require__(26);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -20292,7 +20284,7 @@ module.exports = ReactDOMTextarea;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactComponentEnvironment = __webpack_require__(51);
-var ReactInstanceMap = __webpack_require__(27);
+var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 
 var ReactCurrentOwner = __webpack_require__(11);
@@ -20907,7 +20899,7 @@ var React = __webpack_require__(20);
 var ReactComponentEnvironment = __webpack_require__(51);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(43);
-var ReactInstanceMap = __webpack_require__(27);
+var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactNodeTypes = __webpack_require__(90);
 var ReactReconciler = __webpack_require__(22);
@@ -23003,7 +22995,7 @@ module.exports = getUnboundedScrollPosition;
 
 
 var DOMProperty = __webpack_require__(15);
-var EventPluginHub = __webpack_require__(25);
+var EventPluginHub = __webpack_require__(26);
 var EventPluginUtils = __webpack_require__(42);
 var ReactComponentEnvironment = __webpack_require__(51);
 var ReactEmptyComponent = __webpack_require__(91);
@@ -23933,7 +23925,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(24);
+var EventPropagators = __webpack_require__(25);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInputSelection = __webpack_require__(95);
@@ -24130,7 +24122,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(3);
 
 var EventListener = __webpack_require__(94);
-var EventPropagators = __webpack_require__(24);
+var EventPropagators = __webpack_require__(25);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticAnimationEvent = __webpack_require__(209);
 var SyntheticClipboardEvent = __webpack_require__(210);
@@ -24141,7 +24133,7 @@ var SyntheticMouseEvent = __webpack_require__(33);
 var SyntheticDragEvent = __webpack_require__(214);
 var SyntheticTouchEvent = __webpack_require__(215);
 var SyntheticTransitionEvent = __webpack_require__(216);
-var SyntheticUIEvent = __webpack_require__(26);
+var SyntheticUIEvent = __webpack_require__(27);
 var SyntheticWheelEvent = __webpack_require__(217);
 
 var emptyFunction = __webpack_require__(9);
@@ -24445,7 +24437,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(26);
+var SyntheticUIEvent = __webpack_require__(27);
 
 /**
  * @interface FocusEvent
@@ -24486,7 +24478,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(26);
+var SyntheticUIEvent = __webpack_require__(27);
 
 var getEventCharCode = __webpack_require__(56);
 var getEventKey = __webpack_require__(213);
@@ -24733,7 +24725,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(26);
+var SyntheticUIEvent = __webpack_require__(27);
 
 var getEventModifierState = __webpack_require__(46);
 
@@ -25073,7 +25065,7 @@ var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstanceMap = __webpack_require__(27);
+var ReactInstanceMap = __webpack_require__(28);
 
 var getHostComponentFromComposite = __webpack_require__(98);
 var invariant = __webpack_require__(1);
@@ -27992,12 +27984,29 @@ var _Reducers = __webpack_require__(66);
 
 var _Reducers2 = _interopRequireDefault(_Reducers);
 
+var _Utils = __webpack_require__(24);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var todaysDate = new Date();
+var todaysMonth = todaysDate.getMonth();
+var todaysYear = todaysDate.getFullYear();
+
+var initialState = {
+  monthlymenu: {
+    menus: [],
+    selectedmenuindex: 0,
+    selectedyear: todaysYear,
+    selectedmonth: todaysMonth,
+    days: (0, _Utils.GetTuesdays)(todaysMonth, todaysYear),
+    selecteddate: new Date(todaysYear, todaysMonth, todaysDate.getDate())
+  }
+};
 
 var enhancer = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _reduxObservable.createEpicMiddleware)(_Epics2.default)))(_redux.createStore);
 
 // remove window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() before deploying to test and prod
-exports.default = enhancer(_Reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+exports.default = enhancer(_Reducers2.default, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 /***/ }),
 /* 260 */
@@ -29748,7 +29757,7 @@ __webpack_require__(287);
 
 var _reduxObservable = __webpack_require__(109);
 
-var _Utils = __webpack_require__(28);
+var _Utils = __webpack_require__(24);
 
 var _Constants = __webpack_require__(125);
 
@@ -29785,18 +29794,19 @@ var menus = [{
 
 var LoadDaysForDateEpic = function LoadDaysForDateEpic(action$, store) {
     return action$.ofType(_Constants.LOAD_DAYS).switchMap(function (action) {
-        var selectedmonth = action.selectedmonth,
-            selectedyear = action.selectedyear;
+        var _action$payload = action.payload,
+            selectedmonth = _action$payload.selectedmonth,
+            selectedyear = _action$payload.selectedyear;
 
         var tuesdays = (0, _Utils.GetTuesdays)(selectedmonth, selectedyear);
 
-        return _Observable.Observable.of((0, _Reducers.ShowDaysForDate)(tuesdays, tuesdays[0].date, selectedyear, selectedmonth));
+        return _Observable.Observable.of((0, _Reducers.ShowDaysForDate)(tuesdays, tuesdays[0].date));
     });
 };
 
 var LoadMenusForDateEpic = function LoadMenusForDateEpic(action$, store) {
     return action$.ofType(_Constants.LOAD_MENUS).switchMap(function (action) {
-        var selecteddate = action.selecteddate;
+        var selecteddate = action.payload.selecteddate;
 
 
         console.log("Getting menus for " + selecteddate + "...");
@@ -30369,7 +30379,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Utils = __webpack_require__(28);
+var _Utils = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30474,7 +30484,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Utils = __webpack_require__(28);
+var _Utils = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

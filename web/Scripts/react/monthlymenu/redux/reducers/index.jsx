@@ -9,29 +9,20 @@ import {
     LOAD_MENUS_ERR
 } from 'Constants';
 
-import { GetTuesdays, CreateReducer } from 'Utils';
-
-const todaysDate = new Date();
-const todaysMonth = todaysDate.getMonth();
-const todaysYear = todaysDate.getFullYear();
-
-const initialState = {
-    menus: [],
-    selectedmenuindex: 0,
-    selectedyear: todaysYear,
-    selectedmonth: todaysMonth,
-    days: GetTuesdays(todaysMonth, todaysYear),
-    selecteddate: new Date(todaysYear, todaysMonth, todaysDate.getDate())
-};
+import { CreateReducer } from 'Utils';
 
 export const ShowMenu = (selectedmenuindex) => ({
     type: SHOW_MENU,
-    selectedmenuindex
+    payload: {
+        selectedmenuindex
+    }
 });
 
 export const LoadMenusForDate = (selecteddate) => ({
     type: LOAD_MENUS,
-    selecteddate
+    payload: {
+        selecteddate
+    }
 });
 
 export const ShowMenusForDate = (menus) => ({
@@ -47,21 +38,22 @@ export const LoadMenusErr = () => ({
 
 export const LoadDaysForDate = (selectedmonth, selectedyear) => ({
     type: LOAD_DAYS,
-    selectedyear,
-    selectedmonth
-});
-
-export const ShowDaysForDate = (days, selecteddate, selectedyear, selectedmonth) => ({
-    type: SHOW_DAYS,
     payload: {
-        days,
-        selecteddate,
+        menus: [],
         selectedyear,
         selectedmonth
     }
 });
 
-const monthlyMenuReducer = CreateReducer(initialState, {
+export const ShowDaysForDate = (days, selecteddate) => ({
+    type: SHOW_DAYS,
+    payload: {
+        days,
+        selecteddate
+    }
+});
+
+const monthlyMenuReducer = CreateReducer({ }, {
     [LOAD_DAYS]: (state, payload) => ({ ...state, ...payload }),
     [SHOW_DAYS]: (state, payload) => ({ ...state, ...payload }),
     [SHOW_MENU]: (state, payload) => ({ ...state, ...payload }),
