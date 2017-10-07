@@ -85,6 +85,7 @@ export const GetTuesdays = (month, year) => {
     }
 
     tuesdays.forEach((tues) => {
+    /*
         let day = tues.date;
 
         let dayDate = day.getDate();
@@ -93,8 +94,9 @@ export const GetTuesdays = (month, year) => {
         let sunDate = new Date(dayYear, dayMonth, dayDate - 2);
         let satDate = new Date(dayYear, dayMonth, dayDate + 4);
         
-        tues.attr.disabled = day > today;
         tues.attr.checked = (day === today) || (sunDate <= today && satDate >= today);
+    */
+        tues.attr.disabled = day > today;
     });
 
     return tuesdays;

@@ -9,6 +9,7 @@ const DayItem = BindClosures({
             <input id={ id } onChange={ OnDayChange }
                    name="dates"
                    type="radio"
+                   value={ date }
                    className="with-gap"
                    { ...attr } />
             <label htmlFor={ id }>{ label }</label>

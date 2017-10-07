@@ -3626,16 +3626,17 @@ var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
     }
 
     tuesdays.forEach(function (tues) {
-        var day = tues.date;
-
-        var dayDate = day.getDate();
-        var dayMonth = day.getMonth();
-        var dayYear = day.getFullYear();
-        var sunDate = new Date(dayYear, dayMonth, dayDate - 2);
-        var satDate = new Date(dayYear, dayMonth, dayDate + 4);
-
+        /*
+            let day = tues.date;
+              let dayDate = day.getDate();
+            let dayMonth = day.getMonth();
+            let dayYear = day.getFullYear();
+            let sunDate = new Date(dayYear, dayMonth, dayDate - 2);
+            let satDate = new Date(dayYear, dayMonth, dayDate + 4);
+            
+            tues.attr.checked = (day === today) || (sunDate <= today && satDate >= today);
+        */
         tues.attr.disabled = day > today;
-        tues.attr.checked = day === today || sunDate <= today && satDate >= today;
     });
 
     return tuesdays;
@@ -30399,6 +30400,7 @@ var DayItem = (0, _Utils.BindClosures)({
         _react2.default.createElement('input', _extends({ id: id, onChange: OnDayChange,
             name: 'dates',
             type: 'radio',
+            value: date,
             className: 'with-gap'
         }, attr)),
         _react2.default.createElement(
