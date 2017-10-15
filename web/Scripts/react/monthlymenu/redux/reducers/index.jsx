@@ -11,10 +11,10 @@ import {
 
 import { CreateReducer } from 'Utils';
 
-export const ShowMenu = (selectedmenuindex) => ({
+export const ShowMenu = (selectedmenu) => ({
     type: SHOW_MENU,
     payload: {
-        selectedmenuindex
+        selectedmenu
     }
 });
 
@@ -39,6 +39,7 @@ export const LoadMenusErr = () => ({
 export const LoadDaysForDate = (selectedmonth, selectedyear) => ({
     type: LOAD_DAYS,
     payload: {
+        days: [],
         menus: [],
         selectedyear,
         selectedmonth

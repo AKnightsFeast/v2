@@ -58,12 +58,13 @@ let tuesdayCache = {};
 
 export const GetTuesdays = (month, year) => {
     const today = new Date();
-    const dateKey = year + LeftPad(month, 2);
+    const monthNumber = Number(month);
+    const dateKey = year + LeftPad(monthNumber, 2);
 
     let tuesdays = tuesdayCache[dateKey];
 
     if (!tuesdays) {
-        var d = new Date(year, month);
+        var d = new Date(year, monthNumber);
 
         tuesdays = [];
 
@@ -71,7 +72,7 @@ export const GetTuesdays = (month, year) => {
         d.setDate(d.getDate() + (9 - d.getDay()) % 7);
 
         // Get all the other Tuesdays in the month
-        while (d.getMonth() === month) {
+        while (d.getMonth() === monthNumber) {
             tuesdays.push({
                 attr: {},
                 date: new Date(d),

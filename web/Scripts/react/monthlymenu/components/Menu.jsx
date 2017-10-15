@@ -1,10 +1,8 @@
 import React from 'react';
 
-export default ({ menus, selectedmenuindex, selectedday, selectedmonth }) => {
-    if (menus == null || menus.length == 0 || selectedmenuindex < 0)
+export default ({ selectedmenu, selecteddate, selectedmonth }) => {
+    if (selectedmenu == null || selectedmenu.length == 0)
       return <div></div>
-
-    let menu = menus[selectedmenuindex];
 
     return (
       <div id="card-container">
@@ -12,7 +10,7 @@ export default ({ menus, selectedmenuindex, selectedday, selectedmonth }) => {
           <div className="card">
             <div className="card-content white-text">
               <div className="card__date">
-                <span className="card__date__day">{ selectedday }</span>
+                <span className="card__date__day">{ selecteddate }</span>
                 <span className="card__date__month">{ selectedmonth }</span>
               </div>
               <div className="card__meta">

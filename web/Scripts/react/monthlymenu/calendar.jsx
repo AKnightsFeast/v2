@@ -9,7 +9,7 @@ import 'Assets/calendar.css';
 
 import store from 'Stores';
 
-import Menus from 'Components/Menus';
+import Menu from 'Components/Menu';
 import DayPicker from 'Components/DayPicker';
 import MenuPicker from 'Components/MenuPicker';
 import MonthYearPicker from 'Components/MonthYearPicker';
@@ -27,10 +27,10 @@ const Calendar = ({
     OnMenuChange,
     days,
     menus,
-    selectedyear,
-    selectedmonth,
+    selectedmenu,
     selecteddate,
-    selectedmenuindex
+    selectedyear,
+    selectedmonth
 }) =>
     <div id="MonthlyMenus">
         <div className="row">
@@ -39,10 +39,10 @@ const Calendar = ({
                     <li className="">
                         <div>
                             <MonthYearPicker OnDateChange={ OnDateChange }
-                                            yearslist={ YearArray }
-                                            monthslist={ MonthArray }
-                                            selectedyear={ selectedyear }
-                                            selectedmonth={ selectedmonth } />
+                                             years={ YearArray }
+                                             months={ MonthArray }
+                                             selectedyear={ selectedyear }
+                                             selectedmonth={ selectedmonth } />
                         </div>
                         <div>
                             <DayPicker OnDayChange={ OnDayChange } days={ days } />
@@ -62,10 +62,9 @@ const Calendar = ({
 
             <div className="col s12 m9">
                 <h4>{ "Menus for the Week of " + GetFormattedDate(selecteddate) }</h4>
-                <Menus menus={ menus }
-                       selecteddate={ selecteddate }
-                       selectedmonth={ selectedmonth }
-                       selectedmenuindex={ selectedmenuindex } />
+                <Menu selectedmenu={ selectedmenu }
+                      selecteddate={ GetFormattedDate(selecteddate) }
+                      selectedmonth={ selectedmonth } />
             </div>
         </div>
     </div>
@@ -75,18 +74,15 @@ const EnhancedCalendar = compose(
         store => ({
             days: store.monthlymenu.days,
             menus: store.monthlymenu.menus,
+            selectedmenu: store.monthlymenu.selectedmenu,
             selecteddate: store.monthlymenu.selecteddate,
             selectedyear: store.monthlymenu.selectedyear,
-            selectedmonth: store.monthlymenu.selectedmonth,
-            selectedmenuindex: store.monthlymenu.selectedmenuindex
+            selectedmonth: store.monthlymenu.selectedmonth
         }),
         dispatch => ({
             OnDateChange: (month, year) => { dispatch(LoadDaysForDate(month, year)) },
             OnDayChange: (date) => { dispatch(LoadMenusForDate(date)); },
-            OnMenuChange: (index) => {
-                e.preventDefault();
-                dispatch(ShowMenu(index))
-            }
+            OnMenuChange: (menu) => { dispatch(ShowMenu(menu)) }
         })
     )
 )(Calendar);

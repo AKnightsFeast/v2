@@ -1051,7 +1051,7 @@ module.exports = ExecutionEnvironment;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactCurrentOwner = __webpack_require__(11);
 
@@ -1549,7 +1549,7 @@ var _prodInvariant = __webpack_require__(3),
 var CallbackQueue = __webpack_require__(78);
 var PooledClass = __webpack_require__(17);
 var ReactFeatureFlags = __webpack_require__(79);
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 var Transaction = __webpack_require__(32);
 
 var invariant = __webpack_require__(1);
@@ -1790,7 +1790,7 @@ module.exports = ReactUpdates;
 "use strict";
 
 
-module.exports = __webpack_require__(20);
+module.exports = __webpack_require__(21);
 
 
 /***/ }),
@@ -3046,6 +3046,158 @@ var SafeSubscriber = (function (_super) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CreateReducer = exports.MonthArray = exports.YearArray = exports.GetTuesdays = exports.GetFormattedDate = exports.LeftPad = exports.BindClosures = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BindClosures = exports.BindClosures = function BindClosures(closuresMap) {
+    return function (Component) {
+        var componentName = Component.displayName || Component.name || 'Component';
+        var closureNames = Object.keys(closuresMap);
+
+        var spec = closureNames.reduce(function (memo, closureName) {
+            var injectedClosure = closuresMap[closureName];
+
+            memo[closureName] = function boundClosure() {
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                return injectedClosure.apply(undefined, [this.props].concat(args));
+            };
+
+            return memo;
+        }, {});
+
+        spec.componentWillMount = function componentWillMount() {
+            var _this = this;
+
+            this.__closures = closureNames.reduce(function (memo, closureName) {
+                memo[closureName] = _this[closureName];
+                return memo;
+            }, {});
+        };
+
+        spec.render = function render() {
+            var newProps = _extends({}, this.props, this.__closures);
+
+            return Component(newProps);
+        };
+
+        var Wrapper = _react2.default.createClass(spec);
+        Wrapper.displayName = 'ClosureWrapper(' + componentName + ')';
+
+        return Wrapper;
+    };
+};
+
+var LeftPad = exports.LeftPad = function LeftPad(number, padLength) {
+    var output = number + '';
+
+    while (output.length < padLength) {
+        output = '0' + output;
+    }
+
+    return output;
+};
+
+var GetFormattedDate = exports.GetFormattedDate = function GetFormattedDate(date, format) {
+    format = format || { month: 'short', day: '2-digit' };
+
+    return date.toLocaleDateString("en-US", format) + " " + date.getFullYear();
+};
+
+var tuesdayCache = {};
+
+var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
+    var today = new Date();
+    var monthNumber = Number(month);
+    var dateKey = year + LeftPad(monthNumber, 2);
+
+    var tuesdays = tuesdayCache[dateKey];
+
+    if (!tuesdays) {
+        var d = new Date(year, monthNumber);
+
+        tuesdays = [];
+
+        // Get the first Tuesday in the month
+        d.setDate(d.getDate() + (9 - d.getDay()) % 7);
+
+        // Get all the other Tuesdays in the month
+        while (d.getMonth() === monthNumber) {
+            tuesdays.push({
+                attr: {},
+                date: new Date(d),
+                label: GetFormattedDate(d)
+            });
+
+            d.setDate(d.getDate() + 7); // Get the next Tuesday
+        }
+
+        tuesdayCache[dateKey] = tuesdays;
+    }
+
+    tuesdays.forEach(function (tues) {
+        var day = tues.date;
+
+        /*
+            let dayDate = day.getDate();
+            let dayMonth = day.getMonth();
+            let dayYear = day.getFullYear();
+            let sunDate = new Date(dayYear, dayMonth, dayDate - 2);
+            let satDate = new Date(dayYear, dayMonth, dayDate + 4);
+            
+            tues.attr.checked = (day === today) || (sunDate <= today && satDate >= today);
+        */
+        tues.attr.disabled = day > today;
+    });
+
+    return tuesdays;
+};
+
+var YearArray = exports.YearArray = function (startYear, endYear) {
+    var years = [];
+
+    for (var year = startYear; year <= endYear; year++) {
+        years.push(year);
+    }
+
+    return years;
+}(2013, new Date().getFullYear());
+
+var MonthArray = exports.MonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/**
+ * Returns reducer based on key-type "action.type"
+ */
+var CreateReducer = exports.CreateReducer = function CreateReducer(initialState, handlers) {
+    return function () {
+        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+        var action = arguments[1];
+
+        var handler = handlers[action.type];
+
+        return handler ? handler(state, action.payload) : state;
+    };
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3180,7 +3332,7 @@ module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3224,7 +3376,7 @@ function reactProdInvariant(code) {
 module.exports = reactProdInvariant;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3396,7 +3548,7 @@ module.exports = ReactReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3517,156 +3669,6 @@ DOMLazyTree.queueHTML = queueHTML;
 DOMLazyTree.queueText = queueText;
 
 module.exports = DOMLazyTree;
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.CreateReducer = exports.MonthArray = exports.YearArray = exports.GetTuesdays = exports.GetFormattedDate = exports.LeftPad = exports.BindClosures = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(13);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BindClosures = exports.BindClosures = function BindClosures(closuresMap) {
-    return function (Component) {
-        var componentName = Component.displayName || Component.name || 'Component';
-        var closureNames = Object.keys(closuresMap);
-
-        var spec = closureNames.reduce(function (memo, closureName) {
-            var injectedClosure = closuresMap[closureName];
-
-            memo[closureName] = function boundClosure() {
-                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                    args[_key] = arguments[_key];
-                }
-
-                return injectedClosure.apply(undefined, [this.props].concat(args));
-            };
-
-            return memo;
-        }, {});
-
-        spec.componentWillMount = function componentWillMount() {
-            var _this = this;
-
-            this.__closures = closureNames.reduce(function (memo, closureName) {
-                memo[closureName] = _this[closureName];
-                return memo;
-            }, {});
-        };
-
-        spec.render = function render() {
-            var newProps = _extends({}, this.props, this.__closures);
-
-            return Component(newProps);
-        };
-
-        var Wrapper = _react2.default.createClass(spec);
-        Wrapper.displayName = 'ClosureWrapper(' + componentName + ')';
-
-        return Wrapper;
-    };
-};
-
-var LeftPad = exports.LeftPad = function LeftPad(number, padLength) {
-    var output = number + '';
-
-    while (output.length < padLength) {
-        output = '0' + output;
-    }
-
-    return output;
-};
-
-var GetFormattedDate = exports.GetFormattedDate = function GetFormattedDate(date, format) {
-    format = format || { month: 'short', day: '2-digit' };
-
-    return date.toLocaleDateString("en-US", format) + " " + date.getFullYear();
-};
-
-var tuesdayCache = {};
-
-var GetTuesdays = exports.GetTuesdays = function GetTuesdays(month, year) {
-    var today = new Date();
-    var dateKey = year + LeftPad(month, 2);
-
-    var tuesdays = tuesdayCache[dateKey];
-
-    if (!tuesdays) {
-        var d = new Date(year, month);
-
-        tuesdays = [];
-
-        // Get the first Tuesday in the month
-        d.setDate(d.getDate() + (9 - d.getDay()) % 7);
-
-        // Get all the other Tuesdays in the month
-        while (d.getMonth() === month) {
-            tuesdays.push({
-                attr: {},
-                date: new Date(d),
-                label: GetFormattedDate(d)
-            });
-
-            d.setDate(d.getDate() + 7); // Get the next Tuesday
-        }
-
-        tuesdayCache[dateKey] = tuesdays;
-    }
-
-    tuesdays.forEach(function (tues) {
-        /*
-            let day = tues.date;
-              let dayDate = day.getDate();
-            let dayMonth = day.getMonth();
-            let dayYear = day.getFullYear();
-            let sunDate = new Date(dayYear, dayMonth, dayDate - 2);
-            let satDate = new Date(dayYear, dayMonth, dayDate + 4);
-            
-            tues.attr.checked = (day === today) || (sunDate <= today && satDate >= today);
-        */
-        tues.attr.disabled = day > today;
-    });
-
-    return tuesdays;
-};
-
-var YearArray = exports.YearArray = function (startYear, endYear) {
-    var years = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        years.push(year);
-    }
-
-    return years;
-}(2013, new Date().getFullYear());
-
-var MonthArray = exports.MonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-/**
- * Returns reducer based on key-type "action.type"
- */
-var CreateReducer = exports.CreateReducer = function CreateReducer(initialState, handlers) {
-    return function () {
-        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-        var action = arguments[1];
-
-        var handler = handlers[action.type];
-
-        return handler ? handler(state, action.payload) : state;
-    };
-};
 
 /***/ }),
 /* 25 */
@@ -6159,7 +6161,7 @@ module.exports = getEventModifierState;
 
 
 
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var Danger = __webpack_require__(162);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInstrumentation = __webpack_require__(10);
@@ -6458,7 +6460,7 @@ var _prodInvariant = __webpack_require__(3);
 var ReactPropTypesSecret = __webpack_require__(87);
 var propTypesFactory = __webpack_require__(72);
 
-var React = __webpack_require__(20);
+var React = __webpack_require__(21);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(1);
@@ -8016,15 +8018,15 @@ var _redux = __webpack_require__(58);
 
 var _Constants = __webpack_require__(125);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ShowMenu = exports.ShowMenu = function ShowMenu(selectedmenuindex) {
+var ShowMenu = exports.ShowMenu = function ShowMenu(selectedmenu) {
     return {
         type: _Constants.SHOW_MENU,
         payload: {
-            selectedmenuindex: selectedmenuindex
+            selectedmenu: selectedmenu
         }
     };
 };
@@ -8057,6 +8059,7 @@ var LoadDaysForDate = exports.LoadDaysForDate = function LoadDaysForDate(selecte
     return {
         type: _Constants.LOAD_DAYS,
         payload: {
+            days: [],
             menus: [],
             selectedyear: selectedyear,
             selectedmonth: selectedmonth
@@ -8107,7 +8110,7 @@ exports.default = (0, _redux.combineReducers)({
 
 
 
-var _prodInvariant = __webpack_require__(21),
+var _prodInvariant = __webpack_require__(22),
     _assign = __webpack_require__(4);
 
 var ReactNoopUpdateQueue = __webpack_require__(68);
@@ -10619,7 +10622,7 @@ module.exports = instantiateReactComponent;
 
 var _prodInvariant = __webpack_require__(3);
 
-var React = __webpack_require__(20);
+var React = __webpack_require__(21);
 
 var invariant = __webpack_require__(1);
 
@@ -11217,9 +11220,9 @@ module.exports = getActiveElement;
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var DOMProperty = __webpack_require__(15);
-var React = __webpack_require__(20);
+var React = __webpack_require__(21);
 var ReactBrowserEventEmitter = __webpack_require__(36);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactDOMComponentTree = __webpack_require__(5);
@@ -11229,7 +11232,7 @@ var ReactFeatureFlags = __webpack_require__(79);
 var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactMarkupChecksum = __webpack_require__(220);
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 var ReactUpdateQueue = __webpack_require__(54);
 var ReactUpdates = __webpack_require__(12);
 
@@ -13152,9 +13155,9 @@ var _Stores = __webpack_require__(259);
 
 var _Stores2 = _interopRequireDefault(_Stores);
 
-var _Menus = __webpack_require__(288);
+var _Menu = __webpack_require__(288);
 
-var _Menus2 = _interopRequireDefault(_Menus);
+var _Menu2 = _interopRequireDefault(_Menu);
 
 var _DayPicker = __webpack_require__(289);
 
@@ -13170,7 +13173,7 @@ var _MonthYearPicker2 = _interopRequireDefault(_MonthYearPicker);
 
 var _Reducers = __webpack_require__(66);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13186,10 +13189,10 @@ var Calendar = function Calendar(_ref) {
         OnMenuChange = _ref.OnMenuChange,
         days = _ref.days,
         menus = _ref.menus,
-        selectedyear = _ref.selectedyear,
-        selectedmonth = _ref.selectedmonth,
+        selectedmenu = _ref.selectedmenu,
         selecteddate = _ref.selecteddate,
-        selectedmenuindex = _ref.selectedmenuindex;
+        selectedyear = _ref.selectedyear,
+        selectedmonth = _ref.selectedmonth;
     return _react2.default.createElement(
         'div',
         { id: 'MonthlyMenus' },
@@ -13209,8 +13212,8 @@ var Calendar = function Calendar(_ref) {
                             'div',
                             null,
                             _react2.default.createElement(_MonthYearPicker2.default, { OnDateChange: OnDateChange,
-                                yearslist: _Utils.YearArray,
-                                monthslist: _Utils.MonthArray,
+                                years: _Utils.YearArray,
+                                months: _Utils.MonthArray,
                                 selectedyear: selectedyear,
                                 selectedmonth: selectedmonth })
                         ),
@@ -13253,10 +13256,9 @@ var Calendar = function Calendar(_ref) {
                     null,
                     "Menus for the Week of " + (0, _Utils.GetFormattedDate)(selecteddate)
                 ),
-                _react2.default.createElement(_Menus2.default, { menus: menus,
-                    selecteddate: selecteddate,
-                    selectedmonth: selectedmonth,
-                    selectedmenuindex: selectedmenuindex })
+                _react2.default.createElement(_Menu2.default, { selectedmenu: selectedmenu,
+                    selecteddate: (0, _Utils.GetFormattedDate)(selecteddate),
+                    selectedmonth: selectedmonth })
             )
         )
     );
@@ -13266,10 +13268,10 @@ var EnhancedCalendar = (0, _recompose.compose)((0, _reactRedux.connect)(function
     return {
         days: store.monthlymenu.days,
         menus: store.monthlymenu.menus,
+        selectedmenu: store.monthlymenu.selectedmenu,
         selecteddate: store.monthlymenu.selecteddate,
         selectedyear: store.monthlymenu.selectedyear,
-        selectedmonth: store.monthlymenu.selectedmonth,
-        selectedmenuindex: store.monthlymenu.selectedmenuindex
+        selectedmonth: store.monthlymenu.selectedmonth
     };
 }, function (dispatch) {
     return {
@@ -13279,9 +13281,8 @@ var EnhancedCalendar = (0, _recompose.compose)((0, _reactRedux.connect)(function
         OnDayChange: function OnDayChange(date) {
             dispatch((0, _Reducers.LoadMenusForDate)(date));
         },
-        OnMenuChange: function OnMenuChange(index) {
-            e.preventDefault();
-            dispatch((0, _Reducers.ShowMenu)(index));
+        OnMenuChange: function OnMenuChange(menu) {
+            dispatch((0, _Reducers.ShowMenu)(menu));
         }
     };
 }))(Calendar);
@@ -13506,7 +13507,7 @@ module.exports = ReactChildren;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var invariant = __webpack_require__(1);
 
@@ -13623,7 +13624,7 @@ module.exports = PooledClass;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactCurrentOwner = __webpack_require__(11);
 var REACT_ELEMENT_TYPE = __webpack_require__(69);
@@ -14044,7 +14045,7 @@ module.exports = ReactDOMFactories;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactPropTypeLocationNames = __webpack_require__(134);
 var ReactPropTypesSecret = __webpack_require__(135);
@@ -15209,7 +15210,7 @@ module.exports = factory;
  */
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactElement = __webpack_require__(16);
 
@@ -15269,7 +15270,7 @@ module.exports = __webpack_require__(143);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDefaultInjection = __webpack_require__(144);
 var ReactMount = __webpack_require__(97);
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 var ReactUpdates = __webpack_require__(12);
 var ReactVersion = __webpack_require__(222);
 
@@ -17559,7 +17560,7 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var ExecutionEnvironment = __webpack_require__(7);
 
 var createNodesFromMarkup = __webpack_require__(163);
@@ -17978,7 +17979,7 @@ var _prodInvariant = __webpack_require__(3),
 
 var AutoFocusUtils = __webpack_require__(168);
 var CSSPropertyOperations = __webpack_require__(169);
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var DOMNamespaces = __webpack_require__(48);
 var DOMProperty = __webpack_require__(15);
 var DOMPropertyOperations = __webpack_require__(86);
@@ -19990,7 +19991,7 @@ module.exports = ReactDOMInput;
 
 var _assign = __webpack_require__(4);
 
-var React = __webpack_require__(20);
+var React = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMSelect = __webpack_require__(88);
 
@@ -20289,7 +20290,7 @@ var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 
 var ReactCurrentOwner = __webpack_require__(11);
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 var ReactChildReconciler = __webpack_require__(183);
 
 var emptyFunction = __webpack_require__(9);
@@ -20734,7 +20735,7 @@ module.exports = ReactMultiChild;
 
 
 
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 
 var instantiateReactComponent = __webpack_require__(89);
 var KeyEscapeUtils = __webpack_require__(53);
@@ -20896,14 +20897,14 @@ module.exports = ReactChildReconciler;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
-var React = __webpack_require__(20);
+var React = __webpack_require__(21);
 var ReactComponentEnvironment = __webpack_require__(51);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(43);
 var ReactInstanceMap = __webpack_require__(28);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactNodeTypes = __webpack_require__(90);
-var ReactReconciler = __webpack_require__(22);
+var ReactReconciler = __webpack_require__(23);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(185);
@@ -22345,7 +22346,7 @@ module.exports = ReactServerUpdateQueue;
 
 var _assign = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var ReactDOMComponentTree = __webpack_require__(5);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -22554,7 +22555,7 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
 var DOMChildrenOperations = __webpack_require__(47);
-var DOMLazyTree = __webpack_require__(23);
+var DOMLazyTree = __webpack_require__(24);
 var ReactDOMComponentTree = __webpack_require__(5);
 
 var escapeTextContentForBrowser = __webpack_require__(35);
@@ -27985,7 +27986,7 @@ var _Reducers = __webpack_require__(66);
 
 var _Reducers2 = _interopRequireDefault(_Reducers);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27996,7 +27997,7 @@ var todaysYear = todaysDate.getFullYear();
 var initialState = {
   monthlymenu: {
     menus: [],
-    selectedmenuindex: 0,
+    selectedmenu: {},
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
     days: (0, _Utils.GetTuesdays)(todaysMonth, todaysYear),
@@ -29758,7 +29759,7 @@ __webpack_require__(287);
 
 var _reduxObservable = __webpack_require__(109);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 var _Constants = __webpack_require__(125);
 
@@ -30213,14 +30214,11 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (_ref) {
-  var menus = _ref.menus,
-      selectedmenuindex = _ref.selectedmenuindex,
-      selectedday = _ref.selectedday,
+  var selectedmenu = _ref.selectedmenu,
+      selecteddate = _ref.selecteddate,
       selectedmonth = _ref.selectedmonth;
 
-  if (menus == null || menus.length == 0 || selectedmenuindex < 0) return _react2.default.createElement("div", null);
-
-  var menu = menus[selectedmenuindex];
+  if (selectedmenu == null || selectedmenu.length == 0) return _react2.default.createElement("div", null);
 
   return _react2.default.createElement(
     "div",
@@ -30240,7 +30238,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(
               "span",
               { className: "card__date__day" },
-              selectedday
+              selecteddate
             ),
             _react2.default.createElement(
               "span",
@@ -30380,7 +30378,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30444,29 +30442,43 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Utils = __webpack_require__(20);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (_ref) {
+var MenuItem = (0, _Utils.BindClosures)({
+    OnMenuChange: function OnMenuChange(props) {
+        props.OnMenuChange(props.menu);
+    }
+})(function (_ref) {
     var OnMenuChange = _ref.OnMenuChange,
-        menus = _ref.menus;
+        menu = _ref.menu,
+        id = _ref.id,
+        label = _ref.label;
     return _react2.default.createElement(
-        "ul",
+        'li',
+        null,
+        _react2.default.createElement('input', { id: id, onChange: OnMenuChange, className: 'with-gap', name: 'menus', type: 'radio' }),
+        _react2.default.createElement(
+            'label',
+            { htmlFor: id },
+            label
+        )
+    );
+});
+
+exports.default = function (_ref2) {
+    var OnMenuChange = _ref2.OnMenuChange,
+        menus = _ref2.menus;
+    return _react2.default.createElement(
+        'ul',
         null,
         menus.map(function (menu, index) {
-            var menuId = "menu" + index;
-
-            return _react2.default.createElement(
-                "li",
-                { key: index },
-                _react2.default.createElement("input", { id: menuId, onChange: function onChange(index) {
-                        OnMenuChange(index);
-                    }, className: "with-gap", name: "menus", type: "radio" }),
-                _react2.default.createElement(
-                    "label",
-                    { htmlFor: menuId },
-                    menu.title
-                )
-            );
+            return _react2.default.createElement(MenuItem, { key: index,
+                menu: menu,
+                id: "menu" + index,
+                label: menu.title,
+                OnMenuChange: OnMenuChange });
         })
     );
 };
@@ -30486,109 +30498,118 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Utils = __webpack_require__(24);
+var _Utils = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DateLink = (0, _Utils.BindClosures)({
-    OnDateChange: function OnDateChange(props) {
-        props.OnDateChange(props.month, props.year);
+/*
+const DateLink = BindClosures({
+    OnDateChange: (props) => { props.OnDateChange(props.month, props.year); }
+})(
+    ({ OnDateChange, month, year, dateClass, label }) => (
+        <a className={ "button " + dateClass } onClick={ OnDateChange }>{ label }</a>
+    )
+);
+*/
+var MonthSelect = (0, _Utils.BindClosures)({
+    OnDateChange: function OnDateChange(props, e) {
+        props.OnDateChange(e.target.value, props.selectedyear);
     }
 })(function (_ref) {
     var OnDateChange = _ref.OnDateChange,
-        month = _ref.month,
-        year = _ref.year,
-        dateClass = _ref.dateClass,
-        label = _ref.label;
+        selectedyear = _ref.selectedyear,
+        months = _ref.months;
+
     return _react2.default.createElement(
-        'a',
-        { className: "button " + dateClass, onClick: OnDateChange },
-        label
+        'select',
+        { onChange: OnDateChange, className: "browser-default", defaultValue: new Date().getMonth() },
+        months.map(function (month, index) {
+            return _react2.default.createElement(
+                'option',
+                { key: index, value: index },
+                month
+            );
+        })
     );
 });
 
-exports.default = function (_ref2) {
+var YearSelect = (0, _Utils.BindClosures)({
+    OnDateChange: function OnDateChange(props, e) {
+        props.OnDateChange(props.selectedmonth, e.target.value);
+    }
+})(function (_ref2) {
     var OnDateChange = _ref2.OnDateChange,
-        yearslist = _ref2.yearslist,
-        monthslist = _ref2.monthslist,
-        selectedyear = _ref2.selectedyear,
-        selectedmonth = _ref2.selectedmonth;
+        selectedmonth = _ref2.selectedmonth,
+        years = _ref2.years;
 
-    var monthLinks = monthslist.map(function (month, index) {
-        return _react2.default.createElement(
-            'td',
-            { key: index },
-            _react2.default.createElement(DateLink, { label: month,
-                month: index,
-                year: selectedyear,
-                dateClass: "monthbtn ",
-                OnDateChange: OnDateChange })
-        );
-    });
+    return _react2.default.createElement(
+        'select',
+        { onChange: OnDateChange, className: "browser-default", defaultValue: new Date().getFullYear() },
+        years.map(function (year, index) {
+            return _react2.default.createElement(
+                'option',
+                { key: index, value: year },
+                year
+            );
+        })
+    );
+});
 
+exports.default = function (_ref3) {
+    var OnDateChange = _ref3.OnDateChange,
+        years = _ref3.years,
+        months = _ref3.months,
+        selectedyear = _ref3.selectedyear,
+        selectedmonth = _ref3.selectedmonth;
+
+    /*
+    const monthLinks = monthslist.map((month, index) => (
+        <td key={ index }>
+            <DateLink label={ month }
+                      month={ index }
+                      year={ selectedyear }
+                      dateClass={ "monthbtn "}
+                      OnDateChange={ OnDateChange } />
+        </td>
+    ));
+                  <label className="dropdown btn" data-activates="months-dropdown">{ monthslist[selectedmonth] }</label>
+                <table id="months-dropdown" className="dropdown-content">
+                    <tbody>
+                        <tr>{ monthLinks.slice(0, 3) }</tr>
+                        <tr>{ monthLinks.slice(3, 6) }</tr>
+                        <tr>{ monthLinks.slice(6, 9) }</tr>
+                        <tr>{ monthLinks.slice(9) }</tr>
+                    </tbody>
+                </table>
+                  <label className="dropdown btn" data-activates="years-dropdown">{ selectedyear }</label>
+                <ul id="years-dropdown" className="dropdown-content">
+                    { yearslist.map((year, index) => (
+                        <li key={ year }>
+                            <DateLink label={ year }
+                                      year={ year }
+                                      month={ selectedmonth }
+                                      dateClass={ "yearbtn "}
+                                      OnDateChange={ OnDateChange } />
+                        </li>
+                    )) }
+                </ul>
+    */
     return _react2.default.createElement(
         'div',
         { id: 'MonthYearPicker' },
         _react2.default.createElement(
             'div',
             { className: 'monthpicker inline' },
-            _react2.default.createElement(
-                'label',
-                { className: 'dropdown btn', 'data-activates': 'months-dropdown' },
-                monthslist[selectedmonth]
-            ),
-            _react2.default.createElement(
-                'table',
-                { id: 'months-dropdown', className: 'dropdown-content' },
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        monthLinks.slice(0, 3)
-                    ),
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        monthLinks.slice(3, 6)
-                    ),
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        monthLinks.slice(6, 9)
-                    ),
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        monthLinks.slice(9)
-                    )
-                )
-            )
+            _react2.default.createElement(MonthSelect, { OnDateChange: OnDateChange,
+                selectedyear: selectedyear,
+                months: months })
         ),
         _react2.default.createElement(
             'div',
             { className: 'inline' },
-            _react2.default.createElement(
-                'label',
-                { className: 'dropdown btn', 'data-activates': 'years-dropdown' },
-                selectedyear
-            ),
-            _react2.default.createElement(
-                'ul',
-                { id: 'years-dropdown', className: 'dropdown-content' },
-                yearslist.map(function (year, index) {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: year },
-                        _react2.default.createElement(DateLink, { label: year,
-                            year: year,
-                            month: selectedmonth,
-                            dateClass: "yearbtn ",
-                            OnDateChange: OnDateChange })
-                    );
-                })
-            )
+            _react2.default.createElement(YearSelect, { OnDateChange: OnDateChange,
+                selectedmonth: selectedmonth,
+                years: years })
         )
     );
 };

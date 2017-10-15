@@ -12,7 +12,7 @@ const todaysYear = todaysDate.getFullYear();
 const initialState = {
   monthlymenu: {
     menus: [],
-    selectedmenuindex: 0,
+    selectedmenu: { },
     selectedyear: todaysYear,
     selectedmonth: todaysMonth,
     days: GetTuesdays(todaysMonth, todaysYear),
