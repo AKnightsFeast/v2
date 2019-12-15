@@ -1,0 +1,313 @@
+#mainBanner {
+    padding-top: 340px;
+    background-color: rgb(255, 255, 255);
+}
+
+#mainBanner .bg.bg-loaded {
+    /*background-image: url(https://www.californiachef.com/wp-content/uploads/2018/05/strawberry-salad-banner.jpg);*/
+    background-image: url(/img/bgsquash-gradient3.jpg);
+}
+
+#mainBanner .bg {
+    background-position: 0% 50%;
+}
+
+@media (min-width:550px) {
+    #mainBanner {
+        padding-top: 500px;
+    }
+}
+
+#bannerText .text {
+    /*background-color: rgba(255, 255, 255, 0.5);*/
+    font-size: 100%;
+}
+
+#bannerText {
+    width: 66%;
+}
+
+@media (min-width:550px) {
+    #bannerText {
+        width: 46%;
+    }
+}
+
+@media (min-width:850px) {
+    #bannerText {
+        width: 50%;
+    }
+}
+
+#mainQA {
+  min-height: 550px;
+  padding-top: 59px;
+  padding-bottom: 59px;
+}
+
+#mainQA .section-bg-overlay {
+    /*background-color: rgba(157, 189, 112, 0.9);
+    background-color: rgba(157, 189, 112, 0.9);*/
+    background-color: rgba(242, 242, 242, 0.5);
+}
+
+#mainQA .section-bg.bg-loaded {
+    /*
+    background-image: url(https://www.californiachef.com/wp-content/uploads/2018/06/taco-bg.jpg);
+    */
+    background-image: url(/img/bgseafood.jpg);
+}
+
+#mainQA .section-bg {
+    background-position: 50% 86%;
+}
+
+#mainQA .qablock {
+    height: 300px;
+    padding: 15px 15px 15px 15px;
+    background-color: rgba(255, 255, 255, 0.909);
+}
+
+#mainHow {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgba(68, 116, 132, 0.7);
+    background-image: url(/img/tiles-bw.png);
+    /*background-color: rgb(255, 255, 255);*/
+}
+
+.timeline-content-container
+{
+  padding: 10px 15px 10px 15px;
+  font-size: 1.3em;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-content-container.left
+{
+  border-radius: 25px 0px 25px 25px;
+}
+
+.timeline-content-container.right
+{
+  border-radius: 0px 25px 25px 25px;
+}
+
+.timeline .timeline-item .timeline-icon i {
+    color: rgb(68, 116, 132);
+}
+
+#mainChefQuote .section-bg-overlay {
+  /*background-color: rgba(211, 48, 99, 0.6);*/
+  background-color: rgba(41, 48, 57, 0.7);
+}
+
+#mainChefQuote .section-bg.bg-loaded {
+    /*
+    background-image: url(https://www.californiachef.com/wp-content/uploads/2018/06/taco-bg.jpg);
+    */
+    background-image: url(/img/bgsangria.jpg);
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+.otro-blockquote{
+  font-size: 1.4em;
+  width:90%;
+  margin:50px auto;
+  font-family:Open Sans;
+  font-style:italic;
+  color: rgb(41, 48, 57);
+  padding:1.2em 30px 1.2em 75px;
+  border-left: 8px solid rgba(41, 48, 57, 0.7);
+  line-height:1.6;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.otro-blockquote::before{
+  font-family:Arial;
+  content: "\201C";
+  /*color:rgba(12, 75, 27, 0.7);*/
+  color: rgba(41, 48, 57, 0.7);
+  font-size:4em;
+  position: absolute;
+  left: 10px;
+  top:-10px;
+}
+
+.otro-blockquote::after{
+  content: '';
+}
+
+.otro-blockquote span{
+  display:block;
+  margin-top:1em;
+  /*color:rgb(12, 75, 27);*/
+  color: rgb(41, 48, 57);
+  font-weight: bold;
+  font-style: normal;
+  text-align: right;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+#mainPrices {
+  padding-bottom: 300px;
+  background-color: #F2F2F2;
+}
+
+#prices {
+  text-align: center;
+}
+
+.plan {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 1%;
+  font-family: 'Lato', Arial, sans-serif;
+}
+
+.plan-inner {
+  background: #fff;
+  margin: 0 auto;
+  min-width: 280px;
+  max-width: 280px;
+  position: relative;
+}
+
+.entry-title {
+  background: #53CFE9;
+  height: 140px;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.entry-title > h3 {
+  margin: 0;
+  color: #fff;
+  padding: 5px 0;
+  font-size: 20px;
+  font-weight: 700;
+  background: #20BADA;
+  text-transform: uppercase;
+}
+
+.entry-title .price {
+  position: absolute;
+  bottom: -25px;
+  background: #20BADA;
+  height: 95px;
+  width: 95px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border-radius: 50px;
+  border: 5px solid #fff;
+  line-height: 80px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.price span {
+  position: absolute;
+  font-size: 10px;
+  bottom: -11px;
+  left: 30px;
+  font-weight: 400;
+}
+
+.entry-content {
+  color: #323232;
+}
+
+.entry-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry-content li {
+  padding: 10px 0;
+  text-align: left;
+  font-size: 1.2em;
+  min-height: 400px;
+  margin-right: 1.3em;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.btn {
+  padding: 3em 0;
+  text-align: center;
+}
+
+.btn a {
+  background: #323232;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none
+}
+
+.hot {
+  position: absolute;
+  top: -7px;
+  background: #F80;
+  color: #fff;
+  text-transform: uppercase;
+  z-index: 2;
+  padding: 2px 5px;
+  font-size: 9px;
+  border-radius: 2px;
+  right: 10px;
+  font-weight: 700;
+}
+
+.basic .entry-title {
+  background: #75DDD9;
+}
+
+.basic .entry-title > h3 {
+  background: #44CBC6;
+}
+
+.basic .price {
+  background: #44CBC6;
+}
+
+.standard .entry-title {
+  background: #4484c1;
+}
+
+.standard .entry-title > h3 {
+  background: #3772aa;
+}
+
+.standard .price {
+  background: #3772aa;
+}
+
+.ultimite .entry-title > h3 {
+  background: #DD4B5E;
+}
+
+.ultimite .entry-title {
+  background: #F75C70;
+}
+
+.ultimite .price {
+  background: #DD4B5E;
+}
+
+p.normal
+{
+  line-height: normal;
+}
+
+p.justify
+{
+  text-align: justify;
+}
