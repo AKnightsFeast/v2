@@ -89,7 +89,7 @@
 }
 
 .timeline .timeline-item .timeline-icon i {
-  color: rgb(214, 37, 96, 1);
+  color: rgba(214, 37, 96, 1);
 }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);

@@ -3,10 +3,24 @@ import React from 'react';
 const Footer: React.FC = () => {
     return (
         <footer id="footer" className="footer-wrapper">
-
-            <hr />
-            <div className="text-center hide-for-small">
-                <img src="California%20Chef%20%20%20LA's%20Diet%20Meal%20Delivery%20Service_files/logo-new.jpg" alt="California Chef" width="300" height="71" />
+            <div className="section-content relative">
+                <div className="row row-large row-full-width align-middle row-padding">
+                    <div className="col large-6 medium-12 small-12">
+                        <div>Site Links</div>
+                    </div>
+                    <div className="col large-6 medium-12 small-12">
+                        <div>Follow Me</div>
+                        <div>Social Media Links</div>
+                        <div className="row row-large row-full-width">
+                            <div className="col large-12 medium-12 small-12">
+                                <div>Contact Chef Laura</div>
+                                <div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="absolute-footer light medium-text-center text-center">

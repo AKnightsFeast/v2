@@ -390,3 +390,8 @@ blockquote span
     text-align: right;  
     font-style: normal;
 }
+
+footer
+{
+    background-color: rgba(133, 70, 40, 1);
+}
