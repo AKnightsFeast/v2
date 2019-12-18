@@ -107,11 +107,11 @@
 .scroll-to-bullets a, .featured-title, .label-new.menu-item > a:after, .nav-pagination > li > .current, .nav-pagination > li > span:hover, .nav-pagination > li > a:hover, .has-hover:hover .badge-outline .badge-inner, button[type="submit"], .button.wc-forward:not(.checkout):not(.checkout-button), .button.submit-button, .button.primary:not(.is-outline), .featured-table .title, .is-outline:hover, .has-icon:hover .icon-label, .nav-dropdown-bold .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold > li > a:hover, .nav-dropdown-bold.dark .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold.dark > li > a:hover, .is-outline:hover, .tagcloud a:hover, .grid-tools a, input[type='submit']:not(.is-form), .box-badge:hover .box-text, input.button.alt, .nav-box > li > a:hover, .nav-box > li.active > a, .nav-pills > li.active > a, .current-dropdown .cart-icon strong, .cart-icon:hover strong, .nav-line-bottom > li > a:before, .nav-line-grow > li > a:before, .nav-line > li > a:before, .banner, .header-top, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover, .button.primary:not(.is-outline), input[type='submit'].primary, input[type='submit'].primary, input[type='reset'].button, input[type='button'].primary, .badge-inner {
     background-color: #9dbd70;
 }
-    /* Border */
+/* Border */
 
-    .nav-vertical.nav-tabs > li.active > a, .scroll-to-bullets a.active, .nav-pagination > li > .current, .nav-pagination > li > span:hover, .nav-pagination > li > a:hover, .has-hover:hover .badge-outline .badge-inner, .accordion-title.active, .featured-table, .is-outline:hover, .tagcloud a:hover, blockquote, .has-border, .cart-icon strong:after, .cart-icon strong, .blockUI:before, .processing:before, .loading-spin, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover {
-        border-color: #9dbd70
-    }
+.nav-vertical.nav-tabs > li.active > a, .scroll-to-bullets a.active, .nav-pagination > li > .current, .nav-pagination > li > span:hover, .nav-pagination > li > a:hover, .has-hover:hover .badge-outline .badge-inner, .accordion-title.active, .featured-table, .is-outline:hover, .tagcloud a:hover, blockquote, .has-border, .cart-icon strong:after, .cart-icon strong, .blockUI:before, .processing:before, .loading-spin, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover {
+    border-color: #9dbd70
+}
 
 .nav-tabs > li.active > a {
     border-top-color: #9dbd70
@@ -158,9 +158,9 @@
     background-color: #f97900
 }
 
-    .success-color, .success.is-link, .success.is-outline {
-        color: #f97900;
-    }
+.success-color, .success.is-link, .success.is-outline {
+    color: #f97900;
+}
 
 .success-border {
     border-color: #f97900 !important;
@@ -180,9 +180,9 @@
     background-color: #f0d214
 }
 
-    .alert.is-link, .alert.is-outline, .color-alert {
-        color: #f0d214;
-    }
+.alert.is-link, .alert.is-outline, .color-alert {
+    color: #f0d214;
+}
 /* Color !important */
 
 [data-text-color="alert"] {
@@ -195,23 +195,15 @@
 }
 
 body {
-    font-family: "Lato", sans-serif
-}
-
-body {
-    font-weight: 400
-}
-
-body {
-    color: #4c4c4c
-}
-
-.nav > li > a {
+    font-weight: 400;
     font-family: "Lato", sans-serif;
+    
+    color: rgba(15, 15, 15, 1);
 }
 
 .nav > li > a {
     font-weight: 700;
+    font-family: "Lato", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, .heading-font, .off-canvas-center .nav-sidebar.nav-vertical > li > a {
@@ -230,13 +222,34 @@ h1, h2, h3, h4, h5, h6, .heading-font {
     font-family: "Dancing Script", sans-serif;
 }
 
-a {
-    color: #9dbd70;
+a.is-underline {
+    position: relative;
+    /*text-decoration: none;*/
+    transition: color .4s ease-out;
 }
 
-    a:hover {
-        color: #5a976f;
-    }
+a.is-underline:hover {
+    right: 0;
+}
+
+a.is-underline:hover:after {
+    right: 0;
+}
+
+a.is-underline:after {
+    left: 0;
+    content: "";
+    right: 100%;
+    bottom: -.15em;
+    border-radius: 1em;
+    position: absolute;
+    border-top: .1em solid;
+    transition: right .4s cubic-bezier(0,.5,0,1), border-color .4s ease-out;
+}
+
+a.is-underline:hover:after {
+    right: 0;
+}
 
 .tagcloud a:hover {
     border-color: #5a976f;
@@ -343,4 +356,37 @@ label.gfield_label {
 
 .label-popular.menu-item > a:after {
     content: "Popular";
+}
+
+.pink-color {
+    color: rgba(214, 61, 111, 1);
+}
+
+.pink-bg {
+    background-color: rgba(214, 61, 111, 1);
+}
+
+blockquote
+{
+    position: relative;
+    border-left: 5px solid;
+}
+
+blockquote::before
+{
+    content: "\201C";
+    position: absolute;
+}
+
+blockquote::after
+{
+    content: '';
+}
+
+blockquote span
+{
+    display: block;
+    font-weight: bold;
+    text-align: right;  
+    font-style: normal;
 }

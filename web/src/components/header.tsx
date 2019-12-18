@@ -29,10 +29,13 @@ const Header: React.FC = () => {
 
                         {/*<!-- Right Elements -->*/}
                         <div className="flex-col hide-for-medium flex-right">
-                            <ul className="header-nav header-nav-main nav nav-right  nav-uppercase">
+                            <ul className="header-nav header-nav-main nav nav-right nav-uppercase">
                                 <li className="html custom html_topbar_right">
-                                    <h2 className="mb-0 thin-font">One cannot think well, love well, sleep well, if one has not dined well.</h2>
-                                    <div>Virginia Woolf</div>
+                                    <div className="header-button">
+                                        <a href="https://www.californiachef.com/sign-up/" target="_self" className="button success is-large pink-bg">
+                                            <span>Check me out on CozyMeal!</span>
+                                        </a>
+                                    </div>
                                 </li>
                                 {/*
                                 <li className="header-divider"></li>
@@ -83,17 +86,9 @@ const Header: React.FC = () => {
                                         <li id="menu-item-52" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-52"><NavLink to="/menus/freezer">Pack Your Freezer</NavLink></li>
                                     </ul>
                                 </li>
-                                <li id="menu-item-64" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-64"><NavLink to="/assessment" className="nav-top-link">Assessment</NavLink></li>
                                 <li id="menu-item-65" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-65"><NavLink to="/policies" className="nav-top-link">Policies</NavLink></li>
-                                <li id="menu-item-56" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-56 has-dropdown">
-                                    <a href="https://www.californiachef.com/our-story/" className="nav-top-link">About<i className="icon-angle-down"></i></a>
-                                    <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase" style={{}}>
-                                        <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61"><a href="https://www.californiachef.com/our-story/">Our Story</a></li>
-                                        <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><a href="https://www.californiachef.com/testimonials/">Testimonials</a></li>
-                                        <li id="menu-item-58" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-58"><a href="https://www.californiachef.com/faq/">FAQ</a></li>
-                                        <li id="menu-item-57" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-57"><a href="https://www.californiachef.com/las-best/">LA’s Best</a></li>
-                                    </ul>
-                                </li>
+                                <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><a href="https://www.californiachef.com/testimonials/">Testimonials</a></li>
+                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61"><a href="https://www.californiachef.com/our-story/">About Chef Laura</a></li>
                             </ul>
                         </div>{/*<!-- flex-col -->*/}
 
@@ -110,9 +105,7 @@ const Header: React.FC = () => {
                                 <li className="header-divider"></li>
                                 <li className="html header-button-1">
                                     <div className="header-button">
-                                        <a href="https://www.californiachef.com/sign-up/" className="button success">
-                                            <span>Sign Up Now!</span>
-                                        </a>
+                                        <NavLink to="/assessment" className="button success pink-bg"><span>Send an assessment</span></NavLink>
                                     </div>
                                 </li>
                                 <li className="header-divider"></li>
