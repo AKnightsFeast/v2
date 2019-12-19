@@ -87,8 +87,8 @@ const Header: React.FC = () => {
                                     </ul>
                                 </li>
                                 <li id="menu-item-65" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-65"><NavLink to="/policies" className="nav-top-link">Policies</NavLink></li>
-                                <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><a href="https://www.californiachef.com/testimonials/">Testimonials</a></li>
-                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61"><a href="https://www.californiachef.com/our-story/">About Chef Laura</a></li>
+                                <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><NavLink to="/testimonials" className="nav-top-link">Testimonials</NavLink></li>
+                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61"><NavLink to="/about" className="nav-top-link">About Chef Laura</NavLink></li>
                             </ul>
                         </div>{/*<!-- flex-col -->*/}
 

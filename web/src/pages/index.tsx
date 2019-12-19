@@ -6,6 +6,7 @@ import SiteWrapper from "../components/sitewrapper";
 
 import Home from "./home";
 import Assessment from "./assessment";
+import Testimonials from "./testimonials";
 
 /*
 import About from "../components/pages/About";
@@ -22,6 +23,7 @@ const Pages = () => {
   return (
     <Switch>
         <SiteWrapper path="/" exact={true} component={Home} />
+        <SiteWrapper path="/testimonials" exact={true} component={Testimonials} />
         <Route path="/assessment" exact={true} component={Assessment} />
         {/*
             <LoggedOutRoute path="/" exact={true} component={Landing} />

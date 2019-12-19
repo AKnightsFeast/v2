@@ -33,8 +33,8 @@ const Footer: React.FC = () => {
                                     </ul>
                                 </li>
                                 <li><NavLink to="/policies" className="is-underline">Policies</NavLink></li>
-                                <li><a href="https://www.californiachef.com/testimonials/" className="is-underline">Testimonials</a></li>
-                                <li><a href="https://www.californiachef.com/our-story/" className="is-underline">About Chef Laura</a></li>
+                                <li><NavLink to="/testimonials" className="is-underline">Testimonials</NavLink></li>
+                                <li><NavLink to="/about" className="is-underline">About Chef Laura</NavLink></li>
                             </ul>
                         </div>
                     </div>
