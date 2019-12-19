@@ -80,7 +80,7 @@ const Home: React.FC = () => {
                                 <div className="timeline-content-container left">
                                     <div style={{ textAlign: "left" }}>
                                         <p>First I meet with you to discuss your dining wants and needs.</p>
-                                        <ul style={{ listStylePosition: "inside", padding: "1.3em 0px 0px 1.3em" }}>
+                                        <ul style={{ padding: "1.3em 0px 0px 1.3em" }}>
                                             <li>What are your favorite foods, flavors, and textures?</li>
                                             <li>Do you have a family favorite that you just don’t have time to prepare?</li>
                                             <li>Do you want to follow a diet plan?</li>
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
                                             <li>What international foods do you enjoy?</li>
                                         </ul>
                                         <p>
-                                            You can also complete a <NavLink to="/Assessment" className="is-underline"><i className="material-icons">assignment</i> Client Assessment Form</NavLink> online so I can come up with a menu for you quicker!
+                                            You can also complete a <NavLink to="/Assessment" className="is-underline">Client Assessment Form</NavLink> online so I can come up with a menu for you quicker!
                                         </p>
                                     </div>
                                 </div>

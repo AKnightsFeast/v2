@@ -76,9 +76,9 @@ const Header: React.FC = () => {
                     <div className="flex-row container">
 
                         <div className="flex-col hide-for-medium flex-left">
-                            <ul className="nav header-nav header-bottom-nav nav-left  nav-box nav-size-xlarge nav-spacing-xlarge nav-uppercase">
+                            <ul className="nav header-nav header-bottom-nav nav-left nav-box nav-size-xlarge nav-spacing-xlarge nav-uppercase">
                                 <li id="menu-item-49" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-49 has-dropdown">
-                                    <a href="https://www.aknightsfeast.com/plans/" className="nav-top-link">Menus<i className="icon-angle-down"></i></a>
+                                    <a href="#" className="nav-top-link">Menus<i className="icon-angle-down"></i></a>
                                     <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase" style={{}}>
                                         <li id="menu-item-55" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><NavLink to="/menus/monthly">Monthly</NavLink></li>
                                         <li id="menu-item-54" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-54"><NavLink to="/menus/personal">Personal</NavLink></li>

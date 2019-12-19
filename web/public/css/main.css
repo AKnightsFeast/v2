@@ -194,6 +194,8 @@
     background-color: #f0d214;
 }
 
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
 body {
     font-weight: 400;
     font-family: "Lato", sans-serif;
@@ -222,33 +224,33 @@ h1, h2, h3, h4, h5, h6, .heading-font {
     font-family: "Dancing Script", sans-serif;
 }
 
+a.is-underline,
+a.is-underline::before,
+a.is-underline:hover,
+a.is-underline:hover::before {
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+}
+
 a.is-underline {
     position: relative;
-    /*text-decoration: none;*/
-    transition: color .4s ease-out;
+    text-decoration: none;
 }
 
-a.is-underline:hover {
-    right: 0;
-}
-
-a.is-underline:hover:after {
-    right: 0;
-}
-
-a.is-underline:after {
-    left: 0;
+a.is-underline::before {
+    left: 20%;
+    width: 50%;
     content: "";
-    right: 100%;
-    bottom: -.15em;
-    border-radius: 1em;
+    height: 1px;
+    opacity: .3;
+    bottom: -.1em;
     position: absolute;
-    border-top: .1em solid;
-    transition: right .4s cubic-bezier(0,.5,0,1), border-color .4s ease-out;
+    background-color: currentColor;
 }
 
-a.is-underline:hover:after {
-    right: 0;
+a.is-underline:hover::before {
+    left: 0;
+    width: 100%;
 }
 
 .tagcloud a:hover {
@@ -393,5 +395,63 @@ blockquote span
 
 footer
 {
+    padding-top: 20px;
     background-color: rgba(133, 70, 40, 1);
+}
+
+footer,
+footer h4,
+footer a.is-underline
+{
+    color: rgba(231, 218, 212, 0.8);
+}
+
+footer a.icon.plain:hover,
+footer a.is-underline:hover
+{
+    color: rgba(255, 255, 255, 1);
+}
+
+footer div.row:first-child div.col
+{
+    min-height: 390px;
+    vertical-align: top;
+}
+
+@media (max-width: 1440px) and (min-width: 400px) {
+    footer .footer-nav-title {
+        font-size: calc(10px + 10 * (100vw - 400px) / 1040);
+    }
+}
+
+footer .footer-nav-title
+{
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(231, 218, 212, 0.8);
+}
+
+footer input[type="text"].contact,
+footer input[type="email"].contact,
+footer textarea.contact {
+    width: 100%;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'Oswald', sans-serif;
+    color: rgba(40, 21, 12, 1);
+    border: 1px solid rgba(231, 218, 212, 0.8);
+    background-color: rgba(231, 218, 212, 0.8);
+}
+
+footer ul
+{
+    list-style-type: none;
+    margin: .5em 0 .5em 1em;
+}
+
+ul
+{
+    list-style-position: inside;
 }

@@ -58,24 +58,9 @@
   background-color: rgba(233, 242, 242, 0.1);
 }
 
-.timeline a.is-underline
-{
-  color: rgba(20, 1, 7, 1);
-}
-
 .timeline a.is-underline:hover
 {
-  color: rgba(102,6,38, 0.5);
-}
-
-.timeline a.is-underline:after
-{
-  border-color: rgba(20, 1, 7, 1);
-}
-
-.timeline a.is-underline:hover:after
-{
-  border-top-color: rgba(102,6,38, 0.5);
+  color: rgba(20, 1, 7, 1);
 }
 
 .timeline-content-container.left
@@ -92,7 +77,6 @@
   color: rgba(214, 37, 96, 1);
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
 #mainFoodQuote .section-bg-overlay {
     background-color: rgba(233, 242, 242, 0.7);
 }
@@ -112,6 +96,7 @@
   background-image: url(/img/bgsangria.jpg);
 }
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
 #mainFoodQuote blockquote,
 #mainChefQuote blockquote
 {
@@ -145,12 +130,10 @@
   border-left-color: rgba(233, 242, 242, 1);
 }
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
-
 #mainPrices {
   padding-bottom: 300px;
-  background-color: rgba(220, 220, 220, 1);
   background-image: url(/img/tiles-bw.png);
+  background-color: rgba(220, 220, 220, 1);
 }
 
 #mainPrices h2.section-title
