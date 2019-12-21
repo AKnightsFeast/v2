@@ -1,0 +1,21 @@
+.testimonial {
+    position: relative;
+}
+
+.testimonial blockquote {
+    margin-top: 0;
+    line-height: normal;
+    padding: 0 30px 1em 50px;
+}
+
+.testimonial blockquote * {
+    color: currentColor;
+}
+
+.testimonial blockquote::before {
+    left: 5px;
+    top: -10px;
+    width: 45px;
+    font-size: 4em;
+	overflow: hidden;
+}

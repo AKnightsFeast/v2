@@ -1,5 +1,6 @@
 import React from 'react';
 
+import '../styles/testimonials.css';
 import '../styles/columns.css';
 
 const Testimonials: React.FC = () => {
@@ -24,7 +25,7 @@ const Testimonials: React.FC = () => {
                                 </div>
 
                                 <div className="testimonial">
-                                    <blockquote>
+                                    <blockquote className="pink-color">
                                         <p>Chef Laura has generously donated her time to our non-profit and displayed her big heart and wide array of culinary skills.</p>
                                         She comes with a strong endorsement from <a href="http://www.HelpingOurBrothersandSisters.org" target="_blank" className="is-underline">Helping Our Brothers &amp; Sisters Non-Profit</a>.
                                         <span>Dr. Marvin Carter, President</span>
@@ -39,7 +40,7 @@ const Testimonials: React.FC = () => {
                                 </div>
 
                                 <div className="testimonial">
-                                    <blockquote>
+                                    <blockquote className="pink-color">
                                         What a wonderful time we had on Saturday!  Thank you so much for all the delicious dishes you created before our eyes, and for the instruction
                                         that went with each dish.  We just finished the spinach gnocchi and froze the Italian sausage lasagna.  Tomorrow we will finish the veal osso bucco!
                                         We plan to have a little tiramisu later tonight, and freeze the rest. Our friends loved the evening, the instruction, and the AWESOME food.
@@ -66,7 +67,7 @@ const Testimonials: React.FC = () => {
                                 </div>
 
                                 <div className="testimonial">
-                                    <blockquote>
+                                    <blockquote className="pink-color">
                                         Laura, our evening was such a beautiful memory! Your culinary talents are beyond "wonderful"....in fact, your dinner was the 
                                         best that both my husband and I have ever eaten and that says a lot since we travel the world and enjoy eating out about 5 
                                         nights per week.  I wish you such continued success in building your business!

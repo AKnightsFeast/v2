@@ -96,15 +96,12 @@
   background-image: url(/img/bgsangria.jpg);
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
 #mainFoodQuote blockquote,
 #mainChefQuote blockquote
 {
   line-height: 1.6;
   font-size: 1.4em;
-  margin: 10px auto;
-  font-family: Open Sans;
-  padding: 1em 30px 1em 75px;
+  padding: 1em 30px 1em 65px;
 }
 
 #mainFoodQuote blockquote::before,
@@ -113,7 +110,6 @@
   top: -10px;
   left: 10px;
   font-size: 4em;
-  font-family: Arial;
 }
 
 #mainFoodQuote blockquote

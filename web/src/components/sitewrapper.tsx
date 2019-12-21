@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route } from "react-router-dom";
 
 import Header from './header';
 import Footer from './footer';
 
 import jquery from 'jquery';
+
+import '../styles/main.css';
 
 let $ = jquery;
 let jQuery = jquery;
@@ -16,14 +18,6 @@ interface IProps {
 }
 
 const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "/js/flatsome.js";
-        script.async = true;
-      
-        document.body.appendChild(script);
-    }, []); // passing an empty array as second argument triggers the callback in useEffect only after the initial render thus replicating `componentDidMount` lifecycle behaviour
-
     return (
         <div id="wrapper" aria-hidden="false">
             <Header />

@@ -368,16 +368,20 @@ label.gfield_label {
     background-color: rgba(214, 61, 111, 1);
 }
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
 blockquote
 {
+    margin: 10px auto;
     position: relative;
     border-left: 5px solid;
+    font-family: Open Sans;
 }
 
 blockquote::before
 {
     content: "\201C";
     position: absolute;
+    font-family: Arial;
 }
 
 blockquote::after

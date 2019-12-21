@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import '../styles/home.css';
 import '../styles/timeline.css';
 
 const Home: React.FC = () => {
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "/js/flatsome.js";
+        script.async = true;
+      
+        document.body.appendChild(script);
+    }, []); // passing an empty array as second argument triggers the callback in useEffect only after the initial render thus replicating `componentDidMount` lifecycle behaviour
+
     return (
         <>
             <div className="banner has-hover" id="mainBanner">

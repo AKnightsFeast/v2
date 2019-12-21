@@ -11,10 +11,10 @@ const Header: React.FC = () => {
                         {/*<!-- Logo -->*/}
                         <div id="logo" className="flex-col logo">
                             {/*<!-- Header logo -->*/}
-                            <a href="https://www.aknightsfeast.com/" title="A Knight's Feast - Personal Chef Service" rel="home">
+                            <NavLink to="/" title="A Knight's Feast - Personal Chef Service" rel="home">
                                 <img src="img/logo.png" className="header_logo header-logo" alt="A Knight's Feast" width="401" height="95" />
                                 <img src="img/logo.png" className="header-logo-dark" alt="A Knight's Feast" width="401" height="95" />
-                            </a>
+                            </NavLink>
                         </div>
 
                         {/*<!-- Mobile Left Elements -->*/}
