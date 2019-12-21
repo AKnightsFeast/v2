@@ -5,10 +5,26 @@ import '../styles/columns.css';
 
 const Testimonials: React.FC = () => {
     return (
+        <>
+        <div id="testimonialHeader" className="message-box relative dark" style={{ paddingTop: "10px", paddingBottom: "10px" }}>
+            <div className="message-box-bg-image fill"></div>
+            <div className="message-box-bg-overlay fill"></div>
+            <div className="container relative">
+                <div className="inner last-reset">
+                    <div className="row align-middle align-center">
+                        <div className="col large-12">
+                            <div className="col-inner text-left">
+                                See what others are saying about Chef Laura!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div className="row row-main">
             <div className="col large-12">
                 <div className="col-inner">
-                    <h2>Testimonials</h2>
                     <div style={{ display: "block" }}>
                         <div className="simplePagerContainer">
                             <div className="strong-content strong-columns columns-3">
@@ -107,13 +123,14 @@ const Testimonials: React.FC = () => {
                                         <span>Peggy and Jimmy</span>
                                     </blockquote>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        </>
     );
 }
 
