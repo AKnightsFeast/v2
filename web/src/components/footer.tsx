@@ -34,7 +34,13 @@ const Footer: React.FC = () => {
                                 </li>
                                 <li><NavLink to="/policies" className="is-underline">Policies</NavLink></li>
                                 <li><NavLink to="/testimonials" className="is-underline">Testimonials</NavLink></li>
-                                <li><NavLink to="/about" className="is-underline">About Chef Laura</NavLink></li>
+                                <li>
+                                    <div>About</div>
+                                    <ul>
+                                        <li><NavLink to="/about/cheflaura" className="is-underline">Chef Laura</NavLink></li>
+                                        <li><NavLink to="/about/friends" className="is-underline">Friends</NavLink></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -44,6 +50,7 @@ const Footer: React.FC = () => {
                             <a href="https://www.facebook.com/AKnightsFeast/" target="_blank" data-label="Facebook" rel="noopener noreferrer nofollow" className="icon plain facebook tooltip tooltipstered"><i className="icon-facebook"></i></a>
                             <a href="#" target="_blank" rel="noopener noreferrer nofollow" data-label="Instagram" className="icon plain instagram tooltip tooltipstered"><i className="icon-instagram"></i></a>
                             <a href="http://www.twitter.com/chefknight" target="_blank" data-label="Twitter" rel="noopener noreferrer nofollow" className="icon plain  twitter tooltip tooltipstered"><i className="icon-twitter"></i></a>
+                            <div id="cozymeal-chef-badge-1" title="Check me out on Cozymeal!"></div>
                         </div>
                     </div>
                 </div>

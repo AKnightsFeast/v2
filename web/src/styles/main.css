@@ -458,3 +458,16 @@ ul
 {
     list-style-position: inside;
 }
+
+#cozymeal-chef-badge-1 {
+    margin-left: .25em;
+    margin-right: .25em;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#cozymeal-chef-badge-1 a img
+{
+    width: 19px;
+    height: 20px;
+}

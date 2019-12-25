@@ -5,7 +5,10 @@ import { Route, Switch } from "react-router-dom";
 import SiteWrapper from "../components/sitewrapper";
 
 import Home from "./home";
+import Policies from "./policies";
 import Assessment from "./assessment";
+import About from "./about/cheflaura";
+import Friends from "./about/friends";
 import Testimonials from "./testimonials";
 
 /*
@@ -14,7 +17,8 @@ import LogIn from "../components/pages/LogIn";
 import LogOut from "../components/pages/LogOut";
 import Landing from "../components/pages/Landing";
 import NotFound from "../components/pages/NotFound";
-import Terms from "../components/pages/Terms";import LoggedInRoute from "../routes/LoggedInRoute";
+import Terms from "../components/pages/Terms";
+import LoggedInRoute from "../routes/LoggedInRoute";
 
 import LoggedOutRoute from "../routes/LoggedOutRoute";
 */
@@ -23,7 +27,11 @@ const Pages = () => {
   return (
     <Switch>
         <SiteWrapper path="/" exact={true} component={Home} />
+        <SiteWrapper path="/policies" exact={true} component={Policies} />
+        <SiteWrapper path="/about/friends" exact={true} component={Friends} />
+        <SiteWrapper path="/about/cheflaura" exact={true} component={About} />
         <SiteWrapper path="/testimonials" exact={true} component={Testimonials} />
+
         <Route path="/assessment" exact={true} component={Assessment} />
         {/*
             <LoggedOutRoute path="/" exact={true} component={Landing} />

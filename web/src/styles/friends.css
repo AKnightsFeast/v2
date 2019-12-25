@@ -1,0 +1,26 @@
+#friendsHeader {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+#friendsHeader .message-box-bg-overlay {
+    background-image: url(/img/dimension.png);
+}
+
+#friendsContent div {
+    text-align: center;
+}
+
+#friendsContent a.friend-lnk {
+    top: 50%;
+    left: 50%;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+img.friend-img {
+    width: auto;
+    height: 244px;
+}

@@ -32,7 +32,7 @@ const Header: React.FC = () => {
                             <ul className="header-nav header-nav-main nav nav-right nav-uppercase">
                                 <li className="html custom html_topbar_right">
                                     <div className="header-button">
-                                        <a href="https://www.californiachef.com/sign-up/" target="_self" className="button success is-large pink-bg">
+                                        <a href="https://www.cozymeal.com/chefs/729/chef-laura" target="_blank" className="button success is-large pink-bg">
                                             <span>Check me out on CozyMeal!</span>
                                         </a>
                                     </div>
@@ -88,7 +88,13 @@ const Header: React.FC = () => {
                                 </li>
                                 <li id="menu-item-65" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-65"><NavLink to="/policies" className="nav-top-link">Policies</NavLink></li>
                                 <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><NavLink to="/testimonials" className="nav-top-link">Testimonials</NavLink></li>
-                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61"><NavLink to="/about" className="nav-top-link">About Chef Laura</NavLink></li>
+                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61 has-dropdown">
+                                    <a href="#" className="nav-top-link">About<i className="icon-angle-down"></i></a>
+                                    <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase" style={{}}>
+                                        <li><NavLink to="/about/cheflaura">Chef Laura</NavLink></li>
+                                        <li><NavLink to="/about/friends">Friends</NavLink></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>{/*<!-- flex-col -->*/}
 
