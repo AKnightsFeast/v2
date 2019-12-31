@@ -1,6 +1,6 @@
 //import * as React from "react";
 //import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 
 import SiteWrapper from "../components/sitewrapper";
@@ -11,6 +11,8 @@ import About from "./about/cheflaura";
 import Friends from "./about/friends";
 import Assessment from "./assessment";
 import Testimonials from "./testimonials";
+
+import Monthly from "./menus/monthly";
 
 /*
 import About from "../components/pages/About";
@@ -27,21 +29,23 @@ import LoggedOutRoute from "../routes/LoggedOutRoute";
 function ScrollToTopOnMount() {
   const { pathname } = useLocation();
 
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useLayoutEffect(() => { window.scrollTo(0, 0); }, [pathname]);
 
   return null;
 }
 
 function RegisterFlatsomeScript() {
+  const script = document.createElement("script");
+  const { pathname } = useLocation();
+
   useEffect(() => {
-    const script = document.createElement("script");
     script.src = "/js/flatsome.js";
     script.async = true;
   
     document.body.appendChild(script);
-  }, []);  // passing an empty array as second argument triggers the callback in useEffect only after
+  }, [pathname]);  // passing an empty array as second argument triggers the callback in useEffect only after
            // the initial render thus replicating `componentDidMount` lifecycle behaviour
-
+  
   return null;
 }
 
@@ -54,6 +58,7 @@ const Pages = () => {
           <SiteWrapper path="/policies" exact={true} component={Policies} />
           <SiteWrapper path="/about/friends" exact={true} component={Friends} />
           <SiteWrapper path="/about/cheflaura" exact={true} component={About} />
+          <SiteWrapper path="/menus/monthly" exact={true} component={Monthly} />
           <SiteWrapper path="/testimonials" exact={true} component={Testimonials} />
 
           <Route path="/assessment" exact={true} component={Assessment} />
@@ -64,6 +69,7 @@ const Pages = () => {
               <LoggedInRoute path="/log-out" exact={true} component={LogOut} />
           */}
       </Switch>
+      <RegisterFlatsomeScript />
     </>
   );
 };
