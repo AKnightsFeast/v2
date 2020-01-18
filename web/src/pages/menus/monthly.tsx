@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { YearArray, MonthArray, ColumnizeArray, ColumnedArrayItem } from '../../utils';
+import { YearArray, ColumnizeArray } from '../../utils';
+import { ColumnedArrayItem, IMenuMonths, IMenuMonthProps, ApplicationState } from '../../constants/types';
 
 const Monthly: React.FC = () => {
+    const menuMonths = useSelector((state: ApplicationState.IApplication) => state.MonthlyMenu.MenuMonths);
+
     return (
         <div className="row row-main">
             <div className="col large-3 medium-12">
@@ -18,12 +22,15 @@ const Monthly: React.FC = () => {
                 </div>
                 <div className="row">
                     {
-                        ColumnizeArray<string>(3, MonthArray).map((monthArr: ColumnedArrayItem<string>[], index: number) => (
+                        ColumnizeArray<IMenuMonths>(3, Object.values(menuMonths)).map((monthArr: ColumnedArrayItem<IMenuMonths>[], index: number) => (
                             <div key={ index } className="large-4 medium-12">
                             {
-                                monthArr.map((month: ColumnedArrayItem<string>) => (
-                                    <div key={ month.key }><a className="button is-outline is-smaller" href="#">{ month.item }</a></div>
-                                ))
+                                monthArr.map((month: ColumnedArrayItem<IMenuMonths>) => {
+                                    let { key } = month;
+                                    let menuMonth = month.item[key];
+
+                                    return (<div key={ key }><a className="button is-outline is-smaller" href="#">{ menuMonth.Abbr }</a></div>)
+                                })
                             }
                             </div>
                         ))

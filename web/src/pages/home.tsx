@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import '../styles/home.css';
 import '../styles/timeline.css';
 
+function RegisterFlatsomeScript() {
+    const script = document.createElement("script");
+
+    useLayoutEffect(() => {
+        script.src = "/js/flatsome.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+    }, []);  // passing an empty array as second argument triggers the callback in useEffect only after
+             // the initial render thus replicating `componentDidMount` lifecycle behaviour
+
+    return null;
+}
+  
 const Home: React.FC = () => {
     return (
         <>
@@ -250,6 +264,8 @@ const Home: React.FC = () => {
                     
                 </div>
             </section>
+
+            <RegisterFlatsomeScript />
         </>
     );
 }

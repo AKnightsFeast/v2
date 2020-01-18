@@ -1,6 +1,6 @@
 //import * as React from "react";
 //import { connect } from "react-redux";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 
 import SiteWrapper from "../components/sitewrapper";
@@ -34,21 +34,6 @@ function ScrollToTopOnMount() {
   return null;
 }
 
-function RegisterFlatsomeScript() {
-  const script = document.createElement("script");
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    script.src = "/js/flatsome.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  }, [pathname]);  // passing an empty array as second argument triggers the callback in useEffect only after
-           // the initial render thus replicating `componentDidMount` lifecycle behaviour
-  
-  return null;
-}
-
 const Pages = () => {
   return (
     <>
@@ -69,7 +54,6 @@ const Pages = () => {
               <LoggedInRoute path="/log-out" exact={true} component={LogOut} />
           */}
       </Switch>
-      <RegisterFlatsomeScript />
     </>
   );
 };
