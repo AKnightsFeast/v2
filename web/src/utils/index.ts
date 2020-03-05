@@ -1,5 +1,5 @@
-import { OrderDirection } from '../constants/enums';
-import { ColumnedArrayItem } from '../constants/types';
+import { OrderDirection } from '../modules/enums';
+import { ColumnedArrayItem } from '../modules/types';
 
 export const YearArray: number[] = ((startYear: number, endYear: number): number[] => {
     let years: number[] = [];
