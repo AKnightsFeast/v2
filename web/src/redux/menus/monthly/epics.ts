@@ -6,22 +6,21 @@ import { filter, switchMap, map, catchError } from 'rxjs/operators';
 import { RootAction, RootReducer } from '../../../modules/types';
 
 import { LoadActiveMonthsAsync, LoadMenuDatesAsync, LoadMenuAsync } from './actions';
-//import { getTodos } from './selectors';
 
 export const LoadMenuDatesEpic: Epic<RootAction, RootAction, RootReducer /*, Services*/> = (action$, state$) => //, { api }) =>
 action$.pipe(
     filter(isActionOf(LoadMenuDatesAsync.request)),
     switchMap(() => of(
-        LoadMenuDatesAsync.success({
-            2020: [1],
-            2019: [9-12],
-            2017: [1-12],
-            2016: [1],
-            2015: [4,5,7],
-            2014: [1-12],
-            2013: [1-6,8-12],
-            2012: [8-12]
-        }))
+        LoadMenuDatesAsync.success(new Map([
+            [2020, [1]],
+            [2019, [9-12]],
+            [2017, [1-12]],
+            [2016, [1]],
+            [2015, [4,5,7]],
+            [2014, [1-12]],
+            [2013, [1-6,8-12]],
+            [2012, [8-12]]]))
+        )
     )
 );
 

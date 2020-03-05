@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { ColumnedArrayItem, MenuMonths, ApplicationState } from '../../modules/types';
 import { YearArray, ColumnizeArray } from '../../utils';
+import { MenuMonth, ApplicationState } from '../../modules/types';
 
 const Monthly: React.FC = () => {
     const menuMonths = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuMonths);
@@ -22,14 +22,11 @@ const Monthly: React.FC = () => {
                 </div>
                 <div className="row">
                     {
-                        ColumnizeArray<MenuMonths>(3, Object.values(menuMonths)).map((monthArr: ColumnedArrayItem<MenuMonths>[], index: number) => (
+                        ColumnizeArray<MenuMonth>(3, Array.from(menuMonths.values())).map((monthMap: Map<number, MenuMonth>, index: number) => (
                             <div key={ index } className="large-4 medium-12">
                             {
-                                monthArr.map((month: ColumnedArrayItem<MenuMonths>) => {
-                                    let { key } = month;
-                                    let menuMonth = month.item[key];
-
-                                    return (<div key={ key }><a className="button is-outline is-smaller" href="#">{ menuMonth.Abbr }</a></div>)
+                                Array.from(monthMap.values()).map((month: MenuMonth, key: number) => {
+                                    return (<div key={ key }><a className="button is-outline is-smaller" href="#">{ month.Abbr }</a></div>)
                                 })
                             }
                             </div>
