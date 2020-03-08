@@ -9,7 +9,7 @@ export type MenuMonth = {
 export type MonthlyMenu = {
     IsLoading: boolean,
     SelectedMenu: string,
-    SelectedYear?: number,
+    SelectedYear: number,
     MenuDates?: Map<number, number[]>,
     MenuMonths: Map<number, MenuMonth>
 };    

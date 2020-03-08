@@ -3,8 +3,9 @@ import { MenuMonth, MonthlyMenu, ApplicationState } from './types';
 export const InitialMonthlyMenuState : MonthlyMenu = {
     IsLoading: false,
     SelectedMenu: '',
+    SelectedYear: new Date().getFullYear(),
     MenuMonths: new Map([
-        [1, { Abbr: "Jan", Name: "January",   IsActive: false }],
+        [1, { Abbr: "Jan", Name: "January",   IsActive: true }],
         [2, { Abbr: "Feb", Name: "February",  IsActive: false }],
         [3, { Abbr: "Mar", Name: "March",     IsActive: false }],
         [4, { Abbr: "Apr", Name: "April",     IsActive: false }],

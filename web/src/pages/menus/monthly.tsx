@@ -6,13 +6,14 @@ import { MenuMonth, ApplicationState } from '../../modules/types';
 
 const Monthly: React.FC = () => {
     const menuMonths = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuMonths);
+    const selectedYear = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedYear);
 
     return (
         <div className="row row-main">
             <div className="col large-3 medium-12">
                 <div>
                     {/* onChange={ props.OnDateChange } className={ "browser-default" } */}
-                    <select defaultValue={ new Date().getFullYear().toString() }>
+                    <select defaultValue={ selectedYear.toString() }>
                     {
                         YearArray.map((year: number, index: number) => (
                             <option key={ index } value={ year }>{ year }</option>
