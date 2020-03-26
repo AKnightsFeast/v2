@@ -1,3 +1,47 @@
 h2 {
     @apply mb-5;
 }
+
+.bg-header {
+    background-attachment: fixed;
+    background: url(/img/bgfishstew.jpg) center center no-repeat;
+}
+
+#mainFoodQuote .overlay {
+    background-color: rgba(233, 242, 242, 0.7);
+}
+
+.bg-quote {
+    background-attachment: fixed;
+    background: url(/img/bgsangria.jpg) center center no-repeat;
+}
+
+#mainFoodQuote blockquote,
+#mainChefQuote blockquote
+{
+  line-height: 1.6;
+  font-size: 1.4em;
+  padding: 1em 30px 1em 65px;
+}
+
+#mainFoodQuote blockquote::before,
+#mainChefQuote blockquote::before
+{
+  top: -10px;
+  left: 10px;
+  font-size: 4em;
+}
+
+#mainFoodQuote blockquote
+{
+  width: 50%;
+  color: rgba(0, 28, 82, 1);
+  border-left-color: rgba(0, 28, 82, 1);
+}
+
+#mainChefQuote blockquote
+{
+  width: 60%;
+  color: rgba(233, 242, 242, 1);
+  border-left-color: rgba(233, 242, 242, 1);
+}

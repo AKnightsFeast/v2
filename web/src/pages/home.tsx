@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import '../styles/home.css';
-import '../styles/timeline.css';
+import '../assets/styles/timeline.css';
 
 function RegisterFlatsomeScript() {
     const script = document.createElement("script");
