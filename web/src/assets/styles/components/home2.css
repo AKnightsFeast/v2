@@ -2,8 +2,129 @@ h2 {
     @apply mb-5;
 }
 
+/*
+* Hero Section
+*/
+.hero {
+    @apply h-full;
+    @apply w-full;
+    @apply relative;
+    @apply overflow-hidden;
+}
+
+.hero-content {
+    @apply z-10;
+    @apply pb-6;
+    @apply pt-6;
+    @apply px-6;
+    @apply h-full;
+    @apply w-full;
+    @apply mx-auto;
+    @apply relative;
+    background: url(/img/bgspiration-light.png) center center repeat;
+}
+
+.hero-bg {
+    @apply h-full;
+    @apply w-full;
+    @apply absolute;
+    background-size: cover;
+    background-image: url(/img/bgsquash.jpg);
+}
+
+.hero-content h2 {
+    @apply leading-10;
+    @apply text-center;
+    @apply tracking-tight;
+    @apply font-extrabold;
+}
+
+.hero-content p {
+    @apply mt-3;
+    @apply mx-auto;
+    @apply text-base;
+}
+
+@screen lg {
+    .hero-content {
+        clip-path: polygon(0 0, 100% 0%, 80% 100%, 20% 100%);
+    }
+
+    .hero-bg {
+        @apply right-0;
+        @apply inset-y-0;
+    }
+}
+
+/*sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32*/
+
+@screen md {   
+    .hero-content p {
+        @apply mt-5;
+        @apply text-xl;
+    }
+}
+
+@screen sm {
+    .hero-content h2 {
+        @apply text-6xl;
+        @apply leading-none;
+    }
+
+    .hero-content p {
+        @apply mt-5;
+        @apply text-lg;
+        @apply max-w-xl;
+    }
+}
+
+
+
+/**
+* Parallax
+*/
+.parallax-container {
+    perspective: 1px;
+    transform-style: preserve-3d;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.parallax {
+    display: flex;
+    flex: 1 0 auto;
+    position: relative;
+    height: 100vh;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+}
+
+/**
+* Video Player
+*/
+.video-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.video-wrapper img {
+    height: auto;
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: auto;
+}
+
+
+
+
 .bg-header {
-    background-attachment: fixed;
     background: url(/img/bgfishstew.jpg) center center no-repeat;
 }
 
@@ -12,7 +133,6 @@ h2 {
 }
 
 .bg-quote {
-    background-attachment: fixed;
     background: url(/img/bgsangria.jpg) center center no-repeat;
 }
 

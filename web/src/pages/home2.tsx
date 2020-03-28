@@ -194,35 +194,55 @@ const Home: React.FC = () => {
 
 
 
-            <section className="mx-auto max-w-screen-xl relative bg-white overflow-hidden">
-                <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                    <div className="pt-6 px-4 sm:px-6 lg:px-8"></div>
-
-                    <div className="mt-5 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 sm:text-center lg:text-left">
-                        <h2 className="tracking-tight leading-10 font-extrabold sm:text-5xl sm:leading-none md:text-6xl">Question?</h2>
-                        <p className="mb-5 mt-3 text-base sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+            <section className="hero">
+                    <div className="hero-content">
+                        <h2>Question?</h2>
+                        <p className="mb-6">
                             Have you and your family become too reliant on carryout meals, mass-produced restaurant food, or boxed 
                             dinners with minimal nutritional value? Do you want to eat healthier but lack the time to plan, shop for 
                             and cook meals that are good for you?
                         </p>
-                        <h2 className="tracking-tight leading-10 font-extrabold sm:text-5xl sm:leading-none md:text-6xl">Answer!</h2>
-                        <p className="mt-3 text-base sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        <h2>Answer!</h2>
+                        <p>
                             A Knight's Feast Personal Chef Service prepares your choice of meals - 
                             made fresh in your own kitchen - and packages them with easy-to-follow heating instructions. 
                             We create meals that meet your specific dietary and nutritional needs and appeal to your personal tastes.
                         </p>
-                    </div>
-
-                    <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <polygon points="50,0 100,0 50,100 0,100" />
+                     </div>
+{/*
+                <div className="">
+                    <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polygon points="50,0 100,0 50,100 0,100" fill="currentColor" />
+                        <defs>
+                            <pattern id="bg-svg" x="0" y="0">
+                                <image className="bg-hero" />
+                            </pattern>
+                        </defs>
                     </svg>
                 </div>
-                <div className="sm:px-6 lg:px-8 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                    <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="/img/bgsquash.jpg" alt="" />
-                </div>
+*/}
+                <div className="hero-bg"></div>
             </section>
 
 
+            <section id="mainFoodQuote" className="parallax-container">
+                <div className="parallax">
+                    <div className="video-wrapper">
+                       <blockquote>
+                            One cannot think well, love well, sleep well, if one has not dined well.
+                            <span>Virginia Woolf</span>
+                        </blockquote>
+                        <img src="/img/bgfishstew.jpg" className="w-full" />
+                    </div>
+                </div>
+
+                <div className="section-content relative">
+                    <div className="row row-large row-full-width align-middle row-padding">
+                        <div className="col medium-12 small-12 large-12">
+                        </div>
+                    </div>
+                </div>
+            </section>{/*<!-- QA section -->*/}
 
         </>
     );
