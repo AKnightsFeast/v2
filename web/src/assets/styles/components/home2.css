@@ -45,26 +45,6 @@ h2 {
     @apply text-base;
 }
 
-@screen lg {
-    .hero-content {
-        clip-path: polygon(0 0, 100% 0%, 80% 100%, 20% 100%);
-    }
-
-    .hero-bg {
-        @apply right-0;
-        @apply inset-y-0;
-    }
-}
-
-/*sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32*/
-
-@screen md {   
-    .hero-content p {
-        @apply mt-5;
-        @apply text-xl;
-    }
-}
-
 @screen sm {
     .hero-content h2 {
         @apply text-6xl;
@@ -78,90 +58,104 @@ h2 {
     }
 }
 
+@screen md {   
+    .hero-content p {
+        @apply mt-5;
+        @apply text-xl;
+    }
+}
 
+@screen lg {
+    .hero-content {
+        clip-path: polygon(0 0, 100% 0%, 80% 100%, 20% 100%);
+    }
 
-/**
+    .hero-bg {
+        @apply right-0;
+        @apply inset-y-0;
+    }
+}
+
+/*
 * Parallax
 */
-.parallax-container {
-    perspective: 1px;
-    transform-style: preserve-3d;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
+.parallax,
+.foodquote,
+.chefquote,
+.foodquote .overlay,
+.chefquote .overlay {
+    @apply h-64;
+    @apply w-full;
 }
 
-.parallax {
-    display: flex;
-    flex: 1 0 auto;
-    position: relative;
-    height: 100vh;
-    transform: translateZ(-1px) scale(2);
-    z-index: -1;
+.foodquote .overlay,
+.chefquote .overlay {
+    z-index: 1;
+    @apply absolute;
 }
 
-/**
-* Video Player
-*/
-.video-wrapper {
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-}
-
-.video-wrapper img {
-    height: auto;
-    min-height: 100%;
-    min-width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: auto;
-}
-
-
-
-
-.bg-header {
-    background: url(/img/bgfishstew.jpg) center center no-repeat;
-}
-
-#mainFoodQuote .overlay {
+.foodquote .overlay {
     background-color: rgba(233, 242, 242, 0.7);
 }
 
-.bg-quote {
-    background: url(/img/bgsangria.jpg) center center no-repeat;
+.chefquote .overlay {
+    background-color: rgba(0, 28, 82, 0.7);    
 }
 
-#mainFoodQuote blockquote,
-#mainChefQuote blockquote
+.foodquote blockquote,
+.chefquote blockquote
 {
-  line-height: 1.6;
-  font-size: 1.4em;
-  padding: 1em 30px 1em 65px;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    @apply absolute;
+    line-height: 1.6;
+    padding: 1em 30px 1em 65px;
+    transform: "translate(-50%,-50%)";
 }
 
-#mainFoodQuote blockquote::before,
-#mainChefQuote blockquote::before
-{
-  top: -10px;
-  left: 10px;
-  font-size: 4em;
+@screen sm {
+    .foodquote blockquote,
+    .chefquote blockquote
+    {
+        @apply text-base;
+    }
 }
 
-#mainFoodQuote blockquote
-{
-  width: 50%;
-  color: rgba(0, 28, 82, 1);
-  border-left-color: rgba(0, 28, 82, 1);
+@screen md {
+    .foodquote blockquote,
+    .chefquote blockquote
+    {
+        @apply text-lg;
+    }
 }
 
-#mainChefQuote blockquote
+@screen lg {
+    .foodquote blockquote,
+    .chefquote blockquote
+    {
+        font-size: 1.4em;
+    }
+}
+
+.foodquote blockquote::before,
+.chefquote blockquote::before
 {
-  width: 60%;
-  color: rgba(233, 242, 242, 1);
-  border-left-color: rgba(233, 242, 242, 1);
+    top: -10px;
+    left: 10px;
+    font-size: 4em;
+}
+
+.foodquote blockquote
+{
+    width: 50%;
+    color: rgba(0, 28, 82, 1);
+    border-left-color: rgba(0, 28, 82, 1);
+}
+
+.chefquote blockquote
+{
+    width: 60%;
+    color: rgba(233, 242, 242, 1);
+    border-left-color: rgba(233, 242, 242, 1);
 }
