@@ -736,33 +736,9 @@ h2 {
   left: 50%;
   z-index: 2;
   position: absolute;
+  font-size: 1rem;
   line-height: 1.6;
   padding: 1em 30px 1em 65px;
-  transform: "translate(-50%,-50%)";
-}
-
-@media (min-width: 640px) {
-  .foodquote blockquote,
-    .chefquote blockquote
-    {
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .foodquote blockquote,
-    .chefquote blockquote
-    {
-    font-size: 1.125rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .foodquote blockquote,
-    .chefquote blockquote
-    {
-    font-size: 1.4em;
-  }
 }
 
 .foodquote blockquote::before,
@@ -775,16 +751,72 @@ h2 {
 
 .foodquote blockquote
 {
-  width: 50%;
+  width: 450px;
+  transform: translate(-50%, 60%);
   color: rgba(0, 28, 82, 1);
   border-left-color: rgba(0, 28, 82, 1);
 }
 
 .chefquote blockquote
 {
-  width: 60%;
+  width: 420px;
+  transform: translate(-50%, 40%);
   color: rgba(233, 242, 242, 1);
   border-left-color: rgba(233, 242, 242, 1);
+}
+
+@media (min-width: 640px) {
+  .foodquote blockquote
+    {
+    transform: translate(-50%, 50%);
+  }
+
+  .chefquote blockquote {
+    transform: translate(-50%, 30%);
+  }
+}
+
+@media (min-width: 768px) {
+  .foodquote blockquote,
+    .chefquote blockquote {
+    font-size: 1.125rem;
+  }
+
+  .foodquote blockquote
+    {
+    width: 500px;
+    transform: translate(-50%, 40%);
+  }
+
+  .chefquote blockquote {
+    width: 540px;
+    transform: translate(-50%, 50%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .foodquote blockquote,
+    .chefquote blockquote {
+    transform: translate(-50%, 40%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .foodquote blockquote,
+    .chefquote blockquote
+    {
+    font-size: 1.4em;
+  }
+
+  .foodquote blockquote {
+    width: 600px;
+    transform: translate(-50%, 30%);
+  }
+
+  .chefquote blockquote {
+    width: 780px;
+    transform: translate(-50%, 30%);
+  }
 }
 
 .sr-only {

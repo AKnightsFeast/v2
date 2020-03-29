@@ -333,7 +333,7 @@ const Home: React.FC = () => {
 
             <div className="chefquote">
                 <div className="overlay"></div>
-                <Parallax className="parallax" bgImage="/img/bgsangria.jpg" strength={700}>
+                <Parallax className="parallax" bgImage="/img/bgsangria.jpg" strength={-100}>
                     <blockquote>
                         A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
                         <span>Chef Laura</span>

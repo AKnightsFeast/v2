@@ -109,33 +109,9 @@ h2 {
     left: 50%;
     z-index: 2;
     @apply absolute;
+    @apply text-base;
     line-height: 1.6;
     padding: 1em 30px 1em 65px;
-    transform: "translate(-50%,-50%)";
-}
-
-@screen sm {
-    .foodquote blockquote,
-    .chefquote blockquote
-    {
-        @apply text-base;
-    }
-}
-
-@screen md {
-    .foodquote blockquote,
-    .chefquote blockquote
-    {
-        @apply text-lg;
-    }
-}
-
-@screen lg {
-    .foodquote blockquote,
-    .chefquote blockquote
-    {
-        font-size: 1.4em;
-    }
 }
 
 .foodquote blockquote::before,
@@ -148,14 +124,70 @@ h2 {
 
 .foodquote blockquote
 {
-    width: 50%;
+    width: 450px;
+    transform: translate(-50%, 60%);
     color: rgba(0, 28, 82, 1);
     border-left-color: rgba(0, 28, 82, 1);
 }
 
 .chefquote blockquote
 {
-    width: 60%;
+    width: 420px;
+    transform: translate(-50%, 40%);
     color: rgba(233, 242, 242, 1);
     border-left-color: rgba(233, 242, 242, 1);
+}
+
+@screen sm {
+    .foodquote blockquote
+    {
+        transform: translate(-50%, 50%);
+    }
+
+    .chefquote blockquote {
+        transform: translate(-50%, 30%);
+    }
+}
+
+@screen md {
+    .foodquote blockquote,
+    .chefquote blockquote {
+        @apply text-lg;
+    }
+
+    .foodquote blockquote
+    {
+        width: 500px;
+        transform: translate(-50%, 40%);
+    }
+
+    .chefquote blockquote {
+        width: 540px;
+        transform: translate(-50%, 50%);
+    }
+}
+
+@screen lg {
+    .foodquote blockquote,
+    .chefquote blockquote {
+        transform: translate(-50%, 40%);
+    }
+}
+
+@screen xl {
+    .foodquote blockquote,
+    .chefquote blockquote
+    {
+        font-size: 1.4em;
+    }
+
+    .foodquote blockquote {
+        width: 600px;
+        transform: translate(-50%, 30%);
+    }
+
+    .chefquote blockquote {
+        width: 780px;
+        transform: translate(-50%, 30%);
+    }
 }
