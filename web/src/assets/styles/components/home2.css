@@ -2,6 +2,117 @@ h2 {
     @apply mb-5;
 }
 
+.nav {
+    @apply flex;
+    @apply bg-white;
+    @apply border-b-2;
+    @apply text-gray-900;
+    @apply border-gray-300;
+    @apply justify-between;
+}
+
+.nav .logo {
+    @apply relative;
+}
+
+.nav .logo .img {
+    @apply ml-4;
+    width: 90px;
+    height: 40px;
+    @apply absolute;
+    transform: translate(0, 30%);
+    background-size: cover;
+    background-image: url(/img/logos/logo.png);
+}
+
+.nav .link-container {
+    @apply flex;
+}
+
+.nav .link:hover {
+    @apply text-white;
+    @apply bg-blue-800;
+}
+
+.nav .link-text {
+    @apply px-4;
+    @apply py-6;
+    @apply block;
+    @apply text-sm;
+    @apply relative;
+    @apply font-bold;
+    @apply cursor-pointer;
+}
+
+.nav .link-text:hover {
+    @apply text-white;
+    @apply bg-blue-800;
+}
+
+.nav .mega-menu {
+    @apply p-6;
+    @apply mb-16;
+    @apply shadow-xl;
+    @apply bg-blue-800;
+}
+
+.nav .mega-menu .container {
+    @apply flex;
+    @apply mx-2;
+    @apply w-full;
+    @apply mx-auto;
+    @apply flex-wrap;
+    @apply justify-between;
+}
+
+.nav .mega-menu-item {
+    @apply px-4;
+    @apply w-full;
+    @apply border-gray-600;
+    @apply border-b;
+    @apply pb-6;
+    @apply pt-6;
+}
+
+.nav .mega-menu-icon {
+    @apply h-8;
+    @apply mb-3;
+    @apply mr-3;
+    @apply text-white;
+    @apply fill-current;
+}
+
+.nav .mega-menu-title {
+    @apply mb-2;
+    @apply text-xl;
+    @apply font-bold;
+    @apply text-white;
+}
+
+@screen sm {
+    .nav .mega-menu {
+        @apply mb-0;
+    }
+
+    .nav .mega-menu-item {
+        @apply w-1/2;
+        @apply border-r;
+    }
+}
+
+@screen lg {
+    .nav .link-text {
+        @apply p-6;
+        @apply text-base;
+    }
+
+    .nav .mega-menu-item {
+        @apply pt-3;
+        @apply w-1/4;
+        @apply border-b-0;
+    }
+}
+
 /*
 * Hero Section
 */
@@ -86,6 +197,10 @@ h2 {
 .chefquote .overlay {
     @apply h-64;
     @apply w-full;
+}
+
+.parallax img {
+    background-size: cover;
 }
 
 .foodquote .overlay,
