@@ -37,16 +37,16 @@ const Home: React.FC = () => {
                                         <h3 className="mega-menu-title">Monthly</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">
+                                    <p className="mega-menu-desc">
                                         Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
                                     </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <NavLink to="/menus/monthly" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Click here to view prior menus!</NavLink>
+                                        <NavLink to="/menus/monthly" className="mega-menu-link">Look at the prior menus!</NavLink>
                                    </div>
                                 </ul>
 
@@ -59,16 +59,16 @@ const Home: React.FC = () => {
                                         <h3 className="mega-menu-title">Personal</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">
+                                    <p className="mega-menu-desc">
                                         Prioritize these line items game-plan draw a line in the sand come up with something buzzworthy UX upstream selling.
                                     </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <NavLink to="/menus/personal" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Click here to see more!</NavLink>
+                                        <NavLink to="/menus/personal" className="mega-menu-link">Click here to see more!</NavLink>
                                     </div>
                                 </ul>
 
@@ -81,16 +81,16 @@ const Home: React.FC = () => {
                                         <h3 className="mega-menu-title">Themed Events</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">
+                                    <p className="mega-menu-desc">
                                         This proposal is a win-win situation which will cause a stellar paradigm shift, let's touch base off-line before we fire the new ux experience.
                                     </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <NavLink to="/menus/events" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Check out these themed menus!</NavLink>
+                                        <NavLink to="/menus/events" className="mega-menu-link">Look at these themed menus!</NavLink>
                                     </div>
                                 </ul>
 
@@ -108,14 +108,16 @@ const Home: React.FC = () => {
                                         <h3 className="mega-menu-title">Pack Your Freezer</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">This is a no-brainer to wash your face, or we need to future-proof this high performance keywords granularity.</p>
+                                    <p className="mega-menu-desc">
+                                        This is a no-brainer to wash your face, or we need to future-proof this high performance keywords granularity.
+                                    </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <NavLink to="/menus/freezer" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Take a look at these yummy dishes!</NavLink>
+                                        <NavLink to="/menus/freezer" className="mega-menu-link">Savor these yummy dishes!</NavLink>
                                     </div>
                                 </ul>
                             </div>
@@ -137,14 +139,38 @@ const Home: React.FC = () => {
                                         <h3 className="mega-menu-title">Policies</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.</p>
+                                    <p className="mega-menu-desc">
+                                        Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
+                                    </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <a href="#" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Find out more...</a>
+                                        <NavLink to="/policies" className="mega-menu-link">Take a look!</NavLink>
+                                   </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <svg className="mega-menu-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                            <path d="M3.5 16.343l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm8.5 0l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm8.5 0l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm-.993-3.343h-.01c.022-4.906-2.246-2.772-2.246-6.676 0-1.507.983-2.324 2.248-2.324 1.869 0 3.169 1.787 1.399 5.129-.581 1.099.62 1.359 1.91 1.657 1.118.258 1.192.805 1.192 1.751v2.463h-4.493v-2zm-19.507 2v-2.463c0-.946.074-1.493 1.192-1.751 1.29-.298 2.491-.558 1.91-1.657-1.77-3.342-.47-5.129 1.399-5.129 1.265 0 2.248.817 2.248 2.324 0 3.904-2.268 1.77-2.246 6.676h.005v2h-4.508zm6 0v-2.623c0-1.258.1-1.985 1.588-2.329 1.684-.389 3.344-.736 2.545-2.209-2.366-4.364-.674-6.839 1.866-6.839 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l.001 2.619h-12z"/>
+                                        </svg>
+
+                                        <h3 className="mega-menu-title">Testimonials</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
+                                        </svg>
+
+                                        <NavLink to="/testimonials" className="mega-menu-link">See what they're saying!</NavLink>
                                     </div>
                                 </ul>
 
@@ -154,37 +180,39 @@ const Home: React.FC = () => {
                                             <path d="M1.981 8.444h20.038c.398 0 .747.264.856.648l1.105 3.904.02.139c0 .209-.127.402-.33.48l-.001.001c-.24.092-.511-.005-.635-.231l-1.144-2.071-.328 7.967c-.017.403-.347.719-.749.719h-.001c-.393 0-.716-.306-.746-.698-.068-.865-.249-2.933-.304-3.752-.022-.34-.271-.54-.541-.54-.242 0-.514.2-.537.54-.055.819-.236 2.887-.304 3.752-.03.392-.352.698-.746.698h-.001c-.402 0-.732-.316-.749-.719-.086-2.08-.435-8.736-.435-8.736h-1.669s-.349 6.656-.435 8.736c-.017.402-.347.719-.749.719h-.001c-.394 0-.716-.306-.746-.698-.068-.865-.249-2.933-.304-3.752-.023-.34-.295-.54-.537-.54h-.004c-.242 0-.515.2-.537.54-.055.819-.236 2.887-.304 3.752-.03.392-.353.698-.746.698h-.001c-.402 0-.732-.316-.749-.719-.086-2.08-.435-8.736-.435-8.736h-1.681s-.349 6.656-.435 8.736c-.017.403-.347.719-.749.719h-.001c-.394 0-.716-.306-.746-.698-.068-.865-.249-2.933-.304-3.752-.023-.34-.295-.54-.537-.54-.27 0-.519.2-.541.54-.055.819-.236 2.887-.304 3.752-.03.392-.353.698-.746.698h-.001c-.402 0-.732-.316-.749-.719l-.328-7.967-1.144 2.071c-.124.226-.395.323-.635.231l-.001-.001c-.203-.078-.33-.271-.33-.48l.02-.139 1.105-3.904c.109-.384.458-.648.856-.648zm3.019-4.444c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm14 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-6.994 0c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2z"/>
                                         </svg>
 
-                                        <h3 className="mega-menu-title">Friends of Chef Laura</h3>
+                                        <h3 className="mega-menu-title">Friends</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">Prioritize these line items game-plan draw a line in the sand come up with something buzzworthy UX upstream selling.</p>
+                                    <p className="mega-menu-desc">
+                                        Prioritize these line items game-plan draw a line in the sand come up with something buzzworthy UX upstream selling.
+                                    </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <a href="#" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Find out more...</a>
+                                        <NavLink to="/about/friends" className="mega-menu-link">Check 'em out!</NavLink>
                                     </div>
                                 </ul>
 
                                 <ul className="mega-menu-item">
                                     <div className="flex items-center">
-                                        <svg className="mega-menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M2 4v14h14v-6l2-2v10H0V2h10L8 4H2zm10.3-.3l4 4L8 16H4v-4l8.3-8.3zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
-                                        </svg>
+                                        <img src="/img/cheflaura.jpg" className="mega-menu-icon" />
 
                                         <h3 className="mega-menu-title">Chef Laura</h3>
                                     </div>
 
-                                    <p className="text-gray-100 text-sm">This proposal is a win-win situation which will cause a stellar paradigm shift, let's touch base off-line before we fire the new ux experience.</p>
+                                    <p className="mega-menu-desc">
+                                        This proposal is a win-win situation which will cause a stellar paradigm shift, let's touch base off-line before we fire the new ux experience.
+                                    </p>
 
                                     <div className="flex items-center py-3">
-                                        <svg className="h-6 pr-3 fill-current text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <svg className="mega-menu-arr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                                         </svg>
 
-                                        <a href="#" className="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Find out more...</a>
+                                        <NavLink to="/about/cheflaura" className="mega-menu-link">Meet Chef Laura!</NavLink>
                                     </div>
                                 </ul>
                             </div>
