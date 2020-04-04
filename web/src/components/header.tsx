@@ -3,151 +3,187 @@ import { NavLink } from 'react-router-dom';
 
 const Header: React.FC = () => {
     return (
-        <header id="header" className="header header-full-width">
-            <div className="header-wrapper">
-                <div id="masthead" className="header-main hide-for-sticky">
-                    <div className="header-inner flex-row container logo-left" role="navigation">
-
-                        {/*<!-- Logo -->*/}
-                        <div id="logo" className="flex-col logo">
-                            {/*<!-- Header logo -->*/}
-                            <NavLink to="/" title="A Knight's Feast - Personal Chef Service" rel="home">
-                                <img src="img/logo.png" className="header_logo header-logo" alt="A Knight's Feast" width="401" height="95" />
-                                <img src="img/logo.png" className="header-logo-dark" alt="A Knight's Feast" width="401" height="95" />
-                            </NavLink>
-                        </div>
-
-                        {/*<!-- Mobile Left Elements -->*/}
-                        <div className="flex-col show-for-medium flex-left">
-                            <ul className="mobile-nav nav nav-left"></ul>
-                        </div>
-
-                        {/*<!-- Left Elements -->*/}
-                        <div className="flex-col hide-for-medium flex-left flex-grow">
-                            <ul className="header-nav header-nav-main nav nav-left nav-uppercase"></ul>
-                        </div>
-
-                        {/*<!-- Right Elements -->*/}
-                        <div className="flex-col hide-for-medium flex-right">
-                            <ul className="header-nav header-nav-main nav nav-right nav-uppercase">
-                                <li className="html custom html_topbar_right">
-                                    <div className="header-button">
-                                        <a href="https://www.cozymeal.com/chefs/729/chef-laura" target="_blank" className="button success is-large pink-bg">
-                                            <span>Check me out on CozyMeal!</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                {/*
-                                <li className="header-divider"></li>
-                                <li className="html header-social-icons ml-0">
-                                    <div className="social-icons follow-icons">
-                                        <a href="https://www.facebook.com/AKnightsFeast/" target="_blank" data-label="Facebook" rel="noopener noreferrer nofollow" className="icon plain facebook tooltip tooltipstered"><i className="icon-facebook"></i></a>
-                                        <a href="https://www.instagram.com/CaliforniaChefServices" target="_blank" rel="noopener noreferrer nofollow" data-label="Instagram" className="icon plain  instagram tooltip tooltipstered"><i className="icon-instagram"></i></a>
-                                        <a href="http://www.twitter.com/chefknight" target="_blank" data-label="Twitter" rel="noopener noreferrer nofollow" className="icon plain  twitter tooltip tooltipstered"><i className="icon-twitter"></i></a>
-                                    </div>
-                                </li>
-                                <li className="html header-button-1">
-                                    <div className="header-button">
-                                        <a href="https://www.californiachef.com/sign-up/" className="button success">
-                                            <span>Sign Up Now!</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                */}
-                            </ul>
-                        </div>
-
-                        {/*<!-- Mobile Right Elements -->*/}
-                        <div className="flex-col show-for-medium flex-right">
-                            <ul className="mobile-nav nav nav-right ">
-                                <li className="nav-icon has-icon">
-                                    <a href="#" data-open="#main-menu" data-pos="right" data-bg="main-menu-overlay" data-color="" className="is-small" aria-controls="main-menu" aria-expanded="false">
-                                        <i className="icon-menu"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>{/*<!-- .header-inner -->*/}
+        <header>
+            <nav className="nav">
+                <div className="logo">
+                    <NavLink to="/" title="A Knight's Feast - Personal Chef Service" rel="home">
+                        <div className="img"></div>
+                    </NavLink> 
                 </div>
 
-                {/*<!-- .header-main -->*/}
-                <div id="wide-nav" className="header-bottom wide-nav hide-for-sticky nav-dark hide-for-medium">
-                    <div className="flex-row container">
+                <ul className="link-container">
+                    {/* Menus Hoverable Link */}
+                    <li className="link hoverable">
+                        <span className="link-text">Menus</span>
 
-                        <div className="flex-col hide-for-medium flex-left">
-                            <ul className="nav header-nav header-bottom-nav nav-left nav-box nav-size-xlarge nav-spacing-xlarge nav-uppercase">
-                                <li id="menu-item-49" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-49 has-dropdown">
-                                    <a href="#" className="nav-top-link">Menus<i className="icon-angle-down"></i></a>
-                                    <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase" style={{}}>
-                                        <li id="menu-item-55" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><NavLink to="/menus/monthly">Monthly</NavLink></li>
-                                        <li id="menu-item-54" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-54"><NavLink to="/menus/personal">Personal</NavLink></li>
-                                        <li id="menu-item-53" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><NavLink to="/menus/events">Themed Events</NavLink></li>
-                                        <li id="menu-item-52" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-52"><NavLink to="/menus/freezer">Pack Your Freezer</NavLink></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-65" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-65"><NavLink to="/policies" className="nav-top-link">Policies</NavLink></li>
-                                <li id="menu-item-60" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-60"><NavLink to="/testimonials" className="nav-top-link">Testimonials</NavLink></li>
-                                <li id="menu-item-61" className="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61 has-dropdown">
-                                    <a href="#" className="nav-top-link">About<i className="icon-angle-down"></i></a>
-                                    <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase" style={{}}>
-                                        <li><NavLink to="/about/cheflaura">Chef Laura</NavLink></li>
-                                        <li><NavLink to="/about/friends">Friends</NavLink></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>{/*<!-- flex-col -->*/}
+                        <div className="mega-menu">
+                            <div className="container">
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <i className="mega-menu-icon material-icons">date_range</i>
 
-                        <div className="flex-col hide-for-medium flex-right flex-grow">
-                            <ul className="nav header-nav header-bottom-nav nav-right  nav-box nav-size-xlarge nav-spacing-xlarge nav-uppercase">
-                                <li className="html custom html_topbar_left">
-                                    {/*
-                                    <h3 className="uppercase mb-0 text-white thin-font">Phone: <strong>(805) 669-9268</strong></h3>
-                                    */}
-                                    <a href="https://www.facebook.com/AKnightsFeast/" target="_blank" data-label="Facebook" rel="noopener noreferrer nofollow" className="icon button circle is-outline facebook tooltip tooltipstered"><i className="icon-facebook"></i></a>
-                                    <a href="#" target="_blank" rel="noopener noreferrer nofollow" data-label="Instagram" className="icon button circle is-outline instagram tooltip tooltipstered"><i className="icon-instagram"></i></a>
-                                    <a href="http://www.twitter.com/chefknight" target="_blank" data-label="Twitter" rel="noopener noreferrer nofollow" className="icon button circle is-outline  twitter tooltip tooltipstered"><i className="icon-twitter"></i></a>
-                                </li>
-                                <li className="header-divider"></li>
-                                <li className="html header-button-1">
-                                    <div className="header-button">
-                                        <NavLink to="/assessment" className="button success pink-bg"><span>Send an assessment</span></NavLink>
+                                        <h3 className="mega-menu-title">Monthly</h3>
                                     </div>
-                                </li>
-                                <li className="header-divider"></li>
-                                <li className="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
-                                    <a href="#" className="is-small"><i className="icon-search"></i></a>
-                                    <ul className="nav-dropdown nav-dropdown-simple dark dropdown-uppercase">
-                                        <li className="header-search-form search-form html relative has-icon">
-                                            <div className="header-search-form-wrapper">
-                                                <div className="searchform-wrapper ux-search-box relative is-normal">
-                                                    <form method="get" className="searchform" action="https://www.californiachef.com/" role="search">
-                                                        <div className="flex-row relative">
-                                                            <div className="flex-col flex-grow">
-                                                                <input type="search" className="search-field mb-0" name="s" id="s" placeholder="Search..." autoComplete="off" />
-                                                            </div>{/*<!-- .flex-col -->*/}
-                                                            <div className="flex-col">
-                                                                <button type="submit" className="ux-search-submit submit-button secondary button icon mb-0">
-                                                                    <i className="icon-search"></i>
-                                                                </button>
-                                                            </div>{/*<!-- .flex-col -->*/}
-                                                        </div>{/*<!-- .flex-row -->*/}
-                                                        <div className="live-search-results text-left z-top"><div className="autocomplete-suggestions" style={{position: 'absolute', display: 'none', maxHeight: '300px', zIndex: 9999}}></div></div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>{/*<!-- .nav-dropdown -->*/}
-                                </li>
-                            </ul>
-                        </div>{/*<!-- flex-col -->*/}
 
+                                    <p className="mega-menu-desc">
+                                        Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
+                                    </p>
 
-                    </div>{/*<!-- .flex-row -->*/}
-                </div>{/*<!-- .header-bottom -->*/}
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
 
-                <div className="header-bg-container fill"><div className="header-bg-image fill"></div><div className="header-bg-color fill"></div></div>{/*<!-- .header-bg-container -->*/}
-            </div>{/*<!-- header-wrapper-->*/}
+                                        <NavLink to="/menus/monthly" className="mega-menu-link">Look at the prior menus!</NavLink>
+                                   </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <i className="mega-menu-icon material-icons">restaurant_menu</i>
+
+                                        <h3 className="mega-menu-title">Personal</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        Prioritize these line items game-plan draw a line in the sand come up with something buzzworthy UX upstream selling.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/menus/personal" className="mega-menu-link">Click here to see more!</NavLink>
+                                    </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                       <svg className="mega-menu-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
+                                            <path d="M1.604 24c1.853-2.784 7.647-8.21 13.919-9.494l.525 3.276c-3.773.264-9.01 2.523-14.444 6.218zm-1.604-1c2.037-2.653 6.013-6.906 6.226-15.092l-3.271.561c.418 4.888-1.546 10.626-2.955 14.531zm20.827-11.423l.802 2.4 2.371.883-2.035 1.504-.107 2.528-2.06-1.471-2.437.68.763-2.413-1.4-2.109 2.531-.02 1.572-1.982zm-11.911 3.677h-.018c-.268 0-.49-.213-.499-.483-.098-2.877.511-4.87 3.798-5.24 1.953-.219 2.029-1.116 2.135-2.357.099-1.171.235-2.775 2.737-2.959 1.23-.09 1.908-.307 2.267-.725.407-.475.528-1.357.403-2.948-.022-.275.184-.516.459-.538.254-.019.516.184.537.46.151 1.906-.035 2.972-.64 3.678-.556.647-1.411.957-2.953 1.07-1.651.122-1.712.846-1.814 2.046-.106 1.247-.251 2.956-3.02 3.267-2.33.262-3.011 1.247-2.91 4.212.01.276-.207.507-.482.517zm12.084-9.254c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm-13.715-4.058l-2.531.017-1.601-1.959-.766 2.412-2.359.918 2.058 1.473.144 2.527 2.037-1.501 2.447.643-.798-2.401 1.369-2.129zm3.715.058c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2z"/>
+                                        </svg>
+
+                                        <h3 className="mega-menu-title">Themed Events</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        This proposal is a win-win situation which will cause a stellar paradigm shift, let's touch base off-line before we fire the new ux experience.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/menus/events" className="mega-menu-link">Look at these themes!</NavLink>
+                                    </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <i className="mega-menu-icon material-icons">kitchen</i>
+
+                                        <h3 className="mega-menu-title">Pack Your Freezer</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        This is a no-brainer to wash your face, or we need to future-proof this high performance keywords granularity.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/menus/freezer" className="mega-menu-link">Savor these dishes!</NavLink>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    {/* About Hoverable Link */}
+                    <li className="link hoverable">
+                        <span className="link-text">About</span>
+
+                        <div className="mega-menu">
+                            <div className="container">
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <i className="mega-menu-icon material-icons">bookmark_border</i>
+
+                                        <h3 className="mega-menu-title">Policies</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/policies" className="mega-menu-link">Take a look!</NavLink>
+                                   </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <svg className="mega-menu-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
+                                            <path d="M3.5 16.343l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm8.5 0l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm8.5 0l1.07 2.207 2.43.335-1.769 1.7.432 2.415-2.163-1.157-2.163 1.157.432-2.415-1.769-1.7 2.43-.335 1.07-2.207zm-.993-3.343h-.01c.022-4.906-2.246-2.772-2.246-6.676 0-1.507.983-2.324 2.248-2.324 1.869 0 3.169 1.787 1.399 5.129-.581 1.099.62 1.359 1.91 1.657 1.118.258 1.192.805 1.192 1.751v2.463h-4.493v-2zm-19.507 2v-2.463c0-.946.074-1.493 1.192-1.751 1.29-.298 2.491-.558 1.91-1.657-1.77-3.342-.47-5.129 1.399-5.129 1.265 0 2.248.817 2.248 2.324 0 3.904-2.268 1.77-2.246 6.676h.005v2h-4.508zm6 0v-2.623c0-1.258.1-1.985 1.588-2.329 1.684-.389 3.344-.736 2.545-2.209-2.366-4.364-.674-6.839 1.866-6.839 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l.001 2.619h-12z"/>
+                                        </svg>
+
+                                        <h3 className="mega-menu-title">Testimonials</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        Quarterly sales are at an all-time low create spaces to explore the accountable talk and blind vampires.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/testimonials" className="mega-menu-link">See what they're saying!</NavLink>
+                                    </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <i className="mega-menu-icon material-icons">emoji_people</i>
+
+                                        <h3 className="mega-menu-title">Friends</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        Prioritize these line items game-plan draw a line in the sand come up with something buzzworthy UX upstream selling.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/about/friends" className="mega-menu-link">Check 'em out!</NavLink>
+                                    </div>
+                                </ul>
+
+                                <ul className="mega-menu-item">
+                                    <div className="flex items-center">
+                                        <img src="/img/cheflaura.jpg" className="mega-menu-icon" alt="Chef Laura" />
+
+                                        <h3 className="mega-menu-title">Chef Laura</h3>
+                                    </div>
+
+                                    <p className="mega-menu-desc">
+                                        This proposal is a win-win situation which will cause a stellar paradigm shift, let's touch base off-line before we fire the new ux experience.
+                                    </p>
+
+                                    <div className="flex items-center py-3">
+                                        <i className="mega-menu-arr material-icons">play_circle_outline</i>
+
+                                        <NavLink to="/about/cheflaura" className="mega-menu-link">Meet Chef Laura!</NavLink>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    {/* Regular Link */}
+                    <li className="link">
+                        <span className="link-text">Login</span>
+                    </li>
+                </ul>
+            </nav>
         </header>
     );
 }

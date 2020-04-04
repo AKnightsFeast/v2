@@ -6,8 +6,6 @@ import Footer from './footer';
 
 import jquery from 'jquery';
 
-import '../styles/main.css';
-
 let $ = jquery;
 let jQuery = jquery;
 
@@ -19,17 +17,13 @@ interface IProps {
 
 const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
     return (
-        <div id="wrapper" aria-hidden="false">
+        <>
             <Header />
             <main id="main" className="">
-                <div id="content" role="main" className="content-area">
-                    <Route render={otherProps => (
-                        <Component {...otherProps} />
-                    )} />
-                </div>
+                <Route render={otherProps => (<Component {...otherProps} />)} />
             </main>
             <Footer />
-        </div>
+        </>
     );
 }
 

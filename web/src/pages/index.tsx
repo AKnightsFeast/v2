@@ -6,7 +6,6 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import SiteWrapper from "../components/sitewrapper";
 
 import Home from "./home";
-import Home2 from "./home2";
 import Policies from "./policies";
 import About from "./about/cheflaura";
 import Friends from "./about/friends";
@@ -14,6 +13,8 @@ import Assessment from "./assessment";
 import Testimonials from "./testimonials";
 
 import Monthly from "./menus/monthly";
+
+import "../assets/styles/site.css";
 
 /*
 import About from "../components/pages/About";
@@ -40,14 +41,13 @@ const Pages = () => {
     <>
       <ScrollToTopOnMount />
       <Switch>
+          <SiteWrapper path="/" exact={true} component={Home} />
           <SiteWrapper path="/policies" exact={true} component={Policies} />
           <SiteWrapper path="/about/friends" exact={true} component={Friends} />
           <SiteWrapper path="/about/cheflaura" exact={true} component={About} />
           <SiteWrapper path="/menus/monthly" exact={true} component={Monthly} />
           <SiteWrapper path="/testimonials" exact={true} component={Testimonials} />
 
-          <Route path="/" exact={true} component={Home2} />
-          <SiteWrapper path="/home" exact={true} component={Home} />
           <Route path="/assessment" exact={true} component={Assessment} />
           {/*
               <LoggedOutRoute path="/" exact={true} component={Landing} />

@@ -11,7 +11,7 @@ const About: React.FC = () => {
                     <p>
                         Hello! Thank you for taking a few moments to read about me. My name is Laura Knight, and I grew up in a food-industry Italian family in
                         the small ethnic town of Windber, PA. I attended Penn State to study business in 1995, with the hope that my area of study could be used
-                        <img id="cheflauraimg" src="/img/cheflaura.jpg" />
+                        <img id="cheflauraimg" src="/img/cheflaura.jpg" alt="Chef Laura" />
                         to propel me in the arena of food.    
                     </p>
                     <p>

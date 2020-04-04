@@ -1,7 +1,36 @@
 body {
     @apply text-gray-800;
+    font-family: 'Quicksand', Arial;
 }
 
 h2 {
     @apply text-4xl;
+    font-family: 'Nunito', Arial;
+}
+
+blockquote
+{
+    @apply italic;
+    @apply relative;
+    @apply border-l-4;
+    @apply border-solid;
+}
+
+blockquote::before
+{
+    @apply absolute;
+    content: "\201C";
+    font-family: Arial;
+}
+
+blockquote::after
+{
+    content: '';
+}
+
+blockquote span
+{
+    @apply block;
+    @apply font-bold;
+    @apply text-right;
 }
