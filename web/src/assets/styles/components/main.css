@@ -34,3 +34,16 @@ blockquote span
     @apply font-bold;
     @apply text-right;
 }
+
+/* Necessary for footer to remain at the bottom of the screen */
+.App {
+    @apply flex;
+    @apply flex-col;
+    @apply min-h-screen;
+}
+
+#main {
+    @apply flex-1;
+    @apply mx-auto;
+}
+/* ---------------------------------------------------------- */

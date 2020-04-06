@@ -651,6 +651,22 @@ blockquote span
   text-align: right;
 }
 
+/* Necessary for footer to remain at the bottom of the screen */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#main {
+  flex: 1 1 0%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------------------------------------------------------- */
+
 .nav {
   display: flex;
   background-color: #fff;
