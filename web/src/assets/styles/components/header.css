@@ -1,9 +1,9 @@
 .nav {
     @apply flex;
     @apply bg-white;
-    @apply border-b-2;
+    @apply border-b;
     @apply text-gray-900;
-    @apply border-gray-300;
+    @apply border-gray-200;
     @apply justify-between;
 }
 
@@ -27,7 +27,7 @@
 
 .nav .link:hover {
     @apply text-white;
-    @apply bg-blue-800;
+    @apply bg-blue-900;
 }
 
 .nav .link.hoverable:hover .mega-menu {
@@ -35,19 +35,23 @@
     @apply block;
 }
 
-.nav .link-text {
+.nav .link-text,
+.nav .nav-right-item {
     @apply px-4;
     @apply py-6;
     @apply block;
     @apply text-sm;
     @apply relative;
     @apply font-bold;
+}
+
+.nav .link-text {
     @apply cursor-pointer;
 }
 
 .nav .link-text:hover {
     @apply text-white;
-    @apply bg-blue-800;
+    @apply bg-blue-900;
 }
 
 .nav .mega-menu {
@@ -59,7 +63,7 @@
     @apply absolute;
     @apply shadow-xl;
     @apply text-left;
-    @apply bg-blue-800;
+    @apply bg-blue-900;
 }
 
 .nav .mega-menu .container {
@@ -152,7 +156,8 @@
 }
 
 @screen lg {
-    .nav .link-text {
+    .nav .link-text,
+    .nav .nav-right-item {
         @apply p-6;
         @apply text-base;
     }

@@ -159,7 +159,7 @@ const Header: React.FC = () => {
 
                                 <ul className="mega-menu-item">
                                     <div className="flex items-center">
-                                        <img src="/img/cheflaura.jpg" className="mega-menu-icon" alt="Chef Laura" />
+                                        <img src={require("../assets/img/cheflaura.jpg")} className="mega-menu-icon" alt="Chef Laura" />
 
                                         <h3 className="mega-menu-title">Chef Laura</h3>
                                     </div>
@@ -181,6 +181,10 @@ const Header: React.FC = () => {
                     {/* Regular Link */}
                     <li className="link">
                         <span className="link-text">Login</span>
+                    </li>
+
+                    <li>
+                        <span>703.863.3068</span>
                     </li>
                 </ul>
             </nav>

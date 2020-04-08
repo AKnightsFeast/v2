@@ -670,9 +670,9 @@ blockquote span
 .nav {
   display: flex;
   background-color: #fff;
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
   color: #1a202c;
-  border-color: #e2e8f0;
+  border-color: #edf2f7;
   justify-content: space-between;
 }
 
@@ -696,7 +696,7 @@ blockquote span
 
 .nav .link:hover {
   color: #fff;
-  background-color: #2c5282;
+  background-color: #2a4365;
 }
 
 .nav .link.hoverable:hover .mega-menu {
@@ -704,7 +704,8 @@ blockquote span
   display: block;
 }
 
-.nav .link-text {
+.nav .link-text,
+.nav .nav-right-item {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 1.5rem;
@@ -713,12 +714,15 @@ blockquote span
   font-size: 0.875rem;
   position: relative;
   font-weight: 700;
+}
+
+.nav .link-text {
   cursor: pointer;
 }
 
 .nav .link-text:hover {
   color: #fff;
-  background-color: #2c5282;
+  background-color: #2a4365;
 }
 
 .nav .mega-menu {
@@ -730,7 +734,7 @@ blockquote span
   position: absolute;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   text-align: left;
-  background-color: #2c5282;
+  background-color: #2a4365;
 }
 
 .nav .mega-menu .container {
@@ -826,7 +830,8 @@ blockquote span
 }
 
 @media (min-width: 1024px) {
-  .nav .link-text {
+  .nav .link-text,
+    .nav .nav-right-item {
     padding: 1.5rem;
     font-size: 1rem;
   }
@@ -954,6 +959,7 @@ h2 {
 }
 
 .parallax img {
+  background-position: center;
   background-size: cover;
 }
 
@@ -1079,7 +1085,7 @@ h2 {
 */
 
 .how-it-works {
-  background-color: rgba(214, 37, 96, 0.6);
+  background-color: #ed64a6;
 }
 
 .how-it-works h2 {
@@ -1090,17 +1096,20 @@ h2 {
   padding-bottom: 0;
 }
 
-.timeline-content p ~ p,
-.timeline-content li ~ li {
-  margin-top: 1rem;
+.timeline {
+  color: #fff5f5;
 }
 
 .timeline-content-container
 {
   font-size: 1.3em;
   padding: 10px 15px 10px 15px;
-  color: rgba(255, 255, 255, 1);
   background-color: rgba(233, 242, 242, 0.1);
+}
+
+.timeline-content p ~ p,
+.timeline-content li ~ li {
+  margin-top: 1rem;
 }
 
 .timeline a.is-underline:hover
@@ -1119,7 +1128,7 @@ h2 {
 }
 
 .timeline .timeline-item .timeline-icon i {
-  color: #d53f8c;
+  color: #ed64a6;
 }
 
 /*
@@ -1128,6 +1137,7 @@ h2 {
 
 .prices {
   padding-bottom: 16rem;
+  position: relative;
   background-color: rgba(220, 220, 220, 1);
 }
 
@@ -1173,8 +1183,8 @@ h2 {
   position: relative;
   color: #fff;
   text-align: center;
+  background-color: #ed64a6;
   margin-bottom: 30px;
-  background-color: rgba(214, 37, 96, 0.6);
 }
 
 .prices .plan:nth-child(odd) .entry-title {
@@ -1191,7 +1201,7 @@ h2 {
   background-color: #fff;
   font-size: 20px;
   font-weight: 700;
-  background-color: #ed64a6;
+  background-color: #d53f8c;
   text-transform: uppercase;
 }
 
@@ -1207,7 +1217,7 @@ h2 {
   border-radius: 50px;
   margin: 0 auto;
   position: absolute;
-  background-color: #ed64a6;
+  background-color: #d53f8c;
   overflow: hidden;
   border: 5px solid #fff;
 }
@@ -1309,6 +1319,71 @@ p.normal {
 
 p.justify {
   text-align: justify;
+}
+
+.footer {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 6rem;
+  background-color: #f7fafc;
+}
+
+.footer-content {
+  margin-bottom: 1rem;
+  padding-top: 2.5rem;
+  margin: auto;
+  border-top-width: 1px;
+  max-width: 56rem;
+}
+
+.footer-col {
+  height: auto;
+}
+
+.footer-col ~ .footer-col {
+  margin-top: 2rem;
+}
+
+.footer-title {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.footer-svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.footer-svg:hover,
+.footer-link:hover {
+  color: #d53f8c;
+}
+
+.follow-me {
+  display: flex;
+  width: 145px;
+  justify-content: space-between;
+}
+
+.cozymeal {
+  width: 33px;
+  height: 24px;
+}
+
+@media (min-width: 640px) {
+  .footer-content {
+    display: flex;
+  }
+
+  .footer-col  {
+    width: 25%;
+  }
+
+  .footer-col ~ .footer-col {
+    margin-top: 0;
+  }
 }
 
 .sr-only{

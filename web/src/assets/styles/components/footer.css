@@ -1,0 +1,63 @@
+.footer {
+    @apply px-8;
+    @apply pt-10;
+    @apply pb-24;
+    @apply bg-gray-100;
+}
+
+.footer-content {
+    @apply mb-4;
+    @apply pt-10;
+    @apply m-auto;
+    @apply border-t;
+    @apply max-w-4xl;
+}
+
+.footer-col {
+    @apply h-auto;
+}
+
+.footer-col ~ .footer-col {
+    @apply mt-8;
+}
+
+.footer-title {
+    @apply mb-2;
+    @apply font-bold;
+}
+
+.footer-svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.footer-svg:hover,
+.footer-link:hover {
+    @apply text-pink-600;
+}
+
+.follow-me {
+    @apply flex;
+    width: 145px;
+    @apply justify-between;
+}
+
+.cozymeal {
+    width: 33px;
+    height: 24px;
+}
+
+@screen sm {
+    .footer-content {
+        @apply flex;
+    }
+
+    .footer-col  {
+        @apply w-1/4;
+    }
+    
+    .footer-col ~ .footer-col {
+        @apply mt-0;
+    }
+}

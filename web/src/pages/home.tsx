@@ -17,18 +17,18 @@ const Home: React.FC = () => {
                 <div className="hero-content">
                     <h2 className="text-pink-600">Question?</h2>
                     <p className="mb-6">
-                        Have you and your family become too reliant on carryout meals, mass-produced restaurant food, or boxed 
-                        dinners with minimal nutritional value? Do you want to eat healthier but lack the time to plan, shop for 
+                        Have you and your family become too reliant on carryout meals, mass-produced restaurant food, or boxed
+                        dinners with minimal nutritional value? Do you want to eat healthier but lack the time to plan, shop for
                         and cook meals that are good for you?
                     </p>
                     <h2 className="text-green-900">Answer!</h2>
                     <p>
-                        A Knight's Feast Personal Chef Service prepares your choice of meals - 
-                        made fresh in your own kitchen - and packages them with easy-to-follow heating instructions. 
+                        A Knight's Feast Personal Chef Service prepares your choice of meals -
+                        made fresh in your own kitchen - and packages them with easy-to-follow heating instructions.
                         We create meals that meet your specific dietary and nutritional needs and appeal to your personal tastes.
                     </p>
                 </div>
-{/*
+                {/*
                 <div className="">
                 <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <polygon points="50,0 100,0 50,100 0,100" fill="currentColor" />
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
 
                     <div className="timeline-item">
                         <div className="timeline-icon"><i className="material-icons">whatshot</i></div>
-                            <div className="timeline-content right">
+                        <div className="timeline-content right">
                             <h2>Cook</h2>
                             <div className="timeline-content-container right">
                                 <p className="justify normal">Your food will be prepared fresh by Chef Laura for delivery to your home.</p>
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
                     <blockquote>
                         A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
                         <span>Chef Laura</span>
-                     </blockquote>
+                    </blockquote>
                 </Parallax>
             </section>
 
@@ -213,7 +213,50 @@ const Home: React.FC = () => {
                         </div>
                     </div>
                 </div>
-           </section>
+
+                <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden" style={{ height: "70px", transform: "translateZ(0px)" }}>
+                    <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                        <polygon className="text-gray-900 fill-current" points="2560 0 2560 100 0 100"></polygon>
+                    </svg>
+                </div>
+            </section>
+
+
+
+            <section className="relative block py-24 bg-gray-900">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-wrap justify-center">
+                        <div className="w-full lg:w-6/12 px-4">
+                            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300">
+                                <div className="flex-auto p-5 lg:p-10">
+                                    <h4 className="text-2xl font-semibold">Send Chef Laura a message!</h4>
+
+                                    <p className="leading-relaxed mt-1 mb-4 text-gray-600">Complete this form and she will get back to you soon!</p>
+
+                                    <div className="relative w-full mb-3 mt-8">
+                                        <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="full-name">Full Name</label>
+                                        <input type="text" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Full Name" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                    </div>
+                                    
+                                    <div className="relative w-full mb-3">
+                                        <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="email">Email</label>
+                                        <input type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                    </div>
+                                    
+                                    <div className="relative w-full mb-3">
+                                        <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="message">Message</label>
+                                        <textarea rows={4} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
+                                    </div>
+                                    
+                                    <div className="text-center mt-6">
+                                        <button className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all 0.15s ease 0s" }}>Send Message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     );
 }

@@ -6,7 +6,8 @@
 @import "tailwindcss/components";
 
 @import "./main.css";
-@import "./nav.css";
+@import "./header.css";
 @import "./home.css";
+@import "./footer.css";
 
 @import "tailwindcss/utilities";

@@ -99,6 +99,7 @@ h2 {
 }
 
 .parallax img {
+    background-position: center;
     background-size: cover;
 }
 
@@ -223,7 +224,7 @@ h2 {
 * How It Works
 */
 .how-it-works {
-    background-color: rgba(214, 37, 96, 0.6);
+    @apply bg-pink-500;
 }
 
 .how-it-works h2 {
@@ -234,17 +235,20 @@ h2 {
     @apply pb-0;
 }
 
-.timeline-content p ~ p,
-.timeline-content li ~ li {
-    @apply mt-4;
+.timeline {
+    @apply text-red-100;
 }
 
 .timeline-content-container
 {
     font-size: 1.3em;
     padding: 10px 15px 10px 15px;
-    color: rgba(255, 255, 255, 1);
     background-color: rgba(233, 242, 242, 0.1);
+}
+
+.timeline-content p ~ p,
+.timeline-content li ~ li {
+    @apply mt-4;
 }
 
 .timeline a.is-underline:hover
@@ -263,7 +267,7 @@ h2 {
 }
 
 .timeline .timeline-item .timeline-icon i {
-    @apply text-pink-600;
+    @apply text-pink-500;
 }
 
 /*
@@ -271,6 +275,7 @@ h2 {
 */
 .prices {
     @apply pb-64;
+    @apply relative;
     background-color: rgba(220, 220, 220, 1);
 }
 
@@ -313,12 +318,13 @@ h2 {
     @apply relative;
     @apply text-white;
     @apply text-center;
+    @apply bg-pink-500;
     margin-bottom: 30px;
-    background-color: rgba(214, 37, 96, 0.6);
 }
 
 .prices .plan:nth-child(odd) .entry-title {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
 
 .prices .plan:nth-child(even) .entry-title {
     background-image: url("data:image/svg+xml,%3Csvg width='32' height='26' viewBox='0 0 32 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 0v3.994C14 7.864 10.858 11 7 11c-3.866 0-7-3.138-7-7.006V0h2v4.005C2 6.765 4.24 9 7 9c2.756 0 5-2.236 5-4.995V0h2zm0 26v-5.994C14 16.138 10.866 13 7 13c-3.858 0-7 3.137-7 7.006V26h2v-6.005C2 17.235 4.244 15 7 15c2.76 0 5 2.236 5 4.995V26h2zm2-18.994C16 3.136 19.142 0 23 0c3.866 0 7 3.138 7 7.006v9.988C30 20.864 26.858 24 23 24c-3.866 0-7-3.138-7-7.006V7.006zm2-.01C18 4.235 20.244 2 23 2c2.76 0 5 2.236 5 4.995v10.01C28 19.765 25.756 22 23 22c-2.76 0-5-2.236-5-4.995V6.995z' fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
@@ -330,7 +336,7 @@ h2 {
     @apply bg-white;
     font-size: 20px;
     font-weight: 700;
-    @apply bg-pink-500;
+    @apply bg-pink-600;
     text-transform: uppercase;
 }
 
@@ -347,7 +353,7 @@ h2 {
 
     margin: 0 auto;
     @apply absolute;
-    @apply bg-pink-500;
+    @apply bg-pink-600;
     @apply overflow-hidden;
     border: 5px solid #fff;
 }
