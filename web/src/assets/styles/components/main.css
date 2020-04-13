@@ -36,7 +36,7 @@ blockquote span
 }
 
 /* Necessary for footer to remain at the bottom of the screen */
-.App {
+.app {
     @apply flex;
     @apply flex-col;
     @apply min-h-screen;

@@ -4,14 +4,13 @@ import { createBrowserHistory } from "history";
 
 import Pages from './pages';
 
-const history = createBrowserHistory();
+import './App.css';
 
-//import logo from './logo.svg';
-//import './App.css';
+const history = createBrowserHistory();
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="app">
       <Router history={history}>
         <Route component={Pages} />
       </Router>

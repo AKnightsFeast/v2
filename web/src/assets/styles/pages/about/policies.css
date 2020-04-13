@@ -1,7 +1,7 @@
-#policies article {
+.policies .policy {
     margin-top: 40px;
 }
 
-#policies article p {
+.policies .policy p {
     font-size: 1.2em;
 }

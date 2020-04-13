@@ -18,7 +18,7 @@
     @apply absolute;
     transform: translate(0, 8%);
     background-size: cover;
-    background-image: url(/img/logos/logo.png);
+    background-image: resolve("logo.png");
 }
 
 .nav .link-container {
@@ -88,6 +88,13 @@
 
 .nav .mega-menu-item ~ .mega-menu-item {
     @apply border-t;
+}
+
+.nav .cheflaura {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-image: resolve("about/cheflaura.jpg");
 }
 
 .nav .mega-menu-icon {

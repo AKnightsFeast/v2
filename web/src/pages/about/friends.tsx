@@ -1,7 +1,5 @@
 import React from 'react';
 
-import "../../styles/friends.css";
-
 const Friends: React.FC = () => {
     return (
         <>

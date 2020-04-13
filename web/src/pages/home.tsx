@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 //import { Transition } from 'react-transition-group';
 
-import "../assets/styles/timeline.css";
-import "../assets/styles/transition.css";
+import "../assets/styles/pages/home/timeline.css";
+//import "../assets/styles/transition.css";
 
 const calc = (o: number) => `translateY(${o * 0.1}px)`;
 

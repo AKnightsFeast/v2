@@ -135,7 +135,7 @@ const Header: React.FC = () => {
                                     <div className="flex items-center py-3">
                                         <i className="mega-menu-arr material-icons">play_circle_outline</i>
 
-                                        <NavLink to="/testimonials" className="mega-menu-link">See what they're saying!</NavLink>
+                                        <NavLink to="/about/testimonials" className="mega-menu-link">See what they're saying!</NavLink>
                                     </div>
                                 </ul>
 
@@ -159,7 +159,7 @@ const Header: React.FC = () => {
 
                                 <ul className="mega-menu-item">
                                     <div className="flex items-center">
-                                        <img src={require("../assets/img/cheflaura.jpg")} className="mega-menu-icon" alt="Chef Laura" />
+                                        <div className="mega-menu-icon cheflaura" title="Chef Laura"></div>
 
                                         <h3 className="mega-menu-title">Chef Laura</h3>
                                     </div>
@@ -183,8 +183,13 @@ const Header: React.FC = () => {
                         <span className="link-text">Login</span>
                     </li>
 
-                    <li>
-                        <span>703.863.3068</span>
+                    <li className="nav-right-item">
+                        <div className="flex justify-between text-pink-600 fill-current">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M16 0v3h-8c-1.104 0-2 .896-2 2v17c0 1.104.896 2 2 2h8c1.104 0 2-.896 2-2v-22h-2zm-6 21h-2v-1h2v1zm0-2h-2v-1h2v1zm0-2h-2v-1h2v1zm3 4h-2v-1h2v1zm0-2h-2v-1h2v1zm0-2h-2v-1h2v1zm3 4h-2v-1h2v1zm0-2h-2v-1h2v1zm0-2h-2v-1h2v1zm0-3h-8v-8h8v8z"/>
+                            </svg>
+                            <div className="pl-2">703.863.3068</div>
+                        </div>
                     </li>
                 </ul>
             </nav>

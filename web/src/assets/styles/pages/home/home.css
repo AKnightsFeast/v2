@@ -38,7 +38,7 @@ h2 {
     @apply w-full;
     @apply mx-auto;
     @apply relative;
-    background: url(/img/bgspiration-light.png) center center repeat;
+    background: resolve("home/bgspiration-light.png") center center repeat;
 }
 
 .hero-bg {
@@ -46,7 +46,7 @@ h2 {
     @apply w-full;
     @apply absolute;
     background-size: cover;
-    background-image: url(/img/bgsquash.jpg);
+    background-image: resolve("home/bgsquash.jpg");
 }
 
 .hero-content p {
@@ -101,6 +101,11 @@ h2 {
 .parallax img {
     background-position: center;
     background-size: cover;
+}
+
+.foodquote,
+.chefquote {
+    @apply relative;
 }
 
 .foodquote .overlay,
@@ -211,7 +216,7 @@ h2 {
 .prices {
     padding-top: 30px;
     padding-bottom: 30px;
-    background-image: url(/img/tiles-bw.png);
+    background-image: resolve("home/tiles-bw.png");
 }
 
 .how-it-works h2,

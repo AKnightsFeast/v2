@@ -6,15 +6,13 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import SiteWrapper from "../components/sitewrapper";
 
 import Home from "./home";
-import Policies from "./policies";
+import Assessment from "./assessment";
 import About from "./about/cheflaura";
 import Friends from "./about/friends";
-import Assessment from "./assessment";
-import Testimonials from "./testimonials";
+import Policies from "./about/policies";
+import Testimonials from "./about/testimonials";
 
 import Monthly from "./menus/monthly";
-
-import "../assets/styles/site.css";
 
 /*
 import About from "../components/pages/About";

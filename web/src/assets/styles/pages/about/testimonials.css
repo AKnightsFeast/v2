@@ -1,3 +1,13 @@
+.testimonials .header {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.testimonials .header {
+    background-color: rgba(157, 189, 115, .5);
+    background-image: resolve("dimension.png");
+}
+
 .testimonial {
     position: relative;
 }
@@ -18,14 +28,4 @@
     width: 45px;
     font-size: 4em;
 	overflow: hidden;
-}
-
-#testimonialHeader {
-    font-size: 1.4em;
-    margin-bottom: 20px;
-}
-
-#testimonialHeader .message-box-bg-overlay {
-    background-color: rgba(157, 189, 115, .5);
-    background-image: url(/img/dimension.png);
 }

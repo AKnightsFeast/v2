@@ -1,15 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import '../../styles/cheflaura.css';
-
 const About: React.FC = () => {
     return (
         <>
             <section className="relative block" style={{ height: "500px" }}>
                 <div
                     className="absolute top-0 w-full h-full bg-center bg-cover"
-                    style={{ backgroundImage: "url(" + require("../../assets/img/tortellinis.jpg") + ")" }}>
+                    style={{ backgroundImage: "url(" + require("../../assets/img/about/tortellinis.jpg") + ")" }}>
                     <span
                         id="blackOverlay"
                         className="w-full h-full absolute opacity-25 bg-black"
@@ -39,7 +37,7 @@ const About: React.FC = () => {
                                     <div className="relative">
                                         <img
                                             alt="Chef Laura Knight"
-                                            src={require("../../assets/img/cheflaura.jpg")}
+                                            src={require("../../assets/img/about/cheflaura.jpg")}
                                             className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                                             style={{ maxWidth: "150px" }}
                                         />

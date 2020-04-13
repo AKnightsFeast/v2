@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
                     <div className="footer-title">About</div>
                     <ul className="list-reset leading-normal">
                         <li><NavLink to="/policies" className="footer-link">Policies</NavLink></li>
-                        <li><NavLink to="/testimonials" className="footer-link">Testimonials</NavLink></li>
+                        <li><NavLink to="/about/testimonials" className="footer-link">Testimonials</NavLink></li>
                         <li><NavLink to="/about/friends" className="footer-link">Friends</NavLink></li>
                         <li><NavLink to="/about/cheflaura" className="footer-link">Chef Laura</NavLink></li>
                     </ul>
