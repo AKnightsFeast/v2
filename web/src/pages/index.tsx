@@ -40,11 +40,12 @@ const Pages = () => {
       <ScrollToTopOnMount />
       <Switch>
           <SiteWrapper path="/" exact={true} component={Home} />
-          <SiteWrapper path="/policies" exact={true} component={Policies} />
           <SiteWrapper path="/about/friends" exact={true} component={Friends} />
           <SiteWrapper path="/about/cheflaura" exact={true} component={About} />
+          <SiteWrapper path="/about/policies" exact={true} component={Policies} />
+          <SiteWrapper path="/about/testimonials" exact={true} component={Testimonials} />
+          
           <SiteWrapper path="/menus/monthly" exact={true} component={Monthly} />
-          <SiteWrapper path="/testimonials" exact={true} component={Testimonials} />
 
           <Route path="/assessment" exact={true} component={Assessment} />
           {/*

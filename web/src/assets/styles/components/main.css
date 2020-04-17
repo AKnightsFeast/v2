@@ -8,6 +8,12 @@ h2 {
     font-family: 'Nunito', Arial;
 }
 
+a:hover {
+    @apply ease-in-out;
+    @apply duration-200;
+    @apply transition-colors;
+}
+
 blockquote
 {
     @apply italic;
@@ -42,8 +48,8 @@ blockquote span
     @apply min-h-screen;
 }
 
-#main {
+.main {
     @apply flex-1;
-    @apply mx-auto;
+    margin-top: 73px;
 }
 /* ---------------------------------------------------------- */

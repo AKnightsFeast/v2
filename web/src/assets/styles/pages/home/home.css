@@ -236,6 +236,18 @@ h2 {
     @apply text-pink-900;
 }
 
+.how-it-works a {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    @apply border-red-100;
+}
+
+.how-it-works a:hover {
+    @apply text-pink-900;
+    @apply border-pink-900;
+}
+
 .timeline-content h2 {
     @apply pb-0;
 }
@@ -450,12 +462,4 @@ text-decoration: none
     .prices .plan:nth-child(-n+2) {
         @apply mt-0;
     }
-}
-
-p.normal {
-    line-height: normal;
-}
-
-p.justify {
-    text-align: justify;
 }

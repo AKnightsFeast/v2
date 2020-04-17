@@ -1,26 +1,24 @@
-#friendsHeader {
-    font-size: 1.4em;
-    margin-bottom: 20px;
+.friends .header {
+    @apply p-6;
+    @apply mb-20;
+    background-repeat: repeat;
+    color: rgba(233, 242, 242, 1);
+    background-color: rgba(0, 28, 82, 0.7);    
+    background-image: resolve("backgrounds/dimension.png");
 }
 
-#friendsHeader .message-box-bg-overlay {
-    background-image: url(/img/dimension.png);
+.friends .content {
+    @apply px-5;
+    @apply flex;
+    @apply items-center;
+    @apply justify-between;
 }
 
-#friendsContent div {
-    text-align: center;
-}
-
-#friendsContent a.friend-lnk {
-    top: 50%;
-    left: 50%;
-    font-size: 1.2em;
-    font-weight: bold;
-    position: absolute;
-    transform: translate(-50%, -50%);
-  }
-
-img.friend-img {
-    width: auto;
+.friends .friend-img {
+    @apply w-auto;
     height: 244px;
+}
+
+.friends .friend-lnk {
+    @apply text-5xl;
 }

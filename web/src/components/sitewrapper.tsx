@@ -19,7 +19,7 @@ const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
     return (
         <>
             <Header />
-            <main id="main" className="">
+            <main className="main">
                 <Route render={otherProps => (<Component {...otherProps} />)} />
             </main>
             <Footer />

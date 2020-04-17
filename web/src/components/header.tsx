@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 
 const Header: React.FC = () => {
+    const [isAtTop, setIsAtTop] = useState(true)
+
+    useScrollPosition(
+        ({ currPos }) => {
+            const atTop = currPos.y == 0;
+            if (atTop !== isAtTop) setIsAtTop(atTop);
+        },
+        [isAtTop]
+    );
+
     return (
         <header>
-            <nav className="nav">
+            <nav className={`nav${isAtTop ? "" : " scrolled"}`}>
                 <div className="logo">
                     <NavLink to="/" title="A Knight's Feast - Personal Chef Service" rel="home">
                         <div className="img"></div>
@@ -115,7 +126,7 @@ const Header: React.FC = () => {
                                     <div className="flex items-center py-3">
                                         <i className="mega-menu-arr material-icons">play_circle_outline</i>
 
-                                        <NavLink to="/policies" className="mega-menu-link">Take a look!</NavLink>
+                                        <NavLink to="/about/policies" className="mega-menu-link">Take a look!</NavLink>
                                    </div>
                                 </ul>
 
@@ -159,7 +170,7 @@ const Header: React.FC = () => {
 
                                 <ul className="mega-menu-item">
                                     <div className="flex items-center">
-                                        <div className="mega-menu-icon cheflaura" title="Chef Laura"></div>
+                                        <div className="mega-menu-icon cheflauraimg" title="Chef Laura"></div>
 
                                         <h3 className="mega-menu-title">Chef Laura</h3>
                                     </div>

@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@n8tb1t/use-scroll-position": "^1.0.43",
         "@types/jest": "24.0.23",
         "@types/jquery": "^3.3.31",
         "@types/node": "12.12.7",
@@ -28,8 +29,10 @@
         "typescript": "3.7.2"
     },
     "scripts": {
-        "start": "npm-run-all -p watch:css watch:js",
-        "build": "NODE_ENV=production npm-run-all build:css build:js",
+        "remimg": "@powershell If (Test-Path 'public\\assets\\img') { Remove-Item -LiteralPath 'public\\assets\\img' -Force -Recurse }",
+        "copyimg": "ncp src/assets/img public/assets/img",
+        "start": "npm run remimg && npm run copyimg && npm-run-all -p watch:css watch:js",
+        "build": "npm run remimg && npm run copyimg && NODE_ENV=production npm-run-all build:css build:js",
         "watch:js": "react-app-rewired start",
         "build:js": "react-app-rewired build",
         "watch:css": "postcss src/assets/styles/bundle.css -o src/App.css -w",
@@ -57,6 +60,7 @@
         "@types/react": "^16.9.11",
         "autoprefixer": "^9.7.4",
         "cssnano": "^4.1.10",
+        "ncp": "^2.0.0",
         "postcss-assets": "^5.0.0",
         "postcss-browser-reporter": "^0.6.0",
         "postcss-cli": "^7.1.0",

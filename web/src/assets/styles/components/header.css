@@ -1,10 +1,17 @@
 .nav {
+    @apply z-50;
     @apply flex;
+    @apply fixed;
+    @apply w-full;
     @apply bg-white;
     @apply border-b;
     @apply text-gray-900;
     @apply border-gray-200;
     @apply justify-between;
+}
+
+.nav.scrolled {
+    @apply shadow-sm;
 }
 
 .nav .logo {
@@ -90,7 +97,7 @@
     @apply border-t;
 }
 
-.nav .cheflaura {
+.nav .cheflauraimg {
     width: 32px;
     height: 32px;
     background-size: cover;

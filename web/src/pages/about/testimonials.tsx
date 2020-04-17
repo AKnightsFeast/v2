@@ -1,19 +1,12 @@
 import React from 'react';
 
-//import '../../assets/styles/testimonials.css';
-//import '../styles/columns.css';
-
 const Testimonials: React.FC = () => {
     return (
-        <div className="testimonials">
-            <div className="header" style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-                <div className="">
-                    See what others are saying about Chef Laura!
-                </div>
-            </div>
+        <section className="testimonials">
+            <div className="header"><h2 className="mb-0">See what others are saying about Chef Laura!</h2></div>
 
-            <div className="strong-content strong-columns columns-3">
-                <div className="testimonial">
+            <div className="content">
+                <div className="testimonial row-span-2">
                     <blockquote>
                         We were thrilled to have Laura come and prepare a wonderful dinner for our family celebration. From the very first contact
                         Laura showed sincere interest in our needs and suggested several excellent menus for the evening. The four course dinner of
@@ -26,9 +19,9 @@ const Testimonials: React.FC = () => {
                 </div>
 
                 <div className="testimonial">
-                    <blockquote className="pink-color">
+                    <blockquote>
                         <p>Chef Laura has generously donated her time to our non-profit and displayed her big heart and wide array of culinary skills.</p>
-                        She comes with a strong endorsement from <a href="http://www.HelpingOurBrothersandSisters.org" target="_blank" className="is-underline">Helping Our Brothers &amp; Sisters Non-Profit</a>.
+                        <p>She comes with a strong endorsement from <a href="http://www.HelpingOurBrothersandSisters.org" target="_blank">Helping Our Brothers &amp; Sisters Non-Profit</a>.</p>
                         <span>Dr. Marvin Carter, President</span>
                     </blockquote>
                 </div>
@@ -41,7 +34,7 @@ const Testimonials: React.FC = () => {
                 </div>
 
                 <div className="testimonial">
-                    <blockquote className="pink-color">
+                    <blockquote className="alt">
                         What a wonderful time we had on Saturday!  Thank you so much for all the delicious dishes you created before our eyes, and for the instruction
                         that went with each dish.  We just finished the spinach gnocchi and froze the Italian sausage lasagna.  Tomorrow we will finish the veal osso bucco!
                         We plan to have a little tiramisu later tonight, and freeze the rest. Our friends loved the evening, the instruction, and the AWESOME food.
@@ -67,16 +60,7 @@ const Testimonials: React.FC = () => {
                     </blockquote>
                 </div>
 
-                <div className="testimonial">
-                    <blockquote className="pink-color">
-                        Laura, our evening was such a beautiful memory! Your culinary talents are beyond "wonderful"....in fact, your dinner was the 
-                        best that both my husband and I have ever eaten and that says a lot since we travel the world and enjoy eating out about 5 
-                        nights per week.  I wish you such continued success in building your business!
-                        <span>Penny</span>
-                    </blockquote>
-                </div>
-
-                <div className="testimonial">
+                <div className="testimonial row-span-2">
                     <blockquote>
                         <p>
                             Laura, I wanted to take a moment and say thank you so much for the wonderful dinner that you cooked for me and my husband Jon on 
@@ -90,13 +74,22 @@ const Testimonials: React.FC = () => {
                             So thank you again for making it one of the best Valentine's Day we have ever had and will never forget!  The massage and dinner 
                             combo was hit for us and we have to do that again!
                         </p>
-                        Thank you!
+                        <p>Thank you!</p>
                         <span>Linda Jaeger</span>
                     </blockquote>
                 </div>
 
                 <div className="testimonial">
-                    <blockquote>
+                    <blockquote className="alt">
+                        Laura, our evening was such a beautiful memory! Your culinary talents are beyond "wonderful"....in fact, your dinner was the 
+                        best that both my husband and I have ever eaten and that says a lot since we travel the world and enjoy eating out about 5 
+                        nights per week.  I wish you such continued success in building your business!
+                        <span>Penny</span>
+                    </blockquote>
+                </div>
+
+                <div className="testimonial">
+                    <blockquote className="alt">
                         <p>
                             Just want to thank you for all of the scrumptious food you prepared
                             for us - you are such a great cook and we are enjoying it all :) the
@@ -109,7 +102,7 @@ const Testimonials: React.FC = () => {
                     </blockquote>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
