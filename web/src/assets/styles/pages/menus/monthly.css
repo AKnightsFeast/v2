@@ -1,3 +1,41 @@
+.menu-monthly {
+    @apply flex;
+    @apply flex-1;
+    @apply min-h-full;
+    @apply w-full;
+    @apply items-stretch;
+}
+
+.menu-monthly > .content {
+    @apply flex;
+    @apply flex-1;
+}
+
+.menu-monthly > .content > .selectors,
+.menu-monthly .menu {
+    @apply px-4;
+    @apply pt-4;
+}
+
+.menu-monthly .selectors .years {
+    @apply w-full;
+    @apply text-center;
+}
+
+.menu-monthly .selectors .months {
+    @apply pt-4;
+    @apply grid;
+    @apply gap-2;
+    @apply grid-cols-3;
+}
+
+.menu-monthly .menu {
+    @apply flex;
+    @apply flex-grow;
+    @apply min-h-full;
+    border-left-width: 1px;
+}
+
 a.is-outline.active {
     color: rgba(214, 61, 111, 1);
 }

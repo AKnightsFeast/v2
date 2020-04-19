@@ -49,6 +49,7 @@ blockquote span
 }
 
 .main {
+    @apply flex;
     @apply flex-1;
     margin-top: 73px;
 }
