@@ -2,7 +2,7 @@ import { MonthlyMenuState, ApplicationState } from './types';
 
 export const InitialMonthlyMenuState : MonthlyMenuState = {
     IsLoading: false,
-    SelectedMenu: '',
+    SelectedMonth: null,
     SelectedYear: new Date().getFullYear(),
     MenuDates: new Map<number, number[]>()
 };

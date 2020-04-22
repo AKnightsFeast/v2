@@ -1,8 +1,10 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 
+import { Month } from '../../../modules/types';
 import { MonthlyMenuActions } from '../../../modules/enums';
 
-export const SetMenuYear = createAction(MonthlyMenuActions.SET_MENU_YEAR)<number>();
+export const setMenuYear = createAction(MonthlyMenuActions.SET_MENU_YEAR)<number>();
+export const setMenuMonth = createAction(MonthlyMenuActions.SET_MENU_MONTH)<Month | null | undefined>();
 
 export const LoadMenuDatesAsync = createAsyncAction(
     MonthlyMenuActions.LOAD_MENU_DATES,

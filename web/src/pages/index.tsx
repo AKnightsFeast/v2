@@ -12,7 +12,7 @@ import Friends from "./about/friends";
 import Policies from "./about/policies";
 import Testimonials from "./about/testimonials";
 
-import Monthly from "./menus/monthly";
+import Monthly from "./menus/monthly/";
 
 /*
 import About from "../components/pages/About";

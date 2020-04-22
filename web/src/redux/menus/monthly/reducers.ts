@@ -16,13 +16,13 @@ export const IsLoading = createReducer(false as boolean)
 export const SelectedYear = createReducer(initialState)
     .handleAction(MonthlyMenuActions.SET_MENU_YEAR, (state: any, action: any) => action.payload);
 
-export const SelectedMenu = createReducer(initialState)
-    .handleAction([LoadMenuAsync.success], (state : any, action : any) => [...state, action.payload]);
+export const SelectedMonth = createReducer(initialState)
+    .handleAction(MonthlyMenuActions.SET_MENU_MONTH, (state : any, action : any) => action.payload);
 
 export const MenuDates = createReducer(initialState)
     .handleAction(MonthlyMenuActions.LOAD_MENU_DATES_OK, (state: any, action: any) => action.payload);
 
-const MonthlyMenu = combineReducers({ IsLoading, SelectedYear, MenuDates, SelectedMenu });
+const MonthlyMenu = combineReducers({ IsLoading, SelectedYear, MenuDates, SelectedMonth });
 
 export default MonthlyMenu;
 

@@ -29,8 +29,8 @@
 }
 
 .menu-monthly .selectors .months > * {
-    @apply py-2;
-    @apply px-2;
+    @apply py-1;
+    @apply px-1;
 }
 
 .menu-monthly .menu {

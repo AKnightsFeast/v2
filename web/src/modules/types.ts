@@ -1,20 +1,37 @@
+import { MutableRefObject } from 'react';
 import { StateType, ActionType } from 'typesafe-actions';
 
 export type Month = {
     Abbr: string,
-    Name: string
+    Name: string,
+    Number: number
 }    
 
 export type MonthlyMenuState = {
     IsLoading: boolean,
-    SelectedMenu: string,
     SelectedYear: number,
-    MenuDates: Map<number, number[]>
+    MenuDates: Map<number, number[]>,
+    SelectedMonth?: Month | null | undefined
 };    
 
 export type ApplicationState = {
     MonthlyMenu: MonthlyMenuState
 };    
+
+export type IMonthlyMenuSelectorProp = {
+    SelectedYear: number,
+    MenuDates: Map<number, number[]>
+};
+
+export type IMonthlyMenuMonthsProp = {
+    MenuYear: MutableRefObject<number>,
+    MenuDates: Map<number, number[]>
+}
+
+export type IMonthlyMenuViewProp = {
+    MenuYear: number,
+    MenuMonth?: Month | null | undefined
+};
 
 export type Store = StateType<typeof import('../redux/store').default>;
 
