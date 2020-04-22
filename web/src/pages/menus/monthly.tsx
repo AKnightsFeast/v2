@@ -1,21 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { YearArray } from '../../utils';
-import { MenuMonth, ApplicationState } from '../../modules/types';
+import { Months, YearArray } from '../../utils';
+import { Month, ApplicationState } from '../../modules/types';
 
-import { MonthlyMenuActions } from '../../modules/enums'
+import { SetMenuYear } from '../../redux/menus/monthly/actions';
 
 const Monthly: React.FC = () => {
-    const menuMonths = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuMonths);
-    const selectedYear = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedYear);
-
     const dispatch = useDispatch();
-    const getMonthsForYear = useCallback(() => dispatch({ type: MonthlyMenuActions.LOAD_ACTIVE_MONTHS }), [dispatch]);
-
-    useEffect(() => {
-        dispatch({ type: MonthlyMenuActions.LOAD_MENU_DATES })
-    }, [dispatch]);
+    const menuDates = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuDates);
+    const selectedYear = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedYear);
+    const getMonthsForYear = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => { dispatch(SetMenuYear(+(e.target.value))) }, [dispatch]);
 
     return (
         <section className="menu-monthly">
@@ -32,14 +27,23 @@ const Monthly: React.FC = () => {
                     </div>
                     <div className="months">
                         {
-                            Array.from(menuMonths.values()).map((month: MenuMonth, key: number) => (
-                                <div key={ key }><a className="button is-outline is-smaller" href="#">{ month.Abbr }</a></div>
-                            ))
+                            Array.from(Months.values()).map((month: Month, key: number) => {
+                                let monthNo = key + 1;
+
+                                if (menuDates && menuDates.size > 0) {
+                                    let activeMonths = menuDates.get(selectedYear);
+
+                                    if (activeMonths && activeMonths.includes(monthNo))
+                                        return (<button key={ monthNo } className="month-active">{ month.Abbr }</button>);
+                                }
+
+                                return (<div key={ monthNo } className="month-inactive">{ month.Abbr }</div>);
+                            })
                         }
                     </div>
                 </div>
 
-                <div className="menu">
+                <div className="menu">  
                     Select a year and month to see a menu...
                 </div>
             </div>

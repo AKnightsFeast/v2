@@ -7,7 +7,7 @@ const Header: React.FC = () => {
 
     useScrollPosition(
         ({ currPos }) => {
-            const atTop = currPos.y == 0;
+            const atTop = currPos.y === 0;
             if (atTop !== isAtTop) setIsAtTop(atTop);
         },
         [isAtTop]

@@ -1,27 +1,18 @@
 import { from, of } from 'rxjs';
 import { Epic } from 'redux-observable';
-import { isActionOf } from 'typesafe-actions';
-import { filter, switchMap, map, catchError } from 'rxjs/operators';
+import { isActionOf, isOfType } from 'typesafe-actions';
+import { mapTo, filter, switchMap, map, catchError } from 'rxjs/operators';
 
 import { RootAction, RootReducer } from '../../../modules/types';
 
-import { LoadActiveMonthsAsync, LoadMenuDatesAsync, LoadMenuAsync } from './actions';
+import { LoadMenuDatesAsync, LoadMenuAsync } from './actions';
+import menuDates from '../../../assets/data/monthlymenudates';
 
-export const LoadMenuDatesEpic: Epic<RootAction, RootAction, RootReducer /*, Services*/> = (action$, state$) => //, { api }) =>
+
+export const LoadMenuDatesEpic: Epic<RootAction, RootAction, RootReducer /*, Services */> = (action$, state$) => //, { api }) =>
 action$.pipe(
     filter(isActionOf(LoadMenuDatesAsync.request)),
-    switchMap(() => of(
-        LoadMenuDatesAsync.success(new Map([
-            [2020, [1]],
-            [2019, [9-12]],
-            [2017, [1-12]],
-            [2016, [1]],
-            [2015, [4,5,7]],
-            [2014, [1-12]],
-            [2013, [1-6,8-12]],
-            [2012, [8-12]]]))
-        )
-    )
+    switchMap(() => of(LoadMenuDatesAsync.success(menuDates)))
 );
 
 //export const LoadActiveMonthsEpic: Epic<RootAction, RootAction, RootReducer /*, Services*/> = (action$, state$) => //, { api }) =>

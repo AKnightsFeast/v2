@@ -25,8 +25,12 @@
 .menu-monthly .selectors .months {
     @apply pt-4;
     @apply grid;
-    @apply gap-2;
     @apply grid-cols-3;
+}
+
+.menu-monthly .selectors .months > * {
+    @apply py-2;
+    @apply px-2;
 }
 
 .menu-monthly .menu {
@@ -36,6 +40,15 @@
     border-left-width: 1px;
 }
 
-a.is-outline.active {
-    color: rgba(214, 61, 111, 1);
+.month-inactive {
+    @apply text-gray-400;
+}
+
+.month-active:hover {
+    @apply text-white;
+    @apply bg-pink-600;
+    @apply rounded-full;
+    @apply ease-in-out;
+    @apply duration-200;
+    @apply transition-colors;
 }

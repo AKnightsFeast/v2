@@ -1,21 +1,19 @@
 import { StateType, ActionType } from 'typesafe-actions';
 
-export type MenuMonth = {
+export type Month = {
     Abbr: string,
-    Name: string,
-    IsActive: boolean
+    Name: string
 }    
 
-export type MonthlyMenu = {
+export type MonthlyMenuState = {
     IsLoading: boolean,
     SelectedMenu: string,
     SelectedYear: number,
-    MenuDates?: Map<number, number[]>,
-    MenuMonths: Map<number, MenuMonth>
+    MenuDates: Map<number, number[]>
 };    
 
 export type ApplicationState = {
-    MonthlyMenu: MonthlyMenu
+    MonthlyMenu: MonthlyMenuState
 };    
 
 export type Store = StateType<typeof import('../redux/store').default>;

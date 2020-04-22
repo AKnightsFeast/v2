@@ -3,7 +3,7 @@
 import React, { useLayoutEffect } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 
-import SiteWrapper from "../components/sitewrapper";
+import { SiteWrapper } from "../components";
 
 import Home from "./home";
 import Assessment from "./assessment";

@@ -1,12 +1,35 @@
+import { Month } from '../modules/types';
 import { OrderDirection } from '../modules/enums';
+
+export const Months: Map<number, Month> = new Map([
+    [1, { Abbr: "Jan", Name: "January" }],
+    [2, { Abbr: "Feb", Name: "February" }],
+    [3, { Abbr: "Mar", Name: "March" }],
+    [4, { Abbr: "Apr", Name: "April" }],
+    [5, { Abbr: "May", Name: "May" }],
+    [6, { Abbr: "Jun", Name: "June" }],
+    [7, { Abbr: "Jul", Name: "July" }],
+    [8, { Abbr: "Aug", Name: "August" }],
+    [9, { Abbr: "Sep", Name: "September" }],
+    [10, { Abbr: "Oct", Name: "October" }],
+    [11, { Abbr: "Nov", Name: "November" }],
+    [12, { Abbr: "Dec", Name: "December" }]
+]);
 
 export const YearArray: number[] = ((startYear: number, endYear: number): number[] => {
     let years: number[] = [];
+    let year = startYear;
 
-    for (let year: number = startYear; year <= endYear; year++) { years.push(year); }
+    if (startYear < endYear) {
+        for (; year <= endYear; year++) { years.push(year); }
+    } else if (startYear > endYear) {
+        for (; year >= endYear; year--) { years.push(year); }
+    } else {
+        years.push(year);
+    }
 
     return years;
-})(2013, new Date().getFullYear());
+})(new Date().getFullYear(), 2013);
 
 export const ColumnizeArray = <T>(colSize: number, arr: T[], direction: OrderDirection = OrderDirection.Horizontal): Map<number, T>[] => {
     let arrSize = 0;
