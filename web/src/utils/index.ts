@@ -31,7 +31,7 @@ export const YearArray: number[] = ((startYear: number, endYear: number): number
     }
 
     return years;
-})(new Date().getFullYear(), 2013);
+})(new Date().getFullYear(), 2012);
 
 export const ColumnizeArray = <T>(colSize: number, arr: T[], direction: OrderDirection = OrderDirection.Horizontal): Map<number, T>[] => {
     let arrSize = 0;

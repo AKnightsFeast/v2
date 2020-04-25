@@ -35,19 +35,49 @@
 
 .menu-monthly .menu {
     @apply flex;
+    @apply flex-col;
     @apply flex-grow;
     @apply min-h-full;
     border-left-width: 1px;
+}
+
+.menu-monthly .menu > div ~ div {
+    @apply mt-2;
+}
+
+.menu-monthly .menu-title {
+    @apply font-extrabold;
+}
+
+.menu-monthly .menu-viewer {
+    height: 750px;
+}
+
+.menu-monthly .menu-pager {
+    @apply flex;
+    @apply w-full;
+    @apply align-middle;
+}
+
+.menu-monthly .menu-pager > div {
+    @apply flex;
+    @apply flex-grow;
+    @apply flex-shrink;
+    @apply items-center;
+    @apply justify-center; 
 }
 
 .month-inactive {
     @apply text-gray-400;
 }
 
+.month-selected,
 .month-active:hover {
     @apply text-white;
     @apply bg-pink-600;
-    @apply rounded-full;
+}
+
+.month-active:hover {
     @apply ease-in-out;
     @apply duration-200;
     @apply transition-colors;

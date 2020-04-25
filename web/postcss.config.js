@@ -11,13 +11,16 @@ getPlugins = () => {
             basePath: 'src',
             loadPaths: ['assets/img']
         }),
-        require("cssnano"),
     ];
-
+    
     if (isDev) {
         result.push.apply(result, [
             require('postcss-reporter')(),
             require('postcss-browser-reporter')(),
+        ]);
+    } else {
+        result.push.apply(result, [
+            require("cssnano"),
         ]);
     }
 
