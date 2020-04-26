@@ -1,5 +1,7 @@
-import { MutableRefObject } from 'react';
+import { CSSProperties, MutableRefObject } from 'react';
 import { StateType, ActionType } from 'typesafe-actions';
+
+import { TweenFunctionEnum } from './enums';
 
 export type Month = {
     Abbr: string,
@@ -31,6 +33,14 @@ export type IMonthlyMenuMonthsProp = {
 export type IMonthlyMenuViewProp = {
     MenuYear: number,
     MenuMonth?: Month | null | undefined
+};
+
+export type ScrollToTopProp = {
+    topPosition?: number,
+    showUnder?: number, // show button under this position,
+    easing?: TweenFunctionEnum,
+    duration?: number, // seconds
+    style?: CSSProperties
 };
 
 export type Store = StateType<typeof import('../redux/store').default>;

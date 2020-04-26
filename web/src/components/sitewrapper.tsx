@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 
 import Header from './header';
 import Footer from './footer';
+import ScrollToTop from './scrolltotop';
 
 import jquery from 'jquery';
 
@@ -23,6 +24,7 @@ const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
                 <Route render={otherProps => (<Component {...otherProps} />)} />
             </main>
             <Footer />
+            <ScrollToTop />
         </>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, ChangeEvent, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout, PdfJs } from '@phuocng/react-pdf-viewer';
+import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout } from '@phuocng/react-pdf-viewer';
 
 import { YearArray } from '../../utils';
 import { Months, getMonthByNumber } from '../../utils';

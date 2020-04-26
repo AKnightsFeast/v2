@@ -41,6 +41,20 @@ blockquote span
     @apply text-right;
 }
 
+.slide-to-top {
+    @apply z-50;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    @apply cursor-pointer;
+    background-image: resolve("slide-to-top.png");
+    transition: opacity 1s ease,visibility 1s ease;
+}
+
+.slide-to-top > span {
+    @apply hidden;
+}
+
 /* Necessary for footer to remain at the bottom of the screen */
 .app {
     @apply flex;
