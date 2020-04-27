@@ -16,8 +16,9 @@ export const Months: Map<number, Month> = new Map([
     [12, { Abbr: "Dec", Name: "December", Number: 12 }]
 ]);
 
-type easingType = {[key in keyof typeof TweenFunctionEnum]: (t: number, b: number, _c: number, d: number) => number};
+type easingType = {[key in keyof typeof TweenFunctionEnum]: (t: number, b: number, _c: number, d: number, s?: number) => number};
 
+// https://github.com/chenglou/tween-functions/blob/master/index.js
 // t: current time, b: beginning value, _c: final value, d: total duration
 export const TweenFunctions: easingType = {
     linear: function (t: number, b: number, _c: number, d: number) {
@@ -208,22 +209,21 @@ export const TweenFunctions: easingType = {
             return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
         }
     },
-/*
-    easeInBack: function (t: number, b: number, _c: number, d: number, s: number) {
+    easeInBack: function (t: number, b: number, _c: number, d: number, s: number | undefined) {
         let c = _c - b;
         if (s === void 0) {
             s = 1.70158;
         }
         return c * (t /= d) * t * ((s + 1) * t - s) + b;
     },
-    easeOutBack: function (t: number, b: number, _c: number, d: number, s: number) {
+    easeOutBack: function (t: number, b: number, _c: number, d: number, s: number | undefined) {
         let c = _c - b;
         if (s === void 0) {
             s = 1.70158;
         }
         return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
     },
-    easeInOutBack: function (t: number, b: number, _c: number, d: number, s: number) {
+    easeInOutBack: function (t: number, b: number, _c: number, d: number, s: number | undefined) {
         let c = _c - b;
         if (s === void 0) {
             s = 1.70158;
@@ -234,7 +234,6 @@ export const TweenFunctions: easingType = {
             return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
         }
     },
-*/
     easeInBounce: function (t: number, b: number, _c: number, d: number) {
         let c = _c - b;
         let v;

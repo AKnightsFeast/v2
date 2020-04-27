@@ -614,6 +614,15 @@ video {
   }
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d53f8c;
+  border-radius: 3px;
+}
+
 body {
   color: #2d3748;
   font-family: 'Quicksand', Arial;

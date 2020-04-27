@@ -1,3 +1,5 @@
+// https://github.com/milosjanda/react-scroll-up
+
 'use strict';
 
 import React, { useState, useEffect, useCallback, CSSProperties } from 'react';

@@ -40,9 +40,9 @@ export enum TweenFunctionEnum {
     easeInElastic = "easeInElastic",
     easeOutElastic = "easeOutElastic",
     easeInOutElastic = "easeInOutElastic",
-    //easeInBack = "easeInBack",
-    //easeOutBack = "easeOutBack",
-    //easeInOutBack = "easeInOutBack",
+    easeInBack = "easeInBack",
+    easeOutBack = "easeOutBack",
+    easeInOutBack = "easeInOutBack",
     easeInBounce = "easeInBounce",
     easeOutBounce = "easeOutBounce",
     easeInOutBounce = "easeInOutBounce"
