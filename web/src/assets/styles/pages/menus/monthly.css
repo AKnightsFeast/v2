@@ -1,8 +1,8 @@
 .menu-monthly {
     @apply flex;
     @apply flex-1;
-    @apply min-h-full;
     @apply w-full;
+    @apply min-h-full;
     @apply items-stretch;
 }
 

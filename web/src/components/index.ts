@@ -1,4 +1,4 @@
-export { default as Header } from "./header";
-export { default as Footer } from "./footer";
-export { default as Assessment } from "./assessment";
-export { default as SiteWrapper } from "./sitewrapper";
+export { Header } from "./header";
+export { Footer } from "./footer";
+export { Assessment } from "./assessment";
+export { SiteWrapper } from "./sitewrapper";

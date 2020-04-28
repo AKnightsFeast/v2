@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Friends: React.FC = () => {
+export const Friends: React.FC = () => {
     return (
         <section className="friends">
             <div className="header"><h2 className="mb-0">Some of Chef Laura's friends... check them out!</h2></div>
@@ -17,5 +17,3 @@ const Friends: React.FC = () => {
         </section>
     );
 }
-
-export default Friends;

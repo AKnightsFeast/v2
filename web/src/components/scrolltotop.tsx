@@ -9,7 +9,7 @@ import { TweenFunctions } from '../utils';
 import { ScrollToTopProp } from '../modules/types';
 import { TweenFunctionEnum } from '../modules/enums';
 
-const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 250, easing = TweenFunctionEnum.easeOutCubic, showUnder = 43, topPosition = 0, style = {
+export const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 250, easing = TweenFunctionEnum.easeOutCubic, showUnder = 43, topPosition = 0, style = {
     position: 'fixed',
     bottom: 50,
     right: 30,
@@ -108,5 +108,3 @@ const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 250, easi
         </div>
     );
 }
-
-export default ScrollToTop;

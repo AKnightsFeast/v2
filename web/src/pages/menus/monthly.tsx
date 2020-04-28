@@ -9,7 +9,7 @@ import { setMenuYear, setMenuMonth } from '../../redux/menus/monthly/actions';
 
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 
-const Monthly: React.FC = () => {
+export const Monthly: React.FC = () => {
     const dispatch = useDispatch();
 
     const menuDates = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuDates);
@@ -110,5 +110,3 @@ const Monthly: React.FC = () => {
         </section>
     );
 };
-
-export default Monthly;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     const [isAtTop, setIsAtTop] = useState(true)
 
     useScrollPosition(
@@ -207,5 +207,3 @@ const Header: React.FC = () => {
         </header>
     );
 }
-
-export default Header;

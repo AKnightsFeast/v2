@@ -75,6 +75,6 @@ blockquote span
     @apply flex;
     @apply flex-1;
     @apply flex-col;
-    margin-top: 73px;
+    padding-top: 73px;
 }
 /* ---------------------------------------------------------- */

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route } from "react-router-dom";
 
-import Header from './header';
-import Footer from './footer';
-import ScrollToTop from './scrolltotop';
+import { Header, Footer } from './';
+import { ScrollToTop } from './scrolltotop';
 
 import jquery from 'jquery';
 
@@ -16,7 +15,7 @@ interface IProps {
     component: React.ComponentType<any>;
 }
 
-const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
+export const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
     return (
         <>
             <Header />
@@ -28,5 +27,3 @@ const SiteWrapper = ({ component: Component, ...otherProps }: IProps) => {
         </>
     );
 }
-
-export default SiteWrapper;

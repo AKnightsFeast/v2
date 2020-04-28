@@ -8,6 +8,7 @@
 @import "./components/header.css";
 @import "./components/footer.css";
 
+@import "./pages/menus/menus.css";
 @import "./pages/menus/monthly.css";
 
 @import "./pages/home/home.css";

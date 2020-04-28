@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Policies: React.FC = () => {
+export const Policies: React.FC = () => {
     return (
         <section className="policies">
             <div className="policy">
@@ -51,5 +51,3 @@ const Policies: React.FC = () => {
         </section>
     );
 };
-
-export default Policies;

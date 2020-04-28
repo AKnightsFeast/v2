@@ -8,7 +8,7 @@ import "../assets/styles/pages/home/timeline.css";
 
 const calc = (o: number) => `translateY(${o * 0.1}px)`;
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
     //const [showNav, setShowNav] = useState(false);
 
     return (
@@ -260,5 +260,3 @@ const Home: React.FC = () => {
         </>
     );
 }
-
-export default Home;

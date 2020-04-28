@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Testimonials: React.FC = () => {
+export const Testimonials: React.FC = () => {
     return (
         <section className="testimonials">
             <div className="header"><h2 className="mb-0">See what others are saying about Chef Laura!</h2></div>
@@ -105,5 +105,3 @@ const Testimonials: React.FC = () => {
         </section>
     );
 }
-
-export default Testimonials;
