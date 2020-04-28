@@ -124,153 +124,155 @@ export const MenuList: FC = () => {
                     be an additional vegetable if the sauce is vegetable heavy (like ratatouille). Feel
                     free to let Chef Laura know what you would like it served with if you have a preference.
                 </div>
-                <ul>
-                    <li>Blueberry Salsa or Sauce</li>
-                    <li>Mango Salsa or Sauce</li>
-                    <li>Grapefruit Salsa or Sauce</li>
-                    <li>Orange Salsa or Sauce</li>
-                    <li>Tropical Fruit Salsa</li>
-                    <li>Grapefruit Salsa or Sauce</li>
-                    <li>Pineapple Salsa or Sauce</li>
-                    <li>Tomato Salsa</li>
-                    <li>Peach Salsa or Sauce</li>
-                    <li>Apricot Salsa or Sauce</li>
-                    <li>Pomegranate Sauce</li>
-                    <li>Raspberry Sauce</li>
-                    <li>Strawberry Salsa or Sauce</li>
-                    <li>Pomodoro Sauce – Tomato Basil</li>
-                    <li>Black Bean, Corn and Tomato Salsa</li>
-                    <li>Chunky Tomato Mint Sauce</li>
-                    <li>Tomato Gazpacho</li>
-                    <li>Cucumber Gazpacho</li>
-                    <li>Avocado Gazpacho</li>
-                    <li>Pear and Rosemary Sauce</li>
-                    <li>Grape and Shallot Sauce</li>
-                    <li>Balsamic Glaze</li>
-                    <li>Balsamic Fig Glaze</li>
-                    <li>Balsamic Truffle Glaze</li>
-                    <li>Strawberry Balsamic Glaze</li>
-                    <li>Pomegranate Balsamic Glaze</li>
-                    <li>Roasted Red Pepper</li>
-                    <li>Mediterranean with Grape Tomatoes, Capers, Olives, Lemon and White Wine</li>
-                    <li>Florentine</li>
-                    <li>Tarragon and Greek Yogurt</li>
-                    <li>Greek Yogurt, Lemon, and Horseradish</li>
-                    <li>Butternut Squash</li>
-                    <li>Roasted Eggplant and Tomato</li>
-                    <li>Fennel, Orange and Grapefruit</li>
-                    <li>Ratatouille – Eggplant, Tomatoes, Capers, Yellow Squash and Zucchini</li>
-                    <li>Caponata – Eggplant, Tomatoes, Capers, Olives, Yellow Squash and Zucchini</li>
-                    <li>Vera Cruz – Peppers, Capers, Onion, Cumin, Tomatoes, Chilies and Tomato</li>
-                    <li>Cacciatore – Tomatoes, Peppers and Mushrooms</li>
-                    <li>Chinese Five Spice, Agave and Lime Juice</li>
-                    <li>Lemon Dijon</li>
-                    <li>Jamaican Jerk</li>
-                </ul>
+                <div>
+                    <ul>
+                        <li>Blueberry Salsa or Sauce</li>
+                        <li>Mango Salsa or Sauce</li>
+                        <li>Grapefruit Salsa or Sauce</li>
+                        <li>Orange Salsa or Sauce</li>
+                        <li>Tropical Fruit Salsa</li>
+                        <li>Grapefruit Salsa or Sauce</li>
+                        <li>Pineapple Salsa or Sauce</li>
+                        <li>Tomato Salsa</li>
+                        <li>Peach Salsa or Sauce</li>
+                        <li>Apricot Salsa or Sauce</li>
+                        <li>Pomegranate Sauce</li>
+                        <li>Raspberry Sauce</li>
+                        <li>Strawberry Salsa or Sauce</li>
+                        <li>Pomodoro Sauce – Tomato Basil</li>
+                        <li>Black Bean, Corn and Tomato Salsa</li>
+                        <li>Chunky Tomato Mint Sauce</li>
+                        <li>Tomato Gazpacho</li>
+                        <li>Cucumber Gazpacho</li>
+                        <li>Avocado Gazpacho</li>
+                        <li>Pear and Rosemary Sauce</li>
+                        <li>Grape and Shallot Sauce</li>
+                        <li>Balsamic Glaze</li>
+                        <li>Balsamic Fig Glaze</li>
+                        <li>Balsamic Truffle Glaze</li>
+                        <li>Strawberry Balsamic Glaze</li>
+                        <li>Pomegranate Balsamic Glaze</li>
+                        <li>Roasted Red Pepper</li>
+                        <li>Mediterranean with Grape Tomatoes, Capers, Olives, Lemon and White Wine</li>
+                        <li>Florentine</li>
+                        <li>Tarragon and Greek Yogurt</li>
+                        <li>Greek Yogurt, Lemon, and Horseradish</li>
+                        <li>Butternut Squash</li>
+                        <li>Roasted Eggplant and Tomato</li>
+                        <li>Fennel, Orange and Grapefruit</li>
+                        <li>Ratatouille – Eggplant, Tomatoes, Capers, Yellow Squash and Zucchini</li>
+                        <li>Caponata – Eggplant, Tomatoes, Capers, Olives, Yellow Squash and Zucchini</li>
+                        <li>Vera Cruz – Peppers, Capers, Onion, Cumin, Tomatoes, Chilies and Tomato</li>
+                        <li>Cacciatore – Tomatoes, Peppers and Mushrooms</li>
+                        <li>Chinese Five Spice, Agave and Lime Juice</li>
+                        <li>Lemon Dijon</li>
+                        <li>Jamaican Jerk</li>
+                    </ul>
 
-                <div className="sub-header">
-                    Below are higher calorie sauces, but made with olive oil or coconut oil
-                </div>
-                <ul>
-                    <li>Piccata - Lemon Caper</li>
-                    <li>Marsala - Mushroom</li>
-                    <li>Scampi – White Wine, Parsley and Lemon Juice</li>
-                    <li>Basil and Pine Nut Pesto</li>
-                    <li>Basil and Walnut Pesto</li>
-                    <li>Dill, Parsley and Pine Nut Pesto</li>
-                    <li>Sun Dried Tomato Pesto</li>
-                    <li>Tzatziki – Made with 0% fat greek yogurt unless higher fat is requested</li>
-                    <li>Tabouleh - Parsley Salad, Burghul, Tomatoes, Onions, Mint, Olive Oil, Lemon Juice</li>
-                    <li>Baba ghanoush – Eggplant Puree</li>
-                    <li>Puttenesca – Olives, Anchovies, Tomato and Chili Flake</li>
-                    <li>Spanish Romenesco – Roasted Red Peppers, Smoked Paprika and Almonds</li>
-                    <li>Crushed Walnut, Almond or Pecan Crusted Protein</li>
-                    <li>Buffalo Sauce</li>
-                </ul>
-                <div className="summary">
-                    If you like cream sauces let me know and I can make them with coconut oil based butter
-                    and skim milk, but I rarely if ever buy low fat or fat free cheese.
-                </div>
+                    <div className="sub-header">
+                        Below are higher calorie sauces, but made with olive oil or coconut oil
+                    </div>
+                    <ul>
+                        <li>Piccata - Lemon Caper</li>
+                        <li>Marsala - Mushroom</li>
+                        <li>Scampi – White Wine, Parsley and Lemon Juice</li>
+                        <li>Basil and Pine Nut Pesto</li>
+                        <li>Basil and Walnut Pesto</li>
+                        <li>Dill, Parsley and Pine Nut Pesto</li>
+                        <li>Sun Dried Tomato Pesto</li>
+                        <li>Tzatziki – Made with 0% fat greek yogurt unless higher fat is requested</li>
+                        <li>Tabouleh - Parsley Salad, Burghul, Tomatoes, Onions, Mint, Olive Oil, Lemon Juice</li>
+                        <li>Baba ghanoush – Eggplant Puree</li>
+                        <li>Puttenesca – Olives, Anchovies, Tomato and Chili Flake</li>
+                        <li>Spanish Romenesco – Roasted Red Peppers, Smoked Paprika and Almonds</li>
+                        <li>Crushed Walnut, Almond or Pecan Crusted Protein</li>
+                        <li>Buffalo Sauce</li>
+                    </ul>
+                    <div className="summary">
+                        If you like cream sauces let me know and I can make them with coconut oil based butter
+                        and skim milk, but I rarely if ever buy low fat or fat free cheese.
+                    </div>
 
-                <div className="sub-header">
-                    Stir Fry – Your protein choice, fresh garlic and ginger made with Coconut Oil over
-                    Brown Rice, Quinoa or Soba Noodles
-                </div>
-                <ul>
-                    <li>Broccoli</li>
-                    <li>Green Beans, Sesame Seeds, and Chili Oil</li>
-                    <li>Broccoli, Carrots, and Snow Peas</li>
-                    <li>Mushrooms and Sweet Peppers</li>
-                    <li>Baby Bok Choy in Oyster Sauce</li>
-                    <li>Napa Cabbage, Peppers and Carrots</li>
-                    <li>Spinach and Sesame Seeds</li>
-                    <li>Basil and Chilies</li>
-                    <li>Mushrooms, Peppers and Scallions</li>
-                    <li>Peppers, Snow Peas, and Carrots</li>
-                    <li>
-                        Asian Sauces: Soy and Rice Wine, Sweet and Sour, Oyster, Peanut, Teriyaki, Black
-                        Bean, Green Curry
-                    </li>
-                </ul>
+                    <div className="sub-header">
+                        Stir Fry – Your protein choice, fresh garlic and ginger made with Coconut Oil over
+                        Brown Rice, Quinoa or Soba Noodles
+                    </div>
+                    <ul>
+                        <li>Broccoli</li>
+                        <li>Green Beans, Sesame Seeds, and Chili Oil</li>
+                        <li>Broccoli, Carrots, and Snow Peas</li>
+                        <li>Mushrooms and Sweet Peppers</li>
+                        <li>Baby Bok Choy in Oyster Sauce</li>
+                        <li>Napa Cabbage, Peppers and Carrots</li>
+                        <li>Spinach and Sesame Seeds</li>
+                        <li>Basil and Chilies</li>
+                        <li>Mushrooms, Peppers and Scallions</li>
+                        <li>Peppers, Snow Peas, and Carrots</li>
+                        <li>
+                            Asian Sauces: Soy and Rice Wine, Sweet and Sour, Oyster, Peanut, Teriyaki, Black
+                            Bean, Green Curry
+                        </li>
+                    </ul>
 
-                <div className="sub-header">
-                    Fresh Made Hummus Flavors – Great for lunch with Pita and your favorite grilled protein
-                </div>
-                <ul>
-                    <li>Roasted Garlic</li>
-                    <li>Roasted Red Pepper</li>
-                    <li>Roasted Chili Pepper</li>
-                    <li>Pumpkin</li>
-                    <li>Butternut Squash</li>
-                    <li>Artichoke</li>
-                    <li>Eggplant</li>
-                    <li>Lemon</li>
-                    <li>Edamame</li>
-                    <li>Roasted Beet</li>
-                </ul>
+                    <div className="sub-header">
+                        Fresh Made Hummus Flavors – Great for lunch with Pita and your favorite grilled protein
+                    </div>
+                    <ul>
+                        <li>Roasted Garlic</li>
+                        <li>Roasted Red Pepper</li>
+                        <li>Roasted Chili Pepper</li>
+                        <li>Pumpkin</li>
+                        <li>Butternut Squash</li>
+                        <li>Artichoke</li>
+                        <li>Eggplant</li>
+                        <li>Lemon</li>
+                        <li>Edamame</li>
+                        <li>Roasted Beet</li>
+                    </ul>
 
-                <div className="sub-header">
-                    Low Calorie and High Fiber Stews – Nonfat Greek Yogurt Used where Cream is mentioned
-                </div>
-                <ul>
-                    <li>Cabbage, Carrot and Tomato</li>
-                    <li>Sausage, Kale and Lentil</li>
-                    <li>African Peanut Stew</li>
-                    <li>Escarole and Bean</li>
-                    <li>Tomato Gazpacho</li>
-                    <li>Cucumber Gazpacho</li>
-                    <li>Avocado Gazpacho</li>
-                    <li>Mexican Chicken</li>
-                    <li>Butternut Squash</li>
-                    <li>Black Bean, Pepper, Winter Squash, Corn and Tomato</li>
-                    <li>Vegetarian Chili made with wheat berries, black beans and red kidney beans</li>
-                    <li>Lean Protein and Vegetable</li>
-                    <li>Carrot and Ginger</li>
-                    <li>Broccoli and Potato Soup</li>
-                    <li>Cream of Tomato</li>
-                    <li>Beef Chili</li>
-                    <li>Wild Mushroom</li>
-                    <li>White Chicken Chili</li>
-                    <li>Turkey Chili</li>
-                    <li>Minestrone</li>
-                    <li>Seafood Cioppino</li>
-                    <li>Turkey Meatball, Whole Wheat Orzo and Spinach</li>
-                    <li>Roasted Root Vegetable</li>
-                </ul>
+                    <div className="sub-header">
+                        Low Calorie and High Fiber Stews – Nonfat Greek Yogurt Used where Cream is mentioned
+                    </div>
+                    <ul>
+                        <li>Cabbage, Carrot and Tomato</li>
+                        <li>Sausage, Kale and Lentil</li>
+                        <li>African Peanut Stew</li>
+                        <li>Escarole and Bean</li>
+                        <li>Tomato Gazpacho</li>
+                        <li>Cucumber Gazpacho</li>
+                        <li>Avocado Gazpacho</li>
+                        <li>Mexican Chicken</li>
+                        <li>Butternut Squash</li>
+                        <li>Black Bean, Pepper, Winter Squash, Corn and Tomato</li>
+                        <li>Vegetarian Chili made with wheat berries, black beans and red kidney beans</li>
+                        <li>Lean Protein and Vegetable</li>
+                        <li>Carrot and Ginger</li>
+                        <li>Broccoli and Potato Soup</li>
+                        <li>Cream of Tomato</li>
+                        <li>Beef Chili</li>
+                        <li>Wild Mushroom</li>
+                        <li>White Chicken Chili</li>
+                        <li>Turkey Chili</li>
+                        <li>Minestrone</li>
+                        <li>Seafood Cioppino</li>
+                        <li>Turkey Meatball, Whole Wheat Orzo and Spinach</li>
+                        <li>Roasted Root Vegetable</li>
+                    </ul>
 
-                <div className="sub-header">
-                    Salads as a Meal – some assembly required
+                    <div className="sub-header">
+                        Salads as a Meal – some assembly required
+                    </div>
+                    <ul>
+                        <li>Greek Yogurt Chicken, Tuna, or Shrimp Salad</li>
+                        <li>Grilled Lemon Thyme Chicken Breast or Turkey Breast</li>
+                        <li>Grilled or Broiled Shrimp</li>
+                        <li>Grilled Steak</li>
+                        <li>Grilled or Broiled Mahi Mahi</li>
+                        <li>Grilled or Broiled Scallops</li>
+                        <li>Grilled or Broiled Salmon</li>
+                        <li>BLT Salad using real pork bacon and not turkey bacon</li>
+                    </ul>
                 </div>
-                <ul>
-                    <li>Greek Yogurt Chicken, Tuna, or Shrimp Salad</li>
-                    <li>Grilled Lemon Thyme Chicken Breast or Turkey Breast</li>
-                    <li>Grilled or Broiled Shrimp</li>
-                    <li>Grilled Steak</li>
-                    <li>Grilled or Broiled Mahi Mahi</li>
-                    <li>Grilled or Broiled Scallops</li>
-                    <li>Grilled or Broiled Salmon</li>
-                    <li>BLT Salad using real pork bacon and not turkey bacon</li>
-                </ul>
                 <div className="summary">
                     Salads will come with packaged greens, your desired protein, grape tomatoes and home
                     made dressing
@@ -283,8 +285,7 @@ export const MenuList: FC = () => {
                 <div className="summary">
                     Creamy dressings made with Nonfat Greek Yogurt - Ranch, Russian, Blue Cheese or Creamy
                     Italian
-                </div>
-    
+                </div>    
                 <div className="summary font-bold">
                     * No sugar is added. Agave is used for anything that may need it
                 </div>
@@ -570,7 +571,7 @@ export const MenuList: FC = () => {
                 </div>
             </div>
             <div id="10" className="menu">
-                <div className="header"><span id="veggies"></span>Sides and Vegetarian (<a href="/media/menus/vegmenu.pdf" target="_blank">Menu</a>)</div>
+                <div className="header"><span id="veggies"></span>Sides and Vegetarian (<a className="menu-link" href="/assets/menus/vegmenu.pdf" target="_blank">Menu</a>)</div>
                 <div>
                     <ul>
                         <li>Sweet Potato Casserole</li>

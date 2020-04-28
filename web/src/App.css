@@ -966,6 +966,19 @@ blockquote span
   margin-bottom: 10rem;
 }
 
+.menu-special .menu-link {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-width: 1px;
+  border-style: dotted;
+  border-color: currentColor;
+}
+
+.menu-special .menu-link:hover {
+  color: #d53f8c;
+  border-color: #d53f8c;
+}
+
 .menu-special .menu-nav .menu-nav-wrapper {
   /* @apply h-full;
     /* @apply overflow-y-auto;

@@ -4,6 +4,18 @@
     @apply mb-40;
 }
 
+.menu-special .menu-link {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    border-color: currentColor;
+}
+
+.menu-special .menu-link:hover {
+    @apply text-pink-600;
+    @apply border-pink-600;
+}
+
 .menu-special .menu-nav .menu-nav-wrapper {
     /* @apply h-full;
     /* @apply overflow-y-auto;
