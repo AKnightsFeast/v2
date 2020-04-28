@@ -1000,6 +1000,23 @@ blockquote span
   padding-bottom: 0.5rem;
 }
 
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li {
+  padding-left: 0.5rem;
+  border-left-width: 1px;
+  border-color: transparent;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li:hover,
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li.active {
+  font-style: italic;
+  font-weight: 600;
+  border-color: #d53f8c;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li ~ li {
+  margin-top: 0.25rem;
+}
+
 .menu-special .menus > .menu ~ .menu {
   padding-top: 3rem;
 }

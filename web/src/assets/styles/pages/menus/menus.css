@@ -37,6 +37,23 @@
     @apply py-2;
 }
 
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li {
+    @apply pl-2;
+    border-left-width: 1px;
+    @apply border-transparent;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li:hover,
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li.active {
+    @apply italic;
+    @apply font-semibold;
+    @apply border-pink-600;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li ~ li {
+    @apply mt-1;
+}
+
 .menu-special .menus > .menu ~ .menu {
     @apply pt-12;
 }

@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useScrollPosition } from '@n8tb1t/use-scroll-position'
+
+import { isUsingBrowser,useIsomorphicLayoutEffect } from '../utils';
 
 export const Header: React.FC = () => {
     const [isAtTop, setIsAtTop] = useState(true)
 
-    useScrollPosition(
-        ({ currPos }) => {
-            const atTop = currPos.y === 0;
-            if (atTop !== isAtTop) setIsAtTop(atTop);
-        },
-        [isAtTop]
-    );
+    useIsomorphicLayoutEffect(() => {
+        if (!isUsingBrowser) {
+            setIsAtTop(true);
+            return;
+        }
+
+        // Add all listeners which can start scroll
+        window.addEventListener('scroll', handleScroll);
+
+        // Remove all listeners which was registered
+        return () => { window.removeEventListener('scroll', handleScroll); };
+    }, [isAtTop]);
+
+    /**
+     * Evaluate the position of this component, depend on new position
+     */
+    const handleScroll = () => {
+        const atTop = window.scrollY === 0;
+        (atTop !== isAtTop) && setIsAtTop(atTop);
+    }
 
     return (
         <header>

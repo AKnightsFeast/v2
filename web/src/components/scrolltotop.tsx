@@ -2,12 +2,12 @@
 
 'use strict';
 
-import React, { useState, useEffect, useCallback, CSSProperties } from 'react';
+import React, { useState, useCallback, CSSProperties } from 'react';
 import detectPassiveEvents from 'detect-passive-events';
 
-import { TweenFunctions } from '../utils';
 import { ScrollToTopProp } from '../modules/types';
 import { TweenFunctionEnum } from '../modules/enums';
+import { isUsingBrowser, TweenFunctions, useIsomorphicLayoutEffect } from '../utils';
 
 export const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 250, easing = TweenFunctionEnum.easeOutCubic, showUnder = 43, topPosition = 0, style = {
     position: 'fixed',
@@ -18,22 +18,22 @@ export const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 25
     transitionTimingFunction: 'linear',
     transitionDelay: '0s' }
 }) => {
-    const [show, setShow] = useState(window.pageYOffset == 0);
+    const [show, setShow] = useState((!isUsingBrowser) ? false : window.pageYOffset == 0);
 
     let startValue = 0;
     let currentTime = 0;
     let rafId: number | null = null;
     let startTime: number | null = null; 
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
+        if (!isUsingBrowser) return;
+
         handleScroll(); // initialize state
 
         // Add all listeners which can start scroll
         window.addEventListener('scroll', handleScroll);
         window.addEventListener("wheel", stopScrolling, detectPassiveEvents.hasSupport ? {passive: true} : false);
         window.addEventListener("touchstart", stopScrolling, detectPassiveEvents.hasSupport ? {passive: true} : false);
-
-        console.log("show: " + show);
 
         return () => {
             // Remove all listeners which was registered

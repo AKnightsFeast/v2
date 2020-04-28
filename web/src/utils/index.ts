@@ -1,3 +1,5 @@
+import { useEffect, useLayoutEffect } from 'react';
+
 import { Month } from '../modules/types';
 import { TweenFunctionEnum, OrderDirection } from '../modules/enums';
 
@@ -103,11 +105,11 @@ export const TweenFunctions: easingType = {
     },
     easeInExpo: function (t: number, b: number, _c: number, d: number) {
         let c = _c - b;
-        return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+        return (t === 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
     },
     easeOutExpo: function (t: number, b: number, _c: number, d: number) {
         let c = _c - b;
-        return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        return (t === d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
     },
     easeInOutExpo: function (t: number, b: number, _c: number, d: number) {
         let c = _c - b;
@@ -322,3 +324,7 @@ export const ColumnizeArray = <T>(colSize: number, arr: T[], direction: OrderDir
 
     return [];
 };
+
+export const isUsingBrowser = typeof window != 'undefined';
+
+export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;

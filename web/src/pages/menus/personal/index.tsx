@@ -1,19 +1,21 @@
 import React, { FC } from 'react';
 
-export const Nav: FC = () => {
+import { MenuNavProp } from '../../../modules/types';
+
+export const Nav: FC<MenuNavProp> = ({ activeMenuId = 1 }) => {
     return (
         <>
-            <li className="active"><a href="#soups">Soups</a></li>
-            <li><a href="#salads">Salads</a></li>
-            <li><a href="#healthy">Healthy Options</a></li>
-            <li><a href="#pasta">Fresh Pasta and Sauces</a></li>
-            <li><a href="#poultry">Poultry</a></li>
-            <li><a href="#seafood">Seafood</a></li>
-            <li><a href="#meatloaf">Meatloaf Variations</a></li>
-            <li><a href="#pork">Pork</a></li>
-            <li><a href="#beef">Beef and Veal</a></li>
-            <li><a href="#veggies">Sides and Vegetarian</a></li>
-            <li><a href="#desserts">Desserts</a></li>
+            <li className={ (activeMenuId === 1) ? "active" : "" }><a href="#soups">Soups</a></li>
+            <li className={ (activeMenuId === 2) ? "active" : "" }><a href="#salads">Salads</a></li>
+            <li className={ (activeMenuId === 3) ? "active" : "" }><a href="#healthy">Healthy Options</a></li>
+            <li className={ (activeMenuId === 4) ? "active" : "" }><a href="#pasta">Fresh Pasta and Sauces</a></li>
+            <li className={ (activeMenuId === 5) ? "active" : "" }><a href="#poultry">Poultry</a></li>
+            <li className={ (activeMenuId === 6) ? "active" : "" }><a href="#seafood">Seafood</a></li>
+            <li className={ (activeMenuId === 7) ? "active" : "" }><a href="#meatloaf">Meatloaf Variations</a></li>
+            <li className={ (activeMenuId === 8) ? "active" : "" }><a href="#pork">Pork</a></li>
+            <li className={ (activeMenuId === 9) ? "active" : "" }><a href="#beef">Beef and Veal</a></li>
+            <li className={ (activeMenuId === 10) ? "active" : "" }><a href="#veggies">Sides and Vegetarian</a></li>
+            <li className={ (activeMenuId === 11) ? "active" : "" }><a href="#desserts">Desserts</a></li>
         </>
     );
 }
@@ -21,7 +23,7 @@ export const Nav: FC = () => {
 export const MenuList: FC = () => {  
     return (
         <>
-            <div className="menu">
+            <div id="1" className="menu">
                 <div className="header"><span id="soups"></span>Soups</div>
                 <div>         
                     <ul>
@@ -62,7 +64,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="2" className="menu">
                 <div className="header"><span id="salads"></span>Salads</div>
                 <div>         
                     <ul>
@@ -113,7 +115,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="3" className="menu">
                 <div className="header"><span id="healthy"></span>Healthy Options</div>
                 <div className="summary font-bold">
                     Below are some low calorie sauces for chicken, fish, shrimp, turkey breast, pork
@@ -287,7 +289,7 @@ export const MenuList: FC = () => {
                     * No sugar is added. Agave is used for anything that may need it
                 </div>
             </div>
-            <div className="menu">
+            <div id="4" className="menu">
                 <div className="header"><span id="pasta"></span>Fresh Pasta and Sauces</div>
                 <div>
                     <ul>
@@ -349,7 +351,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="5" className="menu">
                 <div className="header"><span id="poultry"></span>Poultry</div>
                 <div>
                     <ul>
@@ -465,7 +467,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="6" className="menu">
                 <div className="header"><span id="seafood"></span>Seafood</div>
                 <div>
                     <ul>
@@ -497,7 +499,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="7" className="menu">
                 <div className="header"><span id="meatloaf"></span>Meatloaf Variations</div>
                 <div>
                     <ul>
@@ -517,7 +519,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="8" className="menu">
                 <div className="header"><span id="pork"></span>Pork</div>
                 <div>
                     <ul>
@@ -539,7 +541,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="9" className="menu">
                 <div className="header"><span id="beef"></span>Beef and Veal</div>
                 <div>
                     <ul>
@@ -567,7 +569,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="10" className="menu">
                 <div className="header"><span id="veggies"></span>Sides and Vegetarian (<a href="/media/menus/vegmenu.pdf" target="_blank">Menu</a>)</div>
                 <div>
                     <ul>
@@ -618,7 +620,7 @@ export const MenuList: FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="11" className="menu">
                 <div className="header"><span id="desserts"></span>Desserts</div>
                 <div className="summary">
                     All desserts are made to order with the sweetener of your choice: Splenda, Swerve, Agave Nectar, Sugar, or Honey

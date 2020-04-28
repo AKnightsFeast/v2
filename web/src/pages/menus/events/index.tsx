@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const Nav: React.FC = () => {
+import { MenuNavProp } from '../../../modules/types';
+
+export const Nav: FC<MenuNavProp> = ({ activeMenuId = 1 }) => {
     return (
         <>
-            <li className="active"><a href="#wedmenu">Holiday</a></li>
-            <li><a href="#gdmenu">Game Day</a></li>
-            <li><a href="#hallmenu">Halloween Party</a></li>
-            <li><a href="#hhdpmenu">Hip Hop Dance Party</a></li>
-            <li><a href="#horsmenu">Hors D'Oeuvres</a></li>
-            <li><a href="#icpmenu">Italian Cocktail Party</a></li>
-            <li><a href="#lnimenu">Ladies Night In</a></li>
-            <li><a href="#mcnmenu">Monte Carlo Night</a></li>
-            <li><a href="#nonmenu">New Orleans Night</a></li>
-            <li><a href="#pspmenu">Paella and Sangria Party</a></li>
-            <li><a href="#ppmenu">Picnic in the Park</a></li>
-            <li><a href="#rdtmenu">Romantic Dinner for Two</a></li>
-            <li><a href="#sbmenu">Shower Brunch Menu</a></li>
-            <li><a href="#socomenu">Southern Comfort</a></li>
-            <li><a href="#sccpmenu">Southern Comfort Cocktail Party</a></li>
-            <li><a href="#tgfmenu">Tuscan Grilled Feast</a></li>
-            <li><a href="#vegnmenu">Vegas Night</a></li>
-            <li><a href="#vmpmenu">Venetian Masquerade Party</a></li>
-            <li><a href="#vdmenu">Valentine's Day Menu</a></li>
-            <li><a href="#fdpmenu">Fall Dinner Party Menu</a></li>
-            <li><a href="#stmenu">Surf &amp; Turf Menu</a></li>
+            <li className={ (activeMenuId === 1) ? "active" : "" }><a href="#wedmenu">Holiday</a></li>
+            <li className={ (activeMenuId === 2) ? "active" : "" }><a href="#gdmenu">Game Day</a></li>
+            <li className={ (activeMenuId === 3) ? "active" : "" }><a href="#hallmenu">Halloween Party</a></li>
+            <li className={ (activeMenuId === 4) ? "active" : "" }><a href="#hhdpmenu">Hip Hop Dance Party</a></li>
+            <li className={ (activeMenuId === 5) ? "active" : "" }><a href="#horsmenu">Hors D'Oeuvres</a></li>
+            <li className={ (activeMenuId === 6) ? "active" : "" }><a href="#icpmenu">Italian Cocktail Party</a></li>
+            <li className={ (activeMenuId === 7) ? "active" : "" }><a href="#lnimenu">Ladies Night In</a></li>
+            <li className={ (activeMenuId === 8) ? "active" : "" }><a href="#mcnmenu">Monte Carlo Night</a></li>
+            <li className={ (activeMenuId === 9) ? "active" : "" }><a href="#nonmenu">New Orleans Night</a></li>
+            <li className={ (activeMenuId === 10) ? "active" : "" }><a href="#pspmenu">Paella and Sangria Party</a></li>
+            <li className={ (activeMenuId === 11) ? "active" : "" }><a href="#ppmenu">Picnic in the Park</a></li>
+            <li className={ (activeMenuId === 12) ? "active" : "" }><a href="#rdtmenu">Romantic Dinner for Two</a></li>
+            <li className={ (activeMenuId === 13) ? "active" : "" }><a href="#sbmenu">Shower Brunch Menu</a></li>
+            <li className={ (activeMenuId === 14) ? "active" : "" }><a href="#socomenu">Southern Comfort</a></li>
+            <li className={ (activeMenuId === 15) ? "active" : "" }><a href="#sccpmenu">Southern Comfort Cocktail Party</a></li>
+            <li className={ (activeMenuId === 16) ? "active" : "" }><a href="#tgfmenu">Tuscan Grilled Feast</a></li>
+            <li className={ (activeMenuId === 17) ? "active" : "" }><a href="#vegnmenu">Vegas Night</a></li>
+            <li className={ (activeMenuId === 18) ? "active" : "" }><a href="#vmpmenu">Venetian Masquerade Party</a></li>
+            <li className={ (activeMenuId === 19) ? "active" : "" }><a href="#vdmenu">Valentine's Day Menu</a></li>
+            <li className={ (activeMenuId === 20) ? "active" : "" }><a href="#fdpmenu">Fall Dinner Party Menu</a></li>
+            <li className={ (activeMenuId === 21) ? "active" : "" }><a href="#stmenu">Surf &amp; Turf Menu</a></li>
         </>
     );
 }
@@ -31,7 +33,7 @@ export const Nav: React.FC = () => {
 export const MenuList: React.FC = () => {
     return (
         <>
-            <div className="menu">
+            <div id="1" className="menu">
                 <div className="header"><span id="wedmenu"></span>Holiday</div>
                 <div>
                     <ul>
@@ -202,7 +204,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="2" className="menu">
                 <div className="header"><span id="gdmenu"></span>Game Day</div>
                 <div>         
                     <ul>
@@ -311,7 +313,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="3" className="menu">
                 <div className="header"><span id="hallmenu"></span>Halloween Party</div>
                 <div>
                     <ul>
@@ -345,7 +347,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="4" className="menu">
                 <div className="header"><span id="hhdpmenu"></span>Hip Hop Dance Party</div>
                 <div>
                     <ul>
@@ -385,7 +387,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="5" className="menu">
                 <div className="header"><span id="horsmenu"></span>Hors D'Oeuvres</div>
                 <div>
                     <ul>
@@ -439,7 +441,7 @@ export const MenuList: React.FC = () => {
                 </div>
                 <div className="summary"><b>All items are 3 per person unless otherwise noted</b></div>
             </div>
-            <div className="menu">
+            <div id="6" className="menu">
                 <div className="header"><span id="icpmenu"></span>Italian Cocktail Party (Bruschetta Bar)</div>
                 <div className="summary">Italian Ciabatta Bread Toasts with a variety of toppings</div>
                 <div>
@@ -458,7 +460,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="7" className="menu">
                 <div className="header"><span id="lnimenu"></span>Ladies Night In</div>
                 <div>
                     <ul>
@@ -516,7 +518,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="8" className="menu">
                 <div className="header"><span id="mcnmenu"></span>Monte Carlo Night</div>
                 <div>
                     <ul>
@@ -565,7 +567,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="9" className="menu">
                 <div className="header"><span id="nonmenu"></span>New Orleans Night</div>
                 <div>
                     <ul>
@@ -602,7 +604,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="10" className="menu">
                 <div className="header"><span id="pspmenu"></span>Paella and Sangria Party</div>
                 <div>
                     <ul>
@@ -658,7 +660,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="11" className="menu">
                 <div className="header"><span id="ppmenu"></span>Picnic in the Park</div>
                 <div>
                     <ul>
@@ -751,7 +753,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="12" className="menu">
                 <div className="header"><span id="rdtmenu"></span>Romantic Dinner for Two</div>
                 <div>
                     <ul>
@@ -799,7 +801,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="13" className="menu">
                 <div className="header"><span id="sbmenu"></span>Shower Brunch Menu</div>
                 <div>
                     <ul>
@@ -832,7 +834,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="14" className="menu">
                 <div className="header"><span id="socomenu"></span>Southern Comfort</div>
                 <div>
                     <ul>
@@ -864,7 +866,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="15" className="menu">
                 <div className="header"><span id="sccpmenu"></span>Southern Comfort Cocktail Party</div>
                 <div>
                     <ul>
@@ -879,7 +881,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="16" className="menu">
                 <div className="header"><span id="tgfmenu"></span>Tuscan Grilled Feast</div>
                 <div>
                     <ul>
@@ -897,7 +899,7 @@ export const MenuList: React.FC = () => {
                 </div>
                 <div className="summary"><b>Chef will prep non-alcohol related ingredients at party!</b></div>
             </div>
-            <div className="menu">
+            <div id="17" className="menu">
                 <div className="header"><span id="vegnmenu"></span>Vegas Night</div>
                 <div>
                     <ul>
@@ -934,7 +936,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="18" className="menu">
                 <div className="header"><span id="vmpmenu"></span>Venetian Masquerade Party</div>
                 <div>
                     <ul>
@@ -974,7 +976,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="19" className="menu">
                 <div className="header"><span id="vdmenu"></span>Valentine's Day Menu</div>
                 <div>         
                     <ul>
@@ -1082,7 +1084,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="20" className="menu">
                 <div className="header"><span id="fdpmenu"></span>Fall Dinner Party Menu</div>
                 <div>
                     <div className="italic">
@@ -1201,7 +1203,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="21" className="menu">
                 <div className="header"><span id="stmenu"></span>Surf &amp; Turf Menu</div>
                 <div>
                     <ul>

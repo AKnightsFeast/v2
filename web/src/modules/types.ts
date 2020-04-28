@@ -43,6 +43,10 @@ export type ScrollToTopProp = {
     style?: CSSProperties
 };
 
+export type MenuNavProp = {
+    activeMenuId: number
+}
+
 export type Store = StateType<typeof import('../redux/store').default>;
 
 export type RootReducer = StateType<typeof import('../redux/reducer').default>;

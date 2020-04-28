@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const Nav: React.FC = () => {
+import { MenuNavProp } from '../../../modules/types';
+
+export const Nav: FC<MenuNavProp> = ({ activeMenuId = 1 }) => {   
     return (
         <>
-            <li className="active"><a href="#bp">Baked Pastas</a></li>
-            <li><a href="#kp">Kid Pleasers</a></li>
-            <li><a href="#cass">Casseroles</a></li>
-            <li><a href="#ch">Chilies</a></li>
-            <li><a href="#rsb">Roasts, Stews and Braises</a></li>
-            <li><a href="#ml">Meatloaves</a></li>
-            <li><a href="#sp">Home Made Sauce with Boxed Pasta</a></li>
-            <li><a href="#enc">Enchiladas</a></li>
-            <li><a href="#sm">Sandwich Makers</a></li>
-            <li><a href="#soups">Soup</a></li>
-            <li><a href="#fss">Family Side Salads</a></li>
-            <li><a href="#sc">Seasonal Cobblers</a></li>
+            <li className={ (activeMenuId === 1) ? "active" : "" }><a href="#bp">Baked Pastas</a></li>
+            <li className={ (activeMenuId === 2) ? "active" : "" }><a href="#kp">Kid Pleasers</a></li>
+            <li className={ (activeMenuId === 3) ? "active" : "" }><a href="#cass">Casseroles</a></li>
+            <li className={ (activeMenuId === 4) ? "active" : "" }><a href="#ch">Chilies</a></li>
+            <li className={ (activeMenuId === 5) ? "active" : "" }><a href="#rsb">Roasts, Stews and Braises</a></li>
+            <li className={ (activeMenuId === 6) ? "active" : "" }><a href="#ml">Meatloaves</a></li>
+            <li className={ (activeMenuId === 7) ? "active" : "" }><a href="#sp">Home Made Sauce with Boxed Pasta</a></li>
+            <li className={ (activeMenuId === 8) ? "active" : "" }><a href="#enc">Enchiladas</a></li>
+            <li className={ (activeMenuId === 9) ? "active" : "" }><a href="#sm">Sandwich Makers</a></li>
+            <li className={ (activeMenuId === 10) ? "active" : "" }><a href="#soups">Soup</a></li>
+            <li className={ (activeMenuId === 11) ? "active" : "" }><a href="#fss">Family Side Salads</a></li>
+            <li className={ (activeMenuId === 12) ? "active" : "" }><a href="#sc">Seasonal Cobblers</a></li>
         </>
     );
 }
@@ -22,7 +24,7 @@ export const Nav: React.FC = () => {
 export const MenuList: React.FC = () => {
     return (
         <>
-            <div className="menu">
+            <div id="1" className="menu">
                 <div className="header"><span id="bp"></span>Baked Pastas</div>
                 <div className="summary">Lasagnas, stuffed shells and mac and cheese are delivered in an 8 x 10 pan.</div>
                 <div>         
@@ -51,7 +53,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="2" className="menu">
                 <div className="header"><span id="kp"></span>Kid Pleasers</div>
                 <div>         
                     <ul>
@@ -60,7 +62,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="3" className="menu">
                 <div className="header"><span id="cass"></span>Casseroles</div>
                 <div className="summary">Served in 8 x 10 foil pans</div>
                 <div>
@@ -82,7 +84,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="4" className="menu">
                 <div className="header"><span id="ch"></span>Chilies</div>
                 <div className="summary">
                     <div>
@@ -105,7 +107,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="5" className="menu">
                 <div className="header"><span id="rsb"></span>Roasts, Stews and Braises</div>
                 <div className="summary">Served in freezer gallon bags or 8 cup containers</div>
                 <div>
@@ -133,7 +135,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="6" className="menu">
                 <div className="header"><span id="ml"></span>Meatloaves</div>
                 <div className="summary">
                     Can be served shepherd’s pie style with mashed Idaho or sweet potatoes on top in 8 x 10 pan or the loaf and the 
@@ -157,7 +159,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="7" className="menu">
                 <div className="header"><span id="sp"></span>Home Made Sauce with Boxed Pasta</div>
                 <div className="summary">Feel free to request beef, pork and veal, or turkey Meatballs at no extra charge.</div>
                 <div>
@@ -175,7 +177,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="8" className="menu">
                 <div className="header"><span id="enc"></span>Enchiladas</div>
                 <div className="summary">
                     Can also be tacos, just ask for the meat and tortillas to be kept separate.  Enchiladas are in an 8 x 10 foil pan. Taco 
@@ -193,7 +195,7 @@ export const MenuList: React.FC = () => {
                     Salsa Choices – Tomato, Roasted Tomato and Pepper, Peach, and Tropical
                 </div>
             </div>
-            <div className="menu">
+            <div id="9" className="menu">
                 <div className="header"><span id="sm"></span>Sandwich Makers</div>
                 <div className="summary">All brought with an 8 pack of rolls.</div>
                 <div>
@@ -209,7 +211,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="10" className="menu">
                 <div className="header"><span id="soups"></span>Soup</div>
                 <div>
                     <ul>
@@ -249,7 +251,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="11" className="menu">
                 <div className="header"><span id="fss"></span>Family Side Salad</div>
                 <div className="summary">Consume within a few days.</div>
                 <div>
@@ -287,7 +289,7 @@ export const MenuList: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="menu">
+            <div id="12" className="menu">
                 <div className="header"><span id="sc"></span>Seasonal Cobbler</div>
                 <div>
                     <ul>
