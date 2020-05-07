@@ -1,0 +1,465 @@
+h2 {
+    @apply mb-5;
+}
+
+.hero-content h2,
+.how-it-works h2,
+.prices h2 {
+    @apply leading-10;
+    @apply text-center;
+    @apply tracking-tight;
+    @apply font-extrabold;
+}
+
+@screen sm {
+    .how-it-works h2,
+    .prices h2 {
+        @apply text-5xl;
+        @apply leading-none;
+    }    
+}
+
+/*
+* Hero Section
+*/
+.hero {
+    @apply h-full;
+    @apply w-full;
+    @apply relative;
+    @apply overflow-hidden;
+}
+
+.hero-content {
+    @apply z-10;
+    @apply pb-6;
+    @apply pt-6;
+    @apply px-6;
+    @apply h-full;
+    @apply w-full;
+    @apply mx-auto;
+    @apply relative;
+    background: resolve("home/bgspiration-light.png") center center repeat;
+}
+
+.hero-bg {
+    @apply h-full;
+    @apply w-full;
+    @apply absolute;
+    background-size: cover;
+    background-image: resolve("home/bgsquash.jpg");
+}
+
+.hero-content p {
+    @apply mt-3;
+    @apply mx-auto;
+    @apply text-base;
+}
+
+@screen sm {
+    .hero-content h2 {
+        @apply text-6xl;
+        @apply leading-none;
+    }
+
+    .hero-content p {
+        @apply mt-5;
+        @apply text-lg;
+        @apply max-w-xl;
+    }
+}
+
+@screen md {   
+    .hero-content p {
+        @apply mt-5;
+        @apply text-xl;
+    }
+}
+
+@screen lg {
+    .hero-content {
+        clip-path: polygon(0 0, 100% 0%, 80% 100%, 20% 100%);
+    }
+
+    .hero-bg {
+        @apply right-0;
+        @apply inset-y-0;
+    }
+}
+
+/*
+* Parallax
+*/
+.parallax,
+.foodquote,
+.chefquote,
+.foodquote .overlay,
+.chefquote .overlay {
+    @apply h-64;
+    @apply w-full;
+}
+
+.parallax img {
+    background-position: center;
+    background-size: cover;
+}
+
+.foodquote,
+.chefquote {
+    @apply relative;
+}
+
+.foodquote .overlay,
+.chefquote .overlay {
+    z-index: 1;
+    @apply absolute;
+}
+
+.foodquote .overlay {
+    background-color: rgba(233, 242, 242, 0.7);
+}
+
+.chefquote .overlay {
+    background-color: rgba(0, 28, 82, 0.7);    
+}
+
+.foodquote blockquote,
+.chefquote blockquote
+{
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    @apply absolute;
+    @apply text-base;
+    line-height: 1.6;
+    padding: 1em 30px 1em 65px;
+}
+
+.foodquote blockquote::before,
+.chefquote blockquote::before
+{
+    top: -10px;
+    left: 10px;
+    font-size: 4em;
+}
+
+.foodquote blockquote
+{
+    width: 450px;
+    transform: translate(-50%, 60%);
+    color: rgba(0, 28, 82, 1);
+    border-left-color: rgba(0, 28, 82, 1);
+}
+
+.chefquote blockquote
+{
+    width: 420px;
+    transform: translate(-50%, 40%);
+    color: rgba(233, 242, 242, 1);
+    border-left-color: rgba(233, 242, 242, 1);
+}
+
+@screen sm {
+    .foodquote blockquote
+    {
+        transform: translate(-50%, 50%);
+    }
+
+    .chefquote blockquote {
+        transform: translate(-50%, 30%);
+    }
+}
+
+@screen md {
+    .foodquote blockquote,
+    .chefquote blockquote {
+        @apply text-lg;
+    }
+
+    .foodquote blockquote
+    {
+        width: 500px;
+        transform: translate(-50%, 40%);
+    }
+
+    .chefquote blockquote {
+        width: 540px;
+        transform: translate(-50%, 50%);
+    }
+}
+
+@screen lg {
+    .foodquote blockquote,
+    .chefquote blockquote {
+        transform: translate(-50%, 40%);
+    }
+}
+
+@screen xl {
+    .foodquote blockquote,
+    .chefquote blockquote
+    {
+        font-size: 1.4em;
+    }
+
+    .foodquote blockquote {
+        width: 600px;
+        transform: translate(-50%, 30%);
+    }
+
+    .chefquote blockquote {
+        width: 780px;
+        transform: translate(-50%, 30%);
+    }
+}
+
+.how-it-works,
+.prices {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-image: resolve("home/tiles-bw.png");
+}
+
+.how-it-works h2,
+.prices h2 {
+    @apply pb-12;
+    font-family: 'Quicksand', Arial;
+}
+
+/*
+* How It Works
+*/
+.how-it-works {
+    @apply bg-pink-500;
+}
+
+.how-it-works h2 {
+    @apply text-pink-900;
+}
+
+.how-it-works a {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    @apply border-red-100;
+}
+
+.how-it-works a:hover {
+    @apply text-pink-900;
+    @apply border-pink-900;
+}
+
+.timeline-content h2 {
+    @apply pb-0;
+}
+
+.timeline {
+    @apply text-red-100;
+}
+
+.timeline-content-container
+{
+    font-size: 1.3em;
+    padding: 10px 15px 10px 15px;
+    background-color: rgba(233, 242, 242, 0.1);
+}
+
+.timeline-content p ~ p,
+.timeline-content li ~ li {
+    @apply mt-4;
+}
+
+.timeline a.is-underline:hover
+{
+    color: rgba(20, 1, 7, 1);
+}
+
+.timeline-content-container.left
+{
+    border-radius: 25px 0px 25px 25px;
+}
+
+.timeline-content-container.right
+{
+    border-radius: 0px 25px 25px 25px;
+}
+
+.timeline .timeline-item .timeline-icon i {
+    @apply text-pink-500;
+}
+
+/*
+* Prices
+*/
+.prices {
+    @apply pb-64;
+    @apply relative;
+    background-color: rgba(220, 220, 220, 1);
+}
+
+.prices h2
+{
+    @apply text-gray-700;
+}
+
+.prices .plans {
+    @apply p-6;
+    @apply mb-16;
+    @apply left-0;
+    @apply w-full;
+}
+
+.prices .plans .container {
+    @apply flex;
+    @apply mx-2;
+    @apply w-full;
+    @apply mx-auto;
+    @apply flex-wrap;
+    @apply justify-between;
+}
+
+.prices .plan {
+    @apply shadow-md;
+    @apply mx-auto;
+    @apply bg-white;
+    min-width: 280px;
+    max-width: 280px;
+    font-family: 'Nunito', Arial;
+}
+
+.prices .plan ~ .plan {
+    @apply mt-8;
+}
+
+.prices .plan .entry-title {
+    height: 140px;
+    @apply relative;
+    @apply text-white;
+    @apply text-center;
+    @apply bg-pink-500;
+    margin-bottom: 30px;
+}
+
+.prices .plan:nth-child(odd) .entry-title {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.prices .plan:nth-child(even) .entry-title {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='26' viewBox='0 0 32 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 0v3.994C14 7.864 10.858 11 7 11c-3.866 0-7-3.138-7-7.006V0h2v4.005C2 6.765 4.24 9 7 9c2.756 0 5-2.236 5-4.995V0h2zm0 26v-5.994C14 16.138 10.866 13 7 13c-3.858 0-7 3.137-7 7.006V26h2v-6.005C2 17.235 4.244 15 7 15c2.76 0 5 2.236 5 4.995V26h2zm2-18.994C16 3.136 19.142 0 23 0c3.866 0 7 3.138 7 7.006v9.988C30 20.864 26.858 24 23 24c-3.866 0-7-3.138-7-7.006V7.006zm2-.01C18 4.235 20.244 2 23 2c2.76 0 5 2.236 5 4.995v10.01C28 19.765 25.756 22 23 22c-2.76 0-5-2.236-5-4.995V6.995z' fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.prices .plan .entry-title > h3 {
+    @apply m-0;
+    padding: 5px 0;
+    @apply bg-white;
+    font-size: 20px;
+    font-weight: 700;
+    @apply bg-pink-600;
+    text-transform: uppercase;
+}
+
+.prices .plan .entry-title .price {
+    left: 0;
+    right: 0;
+    width: 95px;
+    height: 95px;
+    bottom: -25px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 80px;
+    border-radius: 50px;
+
+    margin: 0 auto;
+    @apply absolute;
+    @apply bg-pink-600;
+    @apply overflow-hidden;
+    border: 5px solid #fff;
+}
+
+.prices .plan .price span {
+    left: 30px;
+    bottom: -11px;
+    @apply absolute;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.prices .plan .entry-content {
+    color: #323232;
+}
+
+.prices .plan .entry-content {
+    @apply p-0;
+    @apply h-64;
+    @apply m-auto;
+    @apply list-none;
+}
+
+.prices .plan .entry-content li {
+    @apply mx-4;
+    @apply py-2;
+    @apply px-2;
+
+    text-align: left;
+    font-size: 1.2em;
+    border-bottom: 1px solid rgba(198, 198, 198, 1);
+}
+
+.prices .plan .entry-content li:nth-child(even) {
+    @apply bg-gray-100;
+}
+
+.prices .plan .entry-content li:last-child {
+    @apply border-b-0;
+}
+
+/*
+.btn {
+padding: 3em 0;
+text-align: center;
+}
+
+.btn a {
+background: #323232;
+padding: 10px 30px;
+color: #fff;
+text-transform: uppercase;
+font-weight: 700;
+text-decoration: none
+}
+*/
+
+.prices .plan:nth-child(even) .entry-title {
+    @apply bg-blue-800;
+}
+
+.prices .plan:nth-child(even) .entry-title > h3 {
+    @apply bg-blue-900;
+}
+
+.prices .plan:nth-child(even) .price {
+    @apply bg-blue-900;
+}
+
+@screen xl {
+    .prices .plan ~ .plan {
+        @apply mt-0;
+    }
+}
+
+@screen lg {
+    .prices .plan:nth-child(-n+3) {
+        @apply mt-0;
+    }
+}
+
+@screen sm {
+    .prices .plan:nth-child(-n+2) {
+        @apply mt-0;
+    }  
+}
+
+@media (min-width: 624px) and (max-width: 640px) {
+    .prices .plan:nth-child(-n+2) {
+        @apply mt-0;
+    }
+}

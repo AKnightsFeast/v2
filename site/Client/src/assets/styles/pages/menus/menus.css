@@ -1,0 +1,103 @@
+.menu-special {
+    @apply flex;
+    @apply mt-6;
+    @apply mb-40;
+}
+
+.menu-special .menu-link {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    border-color: currentColor;
+}
+
+.menu-special .menu-link:hover {
+    @apply text-pink-600;
+    @apply border-pink-600;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper {
+    /* @apply h-full;
+    /* @apply overflow-y-auto;
+    /* @apply overflow-hidden;
+    /* @apply scrolling-touch;
+
+    /* @apply bg-gray-100; */
+    top: 97px;
+
+    @apply h-auto;
+    @apply block;
+    @apply relative;
+    @apply sticky;
+    @apply bg-transparent;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-title,
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items {
+    @apply pl-2;
+    @apply mx-4;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-title {
+    @apply pb-1;
+    @apply font-bold;
+    @apply border-pink-600;
+    border-bottom-width: 1px;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items {
+    @apply py-2;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li {
+    @apply pl-2;
+    border-left-width: 1px;
+    @apply border-transparent;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li:hover,
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li.active {
+    @apply italic;
+    @apply font-semibold;
+    @apply border-pink-600;
+}
+
+.menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li ~ li {
+    @apply mt-1;
+}
+
+.menu-special .menus > .menu ~ .menu {
+    @apply pt-12;
+}
+
+.menu-special .menus .menu .header {
+    @apply text-xl;
+    @apply relative;
+    @apply font-bold;
+}
+
+.menu-special .menus .menu .header > span {
+    top: -97px;
+    @apply absolute;
+}
+
+.menu-special .menus .menu .summary {
+    @apply italic;
+}
+
+.menu-special .menus .menu .sub-header {
+    @apply text-base;
+    @apply font-bold;
+}
+
+.menu-special .menus .menu .sub-header {
+    @apply mt-2;
+}
+
+.menu-special .menus .menu ul {
+    @apply ml-5;
+}
+
+.menu-special .menus .menu > * ~ * {
+    @apply mt-2;
+}

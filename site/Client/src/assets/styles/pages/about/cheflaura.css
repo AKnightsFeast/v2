@@ -1,0 +1,69 @@
+.cheflaura {
+    @apply pb-24;
+    @apply bg-gray-300;
+}
+
+.cheflaura a {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    border-color: currentColor;
+}
+
+.cheflaura a:hover {
+    @apply text-pink-600;
+    @apply border-pink-600;
+}
+
+.cheflaura .poster {
+    @apply block;
+    height: 500px;
+    @apply relative;
+}
+
+.cheflaura .poster .img {
+    @apply top-0;
+    @apply w-full;
+    @apply h-full;
+    @apply absolute;
+    @apply bg-cover;
+    @apply bg-center;
+    background-image: resolve("about/tortellinis.jpg");
+}
+
+.cheflaura .poster .img .overlay {
+    @apply h-full;
+    @apply w-full;
+    @apply bg-black;
+    @apply absolute;
+    @apply opacity-25;
+}
+
+.cheflaura .poster .slant {
+    height: 70px;
+    @apply w-full;
+    @apply left-0;
+    @apply right-0;
+    @apply absolute;
+    @apply bottom-0;
+    @apply top-auto;
+    @apply overflow-hidden;
+    transform: translateZ(0);
+    @apply pointer-events-none;
+}
+
+.cheflaura .poster .slant svg {
+    @apply absolute;
+    @apply bottom-0;
+    @apply overflow-hidden;
+}
+
+.cheflaura .poster .slant svg polygon {
+    @apply fill-current;
+    @apply text-gray-300;
+}
+
+.cheflaura .content {
+    @apply py-16;
+    @apply relative;
+}

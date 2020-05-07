@@ -1,0 +1,84 @@
+.menu-monthly {
+    @apply flex;
+    @apply flex-1;
+    @apply w-full;
+    @apply min-h-full;
+    @apply items-stretch;
+}
+
+.menu-monthly > .content {
+    @apply flex;
+    @apply flex-1;
+}
+
+.menu-monthly > .content > .selectors,
+.menu-monthly .menu {
+    @apply px-4;
+    @apply pt-4;
+}
+
+.menu-monthly .selectors .years {
+    @apply w-full;
+    @apply text-center;
+}
+
+.menu-monthly .selectors .months {
+    @apply pt-4;
+    @apply grid;
+    @apply grid-cols-3;
+}
+
+.menu-monthly .selectors .months > * {
+    @apply py-1;
+    @apply px-1;
+}
+
+.menu-monthly .menu {
+    @apply flex;
+    @apply flex-col;
+    @apply flex-grow;
+    @apply min-h-full;
+    border-left-width: 1px;
+}
+
+.menu-monthly .menu > div ~ div {
+    @apply mt-2;
+}
+
+.menu-monthly .menu-title {
+    @apply font-extrabold;
+}
+
+.menu-monthly .menu-viewer {
+    height: 750px;
+}
+
+.menu-monthly .menu-pager {
+    @apply flex;
+    @apply w-full;
+    @apply align-middle;
+}
+
+.menu-monthly .menu-pager > div {
+    @apply flex;
+    @apply flex-grow;
+    @apply flex-shrink;
+    @apply items-center;
+    @apply justify-center; 
+}
+
+.month-inactive {
+    @apply text-gray-400;
+}
+
+.month-selected,
+.month-active:hover {
+    @apply text-white;
+    @apply bg-pink-600;
+}
+
+.month-active:hover {
+    @apply ease-in-out;
+    @apply duration-200;
+    @apply transition-colors;
+}

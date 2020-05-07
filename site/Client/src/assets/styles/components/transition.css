@@ -1,0 +1,36 @@
+.headerNav-enter {
+    transition: opacity 150ms ease-out;
+}
+
+.headerNav-enter-active {
+    opacity: 0;
+    scale: 95;
+}
+
+.headerNav-enter-done {
+    opacity: 1;
+    scale: 100;
+}
+
+.headerNav-exit {
+    transition: opacity 100ms ease-in;
+}
+
+.headerNav-exit-active {
+    opacity: 1;
+    scale: 100;
+}
+
+.headerNav-exit-done {
+    opacity: 0;
+    scale: 95;
+}
+
+/*
+x-transition:enter="duration-150 ease-out"
+x-transition:enter-start="opacity-0 scale-95"
+x-transition:enter-end="opacity-100 scale-100"
+x-transition:leave="duration-100 ease-in"
+x-transition:leave-start="opacity-100 scale-100"
+x-transition:leave-end="opacity-0 scale-95"
+*/

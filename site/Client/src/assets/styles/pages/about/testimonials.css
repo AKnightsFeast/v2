@@ -1,0 +1,67 @@
+.testimonials {
+    @apply mb-24;
+}
+
+.testimonials .header {
+    @apply px-6;
+    @apply py-3;
+    @apply mb-5;
+    background-repeat: repeat;
+    background-color: rgba(157, 189, 115, .5);
+    background-image: resolve("backgrounds/dimension.png");
+}
+
+.testimonials .content {
+    @apply px-5;
+    @apply pb-10;
+    @apply grid;
+    @apply gap-4;
+    @apply grid-cols-3;
+}
+
+.testimonial {
+    position: relative;
+}
+
+.testimonial blockquote {
+    @apply mt-0;
+    @apply border-gray-300;
+    line-height: normal;
+    padding: 0 30px 1em 50px;
+}
+
+.testimonial blockquote * {
+    color: currentColor;
+}
+
+.testimonial blockquote::before {
+    left: 5px;
+    top: -10px;
+    width: 45px;
+    font-size: 4em;
+	overflow: hidden;
+}
+
+.testimonial blockquote.alt {
+    @apply border-pink-600;
+}
+
+.testimonial blockquote a {
+    @apply px-1;
+    border-width: 1px;
+    @apply border-dotted;
+    border-color: currentColor;
+}
+
+.testimonial blockquote a:hover {
+    @apply text-pink-600;
+    @apply border-pink-600;
+}
+
+.testimonial blockquote p ~ p {
+    @apply mt-4;
+}
+
+.testimonial blockquote > span {
+    @apply mt-3;
+}

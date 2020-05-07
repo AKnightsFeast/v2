@@ -1,0 +1,225 @@
+.nav {
+    @apply z-50;
+    @apply flex;
+    @apply fixed;
+    @apply w-full;
+    @apply bg-white;
+    @apply border-b;
+    @apply text-gray-900;
+    @apply border-gray-200;
+    @apply justify-between;
+}
+
+.nav.scrolled {
+    @apply shadow-sm;
+}
+
+.nav .logo {
+    @apply relative;
+}
+
+.nav .logo .img {
+    @apply ml-4;
+    width: 110px;
+    height: 60px;
+    @apply absolute;
+    transform: translate(0, 8%);
+    background-size: cover;
+    background-image: resolve("logo.png");
+}
+
+.nav .link-container {
+    @apply flex;
+}
+
+.nav .link:hover {
+    @apply text-white;
+    @apply bg-blue-900;
+}
+
+.nav .link.hoverable:hover .mega-menu {
+    @apply z-50;
+    @apply block;
+}
+
+.nav .link-text,
+.nav .link-button,
+.nav .nav-right-item {
+    @apply px-4;
+    @apply py-6;
+    @apply block;
+    @apply relative;
+}
+
+.nav .link-text,
+.nav .nav-right-item {
+    @apply text-sm;
+    @apply font-bold;
+}
+
+.nav .link-text {
+    @apply cursor-pointer;
+}
+
+.nav .link-text:hover {
+    @apply text-white;
+    @apply bg-blue-900;
+}
+
+.nav .link-button {
+    @apply my-3;
+    @apply shadow-md;
+    @apply rounded-lg;
+    @apply text-white;
+    @apply bg-pink-600;
+    @apply font-semibold;
+    @apply leading-tight;
+}
+
+.nav .link-button:hover {
+    @apply bg-pink-700;
+}
+
+.nav .mega-menu {
+    @apply p-6;
+    @apply mb-16;
+    @apply hidden;
+    @apply left-0;
+    @apply w-full;
+    @apply absolute;
+    @apply shadow-xl;
+    @apply text-left;
+    @apply bg-blue-900;
+}
+
+.nav .mega-menu .container {
+    @apply flex;
+    @apply mx-2;
+    @apply w-full;
+    @apply mx-auto;
+    @apply flex-wrap;
+    @apply justify-between;
+}
+
+.nav .mega-menu-item {
+    @apply pb-6;
+    @apply pt-6;
+    @apply px-4;
+    @apply w-full;
+}
+
+.nav .mega-menu-item {
+    @apply border-gray-600;
+}
+
+.nav .mega-menu-item ~ .mega-menu-item {
+    @apply border-t;
+}
+
+.nav .cheflauraimg {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-image: resolve("about/cheflaura.jpg");
+}
+
+.nav .mega-menu-icon {
+    @apply h-8;
+    @apply mr-3;
+    @apply text-white;
+    @apply fill-current;
+}
+
+.nav .mega-menu-title {
+    @apply mb-2;
+    @apply text-xl;
+    @apply font-bold;
+    @apply text-white;
+}
+
+.nav .mega-menu-desc {
+    @apply text-sm;
+    @apply text-gray-100;
+}
+
+.nav .mega-menu-arr {
+    @apply h-6;
+    @apply pr-3;
+    @apply fill-current;
+    @apply text-blue-300;
+}
+
+.nav .mega-menu-link {
+    @apply text-white;
+    @apply font-bold;
+    @apply border-b-2;
+    @apply border-blue-300;
+}
+
+.nav .mega-menu-link:hover {
+    @apply text-blue-300;
+}
+
+@screen sm {
+    .nav .mega-menu {
+        @apply mb-0;
+    }
+
+    .nav .mega-menu-item {
+        @apply w-1/2;
+    }
+
+    .nav .mega-menu-item:nth-child(even) {
+        @apply border-l;
+    }
+
+    .nav .mega-menu-item:nth-child(-n+2) {
+        @apply border-b;
+    }
+
+    .nav .mega-menu-item ~ .mega-menu-item {
+        @apply border-t-0;
+    }
+}
+
+@screen md {
+    .nav .mega-menu-item {
+        @apply border-t-0;
+    }
+
+    .nav .link-button {
+        @apply px-5;
+        @apply py-4;
+        @apply text-lg;
+    }
+}
+
+@screen lg {
+    .nav .link-text,
+    .nav .nav-right-item {
+        @apply p-6;
+        @apply text-base;
+    }
+
+    .nav .mega-menu-item {
+        @apply pt-3;
+        @apply w-1/4;
+    }
+
+    .nav .mega-menu-item:nth-child(-n+2) {
+        @apply border-b-0;
+    }
+
+    .nav .mega-menu-item ~ .mega-menu-item {
+        @apply border-l;
+        @apply border-t-0;
+    }
+}
+
+@screen xl {
+    .nav .link-button {
+        @apply px-4;
+        @apply py-3;
+        @apply text-base;
+    }
+}

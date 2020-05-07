@@ -1,0 +1,13 @@
+.policies {
+    @apply mt-5;
+    @apply mb-24;
+    @apply px-10;
+}
+
+.policies .policy ~ .policy {
+    @apply mt-10;
+}
+
+.policies .policy p {
+    font-size: 1.2em;
+}
