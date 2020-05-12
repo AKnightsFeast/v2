@@ -10,7 +10,7 @@ export const LoadMenuDatesAsync = createAsyncAction(
     MonthlyMenuActions.LOAD_MENU_DATES,
     MonthlyMenuActions.LOAD_MENU_DATES_OK,
     MonthlyMenuActions.LOAD_MENU_DATES_ERR
-)<undefined, Map<number, number[]>, string>();
+)<number, Map<number, number[]>, string>();
 
 export const LoadMenuAsync = createAsyncAction(
     MonthlyMenuActions.LOAD_MENU,

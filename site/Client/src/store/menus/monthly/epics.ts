@@ -1,18 +1,30 @@
 import { from, of } from 'rxjs';
-import { Epic } from 'redux-observable';
 import { isActionOf, isOfType } from 'typesafe-actions';
-import { mapTo, filter, switchMap, map, catchError } from 'rxjs/operators';
+import { filter, switchMap, map, catchError } from 'rxjs/operators';
 
-import { RootAction, RootReducer } from '../../../modules/types';
+import { RootEpic } from '../../../modules/types';
 
 import { LoadMenuDatesAsync, LoadMenuAsync } from './actions';
-import menuDates from '../../../assets/data/monthlymenudates';
+//import menuDates from '../../../assets/data/monthlymenudates';
 
-
-export const LoadMenuDatesEpic: Epic<RootAction, RootAction, RootReducer /*, Services */> = (action$, state$) => //, { api }) =>
+export const LoadMenuDatesEpic: RootEpic = (action$, state$, { MenuServices }) =>
 action$.pipe(
     filter(isActionOf(LoadMenuDatesAsync.request)),
-    switchMap(() => of(LoadMenuDatesAsync.success(menuDates)))
+    switchMap((action) => {
+        let year = action.payload;
+        let menuDates: Map<number, number[]> = state$.value.MonthlyMenu.MenuDates as Map<number, number[]>
+
+        if (menuDates.has(year)) return of(LoadMenuDatesAsync.success(menuDates));
+        
+        return from(MenuServices.getMenuMonths(year)).pipe(
+            map(response => {
+                menuDates.set(year, response.data as number[]);
+                return LoadMenuDatesAsync.success(menuDates);
+                //LoadMenuDatesAsync.success(new Map<number, number[]>([[ year, response.data as number[] ]]))
+            }),
+            catchError(error => of(LoadMenuDatesAsync.failure(error)))
+        );
+    })
 );
 
 //export const LoadActiveMonthsEpic: Epic<RootAction, RootAction, RootReducer /*, Services*/> = (action$, state$) => //, { api }) =>

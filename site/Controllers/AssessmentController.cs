@@ -20,7 +20,7 @@ using site.Attributes;
 using site.Models;
 //using site.Models.Enums;
 
-namespace web.Controllers
+namespace site.Controllers
 {
     [Produces("application/json")]
     [Route("api/assessment")]
@@ -55,13 +55,13 @@ namespace web.Controllers
                         }
                     });
 
-                return new JsonResult(new {
-                    Success = false,
-                    Modal = new {
-                        Title = "Oh No!",
-                        Message = "<p>Your assessment was invalid.</p><p>Please fix the errors causing this and resubmit.</p>"
-                    }
-                });
+                // return new JsonResult(new {
+                //     Success = false,
+                //     Modal = new {
+                //         Title = "Oh No!",
+                //         Message = "<p>Your assessment was invalid.</p><p>Please fix the errors causing this and resubmit.</p>"
+                //     }
+                // });
             }
             catch (Exception e)
             {

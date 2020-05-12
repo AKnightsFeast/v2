@@ -5,13 +5,14 @@ import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout } from 
 import { YearArray } from '../../utils';
 import { Months, getMonthByNumber } from '../../utils';
 import { ApplicationState, Month } from '../../modules/types';
-import { setMenuYear, setMenuMonth } from '../../redux/menus/monthly/actions';
+import { setMenuYear, setMenuMonth, LoadMenuDatesAsync } from '../../store/menus/monthly/actions';
 
-import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
+import '../../assets/styles/components/react-pdf-viewer.min.css';
 
 export const Monthly: React.FC = () => {
     const dispatch = useDispatch();
 
+    const isLoading = useSelector((state: ApplicationState) => state.MonthlyMenu.IsLoading);
     const menuDates = useSelector((state: ApplicationState) => state.MonthlyMenu.MenuDates);
     const menuYear = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedYear);
     const menuMonth = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedMonth);
@@ -35,6 +36,9 @@ export const Monthly: React.FC = () => {
 
     const getMonthsForYear = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
         menuYearRef.current = +e.currentTarget.value;
+
+        dispatch(LoadMenuDatesAsync.request(menuYearRef.current));
+
         refreshMenuYear({});
     }, [menuYearRef.current]);
 
@@ -77,7 +81,7 @@ export const Monthly: React.FC = () => {
                             let key = entry[0];
                             let month = entry[1];
 
-                            if (menuDates && menuDates.size > 0) {
+                            if (!isLoading && menuDates && menuDates.size > 0) {
                                 let activeMonths = menuDates.get(menuYearRef.current);
 
                                 if (activeMonths && activeMonths.includes(key))

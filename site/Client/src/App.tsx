@@ -1,22 +1,25 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
-import { createBrowserHistory } from "history";
+import { BrowserRouter, Route } from 'react-router-dom';
+//import { createBrowserHistory } from "history";
 
-import Initialize from './components/initialize';
-import Pages from './pages';
+//import Initialize from './components/initialize';
+import Routes from './routes';
 
 import './App.css';
 
-const history = createBrowserHistory();
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
+const rootElement = document.getElementById('root');
+
+//const history = createBrowserHistory();
 
 const App: React.FC = () => {
-  Initialize();
+  //Initialize();
 
   return (
     <div className="app">
-      <Router history={history}>
-        <Route component={Pages} />
-      </Router>
+      <BrowserRouter basename={baseUrl}>
+        <Route component={Routes} />
+      </BrowserRouter>
     </div>
   );
 }

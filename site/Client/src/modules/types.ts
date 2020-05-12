@@ -1,6 +1,8 @@
+import { Epic } from 'redux-observable';
 import { CSSProperties, MutableRefObject } from 'react';
 import { StateType, ActionType } from 'typesafe-actions';
 
+import Services from '../services';
 import { TweenFunctionEnum } from './enums';
 
 export type Month = {
@@ -47,12 +49,16 @@ export type MenuNavProp = {
     activeMenuId: number
 }
 
-export type Store = StateType<typeof import('../redux/store').default>;
+export type Services = typeof import ('../services').default;
 
-export type RootReducer = StateType<typeof import('../redux/reducer').default>;
+export type Store = StateType<typeof import('../store').default>;
 
-export type RootAction = ActionType<typeof import('../redux/action').default>;
+export type RootReducer = StateType<typeof import('../store/reducer').default>;
 
-interface Types {
-    RootAction: RootAction;
-}
+export type RootAction = ActionType<typeof import('../store/action').default>;
+
+export type RootEpic = Epic<RootAction, RootAction, RootReducer, Services>;
+
+//interface Types {
+//    RootAction: RootAction;
+//}

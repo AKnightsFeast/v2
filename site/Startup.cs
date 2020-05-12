@@ -47,15 +47,17 @@ namespace site
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddMvcCore(options =>
-            {
-                options.CacheProfiles.Add("No-Cache", new CacheProfile()
-                {
-                    NoStore = true,
-                    Duration = DateTime.UtcNow.AddDays(-1).Second
-                });
-            });
+            services.AddMvcCore();
+            // services.AddMvc(options =>
+            // {
+            //     options.CacheProfiles.Add("No-Cache", new CacheProfile()
+            //     {
+            //         NoStore = true,
+            //         Duration = DateTime.UtcNow.AddDays(-1).Second
+            //     });
+            // });
 
+            //services.AddControllers();
             //services.AddControllersWithViews();
             //services.AddRazorPages();
 
@@ -79,10 +81,9 @@ namespace site
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-
-                app.UseHttpsRedirection();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -93,10 +94,10 @@ namespace site
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                //endpoints.MapControllerRoute(name: "defaultapi", pattern: "api/{controller}/{id?}");
+                //endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                //endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa =>
