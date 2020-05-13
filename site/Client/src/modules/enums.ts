@@ -60,8 +60,10 @@ export enum AssessmentContainerTypes {
 }
 
 export enum AssessmentSpiceRanges {
-    Bland,
-    Mild,
-    Medium,
-    Hot
+    Bland = "Bland",
+    Mild = "Mild",
+    Medium = "Medium",
+    Hot = "Hot"
 }
+
+export type AssessmentEnums = typeof AssessmentContainerTypes | typeof AssessmentPackagingTypes | typeof AssessmentSpiceRanges;

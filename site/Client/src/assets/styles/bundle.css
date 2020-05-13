@@ -10,11 +10,16 @@
 
 @import "./pages/menus/menus.css";
 @import "./pages/menus/monthly.css";
+@import "./components/react-pdf-viewer.min.css";
 
 @import "./pages/home/home.css";
+
 @import "./pages/about/friends.css";
 @import "./pages/about/policies.css";
 @import "./pages/about/cheflaura.css";
 @import "./pages/about/testimonials.css";
+
+@import "./pages/assessment/assessment.css";
+@import "./components/pretty-checkbox.min.css";
 
 @import "tailwindcss/utilities";

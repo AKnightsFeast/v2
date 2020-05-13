@@ -1,5 +1,54 @@
 import React, { useState } from 'react';
 
+import { AssessmentEnums, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentSpiceRanges } from '../../modules/enums';
+
+import { Pet } from './pet';
+import { Contact } from './contact';
+
+type RadioButtonItem = {
+    label: string,
+    value: string
+}
+
+type RadioButtonListProp = {
+    name: string,
+    items: RadioButtonItem[] | AssessmentEnums
+}
+
+const isRadioButtonItemArr = (v: any): v is RadioButtonItem[] => (v as RadioButtonItem[]).length !== undefined;
+
+const RadioButtonList: React.FC<RadioButtonListProp> = ({ name, items }) => {
+    const rbClassName = "pretty p-icon p-round p-plain p-smooth";
+    const rbDivClassName = "state p-primary-o";
+    const muiIconName = "check_circle";
+
+    return (
+        <>
+            {
+                (isRadioButtonItemArr(items)) ?
+                    (items as RadioButtonItem[]).map(rb => (
+                        <div className={rbClassName}>
+                            <input type="radio" name={name} value={rb.value} />
+                            <div className={rbDivClassName}>
+                                <i className="icon material-icons">{muiIconName}</i>
+                                <label>{rb.label}</label>
+                            </div>
+                        </div>
+                    )) :
+                    Object.keys(items).filter(key => !Number(key)).map(key => (
+                        <div className={rbClassName}>
+                            <input type="radio" name={name} value={key} />
+                            <div className={rbDivClassName}>
+                                <i className="icon material-icons">{muiIconName}</i>
+                                <label>{key}</label>
+                            </div>
+                        </div>
+                    ))
+            }
+        </>
+    );
+}
+
 export const Assessment: React.FC = () => {
     return (
         <form>
@@ -42,38 +91,7 @@ export const Assessment: React.FC = () => {
                     </div>
                     <div><i><b>Please enter either the person's email address, phone number, or both.</b></i></div>
                     <div>
-                    {/*
-                        <div>
-                            <div className="field">
-                                <label>
-                                    <input placeholder="First Name"></input>
-                                    <span>First Name</span>
-                                </label>
-                                <label>
-                                    <input placeholder="Last Name"></input>
-                                    <span>Last Name</span>
-                                </label>
-                                <label title="Middle Initial">
-                                    <input placeholder="MI"></input>
-                                    <span>MI</span>
-                                </label>
-                                <label title="Date of Birth">
-                                    <input placeholder="DOB"></input>
-                                    <span>DOB</span>
-                                </label>
-                            </div>
-                            <div className="field">
-                                <label>
-                                    <input placeholder="Email"></input>
-                                    <span>Email</span>
-                                </label>
-                                <label>
-                                    <input placeholder="Phone #"></input>
-                                    <span>Phone #</span>
-                                </label>                           
-                            </div>
-                        </div>
-                    */}
+                        <Contact index={0} />
                     </div>
                 </div>
 
@@ -87,14 +105,7 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Are there any allergies in your family?</div>
                     <div className="field">
-                        <label>
-                            <input type="radio" className="form-radio" name="haveallergies" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input type="radio" className="form-radio" name="haveallergies" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"haveallergies"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -107,28 +118,14 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Are you lactose intolerant?</div>
                     <div className="field">
-                        <label>
-                            <input  type="radio" className="form-radio" name="islactoseint" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input  type="radio" className="form-radio" name="islactoseint" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"islactoseint"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
 
                 <div>
                     <div>Are there any medical conditions in your family?</div>
                     <div className="field">
-                        <label>
-                            <input  type="radio" className="form-radio" name="havemedconditions" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input  type="radio" className="form-radio" name="havemedconditions" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"havemedconditions"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -141,14 +138,7 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Are you planning to follow or currently following any specific diet plan?</div>
                     <div className="field">
-                        <label>
-                            <input  type="radio" className="form-radio" name="havedietplan" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input  type="radio" className="form-radio" name="havedietplan" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"havedietplan"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -161,13 +151,14 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>How should your meals be packaged?</div>
                     <div className="field">
+                        <RadioButtonList name={"packagetype"} items={AssessmentPackagingTypes} />
                         {/*
                         <label>
-                            <input  type="radio" className="form-radio" name="packagetype" value="true" />
+                            <input type="radio" className="form-radio" name="packagetype" value="true" />
                             <span>Individual</span>
                         </label>
                         <label>
-                            <input  type="radio" className="form-radio" name="packagetype" value="false" checked={true} />
+                            <input type="radio" className="form-radio" name="packagetype" value="false" checked={true} />
                             <span>Family Style</span>
                         </label>
                         */}
@@ -177,6 +168,7 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>What type of containers should be used to store the food?</div>
                     <div className="field">
+                        <RadioButtonList name={"container"} items={AssessmentContainerTypes} />
                         {/*
                         <div><label>@Html.RadioButtonFor(m => m.Container, ContainerType.Plastic) Microwave safe plastic</label></div>
                         <div>
@@ -235,21 +227,16 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>How spicy do you like your spicy meals?</div>
                     <div className="field">
-                        <div className="field">@Html.CheckBoxListForEnum(m => m.SpiceLikes, 1)</div>
+                        <div className="field">
+                            <RadioButtonList name={"spicelikes"} items={AssessmentSpiceRanges} />
+                        </div>
                     </div>
                 </div>
 
                 <div>
                     <div>Would you like any vegetarian meals?</div>
                     <div className="field">
-                        <label>
-                            <input  type="radio" className="form-radio" name="likevegmeals" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input  type="radio" className="form-radio" name="likevegmeals" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"likevegmeals"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
 
@@ -298,14 +285,7 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Do you have an additional freezer or refrigerator?</div>
                     <div className="field">
-                        <label>
-                            <input  type="radio" className="form-radio" name="addlfridge" value="true" />
-                            <span>Yes</span>
-                        </label>
-                        <label>
-                            <input  type="radio" className="form-radio" name="addlfridge" value="false" checked={true} />
-                            <span>No</span>
-                        </label>
+                        <RadioButtonList name={"addlfridge"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
 
@@ -331,7 +311,9 @@ export const Assessment: React.FC = () => {
                         </label>
                     </div>
                     <div><i><b>To clear the list of pets enter "0".</b></i></div>
-                    <div id="pets"></div>
+                    <div id="pets">
+                        <Pet index={0} />
+                    </div>
                 </div>
 
                 <div>

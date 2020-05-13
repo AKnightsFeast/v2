@@ -7,8 +7,6 @@ import { Months, getMonthByNumber } from '../../utils';
 import { ApplicationState, Month } from '../../modules/types';
 import { setMenuYear, setMenuMonth, LoadMenuDatesAsync } from '../../store/menus/monthly/actions';
 
-import '../../assets/styles/components/react-pdf-viewer.min.css';
-
 export const Monthly: React.FC = () => {
     const dispatch = useDispatch();
 

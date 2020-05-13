@@ -49,6 +49,10 @@ export type MenuNavProp = {
     activeMenuId: number
 }
 
+export type IndexedControlProp = {
+    index: number
+}
+
 export type Services = typeof import ('../services').default;
 
 export type Store = StateType<typeof import('../store').default>;
