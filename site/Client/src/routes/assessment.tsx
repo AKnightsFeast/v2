@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback, MouseEvent } from 'react';
+import { NavLink } from 'react-router-dom';
 
 type WizardStep = {
     title: string,
@@ -18,7 +19,7 @@ export const Assessment: React.FC = () => {
     const stepOrder: string[] = Array.from(steps.keys());
         
     const [stepIdx, setStepIdx] = useState(0);
-    const getPctDone = () => (stepIdx / (totalSteps - 1)) * 100;
+    const getPctDone = () => ((stepIdx + 1) / totalSteps) * 100;
     const pctDone = useRef(getPctDone());
 
     const getStepTitle = (): string => {
@@ -28,74 +29,60 @@ export const Assessment: React.FC = () => {
     }
 
     const moveNext = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
         if (stepIdx == totalSteps - 1) return;
         pctDone.current = getPctDone();
         setStepIdx(stepIdx + 1);
     }, [stepIdx]);
 
     const movePrev = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
         if (stepIdx == 0) return;
         pctDone.current = getPctDone();
         setStepIdx(stepIdx - 1);
     }, [stepIdx]);
 
     const complete = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
         setStepIdx(totalSteps);
     }, [null]);
 
     return (
-        <form>
-            <div className="max-w-3xl mx-auto px-4 py-10">
-                <div className={`relative ${stepIdx !== totalSteps ? "hidden" : ""}`}>
-                    <div className={`step${stepIdx === totalSteps ? " active" : ""}`}>
-                        <div className="bg-white rounded-lg p-10 flex items-center shadow justify-between">
+        <div className="w-full max-w-3xl mx-auto px-4 py-10 bg-gray-100">
+            {/*<!-- Completion Step -->*/}
+            <div className={`flex-col items-center bg-white rounded-lg p-10 shadow justify-between step${stepIdx === totalSteps ? " active" : ""}`}>
+                <svg className="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+
+                <h2 className="text-2xl mb-4 text-gray-800 text-center font-bold">Assessment Complete!</h2>
+
+                <div className="text-gray-600 mb-8 text-center">Your assessment has been submitted successfully!</div>
+                <div className="text-gray-600 mb-8 text-center">Once Chef Laura has reviewed it she will get back to you shortly!</div>
+
+                <NavLink to="/" className="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border">Back to home</NavLink>
+            </div>
+
+            <div className={`${stepIdx === totalSteps ? "hidden" : ""}`}>
+                {/*<!-- Top Navigation -->*/}
+                <div className="border-b-2 py-4">
+                    <div className="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {stepIdx + 1} of {totalSteps}</div>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div className="flex-1">
                             <div>
-                                <svg className="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-
-                                <h2 className="text-2xl mb-4 text-gray-800 text-center font-bold">Registration Success</h2>
-
-                                <div className="text-gray-600 mb-8">
-                                    Thank you. We have sent you an email to demo@demo.test. Please click the link in the message to activate your account.
-                                </div>
-        {/*
-                                <button onClick={ moveNext }
-                                    className="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
-                                >Back to home</button>
-        */}
+                                <div className="text-lg font-bold text-gray-700 leading-tight">{ getStepTitle() }</div>
                             </div>
+                        </div>
+
+                        <div className="flex items-center md:w-64">
+                            <div className="w-full bg-white rounded-full mr-2">
+                                <div className="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" style={{ width: `${getPctDone()}%` }}></div>
+                            </div>
+                            <div className="text-xs w-10 text-gray-600">{ `${parseInt(getPctDone().toString())}` }%</div>
                         </div>
                     </div>
                 </div>
 
-                <div className={`${stepIdx === totalSteps ? "hidden" : ""}`}>
-                    {/*<!-- Top Navigation -->*/}
-                    <div className="border-b-2 py-4">
-                        <div className="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {stepIdx + 1} of {totalSteps}</div>
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div className="flex-1">
-                                <div>
-                                    <div className="text-lg font-bold text-gray-700 leading-tight">{ getStepTitle() }</div>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center md:w-64">
-                                <div className="w-full bg-white rounded-full mr-2">
-                                    <div className="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" style={{ width: `${getPctDone()}%` }}></div>
-                                </div>
-                                <div className="text-xs w-10 text-gray-600">{ `${parseInt(getPctDone().toString())}` }%</div>
-                            </div>
-                        </div>
-                    </div>
-                    {/*<!-- /Top Navigation -->*/}
-
                     {/*<!-- Step Content -->*/}
-                    <div className="relative py-10">	
+                <div className="py-10">	
+                    <form>
                         <div className={`step${stepOrder[stepIdx] === "a" ? " active" : ""}`}>
                             <div className="mb-5 text-center">							
                                 <label 
@@ -187,12 +174,11 @@ export const Assessment: React.FC = () => {
                                     placeholder="eg. Web Developer" />
                             </div>
                         </div>
-                    </div>
-                    {/*<!-- / Step Content -->*/}
+                    </form>
                 </div>
 
                 {/*<!-- Bottom Navigation -->*/}
-                <div className={`fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md${stepIdx === totalSteps ? " hidden" : ""}`}>
+                <div className={`fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md`}>
                     <div className="max-w-3xl mx-auto px-4">
                         <div className="flex justify-between">
                             <div className="w-1/2">
@@ -220,6 +206,6 @@ export const Assessment: React.FC = () => {
                 </div>
                 {/*<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->*/}
             </div>
-        </form>
+        </div>
     );
 }
