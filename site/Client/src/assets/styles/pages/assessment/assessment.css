@@ -1,3 +1,12 @@
-input {
-    
+.step {
+    @apply invisible;
+    @apply absolute;
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.step.active {
+    @apply visible;
+    opacity: 1;
+    transition: opacity 500ms ease-out;
 }

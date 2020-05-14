@@ -35,12 +35,12 @@ const RadioButtonList: React.FC<RadioButtonListProp> = ({ name, items }) => {
                             </div>
                         </div>
                     )) :
-                    Object.keys(items).filter(key => !Number(key)).map(key => (
+                    Object.entries(items).filter(entry => !Number(entry[0])).map(entry => (
                         <div className={rbClassName}>
-                            <input type="radio" name={name} value={key} />
+                            <input type="radio" name={name} value={entry[0]} />
                             <div className={rbDivClassName}>
                                 <i className="icon material-icons">{muiIconName}</i>
-                                <label>{key}</label>
+                                <label>{entry[1]}</label>
                             </div>
                         </div>
                     ))
@@ -152,16 +152,6 @@ export const Assessment: React.FC = () => {
                     <div>How should your meals be packaged?</div>
                     <div className="field">
                         <RadioButtonList name={"packagetype"} items={AssessmentPackagingTypes} />
-                        {/*
-                        <label>
-                            <input type="radio" className="form-radio" name="packagetype" value="true" />
-                            <span>Individual</span>
-                        </label>
-                        <label>
-                            <input type="radio" className="form-radio" name="packagetype" value="false" checked={true} />
-                            <span>Family Style</span>
-                        </label>
-                        */}
                     </div>
                 </div>
 
@@ -169,16 +159,9 @@ export const Assessment: React.FC = () => {
                     <div>What type of containers should be used to store the food?</div>
                     <div className="field">
                         <RadioButtonList name={"container"} items={AssessmentContainerTypes} />
-                        {/*
-                        <div><label>@Html.RadioButtonFor(m => m.Container, ContainerType.Plastic) Microwave safe plastic</label></div>
                         <div>
-                            <label>
-                                @Html.RadioButtonFor(m => m.Container, ContainerType.Pyrex, new { @checked = "checked" })
-                                Freezer, oven, and microwafe safe Pyrex <i>(a $100 one-time fee will be charged if the chef needs to purchase them for you)</i>
-                            </label>
+                            <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
                         </div>
-                        <div><label>@Html.RadioButtonFor(m => m.Container, ContainerType.Own) Your own</label></div>
-                        */}
                     </div>
                 </div>
 

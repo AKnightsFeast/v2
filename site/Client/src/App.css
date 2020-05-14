@@ -3004,7 +3004,17 @@ text-decoration: none
   margin-top: 0.75rem;
 }
 
-input {
+.step {
+  visibility: hidden;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.step.active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 500ms ease-out;
 }
 
 /**
