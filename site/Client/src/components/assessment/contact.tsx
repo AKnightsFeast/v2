@@ -1,43 +1,90 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
-import { IndexedControlProp } from '../../modules/types';
+import { useInput } from '../../utils';
+import { IIndexedControlProp } from '../../modules/types';
 
-export const Contact: React.FC<IndexedControlProp> = ({ index }) => {
+interface IContactProp extends IIndexedControlProp {
+    person: Person,
+    contactInfoOptional?: boolean,
+    onContactUpdate?: (person: Person) => void,
+}
+
+export type Person = {
+    id: string,
+    fname: string,
+    mi?: string,
+    lname: string,
+    dob: string,
+    email?: string,
+    phone?: string,
+};
+
+export const Contact: React.FC<IContactProp> = ({ person, contactInfoOptional = true, onContactUpdate }) => {
+    const [contact, updateContact] = useState<Person>(person);
+
+    const updateAssessment = () => {
+        const newPerson = getPerson();
+        updateContact(newPerson);
+        onContactUpdate && onContactUpdate(newPerson);
+    };
+
+    const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname, () => { updateAssessment(); });
+    const { value:mi, bind:bindMI } = useInput(contact.mi ?? "", () => { updateAssessment(); });
+    const { value:lname, bind:bindLName } = useInput(contact.lname ?? "", () => { updateAssessment(); });
+    const { value:dob, bind:bindDOB } = useInput(contact.dob ?? "", () => { updateAssessment(); });
+    const { value:email, bind:bindEmail } = useInput(contact.email ?? "", () => { updateAssessment(); });
+    const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
+
+    const getPerson = (): Person => ({ id: person.id, fname: fname, mi: mi, lname: lname, dob: dob, email: email, phone: phone });
+
     return (
-        <div>
-            <div className="field">
+        <>
+            <div className="field row">
                 <label>
-                    <input className="form-input" id={`People_${index}__FirstName`} name={`People[${index}].FirstName`} placeholder="First Name"></input>
                     <span>First Name</span>
-                </label>
-                <label>
-                    <input className="form-input" id={`People_${index}__LastName`} name={`People[${index}].LastName`} placeholder="Last Name"></input>
-                    <span>Last Name</span>
+                    {/*id={`People_${index}__FirstName`} name={`People[${index}].FirstName`}*/}
+                    <input type="text" placeholder="First Name" {...bindFName} />
                 </label>
                 <label title="Middle Initial">
-                    <input className="form-input" id={`People_${index}__MiddleInitial`} name={`People[${index}].MiddleInitial`} placeholder="MI"></input>
                     <span>MI</span>
+                    {/*id={`People_${index}__MiddleInitial`} name={`People[${index}].MiddleInitial`}*/}
+                    <input type="text" placeholder="MI" maxLength={1} {...bindMI} />
                 </label>
-                <label title="Date of Birth">
-                    <input className="form-input" id={`People_${index}__DOB`} name={`People[${index}].DOB`} placeholder="DOB"></input>
-                    <span>DOB</span>
+                <label>
+                    <span>Last Name</span>
+                    {/*id={`People_${index}__LastName`} name={`People[${index}].LastName`}*/}
+                    <input type="text" placeholder="Last Name" {...bindLName} />
                 </label>
             </div>
             <div className="field">
+                <label title="Date of Birth">
+                    <span>DOB</span>
+                    {/*id={`People_${index}__DOB`} name={`People[${index}].DOB`}*/}
+                    <input type="text" placeholder="DOB" {...bindDOB} />
+                </label>
+            </div>
+            <div className="field col">
                 <label>
-                    <input className="form-input" id={`People_${index}__Email`} name={`People[${index}].Email`} placeholder="Email"></input>
                     <span>Email</span>
+                    {/*id={`People_${index}__Email`} name={`People[${index}].Email`}*/}
+                    <input type="text" placeholder="Email" {...bindEmail} />
                 </label>
                 <label>
-                    <input className="form-input" id={`People_${index}__Phone`} name={`People[${index}].Phone`} placeholder="Phone #"></input>
                     <span>Phone #</span>
+                    {/*id={`People_${index}__Phone`} name={`People[${index}].Phone`}*/}
+                    <input type="text" placeholder="Phone #" {...bindPhone} />
                 </label>                           
             </div>
-            <div>
-                <div>&nbsp;</div>
-                <input id={`People_${index}__UseContactInfo`} type='checkbox' title='Use Email/Phone' className='useContactInfo' />
-                <label>&nbsp;Add Email/Phone</label>
-            </div>
-        </div>
+            {
+                (contactInfoOptional) ?
+                    <div>
+                        <div>&nbsp;</div>
+                        {/*id={`People_${index}__UseContactInfo`}*/}
+                        <input type='checkbox' title='Use Email/Phone' className='useContactInfo' />
+                        <label>&nbsp;Add Email/Phone</label>
+                    </div> :
+                    <></>
+            }
+        </>
     );
 }

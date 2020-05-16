@@ -3016,6 +3016,20 @@ text-decoration: none
   }
 }
 
+.assessment {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 48rem;
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
 .step {
   display: none;
 }
@@ -3023,6 +3037,88 @@ text-decoration: none
 .step.active {
   display: block;
   animation: showIn 300ms ease-in forwards;
+}
+
+.step > div {
+  margin-bottom: 1.25rem;
+}
+
+.step .field.col,
+.step .field.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step .field.col {
+  flex-direction: column;
+}
+
+.step .field.row {
+  flex-direction: row;
+}
+
+.step .field.col > label {
+  padding-bottom: 0.75rem;
+}
+
+.step .field span {
+  margin-bottom: 0.25rem;
+  display: block;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+}
+
+.step .field input[type=text] {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.step .field input[type=text]:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.assessment .button {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 10rem;
+  display: block;
+  border-width: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.assessment .button:focus {
+  outline: 0;
+}
+
+.assessment .button:hover {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
 /**

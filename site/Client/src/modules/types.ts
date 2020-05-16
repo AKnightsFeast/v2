@@ -22,21 +22,6 @@ export type ApplicationState = {
     MonthlyMenu: MonthlyMenuState
 };    
 
-export type IMonthlyMenuSelectorProp = {
-    SelectedYear: number,
-    MenuDates: Map<number, number[]>
-};
-
-export type IMonthlyMenuMonthsProp = {
-    MenuYear: MutableRefObject<number>,
-    MenuDates: Map<number, number[]>
-}
-
-export type IMonthlyMenuViewProp = {
-    MenuYear: number,
-    MenuMonth?: Month | null | undefined
-};
-
 export type ScrollToTopProp = {
     topPosition?: number,
     showUnder?: number, // show button under this position,
@@ -49,8 +34,8 @@ export type MenuNavProp = {
     activeMenuId: number
 }
 
-export type IndexedControlProp = {
-    index: number
+export interface IIndexedControlProp {
+    index?: number
 }
 
 export type Services = typeof import ('../services').default;

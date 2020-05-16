@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useState, useCallback, useEffect, useLayoutEffect, FormEvent } from 'react';
 
 import { Month } from '../modules/types';
 import { TweenFunctionEnum, OrderDirection } from '../modules/enums';
@@ -328,3 +328,19 @@ export const ColumnizeArray = <T>(colSize: number, arr: T[], direction: OrderDir
 export const isUsingBrowser = typeof window != 'undefined';
 
 export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+// https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
+export const useInput = (initialValue: string, onChange: () => void) => {
+    const [value, setValue] = useState(initialValue);
+
+    useEffect(() => { onChange(); }, [value]);
+
+    return {
+        value,
+        //reset: () => setValue(""),
+        bind: {
+            value,
+            onChange: (e: FormEvent<HTMLInputElement>) => { setValue(e.currentTarget.value); }
+        }
+    };
+};
