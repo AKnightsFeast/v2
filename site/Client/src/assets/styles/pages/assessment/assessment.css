@@ -9,6 +9,15 @@
     }
 }
 
+.assessment {
+    @apply px-4;
+    @apply py-10;
+    @apply w-full;
+    @apply mx-auto;
+    @apply max-w-3xl;
+    @apply bg-gray-100;
+}
+
 .step {
     @apply hidden;
 }
@@ -16,4 +25,71 @@
 .step.active {
     @apply block;
     animation: showIn 300ms ease-in forwards;
+}
+
+.step > div {
+    @apply mb-5;
+}
+
+.step .field.col,
+.step .field.row {
+    @apply flex;
+    @apply justify-between;
+}
+
+.step .field.col {
+    @apply flex-col;
+}
+
+.step .field.row {
+    @apply flex-row;
+}
+
+.step .field.col > label {
+    @apply pb-3;
+}
+
+.step .field span {
+    @apply mb-1;
+    @apply block;
+    @apply font-bold;
+    @apply text-gray-700;
+}
+
+.step .field input[type=text] {
+    @apply px-4;
+    @apply py-3;
+    @apply w-full;
+    @apply shadow-sm;
+    @apply rounded-lg;
+    @apply font-medium;
+    @apply text-gray-600;
+}
+
+.step .field input[type=text]:focus {
+    @apply outline-none;
+    @apply shadow-outline;
+}
+
+.assessment .button {
+    @apply px-5;
+    @apply py-2;
+    @apply w-40;
+    @apply block;
+    @apply border;
+    @apply mx-auto;
+    @apply bg-white;
+    @apply shadow-sm;
+    @apply rounded-lg;
+    @apply font-medium;
+    @apply text-center;
+    @apply text-gray-600;
+}
+
+.assessment .button:focus {
+    @apply outline-none;
+}
+
+.assessment .button:hover {
+    @apply bg-gray-100;
 }

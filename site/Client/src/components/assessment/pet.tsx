@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { IndexedControlProp } from '../../modules/types';
+import { IIndexedControlProp } from '../../modules/types';
 
-export const Pet: React.FC<IndexedControlProp> = ({ index }) => {
+export const Pet: React.FC<IIndexedControlProp> = ({ index }) => {
     return (
         <div className='cls'>
             <input type='hidden' name='Pets.Index' value='index' />

@@ -91,7 +91,9 @@ export const Assessment: React.FC = () => {
                     </div>
                     <div><i><b>Please enter either the person's email address, phone number, or both.</b></i></div>
                     <div>
-                        <Contact index={0} />
+                        {/*
+                        <Contact index={0} contactInfoOptional={true} />
+                        */}
                     </div>
                 </div>
 
