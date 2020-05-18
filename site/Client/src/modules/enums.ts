@@ -47,23 +47,3 @@ export enum TweenFunctionEnum {
     easeOutBounce = "easeOutBounce",
     easeInOutBounce = "easeInOutBounce"
 }
-
-export enum AssessmentPackagingTypes {
-    Individual = "Individual",
-    FamilyStyle = "Family Style"
-}
-
-export enum AssessmentContainerTypes {
-    YourOwn = "Your own",
-    Microwave = "Microwave safe plastic",
-    Pyrex = "Freezer, oven, and microwave safe Pyrex"
-}
-
-export enum AssessmentSpiceRanges {
-    Bland = "Bland",
-    Mild = "Mild",
-    Medium = "Medium",
-    Hot = "Hot"
-}
-
-export type AssessmentEnums = typeof AssessmentContainerTypes | typeof AssessmentPackagingTypes | typeof AssessmentSpiceRanges;

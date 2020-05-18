@@ -4,6 +4,9 @@ import { v4 as getUuid } from 'uuid';
 
 import { Contact, Person } from '../components/assessment/contact';
 
+import { InputTypeEnum, InputList } from '../components/inputlist';
+import { YesNoBoolTypes, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentBeefPrep, AssessmentChickenPrep, AssessmentSpiceRanges } from '../modules/records';
+
 type WizardStep = {
     title: string,
     valid: boolean
@@ -15,7 +18,28 @@ export const Assessment: React.FC = () => {
             ["contact", { title: "What is your contact information?", valid: false }],
             ["address", { title: "At what address will the chef be cooking?", valid: false }],
             ["people", { title: "Will there be additional people?", valid: false }],
-            ["allergies", { title: "Are there any allergies in your party?", valid: false }],
+            ["allergies", { title: "<Just looking at the style>", valid: false}],
+            ["health", { title: "Just need to gather some health info...", valid: false }],
+            ["packaging", { title: "How should I deliver the meals?", valid: false }],
+            ["beef", { title: "Do you like beef?", valid: false }],
+            ["chicken", { title: "How about chicken?", valid: false }],
+            ["turkey", { title: "Do you like turkey?", valid: false }],
+            ["lamb", { title: "Are you okay with lamb?", valid: false }],
+            ["pork", { title: "Do you enjoy pork?", valid: false }],
+            ["seafood", { title: "How about seafood?", valid: false }],
+            ["veggie", { title: "Would you like any vegetarian meals?", valid: false }],
+            ["othermeat", { title: "Additional foods...", valid: false }],
+            ["spicy", { title: "How spicy do you like your meals?", valid: false }],
+            ["fvlikes", { title: "What are your favorite fruits, herbs, and veggies?", valid: false }],
+            ["fvdislikes", { title: "What fruits, herbs, and veggies do you dislike?", valid: false }],
+            ["greens", { title: "What are your favorite greens for salads?", valid: false }],
+            ["appliances", { title: "Are there any kitchen appliances the chef can't use?", valid: false }],
+            ["recipes", { title: "Are there any recipes you'd like the chef to prepare?", valid: false }],
+            ["restaurants", { title: "What are some of your favorite restaurants?", valid: false }],
+            ["addlfridge", { title: "Do you have an additional freezer or refrigerator?", valid: false }],
+            ["groceries", { title: "Where do you shop for groceries?", valid: false }],
+            ["fusebox", { title: "Where is your fuse/breaker box?", valid: false }],
+            ["pets", { title: "Are there pets are in the household?", valid: false }],
         ])
     );
 
@@ -53,7 +77,7 @@ export const Assessment: React.FC = () => {
         setStepIdx(totalSteps);
     };
 
-    const addPerson = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const onAddPerson = useCallback((e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         updatePeople(newPeople => [...newPeople].concat(createPerson()));
@@ -61,12 +85,26 @@ export const Assessment: React.FC = () => {
 
     const onRemovePerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-    
-        if (!window.confirm("Are you sure you want to delete this person?")) return;
+
+        if (!window.confirm("Are you sure you want to remove this person?")) return;
 
         const newPeople = people.filter(person => person.id !== e.currentTarget.value);
         updatePeople([...newPeople]);
     };
+
+    const onAddPet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+
+    }, []);
+
+    const onRemovePet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if (!window.confirm("Are you sure you want to remove this pet?")) return;
+
+
+    }, []);
 
     const onUpdateContact = (person: Person) => {
         updateContact({...contact, ...person});
@@ -122,7 +160,7 @@ export const Assessment: React.FC = () => {
                     </div>
                 </div>
 
-                    {/*<!-- Step Content -->*/}
+                {/*<!-- Step Content -->*/}
                 <div className="py-10">	
                     <form>
                         <div className={ getStepClass("contact") }>
@@ -162,9 +200,9 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("people") }>
                             <div>
-                                <button className="button" onClick={ addPerson }>Add Person</button>
+                                <button className="button" onClick={ onAddPerson }>Add Person</button>
                             </div>
-                            <div>
+                            <div className="field">
                                 {
                                     people.map((person, index) => (
                                         <div key={person.id}>
@@ -211,32 +249,245 @@ export const Assessment: React.FC = () => {
 
 
 
-                        <div className={ getStepClass("lactose") }>
+                        <div className={ getStepClass("health") }>
+                            <div>
+                                <div>Are there any allergies in your family?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"haveallergies"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                </div>
+                                <div className="field">
+                                    <label>
+                                        <span>Please explain</span>
+                                        <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    </label>
+                                </div>
+                            </div>
 
-                        </div>
+                            <div>
+                                <div>Are you lactose intolerant?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"islactoseint"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                </div>
+                            </div>
 
+                            <div>
+                                <div>Are there any medical conditions in your family?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"havemedconditions"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                </div>
+                                <div className="field">
+                                    <label>
+                                        <span>Please explain</span>
+                                        <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    </label>
+                                </div>
+                            </div>
 
-
-                        <div className={ getStepClass("medical") }>
-
-                        </div>
-
-
-
-                        <div className={ getStepClass("diet") }>
-
+                            <div>
+                                <div>Are you planning to follow or currently following any specific diet plan?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"havedietplan"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                </div>
+                                <div className="field">
+                                    <label>
+                                        <span>Please explain</span>
+                                        <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
 
 
                         <div className={ getStepClass("packaging") }>
+                            <div>
+                                <div>How should your meals be packaged?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"packagetype"} items={AssessmentPackagingTypes} />
+                                </div>
+                            </div>
 
+                            <div>
+                                <div>What type of containers should be used to store the food?</div>
+                                <div className="field">
+                                    <InputList type={InputTypeEnum.RadioButton} name={"container"} items={AssessmentContainerTypes} />
+                                    <div>
+                                        <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
 
-                        <div className={ getStepClass("containers") }>
+                        <div className={ getStepClass("beef") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"beef"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                            <div className="field">
+                                <div>How do you like your beef prepared?</div>
+                                <div>
+                                    <InputList type={InputTypeEnum.Checkbox} name={"beefprep"} items={AssessmentBeefPrep} />
+                                </div>
+                            </div>
+                        </div>
 
+
+
+                        <div className={ getStepClass("chicken") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"chicken"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                            <div className="field">
+                                <div>How do you like your chicken prepared?</div>
+                                <div>
+                                    <InputList type={InputTypeEnum.Checkbox} name={"chickenprep"} items={AssessmentChickenPrep} />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("turkey") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("lamb") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("pork") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("seafood") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"seafood"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                            <div className="field">
+                                <div>What types of fish/shellfish don't you like?</div>
+                                <textarea name={"seafooddislikes"} className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("veggie") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("othermeat") }>
+                            <div className="field">
+                                <div>Is there anything else that you like that I haven't covered?</div>
+                                <textarea name={"othermeat"} className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("spicy") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.Checkbox} name={"spicelikes"} items={AssessmentSpiceRanges} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("fvlikes") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("fvdislikes") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("greens") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("appliances") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("recipes") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("restaurants") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("addlfridge") }>
+                            <div className="field">
+                                <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("groceries") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("fusebox") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div className={ getStepClass("pets") }>
+                            <div>
+                                <button className="button" onClick={ onAddPet }>Add Pet</button>
+                            </div>
+                            <div className="field">
+
+                            </div>
                         </div>
                     </form>
                 </div>

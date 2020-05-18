@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import { useInput } from '../../utils';
 import { IIndexedControlProp } from '../../modules/types';
