@@ -26,7 +26,7 @@ export const Pet: React.FC<IPetProp> = ({ animal, onPetUpdate }) => {
 
     useEffect(() => {
         onPetUpdate && onPetUpdate(pet);
-    }, [pet])
+    }, [pet]);
 
     const updateTextFields = () => {
         updatePet({ ...pet, ...{ name: name, type: type } });

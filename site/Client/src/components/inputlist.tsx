@@ -37,8 +37,6 @@ export const InputList: React.FC<InputListProp> = ({ name, values, items, type, 
     const rbClassName = `pretty p-icon p-smooth p-plain p-bigger${type === InputTypeEnum.RadioButton ? " p-round" : ""}`;
 
     const onItemClick = useCallback((e: FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
-
         let newValues: string[] = [];
         const clickedValue = e.currentTarget.value;
 

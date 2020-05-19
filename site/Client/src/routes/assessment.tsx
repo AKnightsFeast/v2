@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, MouseEvent } from 'react';
+import React, { useRef, useState, MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
@@ -81,19 +81,17 @@ export const Assessment: React.FC = () => {
         setStepIdx(totalSteps);
     };
 
-    const onAddPerson = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const onAddPerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updatePeople(newPeople => [...newPeople].concat(createPerson()));
-    }, []);
+        updatePeople([...people].concat(createPerson()));
+    };
 
     const onRemovePerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        if (!window.confirm("Are you sure you want to remove this person?")) return;
-
-        const newPeople = people.filter(person => person.id !== e.currentTarget.value);
-        updatePeople([...newPeople]);
+        window.confirm("Are you sure you want to remove this person?") &&
+            updatePeople([...people].filter(person => person.id !== e.currentTarget.value));
     };
 
     const onUpdatePerson = (person: Person) => {
@@ -108,20 +106,18 @@ export const Assessment: React.FC = () => {
         updatePeople(newPeople);
     };
 
-    const onAddPet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const onAddPet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updatePets(newPet => [...newPet].concat(createPet()));
-    }, []);
+        updatePets([...pets].concat(createPet()));
+    };
 
-    const onRemovePet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const onRemovePet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        if (!window.confirm("Are you sure you want to remove this pet?")) return;
-
-        const newPets = pets.filter(pet => pet.id !== e.currentTarget.value);
-        updatePets([...newPets]);
-    }, []);
+        window.confirm("Are you sure you want to remove this pet?") &&
+            updatePets([...pets].filter(pet => pet.id !== e.currentTarget.value));
+    };
 
     const onUpdatePet = (pet: Pet) => {
         const index = pets.findIndex(oldPet => oldPet.id === pet.id);
