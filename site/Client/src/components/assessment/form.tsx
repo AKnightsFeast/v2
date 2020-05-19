@@ -1,53 +1,10 @@
 import React, { useState } from 'react';
 
-import { AssessmentEnums, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentSpiceRanges } from '../../modules/enums';
+import { InputTypeEnum, InputList } from '../inputlist';
+import { AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentSpiceRanges } from '../../modules/records';
 
 import { Pet } from './pet';
 import { Contact } from './contact';
-
-type RadioButtonItem = {
-    label: string,
-    value: string
-}
-
-type RadioButtonListProp = {
-    name: string,
-    items: RadioButtonItem[] | AssessmentEnums
-}
-
-const isRadioButtonItemArr = (v: any): v is RadioButtonItem[] => (v as RadioButtonItem[]).length !== undefined;
-
-const RadioButtonList: React.FC<RadioButtonListProp> = ({ name, items }) => {
-    const rbClassName = "pretty p-icon p-round p-plain p-smooth";
-    const rbDivClassName = "state p-primary-o";
-    const muiIconName = "check_circle";
-
-    return (
-        <>
-            {
-                (isRadioButtonItemArr(items)) ?
-                    (items as RadioButtonItem[]).map(rb => (
-                        <div className={rbClassName}>
-                            <input type="radio" name={name} value={rb.value} />
-                            <div className={rbDivClassName}>
-                                <i className="icon material-icons">{muiIconName}</i>
-                                <label>{rb.label}</label>
-                            </div>
-                        </div>
-                    )) :
-                    Object.entries(items).filter(entry => !Number(entry[0])).map(entry => (
-                        <div className={rbClassName}>
-                            <input type="radio" name={name} value={entry[0]} />
-                            <div className={rbDivClassName}>
-                                <i className="icon material-icons">{muiIconName}</i>
-                                <label>{entry[1]}</label>
-                            </div>
-                        </div>
-                    ))
-            }
-        </>
-    );
-}
 
 export const Assessment: React.FC = () => {
     return (
@@ -103,11 +60,11 @@ export const Assessment: React.FC = () => {
                         <textarea className="form-textarea" rows={10} cols={96}></textarea>
                     </label>
                 </div>
-
+{/*
                 <div>
                     <div>Are there any allergies in your family?</div>
                     <div className="field">
-                        <RadioButtonList name={"haveallergies"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"haveallergies"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -120,14 +77,14 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Are you lactose intolerant?</div>
                     <div className="field">
-                        <RadioButtonList name={"islactoseint"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"islactoseint"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
 
                 <div>
                     <div>Are there any medical conditions in your family?</div>
                     <div className="field">
-                        <RadioButtonList name={"havemedconditions"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"havemedconditions"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -140,7 +97,7 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Are you planning to follow or currently following any specific diet plan?</div>
                     <div className="field">
-                        <RadioButtonList name={"havedietplan"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"havedietplan"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                     <div className="field">
                         <label>
@@ -153,14 +110,14 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>How should your meals be packaged?</div>
                     <div className="field">
-                        <RadioButtonList name={"packagetype"} items={AssessmentPackagingTypes} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"packagetype"} items={AssessmentPackagingTypes} />
                     </div>
                 </div>
 
                 <div>
                     <div>What type of containers should be used to store the food?</div>
                     <div className="field">
-                        <RadioButtonList name={"container"} items={AssessmentContainerTypes} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"container"} items={AssessmentContainerTypes} />
                         <div>
                             <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
                         </div>
@@ -169,51 +126,14 @@ export const Assessment: React.FC = () => {
 
                 <div>
                     <div>Do you like the following meats?</div>
-{/*
-                    <div>
-                            var showSection = Model != null && Model.Beef;
-                            var subDivClass = @"className='nlfield" + (!showSection ? " hidden" : string.Empty) + "'";
-                            var attrs = new Dictionary<string, object>() { { "class", "tfaction" } };
-                            if (showSection) { attrs.Add("checked", "checked"); }
-                        <div><label>@Html.CheckBoxFor(m => m.Beef, attrs) Beef</label></div>
-                        <div id="beef" style="margin: 2px 0px 2px 16px !important">
-                            <div style="margin-bottom: 2px">How do you like your beef prepared?</div>
-                            <div className="field">@Html.CheckBoxListForEnum(m => m.BeefPrep, 3)</div>
-                        </div>
-                    </div>
-                    <div>
-                            showSection = Model != null && Model.Chicken;
-                            subDivClass = @"className='nlfield" + (!showSection ? " hidden" : string.Empty) + "'";
-                            attrs = new Dictionary<string, object>() { { "class", "tfaction" } };
-                            if (showSection) { attrs.Add("checked", "checked"); }
-                        <div><label>@Html.CheckBoxFor(m => m.Chicken, attrs) Chicken</label></div>
-                        <div id="chicken" style="margin: 2px 0px 2px 16px !important">
-                            <div style="margin-bottom: 2px">How do you like your chicken prepared?</div>
-                            <div className="field">@Html.CheckBoxListForEnum(m => m.ChickenPrep, 3)</div>
-                        </div>
-                    </div>
-                    <div><label>@Html.CheckBoxFor(m => m.Turkey) Turkey</label></div>
-                    <div><label>@Html.CheckBoxFor(m => m.Lamb) Lamb</label></div>
-                    <div><label>@Html.CheckBoxFor(m => m.Pork) Pork</label></div>
-                    <div>
-                        <div><label>@Html.CheckBoxFor(m => m.Seafood, new { @class = "tfaction" }) Seafood</label></div>
-                        <div id="seafood" className="nlfield hidden" style="margin-bottom: 2px">
-                            <div>What types of fish/shellfish don't you like?</div>
-                            <div>@Html.TextAreaFor(m => m.SeafoodNots, new { @rows = "10", @cols = "96" })</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div><label><input id="OtherMeatsTF" type="checkbox" className="tfaction" name="other" /> Other</label></div>
-                        <div id="other" className="nlfield hidden">@Html.TextAreaFor(m => m.OtherMeats, new { @rows = "10", @cols = "96" })</div>
-                    </div>
-*/}
+
                 </div>
 
                 <div>
                     <div>How spicy do you like your spicy meals?</div>
                     <div className="field">
                         <div className="field">
-                            <RadioButtonList name={"spicelikes"} items={AssessmentSpiceRanges} />
+                            <InputList type={InputTypeEnum.RadioButton} name={"spicelikes"} items={AssessmentSpiceRanges} />
                         </div>
                     </div>
                 </div>
@@ -221,10 +141,10 @@ export const Assessment: React.FC = () => {
                 <div>
                     <div>Would you like any vegetarian meals?</div>
                     <div className="field">
-                        <RadioButtonList name={"likevegmeals"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
-
+*/}
                 <div>
                     <label>
                         <span>What are your favorite fruits, herbs and vegetables?</span>
@@ -266,14 +186,14 @@ export const Assessment: React.FC = () => {
                         <textarea className="form-textarea" rows={10} cols={96}></textarea>
                     </label>
                 </div>
-
+{/*
                 <div>
                     <div>Do you have an additional freezer or refrigerator?</div>
                     <div className="field">
-                        <RadioButtonList name={"addlfridge"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                        <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
                     </div>
                 </div>
-
+*/}
                 <div>
                     <label>
                         <span>Where do you shop for groceries?</span>
@@ -296,9 +216,7 @@ export const Assessment: React.FC = () => {
                         </label>
                     </div>
                     <div><i><b>To clear the list of pets enter "0".</b></i></div>
-                    <div id="pets">
-                        <Pet index={0} />
-                    </div>
+                    <div id="pets"></div>
                 </div>
 
                 <div>

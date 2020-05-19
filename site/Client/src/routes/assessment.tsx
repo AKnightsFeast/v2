@@ -2,6 +2,7 @@ import React, { useRef, useState, useCallback, MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
+import { Pet } from '../components/assessment/pet';
 import { Contact, Person } from '../components/assessment/contact';
 
 import { InputTypeEnum, InputList } from '../components/inputlist';
@@ -40,13 +41,16 @@ export const Assessment: React.FC = () => {
             ["groceries", { title: "Where do you shop for groceries?", valid: false }],
             ["fusebox", { title: "Where is your fuse/breaker box?", valid: false }],
             ["pets", { title: "Are there pets are in the household?", valid: false }],
+            ["comments", { title: "Any comments/concerns?", valid: true }]
         ])
     );
 
     const createPerson = (): Person => ({ id: getUuid(), fname: "", lname: "",  dob: "" });
+    const createPet = (): Pet => ({ id: getUuid(), name: "", type: "", location: [] })
 
     const [contact, updateContact] = useState<Person>(createPerson());
     const [people, updatePeople] = useState<Person[]>([]);
+    const [pets, updatePets] = useState<Pet[]>([]);
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
@@ -92,24 +96,6 @@ export const Assessment: React.FC = () => {
         updatePeople([...newPeople]);
     };
 
-    const onAddPet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-
-    }, []);
-
-    const onRemovePet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        if (!window.confirm("Are you sure you want to remove this pet?")) return;
-
-
-    }, []);
-
-    const onUpdateContact = (person: Person) => {
-        updateContact({...contact, ...person});
-    };
-
     const onUpdatePerson = (person: Person) => {
         const index = people.findIndex(oldPerson => oldPerson.id === person.id);
 
@@ -121,6 +107,41 @@ export const Assessment: React.FC = () => {
 
         updatePeople(newPeople);
     };
+
+    const onAddPet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        updatePets(newPet => [...newPet].concat(createPet()));
+    }, []);
+
+    const onRemovePet = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if (!window.confirm("Are you sure you want to remove this pet?")) return;
+
+        const newPets = pets.filter(pet => pet.id !== e.currentTarget.value);
+        updatePets([...newPets]);
+    }, []);
+
+    const onUpdatePet = (pet: Pet) => {
+        const index = pets.findIndex(oldPet => oldPet.id === pet.id);
+
+        if (index < 0) return;
+
+        const newPets = [...pets];
+        
+        newPets[index] = pet;
+
+        updatePets(newPets);
+    };
+
+    const onUpdateContact = (person: Person) => {
+        updateContact({...contact, ...person});
+    };
+
+    const onUpdateAssessment = () => {
+
+    }
 
     const getStepClass = (stepName: string): string => `step${stepOrder[stepIdx] === stepName ? " active" : ""}`
 
@@ -253,7 +274,7 @@ export const Assessment: React.FC = () => {
                             <div>
                                 <div>Are there any allergies in your family?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"haveallergies"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"haveallergies"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                                 </div>
                                 <div className="field">
                                     <label>
@@ -266,14 +287,14 @@ export const Assessment: React.FC = () => {
                             <div>
                                 <div>Are you lactose intolerant?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"islactoseint"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"islactoseint"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                                 </div>
                             </div>
 
                             <div>
                                 <div>Are there any medical conditions in your family?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"havemedconditions"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"havemedconditions"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                                 </div>
                                 <div className="field">
                                     <label>
@@ -286,7 +307,7 @@ export const Assessment: React.FC = () => {
                             <div>
                                 <div>Are you planning to follow or currently following any specific diet plan?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"havedietplan"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"havedietplan"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                                 </div>
                                 <div className="field">
                                     <label>
@@ -303,14 +324,14 @@ export const Assessment: React.FC = () => {
                             <div>
                                 <div>How should your meals be packaged?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"packagetype"} items={AssessmentPackagingTypes} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"packagetype"} items={AssessmentPackagingTypes} onChange={ onUpdateAssessment } />
                                 </div>
                             </div>
 
                             <div>
                                 <div>What type of containers should be used to store the food?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"container"} items={AssessmentContainerTypes} />
+                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"container"} items={AssessmentContainerTypes} onChange={ onUpdateAssessment } />
                                     <div>
                                         <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
                                     </div>
@@ -322,12 +343,12 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("beef") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"beef"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"beef"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                             <div className="field">
                                 <div>How do you like your beef prepared?</div>
                                 <div>
-                                    <InputList type={InputTypeEnum.Checkbox} name={"beefprep"} items={AssessmentBeefPrep} />
+                                    <InputList type={InputTypeEnum.Checkbox} values={[]} name={"beefprep"} items={AssessmentBeefPrep} onChange={ onUpdateAssessment } />
                                 </div>
                             </div>
                         </div>
@@ -336,12 +357,12 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("chicken") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"chicken"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"chicken"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                             <div className="field">
                                 <div>How do you like your chicken prepared?</div>
                                 <div>
-                                    <InputList type={InputTypeEnum.Checkbox} name={"chickenprep"} items={AssessmentChickenPrep} />
+                                    <InputList type={InputTypeEnum.Checkbox} values={[]} name={"chickenprep"} items={AssessmentChickenPrep} onChange={ onUpdateAssessment } />
                                 </div>
                             </div>
                         </div>
@@ -350,7 +371,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("turkey") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"turkey"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -358,7 +379,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("lamb") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"lamb"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -366,7 +387,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("pork") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"pork"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -374,7 +395,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("seafood") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"seafood"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"seafood"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                             <div className="field">
                                 <div>What types of fish/shellfish don't you like?</div>
@@ -386,7 +407,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("veggie") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"likevegmeals"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -403,7 +424,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("spicy") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.Checkbox} name={"spicelikes"} items={AssessmentSpiceRanges} />
+                                <InputList type={InputTypeEnum.Checkbox} values={[]} name={"spicelikes"} items={AssessmentSpiceRanges} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -459,7 +480,7 @@ export const Assessment: React.FC = () => {
 
                         <div className={ getStepClass("addlfridge") }>
                             <div className="field">
-                                <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={[ { label: "Yes", value: "true" }, { label: "No", value: "false" } ]} />
+                                <InputList type={InputTypeEnum.RadioButton} values={[]} name={"addlfridge"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                         </div>
 
@@ -486,7 +507,22 @@ export const Assessment: React.FC = () => {
                                 <button className="button" onClick={ onAddPet }>Add Pet</button>
                             </div>
                             <div className="field">
+                                {
+                                    pets.map((pet, index) => (
+                                        <div key={pet.id}>
+                                            <div><button value={pet.id} onClick={ onRemovePet }>Remove Pet</button></div>
+                                            <Pet animal={pet} onPetUpdate={ onUpdatePet } />
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
 
+
+
+                        <div className={ getStepClass("comments") }>
+                            <div className="field">
+                                <textarea className="form-textarea" rows={10} cols={96}></textarea>
                             </div>
                         </div>
                     </form>

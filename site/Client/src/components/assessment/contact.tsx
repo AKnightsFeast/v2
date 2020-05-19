@@ -23,19 +23,17 @@ export const Contact: React.FC<IContactProp> = ({ person, contactInfoOptional = 
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
-        const newPerson = getPerson();
+        const newPerson = { id: person.id, fname: fname, mi: mi, lname: lname, dob: dob, email: email, phone: phone };
         updateContact(newPerson);
         onContactUpdate && onContactUpdate(newPerson);
     };
 
-    const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname, () => { updateAssessment(); });
+    const { value:dob, bind:bindDOB } = useInput(contact.dob, () => { updateAssessment(); });
     const { value:mi, bind:bindMI } = useInput(contact.mi ?? "", () => { updateAssessment(); });
-    const { value:lname, bind:bindLName } = useInput(contact.lname ?? "", () => { updateAssessment(); });
-    const { value:dob, bind:bindDOB } = useInput(contact.dob ?? "", () => { updateAssessment(); });
+    const { value:lname, bind:bindLName } = useInput(contact.lname, () => { updateAssessment(); });
     const { value:email, bind:bindEmail } = useInput(contact.email ?? "", () => { updateAssessment(); });
     const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
-
-    const getPerson = (): Person => ({ id: person.id, fname: fname, mi: mi, lname: lname, dob: dob, email: email, phone: phone });
+    const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname, () => { updateAssessment(); });
 
     return (
         <>

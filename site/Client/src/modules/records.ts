@@ -1,27 +1,32 @@
-export const YesNoBoolTypes: Record<"true" | "false", string> = {
+export type YesNoKeyTypes = "true" | "false";
+export const YesNoBoolTypes: Record<YesNoKeyTypes, string> = {
     true: "Yes",
     false: "No"
 }
 
-export const AssessmentPackagingTypes: Record<"Individual" | "FamilyStyle", string> = {
+export type AssessmentPackagingKeyTypes = "Individual" | "FamilyStyle";
+export const AssessmentPackagingTypes: Record<AssessmentPackagingKeyTypes, string> = {
     Individual: "Individual",
     FamilyStyle: "Family Style"
 }
 
-export const AssessmentContainerTypes: Record<"YourOwn" | "Microwave" | "Pyrex", string> = {
+export type AssessmentContainerKeyTypes = "YourOwn" | "Microwave" | "Pyrex";
+export const AssessmentContainerTypes: Record<AssessmentContainerKeyTypes, string> = {
     YourOwn: "Your own",
     Microwave: "Microwave safe plastic",
     Pyrex: "Freezer, oven, and microwave safe Pyrex"
 }
 
-export const AssessmentSpiceRanges: Record<"Bland" | "Mild" | "Medium" | "Hot", string> = {
+export type AssessmentSpiceKeyTypes = "Bland" | "Mild" | "Medium" | "Hot";
+export const AssessmentSpiceRanges: Record<AssessmentSpiceKeyTypes, string> = {
     Bland: "Bland",
     Mild: "Mild",
     Medium: "Medium",
     Hot: "Hot"
 }
 
-export const AssessmentBeefPrep: Record<"Rare" | "MediumRare" | "Medium" | "MediumWell" | "WellDone", string> = {
+export type AssessmentBeefKeyTypes = "Rare" | "MediumRare" | "Medium" | "MediumWell" | "WellDone";
+export const AssessmentBeefPrep: Record<AssessmentBeefKeyTypes, string> = {
     Rare: "Rare",
     MediumRare: "Medium Rare",
     Medium: "Medium",
@@ -29,7 +34,8 @@ export const AssessmentBeefPrep: Record<"Rare" | "MediumRare" | "Medium" | "Medi
     WellDone: "Well Done"
 }
 
-export const AssessmentChickenPrep: Record<"DarkMeat" | "WhiteMeat" | "BoneIn" | "Boneless" | "WholeRoasts", string> = {
+export type AssessmentChickenKeyTypes = "DarkMeat" | "WhiteMeat" | "BoneIn" | "Boneless" | "WholeRoasts";
+export const AssessmentChickenPrep: Record<AssessmentChickenKeyTypes, string> = {
     DarkMeat: "Dark Meat",
     WhiteMeat: "White Meat",
     BoneIn: "Bone In",
@@ -37,7 +43,11 @@ export const AssessmentChickenPrep: Record<"DarkMeat" | "WhiteMeat" | "BoneIn" |
     WholeRoasts: "Whole Roasts"
 }
 
-export const AssessmentPetLocation: Record<"Inside" | "Outside", string> = {
+export type AssessmentPetLocationKeyTypes = "Inside" | "Outside";
+export const AssessmentPetLocation: Record<AssessmentPetLocationKeyTypes, string> = {
     Inside: "Inside",
     Outside: "Outside"
 }
+
+export type KeyTypes = YesNoKeyTypes & AssessmentPackagingKeyTypes & AssessmentContainerKeyTypes & AssessmentSpiceKeyTypes &
+                       AssessmentBeefKeyTypes & AssessmentChickenKeyTypes & AssessmentPetLocationKeyTypes;

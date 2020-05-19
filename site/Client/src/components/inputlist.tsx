@@ -1,4 +1,6 @@
-import React, { PropsWithChildren } from "react";
+import React, { useState, useEffect, useCallback, FormEvent } from "react";
+
+import { KeyTypes } from '../modules/records';
 
 export enum InputTypeEnum {
     Checkbox,
@@ -10,42 +12,82 @@ type InputListItem = {
     value: string
 }
 
-type InputListProp<T> = {
+type InputListProp = {
     name: string,
+    values: string[],
     type: InputTypeEnum,
-    items: InputListItem[] | T
+    items: InputListItem[] | Record<KeyTypes, string>,
+    onChange: (values: string[]) => void,
+}
+
+type InputOptions = {
+    label: string,
+    value: string,
 }
 
 const isRadioButtonItemArr = (v: any): v is InputListItem[] => (v as InputListItem[]).length !== undefined;
 
-export const InputList = <T,>({ children, name, items, type }: PropsWithChildren<InputListProp<T>>) => {
-    const inputType = (type === InputTypeEnum.RadioButton) ? "radio" : "checkbox"
-    const rbClassName = `pretty p-icon p-smooth p-plain p-bigger${type === InputTypeEnum.RadioButton ? " p-round" : ""}`;
+export const InputList: React.FC<InputListProp> = ({ name, values, items, type, onChange }) => {
+    const [ selectedValues, setValues ] = useState(values);
+
+    const inputOptions: InputOptions[] = [];
     const rbDivClassName = "state p-primary-o";
+    const inputType = (type === InputTypeEnum.RadioButton) ? "radio" : "checkbox"
     const muiIconName = (type === InputTypeEnum.RadioButton) ? "check_circle" : "add_box";
+    const rbClassName = `pretty p-icon p-smooth p-plain p-bigger${type === InputTypeEnum.RadioButton ? " p-round" : ""}`;
+
+    const onItemClick = useCallback((e: FormEvent<HTMLInputElement>) => {
+        e.preventDefault();
+
+        let newValues: string[] = [];
+        const clickedValue = e.currentTarget.value;
+
+        if (type === InputTypeEnum.RadioButton) {
+            newValues.push(clickedValue);
+        } else {
+            newValues = [...selectedValues];
+            const valueIndex = selectedValues.indexOf(clickedValue);
+
+            if (valueIndex > -1) {
+                newValues.splice(valueIndex, 1);
+            } else {
+                newValues.push(clickedValue);
+            }
+        }
+
+        setValues(newValues);
+
+        onChange && onChange(newValues);
+    }, [selectedValues]);
+
+    if (isRadioButtonItemArr(items)) {
+        (items as InputListItem[]).map(rb => { inputOptions.push(
+            {
+                label: rb.label,
+                value: rb.value,
+            });
+        });
+    } else {
+        Object.entries(items as Record<KeyTypes, string>).filter(entry => !Number(entry[0])).map(entry => { inputOptions.push(
+            {
+                label: entry[1] as string,
+                value: entry[0],
+            });
+        });
+    }
 
     return (
         <>
             {
-                (isRadioButtonItemArr(items)) ?
-                    (items as InputListItem[]).map(rb => (
-                        <div className={rbClassName}>
-                            <input type={inputType} name={name} value={rb.value} />
-                            <div className={rbDivClassName}>
-                                <i className="icon material-icons">{muiIconName}</i>
-                                <label>{rb.label}</label>
-                            </div>
+                inputOptions.map(io => (
+                    <div key={`${name}_${io.value}`} className={rbClassName}>
+                        <input type={inputType} name={name} value={io.value} checked={ io.value ? selectedValues.indexOf(io.value) > -1 : undefined } onChange={onItemClick} />
+                        <div className={rbDivClassName}>
+                            <i className="icon material-icons">{muiIconName}</i>
+                            <label>{io.label}</label>
                         </div>
-                    )) :
-                    Object.entries(items).filter(entry => !Number(entry[0])).map(entry => (
-                        <div className={rbClassName}>
-                            <input type={inputType} name={name} value={entry[0]} />
-                            <div className={rbDivClassName}>
-                                <i className="icon material-icons">{muiIconName}</i>
-                                <label>{entry[1]}</label>
-                            </div>
-                        </div>
-                    ))
+                    </div>
+                ))
             }
         </>
     );

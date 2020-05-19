@@ -329,8 +329,18 @@ export const isUsingBrowser = typeof window != 'undefined';
 
 export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
+export type InputBinding = {
+    value: string,
+    onChange: (e: FormEvent<HTMLInputElement>) => void
+}
+
+export type InputAttributes = {
+    value: string,
+    bind: InputBinding
+}
+
 // https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
-export const useInput = (initialValue: string, onChange: () => void) => {
+export const useInput = (initialValue: string, onChange: () => void): InputAttributes => {
     const [value, setValue] = useState(initialValue);
 
     useEffect(() => { onChange(); }, [value]);
