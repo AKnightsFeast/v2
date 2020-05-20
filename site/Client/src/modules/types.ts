@@ -3,6 +3,7 @@ import { CSSProperties, MutableRefObject } from 'react';
 import { StateType, ActionType } from 'typesafe-actions';
 
 import Services from '../services';
+import * as RecordTypes from './records';
 import { TweenFunctionEnum } from './enums';
 
 export type Month = {
@@ -36,6 +37,65 @@ export type MenuNavProp = {
 
 export interface IIndexedControlProp {
     index?: number
+}
+
+export type Address = {
+    address1: string,
+    address2?: string,
+    city: string,
+    state: string,
+    zipcode: string,
+}
+
+export type Person = {
+    id: string,
+    fname: string,
+    mi?: string,
+    lname: string,
+    dob: string,
+    email?: string,
+    phone?: string,
+};
+
+export type CustomerPet = {
+    id: string,
+    name: string,
+    type: string,
+    friendly?: boolean,
+    location: string[],
+};
+
+export type Assessment = {
+    contact: Person,
+    address: Address,
+    people?: Person[],
+    allergies?: string,
+    lactoseint?: boolean,
+    medical?: string,
+    dietplan?: string,
+    packaging?: typeof RecordTypes.AssessmentPackagingTypes,
+    container?: typeof RecordTypes.AssessmentContainerTypes,
+    beefPrep?: typeof RecordTypes.AssessmentBeefPrep[],
+    chickenPrep?: typeof RecordTypes.AssessmentChickenPrep[],
+    likesTurkey?: boolean,
+    likesLamb?: boolean,
+    likesPork?: boolean,
+    likesSeafood?: boolean,
+    seafoodDislikes?: string,
+    likesVeggie?: boolean,
+    otherFoods?: string,
+    spiceLikes?: typeof RecordTypes.AssessmentSpiceRanges[],
+    fhvLikes?: string,
+    fhvDislikes?: string,
+    saladLikes?: string,
+    appliances?: string,
+    recipes?: string,
+    restaurants?: string,
+    hasAddlFridge?: boolean,
+    groceryStores?: string,
+    fuseboxLocation?: string,
+    pets?: CustomerPet[],
+    comments?: string,
 }
 
 export type Services = typeof import ('../services').default;

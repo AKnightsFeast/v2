@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { useInput } from '../../utils';
+import { Person } from '../../modules/types';
 import { IIndexedControlProp } from '../../modules/types';
 
 interface IContactProp extends IIndexedControlProp {
@@ -8,16 +9,6 @@ interface IContactProp extends IIndexedControlProp {
     contactInfoOptional?: boolean,
     onContactUpdate?: (person: Person) => void,
 }
-
-export type Person = {
-    id: string,
-    fname: string,
-    mi?: string,
-    lname: string,
-    dob: string,
-    email?: string,
-    phone?: string,
-};
 
 export const Contact: React.FC<IContactProp> = ({ person, contactInfoOptional = true, onContactUpdate }) => {
     const [contact, updateContact] = useState<Person>(person);

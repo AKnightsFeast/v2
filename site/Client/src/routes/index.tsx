@@ -4,7 +4,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import { SiteWrapper } from "../components";
 
 import { Home } from "./home";
-import { Assessment } from "./assessment";
+import { AssessmentWizard as Assessment } from "./assessment";
 
 import { Monthly, Events, Freezer, Personal } from "./menus";
 import { Friends, ChefLaura, Policies, Testimonials } from "./about";

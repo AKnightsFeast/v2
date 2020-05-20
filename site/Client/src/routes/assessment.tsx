@@ -3,17 +3,19 @@ import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
 import { Pet } from '../components/assessment/pet';
-import { Contact, Person } from '../components/assessment/contact';
+import { Contact } from '../components/assessment/contact';
 
 import { InputTypeEnum, InputList } from '../components/inputlist';
 import { YesNoBoolTypes, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentBeefPrep, AssessmentChickenPrep, AssessmentSpiceRanges } from '../modules/records';
+
+import { Person, CustomerPet, Assessment } from '../modules/types';
 
 type WizardStep = {
     title: string,
     valid: boolean
 };
 
-export const Assessment: React.FC = () => {
+export const AssessmentWizard: React.FC = () => {
     const [steps, updateSteps] = useState<Map<string, WizardStep>>(
         new Map([
             ["contact", { title: "What is your contact information?", valid: false }],
@@ -31,8 +33,8 @@ export const Assessment: React.FC = () => {
             ["veggie", { title: "Would you like any vegetarian meals?", valid: false }],
             ["othermeat", { title: "Additional foods...", valid: false }],
             ["spicy", { title: "How spicy do you like your meals?", valid: false }],
-            ["fvlikes", { title: "What are your favorite fruits, herbs, and veggies?", valid: false }],
-            ["fvdislikes", { title: "What fruits, herbs, and veggies do you dislike?", valid: false }],
+            ["fhvlikes", { title: "What are your favorite fruits, herbs, and veggies?", valid: false }],
+            ["fhvdislikes", { title: "What fruits, herbs, and veggies do you dislike?", valid: false }],
             ["greens", { title: "What are your favorite greens for salads?", valid: false }],
             ["appliances", { title: "Are there any kitchen appliances the chef can't use?", valid: false }],
             ["recipes", { title: "Are there any recipes you'd like the chef to prepare?", valid: false }],
@@ -46,11 +48,12 @@ export const Assessment: React.FC = () => {
     );
 
     const createPerson = (): Person => ({ id: getUuid(), fname: "", lname: "",  dob: "" });
-    const createPet = (): Pet => ({ id: getUuid(), name: "", type: "", location: [] })
+    const createPet = (): CustomerPet => ({ id: getUuid(), name: "", type: "", location: [] })
 
-    const [contact, updateContact] = useState<Person>(createPerson());
-    const [people, updatePeople] = useState<Person[]>([]);
-    const [pets, updatePets] = useState<Pet[]>([]);
+    const [ assessment, updateAssessment ] = useState<Assessment>({
+        contact: createPerson(),
+        address: { address1: "", city: "", state: "", zipcode: "" },
+    });
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
@@ -84,55 +87,78 @@ export const Assessment: React.FC = () => {
     const onAddPerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updatePeople([...people].concat(createPerson()));
+        updateAssessment({
+            ...assessment,
+            ...{ people: [...assessment.people ?? []].concat(createPerson()) }
+        });
     };
 
     const onRemovePerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         window.confirm("Are you sure you want to remove this person?") &&
-            updatePeople([...people].filter(person => person.id !== e.currentTarget.value));
+            updateAssessment({
+                ...assessment,
+                ...{ people: [...assessment.people ?? []].filter(person => person.id !== e.currentTarget.value) }
+            });
     };
 
     const onUpdatePerson = (person: Person) => {
-        const index = people.findIndex(oldPerson => oldPerson.id === person.id);
+        if (assessment.people) {
+            const newPeople = [...assessment.people];
+            const index = newPeople.findIndex(oldPerson => oldPerson.id === person.id);
 
-        if (index < 0) return;
+            if (index < 0) return;
+            
+            newPeople[index] = person;
 
-        const newPeople = [...people];
-        
-        newPeople[index] = person;
-
-        updatePeople(newPeople);
+            updateAssessment({
+                ...assessment,
+                ...{ people: newPeople }
+            });
+        }
     };
 
     const onAddPet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updatePets([...pets].concat(createPet()));
+        updateAssessment({
+            ...assessment,
+            ...{ pets: [...assessment.pets ?? []].concat(createPet()) }
+        });
     };
 
     const onRemovePet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         window.confirm("Are you sure you want to remove this pet?") &&
-            updatePets([...pets].filter(pet => pet.id !== e.currentTarget.value));
+            updateAssessment({
+                ...assessment,
+                ...{ pets: [...assessment.pets ?? []].filter(pet => pet.id !== e.currentTarget.value) }
+            });
     };
 
-    const onUpdatePet = (pet: Pet) => {
-        const index = pets.findIndex(oldPet => oldPet.id === pet.id);
+    const onUpdatePet = (pet: CustomerPet) => {
+        if (assessment.pets) {
+            const newPets = [...assessment.pets];
+            const index = newPets.findIndex(oldPet => oldPet.id === pet.id);
 
-        if (index < 0) return;
+            if (index < 0) return;
 
-        const newPets = [...pets];
-        
-        newPets[index] = pet;
+            newPets[index] = pet;
 
-        updatePets(newPets);
+            updateAssessment({
+                ...assessment,
+                ...{ pets: newPets }
+            });
+        }
     };
 
     const onUpdateContact = (person: Person) => {
-        updateContact({...contact, ...person});
+        updateAssessment({
+            ...assessment,
+            ...{ contact: person }
+        });
     };
 
     const onUpdateAssessment = () => {
@@ -181,7 +207,7 @@ export const Assessment: React.FC = () => {
                 <div className="py-10">	
                     <form>
                         <div className={ getStepClass("contact") }>
-                            <Contact person={contact} contactInfoOptional={false} onContactUpdate={ onUpdateContact } />
+                            <Contact person={assessment.contact} contactInfoOptional={false} onContactUpdate={ onUpdateContact } />
                         </div>
 
 
@@ -221,7 +247,7 @@ export const Assessment: React.FC = () => {
                             </div>
                             <div className="field">
                                 {
-                                    people.map((person, index) => (
+                                    (assessment.people ?? []).map((person, index) => (
                                         <div key={person.id}>
                                             <div><button value={person.id} onClick={ onRemovePerson }>Remove Person</button></div>
                                             <Contact person={person} onContactUpdate={ onUpdatePerson } />
@@ -426,7 +452,7 @@ export const Assessment: React.FC = () => {
 
 
 
-                        <div className={ getStepClass("fvlikes") }>
+                        <div className={ getStepClass("fhvlikes") }>
                             <div className="field">
                                 <textarea className="form-textarea" rows={10} cols={96}></textarea>
                             </div>
@@ -434,7 +460,7 @@ export const Assessment: React.FC = () => {
 
 
 
-                        <div className={ getStepClass("fvdislikes") }>
+                        <div className={ getStepClass("fhvdislikes") }>
                             <div className="field">
                                 <textarea className="form-textarea" rows={10} cols={96}></textarea>
                             </div>
@@ -504,7 +530,7 @@ export const Assessment: React.FC = () => {
                             </div>
                             <div className="field">
                                 {
-                                    pets.map((pet, index) => (
+                                    (assessment.pets ?? []).map((pet, index) => (
                                         <div key={pet.id}>
                                             <div><button value={pet.id} onClick={ onRemovePet }>Remove Pet</button></div>
                                             <Pet animal={pet} onPetUpdate={ onUpdatePet } />

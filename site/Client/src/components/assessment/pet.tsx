@@ -5,21 +5,15 @@ import { IIndexedControlProp } from '../../modules/types';
 import { InputTypeEnum, InputList } from '../../components/inputlist';
 import { YesNoBoolTypes, AssessmentPetLocation } from '../../modules/records';
 
+import { CustomerPet } from '../../modules/types';
+
 interface IPetProp extends IIndexedControlProp {
-    animal: Pet,
-    onPetUpdate?: (pet: Pet) => void,
+    animal: CustomerPet,
+    onPetUpdate?: (pet: CustomerPet) => void,
 }
 
-export type Pet = {
-    id: string,
-    name: string,
-    type: string,
-    friendly?: boolean,
-    location: string[],
-};
-
 export const Pet: React.FC<IPetProp> = ({ animal, onPetUpdate }) => {
-    const [pet, updatePet] = useState<Pet>(animal);
+    const [pet, updatePet] = useState<CustomerPet>(animal);
     
     const { value:type, bind:bindType } = useInput(pet.type, () => { updateTextFields(); });
     const { value:name, bind:bindName, /*reset:resetFName*/ } = useInput(pet.name, () => { updateTextFields(); });
