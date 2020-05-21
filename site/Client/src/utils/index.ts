@@ -1,22 +1,8 @@
 import { useState, useCallback, useEffect, useLayoutEffect, FormEvent } from 'react';
 
 import { Month } from '../modules/types';
+import { Months } from '../modules/data';
 import { TweenFunctionEnum, OrderDirection } from '../modules/enums';
-
-export const Months: Map<number, Month> = new Map([
-    [1, { Abbr: "Jan", Name: "January", Number: 1 }],
-    [2, { Abbr: "Feb", Name: "February", Number: 2 }],
-    [3, { Abbr: "Mar", Name: "March", Number: 3 }],
-    [4, { Abbr: "Apr", Name: "April", Number: 4 }],
-    [5, { Abbr: "May", Name: "May", Number: 5 }],
-    [6, { Abbr: "Jun", Name: "June", Number: 6 }],
-    [7, { Abbr: "Jul", Name: "July", Number: 7 }],
-    [8, { Abbr: "Aug", Name: "August", Number: 8 }],
-    [9, { Abbr: "Sep", Name: "September", Number: 9 }],
-    [10, { Abbr: "Oct", Name: "October", Number: 10 }],
-    [11, { Abbr: "Nov", Name: "November", Number: 11 }],
-    [12, { Abbr: "Dec", Name: "December", Number: 12 }]
-]);
 
 type easingType = {[key in keyof typeof TweenFunctionEnum]: (t: number, b: number, _c: number, d: number, s?: number) => number};
 
@@ -331,7 +317,7 @@ export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayo
 
 export type InputBinding = {
     value: string,
-    onChange: (e: FormEvent<HTMLInputElement>) => void
+    onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => void
 }
 
 export type InputAttributes = {
@@ -350,7 +336,7 @@ export const useInput = (initialValue: string, onChange: () => void): InputAttri
         //reset: () => setValue(""),
         bind: {
             value,
-            onChange: (e: FormEvent<HTMLInputElement>) => { setValue(e.currentTarget.value); }
+            onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => { setValue(e.currentTarget.value); }
         }
     };
 };

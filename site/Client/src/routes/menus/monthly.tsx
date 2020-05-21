@@ -2,8 +2,9 @@ import React, { useRef, useState, useCallback, ChangeEvent, MouseEvent } from 'r
 import { useSelector, useDispatch } from 'react-redux';
 import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout } from '@phuocng/react-pdf-viewer';
 
-import { YearArray } from '../../utils';
-import { Months, getMonthByNumber } from '../../utils';
+
+import { Months } from '../../modules/data';
+import { YearArray, getMonthByNumber } from '../../utils';
 import { ApplicationState, Month } from '../../modules/types';
 import { setMenuYear, setMenuMonth, LoadMenuDatesAsync } from '../../store/menus/monthly/actions';
 

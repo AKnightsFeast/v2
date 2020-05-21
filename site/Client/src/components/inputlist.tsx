@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, FormEvent } from "react";
+import React, { useState, useCallback, FormEvent } from "react";
 
 import { KeyTypes } from '../modules/records';
 
@@ -31,7 +31,6 @@ export const InputList: React.FC<InputListProp> = ({ name, values, items, type, 
     const [ selectedValues, setValues ] = useState(values);
 
     const inputOptions: InputOptions[] = [];
-    const rbDivClassName = "state p-primary-o";
     const inputType = (type === InputTypeEnum.RadioButton) ? "radio" : "checkbox"
     const muiIconName = (type === InputTypeEnum.RadioButton) ? "check_circle" : "add_box";
     const rbClassName = `pretty p-icon p-smooth p-plain p-bigger${type === InputTypeEnum.RadioButton ? " p-round" : ""}`;
@@ -75,18 +74,28 @@ export const InputList: React.FC<InputListProp> = ({ name, values, items, type, 
     }
 
     return (
-        <>
-            {
-                inputOptions.map(io => (
-                    <div key={`${name}_${io.value}`} className={rbClassName}>
-                        <input type={inputType} name={name} value={io.value} checked={ io.value ? selectedValues.indexOf(io.value) > -1 : undefined } onChange={onItemClick} />
-                        <div className={rbDivClassName}>
+        /*
+        <label className="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm mr-4">
+            <div className="text-teal-600 mr-3">
+                <input type="radio" x-model="gender" value="Male" className="form-radio focus:outline-none focus:shadow-outline" />
+            </div>
+            <div className="select-none text-gray-700">Male</div>
+        </label>
+        */
+        <div className="flex justify-start items-center text-truncate">
+        {
+            inputOptions.map(io => (
+                <div className="rounded-lg bg-white shadow-sm mr-4 pl-4 pr-6 py-3">
+                    <div key={`${name}_${io.value}`} className={`${rbClassName} `}>
+                        <input type={inputType} name={name} value={io.value} checked={io.value ? selectedValues.indexOf(io.value) > -1 : undefined} onChange={onItemClick} />
+                        <div className="state p-primary-o">
                             <i className="icon material-icons">{muiIconName}</i>
                             <label>{io.label}</label>
                         </div>
                     </div>
-                ))
-            }
-        </>
+                </div>
+            ))
+        }
+        </div>
     );
 }

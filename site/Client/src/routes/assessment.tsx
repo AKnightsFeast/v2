@@ -2,9 +2,11 @@ import React, { useRef, useState, MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
+import { States } from  '../modules/data';
 import { Pet } from '../components/assessment/pet';
 import { Contact } from '../components/assessment/contact';
 
+import { useInput } from '../utils';
 import { InputTypeEnum, InputList } from '../components/inputlist';
 import { YesNoBoolTypes, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentBeefPrep, AssessmentChickenPrep, AssessmentSpiceRanges } from '../modules/records';
 
@@ -21,7 +23,6 @@ export const AssessmentWizard: React.FC = () => {
             ["contact", { title: "What is your contact information?", valid: false }],
             ["address", { title: "At what address will the chef be cooking?", valid: false }],
             ["people", { title: "Will there be additional people?", valid: false }],
-            ["allergies", { title: "<Just looking at the style>", valid: false}],
             ["health", { title: "Just need to gather some health info...", valid: false }],
             ["packaging", { title: "How should I deliver the meals?", valid: false }],
             ["beef", { title: "Do you like beef?", valid: false }],
@@ -47,13 +48,23 @@ export const AssessmentWizard: React.FC = () => {
         ])
     );
 
+/*
+    const { value:, bind:bind } = useInput(assessment., () => { onUpdate(); });
+*/
+
     const createPerson = (): Person => ({ id: getUuid(), fname: "", lname: "",  dob: "" });
-    const createPet = (): CustomerPet => ({ id: getUuid(), name: "", type: "", location: [] })
+    const createPet = (): CustomerPet => ({ id: getUuid(), name: "", type: "", location: [] });
 
     const [ assessment, updateAssessment ] = useState<Assessment>({
         contact: createPerson(),
         address: { address1: "", city: "", state: "", zipcode: "" },
     });
+
+    const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1, () => { onUpdateAddress(); });
+    const { value:address2, bind:bindAddress2 } = useInput(assessment.address.address2 ?? "", () => { onUpdateAddress(); });
+    const { value:city, bind:bindCity } = useInput(assessment.address.city, () => { onUpdateAddress(); });
+    const { value:state, bind:bindState } = useInput(assessment.address.state, () => { onUpdateAddress(); });
+    const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode, () => { onUpdateAddress(); });
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
@@ -161,6 +172,13 @@ export const AssessmentWizard: React.FC = () => {
         });
     };
 
+    const onUpdateAddress = () => {
+        updateAssessment({
+            ...assessment,
+            ...{ address: { address1: address1, address2: (address2.trim() === "") ? null : address2, city: city, state: state, zipcode: zipcode } }
+        });
+    }
+
     const onUpdateAssessment = () => {
 
     }
@@ -216,25 +234,31 @@ export const AssessmentWizard: React.FC = () => {
                             <div className="field col">
                                 <label>
                                     <span>Address1</span>
-                                    <input type="text" placeholder="Address1"></input>
+                                    <input type="text" placeholder="Address1" {...bindAddress1}></input>
                                 </label>
                                 <label>
                                     <span>Address2</span>
-                                    <input type="text" placeholder="Address2"></input>
+                                    <input type="text" placeholder="Address2" {...bindAddress2}></input>
                                 </label>
                             </div>
                             <div className="field row">
                                 <label>
                                     <span>City</span>
-                                    <input type="text" placeholder="City"></input>
+                                    <input type="text" placeholder="City" {...bindCity}></input>
                                 </label>
                                 <label>
                                     <span>State</span>
-                                    <select className="form-select"></select>
+                                    <select className="form-select" {...bindState}>
+                                    {
+                                        States.map(state => (
+                                            <option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>
+                                        ))
+                                    }
+                                    </select>
                                 </label>
                                 <label>
                                     <span>Zip Code</span>
-                                    <input type="text" placeholder="Zip Code" maxLength={5}></input>
+                                    <input type="text" placeholder="Zip Code" maxLength={5} {...bindZipcode}></input>
                                 </label>
                             </div>
                         </div>
@@ -259,39 +283,6 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-                        <div className={ getStepClass("allergies") }>
-                            <div className="mb-5">
-                                <label className="font-bold mb-1 text-gray-700 block">Gender</label>
-                                
-                                <div className="flex">
-                                    <label
-                                        className="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm mr-4">
-                                        <div className="text-teal-600 mr-3">
-                                            <input type="radio" x-model="gender" value="Male" className="form-radio focus:outline-none focus:shadow-outline" />
-                                        </div>
-                                        <div className="select-none text-gray-700">Male</div>
-                                    </label>
-
-                                    <label
-                                        className="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm">
-                                        <div className="text-teal-600 mr-3">
-                                            <input type="radio" x-model="gender" value="Female" className="form-radio focus:outline-none focus:shadow-outline" />
-                                        </div>
-                                        <div className="select-none text-gray-700">Female</div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="mb-5">
-                                <label className="font-bold mb-1 text-gray-700 block">Profession</label>
-                                <input type="profession"
-                                    className="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-                                    placeholder="eg. Web Developer" />
-                            </div>
-                        </div>
-
-
-
                         <div className={ getStepClass("health") }>
                             <div>
                                 <div>Are there any allergies in your family?</div>
@@ -309,7 +300,7 @@ export const AssessmentWizard: React.FC = () => {
                             <div>
                                 <div>Are you lactose intolerant?</div>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"islactoseint"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} values={assessment.lactoseint ? [ assessment.lactoseint.toString() ] : []} name={"islactoseint"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                                 </div>
                             </div>
 
@@ -368,7 +359,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <InputList type={InputTypeEnum.RadioButton} values={[]} name={"beef"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                             <div className="field">
-                                <div>How do you like your beef prepared?</div>
+                                <div>How do you like it prepared?</div>
                                 <div>
                                     <InputList type={InputTypeEnum.Checkbox} values={[]} name={"beefprep"} items={AssessmentBeefPrep} onChange={ onUpdateAssessment } />
                                 </div>
@@ -382,7 +373,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <InputList type={InputTypeEnum.RadioButton} values={[]} name={"chicken"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
                             </div>
                             <div className="field">
-                                <div>How do you like your chicken prepared?</div>
+                                <div>How do you like it prepared?</div>
                                 <div>
                                     <InputList type={InputTypeEnum.Checkbox} values={[]} name={"chickenprep"} items={AssessmentChickenPrep} onChange={ onUpdateAssessment } />
                                 </div>

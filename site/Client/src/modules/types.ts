@@ -6,6 +6,11 @@ import Services from '../services';
 import * as RecordTypes from './records';
 import { TweenFunctionEnum } from './enums';
 
+export type State = {
+    Abbr: string,
+    Name: string,
+}
+
 export type Month = {
     Abbr: string,
     Name: string,
@@ -41,7 +46,7 @@ export interface IIndexedControlProp {
 
 export type Address = {
     address1: string,
-    address2?: string,
+    address2?: string | null,
     city: string,
     state: string,
     zipcode: string,
