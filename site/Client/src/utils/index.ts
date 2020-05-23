@@ -317,16 +317,11 @@ export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayo
 
 export type InputBinding = {
     value: string,
-    onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => void
-}
-
-export type InputAttributes = {
-    value: string,
-    bind: InputBinding
+    onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
 }
 
 // https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
-export const useInput = (initialValue: string, onChange: () => void): InputAttributes => {
+export const useInput = (initialValue: string, onChange: () => void): { value: string, bind: InputBinding } => {
     const [value, setValue] = useState(initialValue);
 
     useEffect(() => { onChange(); }, [value]);
@@ -336,7 +331,7 @@ export const useInput = (initialValue: string, onChange: () => void): InputAttri
         //reset: () => setValue(""),
         bind: {
             value,
-            onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => { setValue(e.currentTarget.value); }
+            onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => { setValue(e.currentTarget.value); }
         }
     };
 };

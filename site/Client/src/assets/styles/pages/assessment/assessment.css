@@ -79,11 +79,13 @@
     @apply bg-gray-100;
 }
 
-.step {
+.step,
+.step .field.conditional {
     @apply hidden;
 }
 
-.step.active {
+.step.active,
+.step .field.conditional.active {
     @apply block;
     animation: showIn 300ms ease-in forwards;
 }

@@ -1,4 +1,5 @@
-import React, { useRef, useState, MouseEvent } from 'react';
+import React, { useRef, createRef, useState, MouseEvent, FormEvent } from 'react';
+import { string, object, date, array, boolean } from 'yup';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
@@ -8,7 +9,20 @@ import { Contact } from '../components/assessment/contact';
 
 import { useInput } from '../utils';
 import { InputTypeEnum, InputList } from '../components/inputlist';
-import { YesNoBoolTypes, AssessmentContainerTypes, AssessmentPackagingTypes, AssessmentBeefPrep, AssessmentChickenPrep, AssessmentSpiceRanges } from '../modules/records';
+import {
+    YesNoKeyTypes,
+    YesNoBoolTypes,
+    AssessmentContainerKeyTypes,
+    AssessmentContainerTypes,
+    AssessmentPackagingKeyTypes,
+    AssessmentPackagingTypes,
+    AssessmentBeefKeyTypes,
+    AssessmentBeefPrep,
+    AssessmentChickenKeyTypes,
+    AssessmentChickenPrep,
+    AssessmentSpiceKeyTypes,
+    AssessmentSpiceRanges
+} from '../modules/records';
 
 import { Person, CustomerPet, Assessment } from '../modules/types';
 
@@ -17,6 +31,74 @@ type WizardStep = {
     valid: boolean,
     menutitle: string,
 };
+
+const getPersonSchema = (isRequired: boolean) => {
+    const phoneValidator = string();
+    const emailValidator = string().email();
+
+    return object().shape({
+        fname: string().required(),
+        mi: string().matches(/^[a-zA-z]{1}$/, "Please enter a valid middle initial.").notRequired(),
+        lname: string().required(),
+        dob: date().notRequired(),
+        email: isRequired ? emailValidator.required() : emailValidator.notRequired(),
+        phone: isRequired ? phoneValidator.required() : phoneValidator.notRequired(),
+    });
+};
+
+const PetSchema = object().shape({
+    name: string().required(),
+    type: string().required(),
+    friendly: boolean().required(),
+    location: array().of(string()).min(1),
+});
+
+const AssessmentSchema = object().shape({
+    contact: getPersonSchema(true),
+    address: object().shape({
+        address1: string().required(),
+        address2: string().notRequired(),
+        city: string().required(),
+        state: string().length(2).required(),
+        zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required(),
+    }),
+    people: array().of(getPersonSchema(false)).notRequired(),
+    allergies: string().notRequired(),
+    lactoseInt: boolean().required(),
+    medical: string().notRequired(),
+    dietPlan: string().notRequired(),
+    packaging: string().required(),
+    container: string().required(),
+    beefPrep: array().of(string()).notRequired(),
+    chickenPrep: array().of(string()).notRequired(),
+    likesTurkey: boolean().required(),
+    likesLamb: boolean().required(),
+    likesPork: boolean().required(),
+    
+    likesSeafood: boolean().required(),
+    seafoodDislikes: string().when(
+        "likesSeafood",
+        {
+            is: true,
+            then: string().required(),
+        }
+    ),
+
+    likesVeggies: boolean().required(),
+    otherFoods: string().notRequired(),
+    spiceLikes: array().of(string()).notRequired(),
+    fhvLikes: string().notRequired(),
+    fhvDislikes: string().notRequired(),
+    saladLikes: string().notRequired(),
+    appliances: string().required(),
+    recipes: string().notRequired(),
+    restaurants: string().notRequired(),
+    hasAddlFridge: boolean().required(),
+    groceryStores: string().notRequired(),
+    fuseboxLocation: string().required(),
+    pets: array().of(PetSchema).notRequired(),
+    comments: string().notRequired(),
+});
 
 export const AssessmentWizard: React.FC = () => {
     const [steps, updateSteps] = useState<Map<string, WizardStep>>(
@@ -55,13 +137,49 @@ export const AssessmentWizard: React.FC = () => {
     const [ assessment, updateAssessment ] = useState<Assessment>({
         contact: createPerson(),
         address: { address1: "", city: "", state: "", zipcode: "" },
+        allergies: null,
+        medical: null,
+        dietPlan: null,
+        seafoodDislikes: null,
+        otherFoods: null,
+        fhvLikes: null,
+        fhvDislikes: null,
+        saladLikes: null,
+        appliances: null,
+        recipes: null,
+        restaurants: null,
+        groceryStores: null,
+        fuseboxLocation: "",
+        comments: null,
     });
+
+    const [ hasAllergies, setHasAllergies ] = useState<boolean>();
+    const [ hasMedCondition, setHasMedCondition ] = useState<boolean>();
+    const [ hasDietPlan, setHasDietPlan ] = useState<boolean>();
+    const [ likesBeef, setLikesBeef ] = useState<Boolean>();
+    const [ likesChicken, setLikesChicken ] = useState<Boolean>();
+    const [ likesSeafood, setLikesSeafood ] = useState<Boolean>();
 
     const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1, () => { onUpdateAddress(); });
     const { value:address2, bind:bindAddress2 } = useInput(assessment.address.address2 ?? "", () => { onUpdateAddress(); });
     const { value:city, bind:bindCity } = useInput(assessment.address.city, () => { onUpdateAddress(); });
     const { value:state, bind:bindState } = useInput(assessment.address.state, () => { onUpdateAddress(); });
     const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode, () => { onUpdateAddress(); });
+    
+    const { value:allergies , bind:bindAllergies  } = useInput(assessment.allergies ?? "", () => { updateAssessment({...assessment, ...{allergies: allergies}}) });
+    const { value:medical , bind:bindMedical  } = useInput(assessment.medical ?? "", () => { updateAssessment({...assessment, ...{medical: medical}}) });
+    const { value:dietPlan , bind:bindDietPlan  } = useInput(assessment.dietPlan ?? "", () => { updateAssessment({...assessment, ...{dietPlan: dietPlan}}) });
+    const { value:seafoodDislikes , bind:bindSeafoodDislikes  } = useInput(assessment.seafoodDislikes ?? "", () => { updateAssessment({...assessment, ...{seafoodDislikes: seafoodDislikes}}) });
+    const { value:otherFoods , bind:bindOtherFoods  } = useInput(assessment.otherFoods ?? "", () => { updateAssessment({...assessment, ...{otherFoods: otherFoods}}) });
+    const { value:fhvLikes , bind:bindFHVLikes  } = useInput(assessment.fhvLikes ?? "", () => { updateAssessment({...assessment, ...{fhvLikes: fhvLikes}}) });
+    const { value:fhvDislikes , bind:bindFHVDislikes  } = useInput(assessment.fhvDislikes ?? "", () => { updateAssessment({...assessment, ...{fhvDislikes: fhvDislikes}}) });
+    const { value:saladLikes , bind:bindSaladLikes  } = useInput(assessment.saladLikes ?? "", () => { updateAssessment({...assessment, ...{saladLikes: saladLikes}}) });
+    const { value:appliances , bind:bindAppliances  } = useInput(assessment.appliances ?? "", () => { updateAssessment({...assessment, ...{appliances: appliances}}) });
+    const { value:recipes , bind:bindRecipes  } = useInput(assessment.recipes ?? "", () => { updateAssessment({...assessment, ...{recipes: recipes}}) });
+    const { value:restaurants , bind:bindRestaurants  } = useInput(assessment.restaurants ?? "", () => { updateAssessment({...assessment, ...{restaurants: restaurants}}) });
+    const { value:groceryStores , bind:bindGroceryStores  } = useInput(assessment.groceryStores ?? "", () => { updateAssessment({...assessment, ...{groceryStores: groceryStores}}) });
+    const { value:fuseboxLocation , bind:bindFuseboxLocation  } = useInput(assessment.fuseboxLocation ?? "", () => { updateAssessment({...assessment, ...{fuseboxLocation: fuseboxLocation}}) });
+    const { value:comments , bind:bindComments  } = useInput(assessment.comments ?? "", () => { updateAssessment({...assessment, ...{comments: comments}}) });
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
@@ -69,20 +187,24 @@ export const AssessmentWizard: React.FC = () => {
     const [stepIdx, setStepIdx] = useState(0);
     const getPctDone = () => ((stepIdx + 1) / totalSteps) * 100;
     const pctDone = useRef(getPctDone());
-
+    
     const getStepTitle = (): string => {
         const step: WizardStep | undefined = steps.get(stepOrder[stepIdx]);
         if (step) return step.title;
         return '';
     }
 
-    const moveNext = () => {
+    const moveNext = (e: FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
         if (stepIdx === totalSteps - 1) return;
         pctDone.current = getPctDone();
         setStepIdx(stepIdx + 1);
     };
 
-    const movePrev = () => {
+    const movePrev = (e: FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
         if (stepIdx === 0) return;
         pctDone.current = getPctDone();
         setStepIdx(stepIdx - 1);
@@ -94,10 +216,6 @@ export const AssessmentWizard: React.FC = () => {
         if (idx < 0 || idx > totalSteps - 1) return;
 
         setStepIdx(idx);
-    };
-
-    const complete = () => {
-        setStepIdx(totalSteps);
     };
 
     const onAddPerson = (e: MouseEvent<HTMLButtonElement>) => {
@@ -184,9 +302,11 @@ export const AssessmentWizard: React.FC = () => {
         });
     }
 
-    const onUpdateAssessment = () => {
+    const complete = () => {
+        setStepIdx(totalSteps);
 
-    }
+        //formRef.current && formRef.current.submit();
+    };
 
     const getStepClass = (stepName: string): string => `step${stepOrder[stepIdx] === stepName ? " active" : ""}`
 
@@ -196,14 +316,17 @@ export const AssessmentWizard: React.FC = () => {
                 <div className="nav-wrapper">
                     <div className="nav-title">Sections</div>
                     <ul className="nav-items">
-                        {
-                            Array.from(steps.entries()).map((entry: [string, WizardStep], index) => (
-                                <li key={entry[0]}><a onClick={ (e) => { moveTo(e, index); } }>{entry[1].menutitle}</a></li>
-                            ))
-                        }
+                    {
+                        Array.from(steps.entries()).map((entry: [string, WizardStep], index) => (
+                            <li className={`${stepOrder[stepIdx] === entry[0] ? "active" : ""}`} key={entry[0]}><a onClick={ (e) => { moveTo(e, index); } }>{entry[1].menutitle}</a></li>
+                        ))
+                    }
                     </ul>
                 </div>
             </div>
+
+
+
             <div className="steps">
                 {/*<!-- Completion Step -->*/}
                 <div className={`flex-col items-center bg-white rounded-lg p-10 shadow justify-between step${stepIdx === totalSteps ? " active" : ""}`}>
@@ -242,8 +365,8 @@ export const AssessmentWizard: React.FC = () => {
                     {/*<!-- Step Content -->*/}
                     <div className="py-10">	
                         <form>
-                            <div className={ getStepClass("contact") }>
-                                <Contact person={assessment.contact} contactInfoOptional={false} onContactUpdate={ onUpdateContact } />
+                            <div className={getStepClass("contact")}>
+                                <Contact person={assessment.contact} contactInfoOptional={false} onContactUpdate={onUpdateContact} />
                             </div>
 
 
@@ -252,31 +375,29 @@ export const AssessmentWizard: React.FC = () => {
                                 <div className="field col">
                                     <label>
                                         <span>Address1</span>
-                                        <input type="text" placeholder="Address1" {...bindAddress1}></input>
+                                        <input type="text" name={"address.address1"} placeholder="Address1" {...bindAddress1}></input>
                                     </label>
                                     <label>
                                         <span>Address2</span>
-                                        <input type="text" placeholder="Address2" {...bindAddress2}></input>
+                                        <input type="text" name={"address.address2"} placeholder="Address2" {...bindAddress2}></input>
                                     </label>
                                 </div>
                                 <div className="field row">
                                     <label>
                                         <span>City</span>
-                                        <input type="text" placeholder="City" {...bindCity}></input>
+                                        <input type="text" name={"address.city"} placeholder="City" {...bindCity}></input>
                                     </label>
                                     <label>
                                         <span>State</span>
-                                        <select className="form-select" {...bindState}>
+                                        <select name={"address.state"} className="form-select" {...bindState}>
                                         {
-                                            States.map(state => (
-                                                <option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>
-                                            ))
+                                            States.map(state => (<option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>))
                                         }
                                         </select>
                                     </label>
                                     <label>
                                         <span>Zip Code</span>
-                                        <input type="text" placeholder="Zip Code" maxLength={5} {...bindZipcode}></input>
+                                        <input type="text" name={"address.zipcode"} placeholder="Zip Code" maxLength={5} {...bindZipcode}></input>
                                     </label>
                                 </div>
                             </div>
@@ -285,14 +406,14 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("people") }>
                                 <div>
-                                    <button className="button" onClick={ onAddPerson }>Add Person</button>
+                                    <button className="button" onClick={onAddPerson}>Add Person</button>
                                 </div>
                                 <div className="field">
                                     {
                                         (assessment.people ?? []).map((person, index) => (
                                             <div key={person.id}>
-                                                <div><button value={person.id} onClick={ onRemovePerson }>Remove Person</button></div>
-                                                <Contact person={person} onContactUpdate={ onUpdatePerson } />
+                                                <div><button value={person.id} onClick={onRemovePerson}>Remove Person</button></div>
+                                                <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
                                             </div>
                                         ))
                                     }
@@ -305,12 +426,12 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are there any allergies in your family?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={[]} name={"haveallergies"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"haveallergies"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasAllergies(JSON.parse(values[0])); }} />
                                     </div>
-                                    <div className="field">
+                                    <div className={`field conditional${hasAllergies ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                            <textarea name="allergies" className="form-textarea" rows={10} cols={96} {...bindAllergies}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -318,19 +439,19 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are you lactose intolerant?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={assessment.lactoseint ? [ assessment.lactoseint.toString() ] : []} name={"islactoseint"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton} values={assessment.lactoseInt ? [ assessment.lactoseInt.toString() ] : []} name={"islactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ lactoseInt: JSON.parse(values[0])}}) }} />
                                     </div>
                                 </div>
 
                                 <div>
                                     <div>Are there any medical conditions in your family?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={[]} name={"havemedconditions"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"havemedconditions"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasMedCondition(JSON.parse(values[0])) }} />
                                     </div>
-                                    <div className="field">
+                                    <div className={`field conditional${hasMedCondition ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                            <textarea className="form-textarea" rows={10} cols={96} {...bindMedical}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -338,12 +459,12 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are you planning to follow or currently following any specific diet plan?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={[]} name={"havedietplan"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"havedietplan"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasDietPlan(JSON.parse(values[0])) }} />
                                     </div>
-                                    <div className="field">
+                                    <div className={`field conditional${hasDietPlan ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                            <textarea className="form-textarea" rows={10} cols={96} {...bindDietPlan}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -355,14 +476,28 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>How should your meals be packaged?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={[]} name={"packagetype"} items={AssessmentPackagingTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton}
+                                                    name={"packagetype"}
+                                                    items={AssessmentPackagingTypes}
+                                                    onChange={(values: string[]) => {
+                                                       updateAssessment({
+                                                           ...assessment,
+                                                           ...{ packaging: values[0] as AssessmentPackagingKeyTypes }})
+                                                    }} />
                                     </div>
                                 </div>
 
                                 <div>
                                     <div>What type of containers should be used to store the food?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={[]} name={"container"} items={AssessmentContainerTypes} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.RadioButton}
+                                            name={"container"}
+                                            items={AssessmentContainerTypes}
+                                            onChange={(values: string[]) => {
+                                                updateAssessment({
+                                                    ...assessment,
+                                                    ...{ container: values[0] as AssessmentContainerKeyTypes }})
+                                            }} />
                                         <div>
                                             <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
                                         </div>
@@ -374,12 +509,17 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("beef") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"beef"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"beef"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesBeef(JSON.parse(values[0])) }} />
                                 </div>
-                                <div className="field">
+                                <div className={`field conditional${likesBeef ? " active" : ""}`}>
                                     <div>How do you like it prepared?</div>
                                     <div>
-                                        <InputList type={InputTypeEnum.Checkbox} values={[]} name={"beefprep"} items={AssessmentBeefPrep} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.Checkbox}
+                                            name={"beefprep"}
+                                            items={AssessmentBeefPrep}
+                                            onChange={(values: string[]) => {
+                                                updateAssessment({...assessment, ...{ beefPrep: values.map(value => value as AssessmentBeefKeyTypes) }})
+                                            }} />
                                     </div>
                                 </div>
                             </div>
@@ -388,12 +528,17 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("chicken") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"chicken"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"chicken"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesChicken(JSON.parse(values[0])) }} />
                                 </div>
-                                <div className="field">
+                                <div className={`field conditional${likesChicken ? " active" : ""}`}>
                                     <div>How do you like it prepared?</div>
                                     <div>
-                                        <InputList type={InputTypeEnum.Checkbox} values={[]} name={"chickenprep"} items={AssessmentChickenPrep} onChange={ onUpdateAssessment } />
+                                        <InputList type={InputTypeEnum.Checkbox}
+                                            name={"chickenprep"}
+                                            items={AssessmentChickenPrep}
+                                            onChange={(values: string[]) => {
+                                                updateAssessment({...assessment, ...{ chickenPrep: values.map(value => value as AssessmentChickenKeyTypes) }})
+                                            }} />
                                     </div>
                                 </div>
                             </div>
@@ -402,7 +547,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("turkey") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"turkey"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesTurkey: JSON.parse(values[0])}}) }} />
                                 </div>
                             </div>
 
@@ -410,7 +555,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("lamb") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"lamb"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesLamb: JSON.parse(values[0])}}) }} />
                                 </div>
                             </div>
 
@@ -418,7 +563,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("pork") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"pork"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesPork: JSON.parse(values[0])}}) }} />
                                 </div>
                             </div>
 
@@ -426,11 +571,11 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("seafood") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"seafood"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"seafood"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesSeafood(JSON.parse(values[0])) }} />
                                 </div>
-                                <div className="field">
+                                <div className={`field conditional${likesSeafood ? " active" : ""}`}>
                                     <div>What types of fish/shellfish don't you like?</div>
-                                    <textarea name={"seafooddislikes"} className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea name={"seafooddislikes"} className="form-textarea" rows={10} cols={96} {...bindSeafoodDislikes}></textarea>
                                 </div>
                             </div>
 
@@ -438,7 +583,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("veggie") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"likevegmeals"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesVeggie: JSON.parse(values[0])}}) }} />
                                 </div>
                             </div>
 
@@ -447,7 +592,7 @@ export const AssessmentWizard: React.FC = () => {
                             <div className={ getStepClass("othermeat") }>
                                 <div className="field">
                                     <div>Is there anything else that you like that I haven't covered?</div>
-                                    <textarea name={"othermeat"} className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea name={"othermeat"} className="form-textarea" rows={10} cols={96} {...bindOtherFoods}></textarea>
                                 </div>
                             </div>
 
@@ -455,7 +600,12 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("spicy") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.Checkbox} values={[]} name={"spicelikes"} items={AssessmentSpiceRanges} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.Checkbox}
+                                        name={"spicelikes"}
+                                        items={AssessmentSpiceRanges}
+                                        onChange={(values: string[]) => {
+                                            updateAssessment({...assessment, ...{ spiceLikes: values.map(value => value as AssessmentSpiceKeyTypes) }})
+                                        }} />
                                 </div>
                             </div>
 
@@ -463,7 +613,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fhvlikes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFHVLikes}></textarea>
                                 </div>
                             </div>
 
@@ -471,7 +621,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fhvdislikes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFHVDislikes}></textarea>
                                 </div>
                             </div>
 
@@ -479,7 +629,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("greens") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindSaladLikes}></textarea>
                                 </div>
                             </div>
 
@@ -487,7 +637,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("appliances") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindAppliances}></textarea>
                                 </div>
                             </div>
 
@@ -495,7 +645,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("recipes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindRecipes}></textarea>
                                 </div>
                             </div>
 
@@ -503,7 +653,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("restaurants") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindRestaurants}></textarea>
                                 </div>
                             </div>
 
@@ -511,7 +661,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("addlfridge") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} values={[]} name={"addlfridge"} items={YesNoBoolTypes} onChange={ onUpdateAssessment } />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ hasAddlFridge: JSON.parse(values[0])}}) }} />
                                 </div>
                             </div>
 
@@ -519,7 +669,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("groceries") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindGroceryStores}></textarea>
                                 </div>
                             </div>
 
@@ -527,7 +677,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fusebox") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFuseboxLocation}></textarea>
                                 </div>
                             </div>
 
@@ -541,8 +691,8 @@ export const AssessmentWizard: React.FC = () => {
                                     {
                                         (assessment.pets ?? []).map((pet, index) => (
                                             <div key={pet.id}>
-                                                <div><button value={pet.id} onClick={ onRemovePet }>Remove Pet</button></div>
-                                                <Pet animal={pet} onPetUpdate={ onUpdatePet } />
+                                                <div><button value={pet.id} onClick={onRemovePet}>Remove Pet</button></div>
+                                                <Pet animal={pet} onPetUpdate={onUpdatePet} />
                                             </div>
                                         ))
                                     }
@@ -553,7 +703,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("comments") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96}></textarea>
+                                    <textarea className="form-textarea" rows={10} cols={96} {...bindComments}></textarea>
                                 </div>
                             </div>
                         </form>
@@ -565,21 +715,19 @@ export const AssessmentWizard: React.FC = () => {
                             <div className="flex justify-between">
                                 <div className="w-1/2">
                                     <button
-                                        x-show="step > 1"
-                                        onClick={ movePrev }
+                                        onClick={movePrev}
                                         className={`w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border${stepIdx === 0 ? " hidden" : ""}`}
                                     >Previous</button>
                                 </div>
 
                                 <div className="w-1/2 text-right">
                                     <button
-                                        x-show="step < 3"
-                                        onClick={ moveNext }
+                                        onClick={moveNext}
                                         className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIdx >= totalSteps - 1 ? " hidden" : ""}`}
                                     >Next</button>
 
                                     <button
-                                        onClick={ complete }
+                                        onClick={complete}
                                         className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIdx < totalSteps - 1 ? " hidden" : ""}`}
                                     >Complete</button>
                                 </div>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 
-import { useInput } from '../../utils';
+import { useInput, InputBinding } from '../../utils';
 import { Person } from '../../modules/types';
 import { IIndexedControlProp } from '../../modules/types';
+import { register } from '../../serviceWorker';
 
 interface IContactProp extends IIndexedControlProp {
     person: Person,
@@ -10,7 +11,15 @@ interface IContactProp extends IIndexedControlProp {
     onContactUpdate?: (person: Person) => void,
 }
 
-export const Contact: React.FC<IContactProp> = ({ person, contactInfoOptional = true, onContactUpdate }) => {
+type InputAttributes = {
+    type: string,
+    name: string,
+    placeholder: string,
+    binding: InputBinding,
+};
+
+export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOptional = true, onContactUpdate }) => {
+    const namePrefix = (index ? `People[${index}]` : "Contact") + ".";
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
@@ -26,54 +35,62 @@ export const Contact: React.FC<IContactProp> = ({ person, contactInfoOptional = 
     const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
     const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname, () => { updateAssessment(); });
 
+    const emailAttributes: InputAttributes = {
+        type: "text",
+        name: `${namePrefix}Email`,
+        placeholder: "Email",
+        binding: bindEmail,
+    }
+
+    const phoneAttributes: InputAttributes = {
+        type: "text",
+        name: `${namePrefix}Phone`,
+        placeholder: "Phone #",
+        binding: bindPhone,
+    }
+
+    const formatDOB = (e: FormEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value;
+
+        if (value.match(/^\d{2}$/) !== null) {
+            e.currentTarget.value = value + "/";
+        } else if (value.match(/^\d{2}\/\d{2}$/) !== null) {
+            e.currentTarget.value = value + "/";
+        }
+    };
+
     return (
         <>
             <div className="field row">
                 <label>
                     <span>First Name</span>
-                    {/*id={`People_${index}__FirstName`} name={`People[${index}].FirstName`}*/}
-                    <input type="text" placeholder="First Name" {...bindFName} />
+                    <input type="text" name={`${namePrefix}FirstName`} placeholder="First Name" {...bindFName} />
                 </label>
                 <label title="Middle Initial">
                     <span>MI</span>
-                    {/*id={`People_${index}__MiddleInitial`} name={`People[${index}].MiddleInitial`}*/}
-                    <input type="text" placeholder="MI" maxLength={1} {...bindMI} />
+                    <input type="text" name={`${namePrefix}MiddleInitial`} placeholder="MI" maxLength={1} {...bindMI} />
                 </label>
                 <label>
                     <span>Last Name</span>
-                    {/*id={`People_${index}__LastName`} name={`People[${index}].LastName`}*/}
-                    <input type="text" placeholder="Last Name" {...bindLName} />
+                    <input type="text" name={`${namePrefix}LastName`} placeholder="Last Name" {...bindLName} />
                 </label>
             </div>
             <div className="field">
                 <label title="Date of Birth">
                     <span>DOB</span>
-                    {/*id={`People_${index}__DOB`} name={`People[${index}].DOB`}*/}
-                    <input type="text" placeholder="DOB" {...bindDOB} />
+                    <input type="text" name={`${namePrefix}DOB`} placeholder="MM/DD/YYYY" {...bindDOB} onKeyUp={formatDOB} maxLength={10} />
                 </label>
             </div>
             <div className="field col">
                 <label>
                     <span>Email</span>
-                    {/*id={`People_${index}__Email`} name={`People[${index}].Email`}*/}
-                    <input type="text" placeholder="Email" {...bindEmail} />
+                    <input type="text" placeholder="Email" name={`${namePrefix}Email`} {...bindEmail} />
                 </label>
                 <label>
                     <span>Phone #</span>
-                    {/*id={`People_${index}__Phone`} name={`People[${index}].Phone`}*/}
-                    <input type="text" placeholder="Phone #" {...bindPhone} />
-                </label>                           
+                    <input type="text" placeholder="Phone" name={`${namePrefix}Phone`} {...bindPhone} />
+                </label>
             </div>
-            {
-                (contactInfoOptional) ?
-                    <div>
-                        <div>&nbsp;</div>
-                        {/*id={`People_${index}__UseContactInfo`}*/}
-                        <input type='checkbox' title='Use Email/Phone' className='useContactInfo' />
-                        <label>&nbsp;Add Email/Phone</label>
-                    </div> :
-                    <></>
-            }
         </>
     );
 }

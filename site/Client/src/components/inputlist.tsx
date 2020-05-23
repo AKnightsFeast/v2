@@ -1,4 +1,4 @@
-import React, { useState, useCallback, FormEvent } from "react";
+import React, { useState, useCallback, FormEvent, RefObject } from "react";
 
 import { KeyTypes } from '../modules/records';
 
@@ -14,10 +14,10 @@ type InputListItem = {
 
 type InputListProp = {
     name: string,
-    values: string[],
+    values?: string[],
     type: InputTypeEnum,
-    items: InputListItem[] | Record<KeyTypes, string>,
     onChange: (values: string[]) => void,
+    items: InputListItem[] | Record<KeyTypes, string>,
 }
 
 type InputOptions = {
@@ -27,7 +27,7 @@ type InputOptions = {
 
 const isRadioButtonItemArr = (v: any): v is InputListItem[] => (v as InputListItem[]).length !== undefined;
 
-export const InputList: React.FC<InputListProp> = ({ name, values, items, type, onChange }) => {
+export const InputList: React.FC<InputListProp> = ({ name, values = [], items, type, onChange }) => {
     const [ selectedValues, setValues ] = useState(values);
 
     const inputOptions: InputOptions[] = [];

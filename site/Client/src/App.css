@@ -3095,11 +3095,13 @@ text-decoration: none
   background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
-.step {
+.step,
+.step .field.conditional {
   display: none;
 }
 
-.step.active {
+.step.active,
+.step .field.conditional.active {
   display: block;
   animation: showIn 300ms ease-in forwards;
 }

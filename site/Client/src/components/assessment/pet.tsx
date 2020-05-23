@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useInput } from '../../utils';
 import { IIndexedControlProp } from '../../modules/types';
 import { InputTypeEnum, InputList } from '../../components/inputlist';
-import { YesNoBoolTypes, AssessmentPetLocation } from '../../modules/records';
+import { YesNoBoolTypes, AssessmentPetLocationKeyTypes, AssessmentPetLocation } from '../../modules/records';
 
 import { CustomerPet } from '../../modules/types';
 
@@ -12,7 +12,8 @@ interface IPetProp extends IIndexedControlProp {
     onPetUpdate?: (pet: CustomerPet) => void,
 }
 
-export const Pet: React.FC<IPetProp> = ({ animal, onPetUpdate }) => {
+export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
+    const namePrefix = (index ? `Pets[${index}]` : "Pet") + ".";
     const [pet, updatePet] = useState<CustomerPet>(animal);
     
     const { value:type, bind:bindType } = useInput(pet.type, () => { updateTextFields(); });
@@ -31,7 +32,7 @@ export const Pet: React.FC<IPetProp> = ({ animal, onPetUpdate }) => {
     };
 
     const updateLocation = (values: string[]) => {
-        updatePet({ ...pet, ...{ location: values }});
+        updatePet({ ...pet, ...{ location: values.map(value => value as AssessmentPetLocationKeyTypes) }});
     }
 
     return (
@@ -39,32 +40,22 @@ export const Pet: React.FC<IPetProp> = ({ animal, onPetUpdate }) => {
             <input type='hidden' name='Pets.Index' value='index' />
             <div className='field'>
                 <label title="Name">
-                    {/*className='name entry required' id={`Pets_${index}__Name`} name={`Pets[${index}].Name`}*/}
                     <span>Name</span>
-                    <input title='Name' type='text' maxLength={30} style={{width: '250px'}} {...bindName} />
+                    <input title='Name' type='text' name={`${namePrefix}.Name`} maxLength={30} style={{width: '250px'}} {...bindName} />
                 </label>
                 <label title="Type/Breed">
-                    {/*className='type entry required' id={`Pets_${index}__Breed`} name={`Pets[${index}].Breed`}*/}
                     <span>Type/Breed</span>
-                    <input title='Type/Breed' type='text' maxLength={50} style={{width: '380px'}} {...bindType} />
+                    <input title='Type/Breed' type='text' name={`${namePrefix}.Breed`} maxLength={50} style={{width: '380px'}} {...bindType} />
                 </label>
             </div>
             <div className='field'>
                 <div className='field'>
-                    {/*
-                    name={`Pets[${index}].IsFriendly`} value='true'
-                    name={`Pets[${index}].IsFriendly`} value='false'
-                    */}
                     <span>Friendly?</span>
-                    <InputList type={InputTypeEnum.RadioButton} values={pet.friendly ? [ pet.friendly.toString() ] : []} name={`friendly_${pet.id}`} items={YesNoBoolTypes} onChange={ updateFriendly } />
+                    <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}.IsFriendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
                 </div>
                 <div className='field'>
-                    {/*
-                    name={`Pets[${index}].Location`}
-                    name={`Pets[${index}].Location`}
-                    */}
                     <span>Normally stays</span>
-                    <InputList type={InputTypeEnum.Checkbox} values={ pet.location } name={`location_${pet.id}`} items={AssessmentPetLocation} onChange={ updateLocation } />
+                    <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}.Location`} values={pet.location} items={AssessmentPetLocation} onChange={updateLocation} />
                 </div>
             </div>
         </div>
