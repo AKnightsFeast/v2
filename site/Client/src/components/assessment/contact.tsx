@@ -1,9 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 
 import { useInput, InputBinding } from '../../utils';
-import { Person } from '../../modules/types';
-import { IIndexedControlProp } from '../../modules/types';
-import { register } from '../../serviceWorker';
+import { Person, IIndexedControlProp } from '../../modules/types';
 
 interface IContactProp extends IIndexedControlProp {
     person: Person,
@@ -23,17 +21,17 @@ export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOpti
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
-        const newPerson = { id: person.id, fname: fname, mi: mi, lname: lname, dob: dob, email: email, phone: phone };
+        const newPerson = { id: person.id, fname: fname, mi: mi, lname: lname, dob: new Date(dob), email: email, phone: phone };
         updateContact(newPerson);
         onContactUpdate && onContactUpdate(newPerson);
     };
 
-    const { value:dob, bind:bindDOB } = useInput(contact.dob, () => { updateAssessment(); });
+    const { value:dob, bind:bindDOB } = useInput(contact.dob ? contact.dob.toString() : "", () => { updateAssessment(); });
     const { value:mi, bind:bindMI } = useInput(contact.mi ?? "", () => { updateAssessment(); });
-    const { value:lname, bind:bindLName } = useInput(contact.lname, () => { updateAssessment(); });
+    const { value:lname, bind:bindLName } = useInput(contact.lname ?? "", () => { updateAssessment(); });
     const { value:email, bind:bindEmail } = useInput(contact.email ?? "", () => { updateAssessment(); });
     const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
-    const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname, () => { updateAssessment(); });
+    const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname ?? "", () => { updateAssessment(); });
 
     const emailAttributes: InputAttributes = {
         type: "text",
@@ -84,11 +82,11 @@ export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOpti
             <div className="field col">
                 <label>
                     <span>Email</span>
-                    <input type="text" placeholder="Email" name={`${namePrefix}Email`} {...bindEmail} />
+                    <input type="email" name={`${namePrefix}Email`} placeholder="Email" {...bindEmail} />
                 </label>
                 <label>
                     <span>Phone #</span>
-                    <input type="text" placeholder="Phone" name={`${namePrefix}Phone`} {...bindPhone} />
+                    <input type="text" name={`${namePrefix}Phone`} placeholder="Phone" {...bindPhone} />
                 </label>
             </div>
         </>

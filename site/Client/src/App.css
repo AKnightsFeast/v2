@@ -3085,6 +3085,12 @@ text-decoration: none
   border-color: rgba(213, 63, 140, var(--border-opacity));
 }
 
+.assessment .nav .nav-wrapper .nav-items li.invalid {
+  --text-opacity: 1;
+  color: #f56565;
+  color: rgba(245, 101, 101, var(--text-opacity));
+}
+
 .assessment .nav .nav-wrapper .nav-items li ~ li {
   margin-top: 0.25rem;
 }
@@ -3137,7 +3143,8 @@ text-decoration: none
   color: rgba(74, 85, 104, var(--text-opacity));
 }
 
-.step .field input[type=text] {
+.step .field input[type=text],
+.step .field input[type=email] {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.75rem;
@@ -3151,7 +3158,8 @@ text-decoration: none
   color: rgba(113, 128, 150, var(--text-opacity));
 }
 
-.step .field input[type=text]:focus {
+.step .field input[type=text]:focus,
+.step .field input[type=email]:focus {
   outline: 0;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }

@@ -71,6 +71,10 @@
     @apply border-pink-600;
 }
 
+.assessment .nav .nav-wrapper .nav-items li.invalid {
+    @apply text-red-500;
+}
+
 .assessment .nav .nav-wrapper .nav-items li ~ li {
     @apply mt-1;
 }
@@ -119,7 +123,8 @@
     @apply text-gray-700;
 }
 
-.step .field input[type=text] {
+.step .field input[type=text],
+.step .field input[type=email] {
     @apply px-4;
     @apply py-3;
     @apply w-full;
@@ -129,7 +134,8 @@
     @apply text-gray-600;
 }
 
-.step .field input[type=text]:focus {
+.step .field input[type=text]:focus,
+.step .field input[type=email]:focus {
     @apply outline-none;
     @apply shadow-outline;
 }

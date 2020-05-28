@@ -1,5 +1,6 @@
-import React, { useRef, createRef, useState, MouseEvent, FormEvent } from 'react';
-import { string, object, date, array, boolean } from 'yup';
+import React, { useRef, createRef, useState, useEffect, MouseEvent, FormEvent } from 'react';
+import { string, object, date, array, boolean, mixed, ValidationError } from 'yup';
+import libphonenumber from 'google-libphonenumber';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 
@@ -10,7 +11,6 @@ import { Contact } from '../components/assessment/contact';
 import { useInput } from '../utils';
 import { InputTypeEnum, InputList } from '../components/inputlist';
 import {
-    YesNoKeyTypes,
     YesNoBoolTypes,
     AssessmentContainerKeyTypes,
     AssessmentContainerTypes,
@@ -28,128 +28,77 @@ import { Person, CustomerPet, Assessment } from '../modules/types';
 
 type WizardStep = {
     title: string,
-    valid: boolean,
+    valid?: boolean,
+    errors?: string[],
     menutitle: string,
 };
 
-const getPersonSchema = (isRequired: boolean) => {
-    const phoneValidator = string();
-    const emailValidator = string().email();
-
-    return object().shape({
-        fname: string().required(),
-        mi: string().matches(/^[a-zA-z]{1}$/, "Please enter a valid middle initial.").notRequired(),
-        lname: string().required(),
-        dob: date().notRequired(),
-        email: isRequired ? emailValidator.required() : emailValidator.notRequired(),
-        phone: isRequired ? phoneValidator.required() : phoneValidator.notRequired(),
-    });
-};
-
-const PetSchema = object().shape({
-    name: string().required(),
-    type: string().required(),
-    friendly: boolean().required(),
-    location: array().of(string()).min(1),
-});
-
-const AssessmentSchema = object().shape({
-    contact: getPersonSchema(true),
-    address: object().shape({
-        address1: string().required(),
-        address2: string().notRequired(),
-        city: string().required(),
-        state: string().length(2).required(),
-        zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required(),
-    }),
-    people: array().of(getPersonSchema(false)).notRequired(),
-    allergies: string().notRequired(),
-    lactoseInt: boolean().required(),
-    medical: string().notRequired(),
-    dietPlan: string().notRequired(),
-    packaging: string().required(),
-    container: string().required(),
-    beefPrep: array().of(string()).notRequired(),
-    chickenPrep: array().of(string()).notRequired(),
-    likesTurkey: boolean().required(),
-    likesLamb: boolean().required(),
-    likesPork: boolean().required(),
-    
-    likesSeafood: boolean().required(),
-    seafoodDislikes: string().when(
-        "likesSeafood",
-        {
-            is: true,
-            then: string().required(),
-        }
-    ),
-
-    likesVeggies: boolean().required(),
-    otherFoods: string().notRequired(),
-    spiceLikes: array().of(string()).notRequired(),
-    fhvLikes: string().notRequired(),
-    fhvDislikes: string().notRequired(),
-    saladLikes: string().notRequired(),
-    appliances: string().required(),
-    recipes: string().notRequired(),
-    restaurants: string().notRequired(),
-    hasAddlFridge: boolean().required(),
-    groceryStores: string().notRequired(),
-    fuseboxLocation: string().required(),
-    pets: array().of(PetSchema).notRequired(),
-    comments: string().notRequired(),
-});
-
 export const AssessmentWizard: React.FC = () => {
+    const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
+
     const [steps, updateSteps] = useState<Map<string, WizardStep>>(
         new Map([
-            ["contact", { menutitle: "Contact Info", title: "What is your contact information?", valid: false }],
-            ["address", { menutitle: "Cook Address", title: "At what address will the chef be cooking?", valid: false }],
-            ["people", { menutitle: "Members in Party", title: "Will there be additional people?", valid: false }],
-            ["health", { menutitle: "Health Info", title: "Just need to gather some health info...", valid: false }],
-            ["packaging", { menutitle: "Food Packaging", title: "How should I deliver the meals?", valid: false }],
-            ["beef", { menutitle: "Beef", title: "Do you like beef?", valid: false }],
-            ["chicken", { menutitle: "Chicken", title: "How about chicken?", valid: false }],
-            ["turkey", { menutitle: "Turkey", title: "Do you like turkey?", valid: false }],
-            ["lamb", { menutitle: "Lamb", title: "Are you okay with lamb?", valid: false }],
-            ["pork", { menutitle: "Pork", title: "Do you enjoy pork?", valid: false }],
-            ["seafood", { menutitle: "Seafood", title: "How about seafood?", valid: false }],
-            ["veggie", { menutitle: "Vegetarian", title: "Would you like any vegetarian meals?", valid: false }],
-            ["othermeat", { menutitle: "Other Foods", title: "Additional foods...", valid: false }],
-            ["spicy", { menutitle: "Spice Tolerance", title: "How spicy do you like your meals?", valid: false }],
-            ["fhvlikes", { menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?", valid: false }],
-            ["fhvdislikes", { menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?", valid: false }],
-            ["greens", { menutitle: "Salads", title: "What are your favorite greens for salads?", valid: false }],
-            ["appliances", { menutitle: "Appliances", title: "Are there any kitchen appliances the chef can't use?", valid: false }],
-            ["recipes", { menutitle: "Recipes", title: "Are there any recipes you'd like the chef to prepare?", valid: false }],
-            ["restaurants", { menutitle: "Restaurants", title: "What are some of your favorite restaurants?", valid: false }],
-            ["addlfridge", { menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?", valid: false }],
-            ["groceries", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?", valid: false }],
-            ["fusebox", { menutitle: "Fuse/Breaker Box", title: "Where is your fuse/breaker box?", valid: false }],
-            ["pets", { menutitle: "Pets", title: "Are there pets are in the household?", valid: false }],
-            ["comments", { menutitle: "Comments", title: "Any comments/concerns?", valid: true }]
+            ["contact", { menutitle: "Contact Info", title: "What is your contact information?" }],
+            ["address", { menutitle: "Cook Address", title: "At what address will the chef be cooking?" }],
+            ["people", { menutitle: "Members in Party", title: "Will there be additional people?" }],
+            ["health", { menutitle: "Health Info", title: "Just need to gather some health info..." }],
+            ["packaging", { menutitle: "Food Packaging", title: "How should I deliver the meals?" }],
+            ["beef", { menutitle: "Beef", title: "Do you like beef?" }],
+            ["chicken", { menutitle: "Chicken", title: "How about chicken?" }],
+            ["turkey", { menutitle: "Turkey", title: "Do you like turkey?" }],
+            ["lamb", { menutitle: "Lamb", title: "Are you okay with lamb?" }],
+            ["pork", { menutitle: "Pork", title: "Do you enjoy pork?" }],
+            ["seafood", { menutitle: "Seafood", title: "How about seafood?" }],
+            ["veggie", { menutitle: "Vegetarian", title: "Would you like any vegetarian meals?" }],
+            ["otherfoods", { menutitle: "Other Foods", title: "Additional foods..." }],
+            ["spicy", { menutitle: "Spice Tolerance", title: "How spicy do you like your meals?" }],
+            ["fhvlikes", { menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?" }],
+            ["fhvdislikes", { menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?" }],
+            ["greens", { menutitle: "Salads", title: "What are your favorite greens for salads?" }],
+            ["appliances", { menutitle: "Appliances", title: "Are there any kitchen appliances the chef can't use?" }],
+            ["recipes", { menutitle: "Recipes", title: "Are there any recipes you'd like the chef to prepare?" }],
+            ["restaurants", { menutitle: "Restaurants", title: "What are some of your favorite restaurants?" }],
+            ["addlfridge", { menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
+            ["groceries", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?" }],
+            ["fusebox", { menutitle: "Fuse/Breaker Box", title: "Where is your fuse/breaker box?" }],
+            ["pets", { menutitle: "Pets", title: "Are there pets are in the household?" }],
+            ["comments", { menutitle: "Comments", title: "Any comments/concerns?" }]
         ])
     );
 
-    const createPerson = (): Person => ({ id: getUuid(), fname: "", lname: "",  dob: "" });
-    const createPet = (): CustomerPet => ({ id: getUuid(), name: "", type: "", location: [] });
+    const createPerson = (): Person => ({ id: getUuid(), fname: null, mi: null, lname: null,  dob: null, email: null, phone: null });
+    const createPet = (): CustomerPet => ({ id: getUuid(), name: null, type: null, friendly: null, location: null });
 
     const [ assessment, updateAssessment ] = useState<Assessment>({
         contact: createPerson(),
-        address: { address1: "", city: "", state: "", zipcode: "" },
+        address: { address1: "", address2: null, city: "", state: "", zipcode: "" },
+        people: null,
         allergies: null,
+        lactoseInt: null,
         medical: null,
         dietPlan: null,
+        packaging: null,
+        container: null,
+        beefPrep: null,
+        chickenPrep: null,
+        likesTurkey: null,
+        likesLamb: null,
+        likesPork: null,
+        likesSeafood: null,
         seafoodDislikes: null,
+        likesVegetarian: null,
         otherFoods: null,
+        spiceLikes: null,
         fhvLikes: null,
         fhvDislikes: null,
         saladLikes: null,
         appliances: null,
         recipes: null,
         restaurants: null,
+        hasAddlFridge: null,
         groceryStores: null,
         fuseboxLocation: "",
+        pets: null,
         comments: null,
     });
 
@@ -160,26 +109,26 @@ export const AssessmentWizard: React.FC = () => {
     const [ likesChicken, setLikesChicken ] = useState<Boolean>();
     const [ likesSeafood, setLikesSeafood ] = useState<Boolean>();
 
-    const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1, () => { onUpdateAddress(); });
+    const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1 ?? "", () => { onUpdateAddress(); });
     const { value:address2, bind:bindAddress2 } = useInput(assessment.address.address2 ?? "", () => { onUpdateAddress(); });
-    const { value:city, bind:bindCity } = useInput(assessment.address.city, () => { onUpdateAddress(); });
-    const { value:state, bind:bindState } = useInput(assessment.address.state, () => { onUpdateAddress(); });
-    const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode, () => { onUpdateAddress(); });
-    
-    const { value:allergies , bind:bindAllergies  } = useInput(assessment.allergies ?? "", () => { updateAssessment({...assessment, ...{allergies: allergies}}) });
-    const { value:medical , bind:bindMedical  } = useInput(assessment.medical ?? "", () => { updateAssessment({...assessment, ...{medical: medical}}) });
-    const { value:dietPlan , bind:bindDietPlan  } = useInput(assessment.dietPlan ?? "", () => { updateAssessment({...assessment, ...{dietPlan: dietPlan}}) });
-    const { value:seafoodDislikes , bind:bindSeafoodDislikes  } = useInput(assessment.seafoodDislikes ?? "", () => { updateAssessment({...assessment, ...{seafoodDislikes: seafoodDislikes}}) });
-    const { value:otherFoods , bind:bindOtherFoods  } = useInput(assessment.otherFoods ?? "", () => { updateAssessment({...assessment, ...{otherFoods: otherFoods}}) });
-    const { value:fhvLikes , bind:bindFHVLikes  } = useInput(assessment.fhvLikes ?? "", () => { updateAssessment({...assessment, ...{fhvLikes: fhvLikes}}) });
-    const { value:fhvDislikes , bind:bindFHVDislikes  } = useInput(assessment.fhvDislikes ?? "", () => { updateAssessment({...assessment, ...{fhvDislikes: fhvDislikes}}) });
-    const { value:saladLikes , bind:bindSaladLikes  } = useInput(assessment.saladLikes ?? "", () => { updateAssessment({...assessment, ...{saladLikes: saladLikes}}) });
-    const { value:appliances , bind:bindAppliances  } = useInput(assessment.appliances ?? "", () => { updateAssessment({...assessment, ...{appliances: appliances}}) });
-    const { value:recipes , bind:bindRecipes  } = useInput(assessment.recipes ?? "", () => { updateAssessment({...assessment, ...{recipes: recipes}}) });
-    const { value:restaurants , bind:bindRestaurants  } = useInput(assessment.restaurants ?? "", () => { updateAssessment({...assessment, ...{restaurants: restaurants}}) });
-    const { value:groceryStores , bind:bindGroceryStores  } = useInput(assessment.groceryStores ?? "", () => { updateAssessment({...assessment, ...{groceryStores: groceryStores}}) });
-    const { value:fuseboxLocation , bind:bindFuseboxLocation  } = useInput(assessment.fuseboxLocation ?? "", () => { updateAssessment({...assessment, ...{fuseboxLocation: fuseboxLocation}}) });
-    const { value:comments , bind:bindComments  } = useInput(assessment.comments ?? "", () => { updateAssessment({...assessment, ...{comments: comments}}) });
+    const { value:city, bind:bindCity } = useInput(assessment.address.city ?? "", () => { onUpdateAddress(); });
+    const { value:state, bind:bindState } = useInput(assessment.address.state ?? "", () => { onUpdateAddress(); });
+    const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode ?? "", () => { onUpdateAddress(); });
+
+    const { value:allergies, bind:bindAllergies } = useInput(assessment.allergies ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{allergies: allergies}}))});
+    const { value:medical, bind:bindMedical } = useInput(assessment.medical ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{medical: medical}}))});
+    const { value:dietPlan, bind:bindDietPlan } = useInput(assessment.dietPlan ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{dietPlan: dietPlan}}))});
+    const { value:seafoodDislikes, bind:bindSeafoodDislikes } = useInput(assessment.seafoodDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{seafoodDislikes: seafoodDislikes}}))});
+    const { value:otherFoods, bind:bindOtherFoods } = useInput(assessment.otherFoods ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{otherFoods: otherFoods}}))});
+    const { value:fhvLikes, bind:bindFHVLikes } = useInput(assessment.fhvLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvLikes: fhvLikes}}))});
+    const { value:fhvDislikes, bind:bindFHVDislikes } = useInput(assessment.fhvDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvDislikes: fhvDislikes}}))});
+    const { value:saladLikes, bind:bindSaladLikes } = useInput(assessment.saladLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{saladLikes: saladLikes}}))});
+    const { value:appliances, bind:bindAppliances } = useInput(assessment.appliances ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{appliances: appliances}}))});
+    const { value:recipes, bind:bindRecipes } = useInput(assessment.recipes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{recipes: recipes}}))});
+    const { value:restaurants, bind:bindRestaurants } = useInput(assessment.restaurants ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{restaurants: restaurants}}))});
+    const { value:groceryStores, bind:bindGroceryStores } = useInput(assessment.groceryStores ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{groceryStores: groceryStores}}))});
+    const { value:comments, bind:bindComments } = useInput(assessment.comments ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{comments: comments}}))});
+    const { value:fuseboxLocation, bind:bindFuseboxLocation } = useInput(assessment.fuseboxLocation ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fuseboxLocation: fuseboxLocation}}))});
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
@@ -187,18 +136,118 @@ export const AssessmentWizard: React.FC = () => {
     const [stepIdx, setStepIdx] = useState(0);
     const getPctDone = () => ((stepIdx + 1) / totalSteps) * 100;
     const pctDone = useRef(getPctDone());
+
+    const formRef = createRef<HTMLFormElement>();
+
+    useEffect(() => { pctDone.current = getPctDone(); }, [stepIdx]);
+
+    const getPersonSchema = (isRequired: boolean) => {
+        const phoneValidator = mixed().test("phone", "Please enter a valid phone #.",
+            (value: string) => {
+                try {
+                    const phone = phoneUtil.parse(value, 'US');
+                    return phoneUtil.isValidNumber(phone);
+                } catch {
+                    return false;
+                }
+            });
     
+        const emailValidator = string().email();
+    
+        return object().shape({
+            fname: string().required("Please enter a first name.").nullable().default(null),
+            mi: string().matches(/^[a-zA-z]{1}$/, "Please enter a valid middle initial.").notRequired().nullable(),
+            lname: mixed().required("Please enter a last name.").nullable().default(null),
+            dob: date().nullable().notRequired(),
+            email: isRequired ? emailValidator.nullable().required("Please enter an email address.") : emailValidator.notRequired(),
+            phone: isRequired ? phoneValidator.nullable().required() : phoneValidator.notRequired(),
+        });
+    };
+    
+    const PetSchema = object().shape({
+        name: string().required().nullable(),
+        type: string().required().nullable(),
+        friendly: boolean().required().nullable(),
+        location: array().of(string()).min(1).nullable(),
+    });
+    
+    const assessmentValidator = object().shape({
+        contact: getPersonSchema(true).required(),
+        address: object().shape({
+            address1: string().required().nullable(),
+            address2: string().notRequired().nullable(),
+            city: string().required().nullable(),
+            state: string().length(2).required().nullable(),
+            zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required().nullable(),
+        }).required(),
+        people: array().of(getPersonSchema(false)).notRequired().nullable(),
+        allergies: mixed().test("test-allergies", "Please enter any allergies.", function(value: string) {
+            return hasAllergies !== undefined && (!hasAllergies || value !== "");
+        }),
+        lactoseInt: boolean().required("Please indicate if anyone is lactose intolerant.").nullable(),
+        medical: mixed().test("test-medical", "Please enter any current medical conditions.", function(value: string) {
+            return hasMedCondition !== undefined && (!hasMedCondition || value !== "");
+        }),
+        dietPlan: mixed().test("test-dietPlan", "Please enter any current diet plans.", function(value: string) {
+            return hasDietPlan !== undefined && (!hasDietPlan || value !== "");
+        }),
+        packaging: string().required("Please select how your food should be packaged.").nullable(),
+        container: string().required("Please select what type of containers to use.").nullable(),
+        beefPrep: array().of(string()).notRequired().nullable(),
+        chickenPrep: array().of(string()).notRequired().nullable(),
+        likesTurkey: boolean().required("Please indicate if you like turkey.").nullable(),
+        likesLamb: boolean().required("Please indicate if you like lamb.").nullable(),
+        likesPork: boolean().required("Please indicate if you like pork.").nullable(),
+        likesSeafood: boolean().required("Please indicate if you like seafood.").nullable(),
+        seafoodDislikes: string().notRequired().nullable(),    
+        likesVegetarian: boolean().required("Please indicate if you like vegetarian food.").nullable(),
+        otherFoods: string().notRequired().nullable(),
+        spiceLikes: array().of(string()).min(1).nullable(),
+        fhvLikes: string().notRequired().nullable(),
+        fhvDislikes: string().notRequired().nullable(),
+        saladLikes: string().notRequired().nullable(),
+        appliances: string().required().nullable(),
+        recipes: string().notRequired().nullable(),
+        restaurants: string().notRequired().nullable(),
+        hasAddlFridge: boolean().required("Please indicate if there is an additional fridge/freezer.").nullable(),
+        groceryStores: string().notRequired().nullable(),
+        fuseboxLocation: string().required("Please enter the location of the fuse/breaker box.").nullable(),
+        pets: array().of(PetSchema).notRequired().nullable(),
+        comments: string().notRequired().nullable(),
+    }).noUnknown();
+
     const getStepTitle = (): string => {
         const step: WizardStep | undefined = steps.get(stepOrder[stepIdx]);
         if (step) return step.title;
         return '';
     }
 
-    const moveNext = (e: FormEvent<HTMLButtonElement>) => {
+    const moveNext = async (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        if (stepIdx === totalSteps - 1) return;
-        pctDone.current = getPctDone();
+        if (stepIdx === totalSteps - 1 || stepIdx < 0) return;
+
+        const sectionName = stepOrder[stepIdx];
+        const currentStep = steps.get(sectionName);
+
+        if (!currentStep) return;
+
+        let errors: Map<string, string[]> | undefined;
+
+        switch (sectionName) {
+            case "health":
+                errors = isStepValid(["allergies", "lactoseInt", "medical", "dietPlan"]);
+                break;
+            case "packaging":
+                errors = isStepValid(["packaging", "container"]);
+                break;
+            default:
+                errors = isStepValid([sectionName]);
+                break;
+        }
+
+        updateSteps(oldSteps => oldSteps.set(sectionName, {...currentStep, ...{valid: !errors}}));
+
         setStepIdx(stepIdx + 1);
     };
 
@@ -221,20 +270,20 @@ export const AssessmentWizard: React.FC = () => {
     const onAddPerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updateAssessment({
-            ...assessment,
-            ...{ people: [...assessment.people ?? []].concat(createPerson()) }
-        });
+        updateAssessment(oldAssessment => ({
+            ...oldAssessment,
+            ...{ people: [...oldAssessment.people ?? []].concat(createPerson()) }
+        }));
     };
 
     const onRemovePerson = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         window.confirm("Are you sure you want to remove this person?") &&
-            updateAssessment({
-                ...assessment,
-                ...{ people: [...assessment.people ?? []].filter(person => person.id !== e.currentTarget.value) }
-            });
+            updateAssessment(oldAssessment => ({
+                ...oldAssessment,
+                ...{ people: [...oldAssessment.people ?? []].filter(person => person.id !== e.currentTarget.value) }
+            }));
     };
 
     const onUpdatePerson = (person: Person) => {
@@ -246,30 +295,30 @@ export const AssessmentWizard: React.FC = () => {
             
             newPeople[index] = person;
 
-            updateAssessment({
-                ...assessment,
+            updateAssessment(oldAssessment => ({
+                ...oldAssessment,
                 ...{ people: newPeople }
-            });
+            }));
         }
     };
 
     const onAddPet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        updateAssessment({
-            ...assessment,
-            ...{ pets: [...assessment.pets ?? []].concat(createPet()) }
-        });
+        updateAssessment(oldAssessment => ({
+            ...oldAssessment,
+            ...{ pets: [...oldAssessment.pets ?? []].concat(createPet()) }
+        }));
     };
 
     const onRemovePet = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         window.confirm("Are you sure you want to remove this pet?") &&
-            updateAssessment({
-                ...assessment,
-                ...{ pets: [...assessment.pets ?? []].filter(pet => pet.id !== e.currentTarget.value) }
-            });
+            updateAssessment(oldAssessment => ({
+                ...oldAssessment,
+                ...{ pets: [...oldAssessment.pets ?? []].filter(pet => pet.id !== e.currentTarget.value) }
+            }));
     };
 
     const onUpdatePet = (pet: CustomerPet) => {
@@ -281,34 +330,48 @@ export const AssessmentWizard: React.FC = () => {
 
             newPets[index] = pet;
 
-            updateAssessment({
-                ...assessment,
+            updateAssessment(oldAssessment => ({
+                ...oldAssessment,
                 ...{ pets: newPets }
-            });
+            }));
         }
     };
 
     const onUpdateContact = (person: Person) => {
-        updateAssessment({
-            ...assessment,
+        updateAssessment(oldAssessment => ({
+            ...oldAssessment,
             ...{ contact: person }
-        });
+        }));
     };
 
     const onUpdateAddress = () => {
-        updateAssessment({
-            ...assessment,
+        updateAssessment(oldAssessment => ({
+            ...oldAssessment,
             ...{ address: { address1: address1, address2: (address2.trim() === "") ? null : address2, city: city, state: state, zipcode: zipcode } }
-        });
+        }));
     }
 
     const complete = () => {
         setStepIdx(totalSteps);
 
-        //formRef.current && formRef.current.submit();
+    //    formRef.current && formRef.current.submit();
     };
 
     const getStepClass = (stepName: string): string => `step${stepOrder[stepIdx] === stepName ? " active" : ""}`
+
+    const isStepValid = (paths: string[]): Map<string, string[]> | undefined => {
+        const errors = new Map<string, string[]>();
+
+        paths.map((path) => {
+            try {
+                assessmentValidator.validateSyncAt(path, assessment);
+            } catch (err) {
+                errors.set(path, (err as ValidationError).errors)
+            }
+        });
+
+        return errors.size === 0 ? undefined : errors;
+    };
 
     return (
         <div className="assessment">
@@ -317,9 +380,16 @@ export const AssessmentWizard: React.FC = () => {
                     <div className="nav-title">Sections</div>
                     <ul className="nav-items">
                     {
-                        Array.from(steps.entries()).map((entry: [string, WizardStep], index) => (
-                            <li className={`${stepOrder[stepIdx] === entry[0] ? "active" : ""}`} key={entry[0]}><a onClick={ (e) => { moveTo(e, index); } }>{entry[1].menutitle}</a></li>
-                        ))
+                        Array.from(steps.entries()).map((entry: [string, WizardStep], index) => {
+                            let className = stepOrder[stepIdx] === entry[0] ? "active" : "";
+                            className += (entry[1].valid !== undefined && !entry[1].valid ? " invalid" : "").trim();
+
+                            return (
+                                <li key={entry[0]} className={className}>
+                                    <a onClick={ (e) => { moveTo(e, index); } }>{entry[1].menutitle}</a>
+                                </li>
+                            )
+                        })
                     }
                     </ul>
                 </div>
@@ -364,7 +434,7 @@ export const AssessmentWizard: React.FC = () => {
 
                     {/*<!-- Step Content -->*/}
                     <div className="py-10">	
-                        <form>
+                        <form ref={formRef}>
                             <div className={getStepClass("contact")}>
                                 <Contact person={assessment.contact} contactInfoOptional={false} onContactUpdate={onUpdateContact} />
                             </div>
@@ -439,7 +509,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are you lactose intolerant?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} values={assessment.lactoseInt ? [ assessment.lactoseInt.toString() ] : []} name={"islactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ lactoseInt: JSON.parse(values[0])}}) }} />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"islactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ lactoseInt: JSON.parse(values[0])}})); }} />
                                     </div>
                                 </div>
 
@@ -479,11 +549,12 @@ export const AssessmentWizard: React.FC = () => {
                                         <InputList type={InputTypeEnum.RadioButton}
                                                     name={"packagetype"}
                                                     items={AssessmentPackagingTypes}
+                                                    values={assessment.packaging ? [assessment.packaging] : []}
                                                     onChange={(values: string[]) => {
-                                                       updateAssessment({
-                                                           ...assessment,
+                                                       updateAssessment(oldAssessment => ({
+                                                           ...oldAssessment,
                                                            ...{ packaging: values[0] as AssessmentPackagingKeyTypes }})
-                                                    }} />
+                                                       )}} />
                                     </div>
                                 </div>
 
@@ -493,11 +564,12 @@ export const AssessmentWizard: React.FC = () => {
                                         <InputList type={InputTypeEnum.RadioButton}
                                             name={"container"}
                                             items={AssessmentContainerTypes}
+                                            values={assessment.container ? [assessment.container] : []}
                                             onChange={(values: string[]) => {
-                                                updateAssessment({
-                                                    ...assessment,
+                                                updateAssessment(oldAssessment => ({
+                                                    ...oldAssessment,
                                                     ...{ container: values[0] as AssessmentContainerKeyTypes }})
-                                            }} />
+                                                )}} />
                                         <div>
                                             <i>(a $100 one-time fee will be charged if the chef needs to purchase Pyrex for you)</i>                            
                                         </div>
@@ -518,8 +590,8 @@ export const AssessmentWizard: React.FC = () => {
                                             name={"beefprep"}
                                             items={AssessmentBeefPrep}
                                             onChange={(values: string[]) => {
-                                                updateAssessment({...assessment, ...{ beefPrep: values.map(value => value as AssessmentBeefKeyTypes) }})
-                                            }} />
+                                                updateAssessment(oldAssessment => ({...oldAssessment, ...{ beefPrep: values.map(value => value as AssessmentBeefKeyTypes) }})
+                                                )}} />
                                     </div>
                                 </div>
                             </div>
@@ -537,7 +609,7 @@ export const AssessmentWizard: React.FC = () => {
                                             name={"chickenprep"}
                                             items={AssessmentChickenPrep}
                                             onChange={(values: string[]) => {
-                                                updateAssessment({...assessment, ...{ chickenPrep: values.map(value => value as AssessmentChickenKeyTypes) }})
+                                                updateAssessment(oldAssessment => ({...oldAssessment, ...{ chickenPrep: values.map(value => value as AssessmentChickenKeyTypes) }}));
                                             }} />
                                     </div>
                                 </div>
@@ -547,7 +619,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("turkey") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesTurkey: JSON.parse(values[0])}}) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesTurkey: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
@@ -555,7 +627,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("lamb") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesLamb: JSON.parse(values[0])}}) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesLamb: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
@@ -563,7 +635,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("pork") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesPork: JSON.parse(values[0])}}) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesPork: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
@@ -583,13 +655,13 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("veggie") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ likesVeggie: JSON.parse(values[0])}}) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesVegetarian: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("othermeat") }>
+                            <div className={ getStepClass("otherfoods") }>
                                 <div className="field">
                                     <div>Is there anything else that you like that I haven't covered?</div>
                                     <textarea name={"othermeat"} className="form-textarea" rows={10} cols={96} {...bindOtherFoods}></textarea>
@@ -604,7 +676,7 @@ export const AssessmentWizard: React.FC = () => {
                                         name={"spicelikes"}
                                         items={AssessmentSpiceRanges}
                                         onChange={(values: string[]) => {
-                                            updateAssessment({...assessment, ...{ spiceLikes: values.map(value => value as AssessmentSpiceKeyTypes) }})
+                                            updateAssessment(oldAssessment => ({...oldAssessment, ...{ spiceLikes: values.map(value => value as AssessmentSpiceKeyTypes) }}));
                                         }} />
                                 </div>
                             </div>
@@ -661,7 +733,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("addlfridge") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment({...assessment, ...{ hasAddlFridge: JSON.parse(values[0])}}) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ hasAddlFridge: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 

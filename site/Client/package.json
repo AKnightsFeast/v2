@@ -6,6 +6,7 @@
         "@phuocng/react-pdf-viewer": "^1.5.0",
         "@tailwindcss/custom-forms": "^0.2.1",
         "@types/detect-passive-events": "^1.0.0",
+        "@types/google-libphonenumber": "^7.4.18",
         "@types/jest": "24.0.23",
         "@types/jquery": "^3.3.31",
         "@types/node": "12.12.7",
@@ -17,6 +18,7 @@
         "@types/yup": "^0.29.0",
         "axios": "^0.19.2",
         "detect-passive-events": "^1.0.4",
+        "google-libphonenumber": "^3.2.10",
         "history": "^4.10.1",
         "jquery": "^3.4.1",
         "pdfjs-dist": "^2.3.200",
@@ -37,7 +39,7 @@
         "typesafe-actions": "^5.1.0",
         "typescript": "3.7.2",
         "uuid": "^8.0.0",
-        "yup": "^0.29.0"
+        "yup": "^0.29.1"
     },
     "scripts": {
         "remimg": "@powershell If (Test-Path 'public\\assets\\img') { Remove-Item -LiteralPath 'public\\assets\\img' -Force -Recurse }",

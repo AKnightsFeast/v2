@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { useInput } from '../../utils';
-import { IIndexedControlProp } from '../../modules/types';
 import { InputTypeEnum, InputList } from '../../components/inputlist';
+import { CustomerPet, IIndexedControlProp } from '../../modules/types';
 import { YesNoBoolTypes, AssessmentPetLocationKeyTypes, AssessmentPetLocation } from '../../modules/records';
-
-import { CustomerPet } from '../../modules/types';
 
 interface IPetProp extends IIndexedControlProp {
     animal: CustomerPet,
@@ -16,8 +14,8 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
     const namePrefix = (index ? `Pets[${index}]` : "Pet") + ".";
     const [pet, updatePet] = useState<CustomerPet>(animal);
     
-    const { value:type, bind:bindType } = useInput(pet.type, () => { updateTextFields(); });
-    const { value:name, bind:bindName, /*reset:resetFName*/ } = useInput(pet.name, () => { updateTextFields(); });
+    const { value:type, bind:bindType } = useInput(pet.type ?? "", () => { updateTextFields(); });
+    const { value:name, bind:bindName, /*reset:resetFName*/ } = useInput(pet.name ?? "", () => { updateTextFields(); });
 
     useEffect(() => {
         onPetUpdate && onPetUpdate(pet);
@@ -36,8 +34,7 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
     }
 
     return (
-        <div className='cls'>
-            <input type='hidden' name='Pets.Index' value='index' />
+        <>
             <div className='field'>
                 <label title="Name">
                     <span>Name</span>
@@ -55,9 +52,9 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
                 </div>
                 <div className='field'>
                     <span>Normally stays</span>
-                    <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}.Location`} values={pet.location} items={AssessmentPetLocation} onChange={updateLocation} />
+                    <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}.Location`} values={pet.location ?? []} items={AssessmentPetLocation} onChange={updateLocation} />
                 </div>
             </div>
-        </div>
+        </>
     );
-}
+};

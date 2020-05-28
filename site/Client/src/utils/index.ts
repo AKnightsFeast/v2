@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useLayoutEffect, FormEvent } from 'react';
+import { useState, useEffect, useLayoutEffect, FormEvent } from 'react';
 
 import { Month } from '../modules/types';
 import { Months } from '../modules/data';
