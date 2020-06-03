@@ -42,24 +42,24 @@ export const AssessmentWizard: React.FC = () => {
             ["people", { menutitle: "Members in Party", title: "Will there be additional people?" }],
             ["health", { menutitle: "Health Info", title: "Just need to gather some health info..." }],
             ["packaging", { menutitle: "Food Packaging", title: "How should I deliver the meals?" }],
-            ["beef", { menutitle: "Beef", title: "Do you like beef?" }],
-            ["chicken", { menutitle: "Chicken", title: "How about chicken?" }],
-            ["turkey", { menutitle: "Turkey", title: "Do you like turkey?" }],
-            ["lamb", { menutitle: "Lamb", title: "Are you okay with lamb?" }],
-            ["pork", { menutitle: "Pork", title: "Do you enjoy pork?" }],
-            ["seafood", { menutitle: "Seafood", title: "How about seafood?" }],
-            ["veggie", { menutitle: "Vegetarian", title: "Would you like any vegetarian meals?" }],
-            ["otherfoods", { menutitle: "Other Foods", title: "Additional foods..." }],
-            ["spicy", { menutitle: "Spice Tolerance", title: "How spicy do you like your meals?" }],
-            ["fhvlikes", { menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?" }],
-            ["fhvdislikes", { menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?" }],
-            ["greens", { menutitle: "Salads", title: "What are your favorite greens for salads?" }],
+            ["beefPrep", { menutitle: "Beef", title: "Do you like beef?" }],
+            ["chickenPrep", { menutitle: "Chicken", title: "How about chicken?" }],
+            ["likesTurkey", { menutitle: "Turkey", title: "Do you like turkey?" }],
+            ["likesLamb", { menutitle: "Lamb", title: "Are you okay with lamb?" }],
+            ["likesPork", { menutitle: "Pork", title: "Do you enjoy pork?" }],
+            ["likesSeafood", { menutitle: "Seafood", title: "How about seafood?" }],
+            ["likesVegetarian", { menutitle: "Vegetarian", title: "Would you like any vegetarian meals?" }],
+            ["otherFoods", { menutitle: "Other Foods", title: "Additional foods..." }],
+            ["spiceLikes", { menutitle: "Spice Tolerance", title: "How spicy do you like your meals?" }],
+            ["fhvLikes", { menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?" }],
+            ["fhvDislikes", { menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?" }],
+            ["saladLikes", { menutitle: "Salads", title: "What are your favorite greens for salads?" }],
             ["appliances", { menutitle: "Appliances", title: "Are there any kitchen appliances the chef can't use?" }],
             ["recipes", { menutitle: "Recipes", title: "Are there any recipes you'd like the chef to prepare?" }],
             ["restaurants", { menutitle: "Restaurants", title: "What are some of your favorite restaurants?" }],
-            ["addlfridge", { menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
-            ["groceries", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?" }],
-            ["fusebox", { menutitle: "Fuse/Breaker Box", title: "Where is your fuse/breaker box?" }],
+            ["hasAddlFridge", { menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
+            ["groceryStores", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?" }],
+            ["fuseboxLocation", { menutitle: "Fuse/Breaker Box", title: "Where is your fuse/breaker box?" }],
             ["pets", { menutitle: "Pets", title: "Are there pets are in the household?" }],
             ["comments", { menutitle: "Comments", title: "Any comments/concerns?" }]
         ])
@@ -208,10 +208,10 @@ export const AssessmentWizard: React.FC = () => {
         packaging: string().required("Please select how your food should be packaged.").nullable(),
         container: string().required("Please select what type of containers to use.").nullable(),
         beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value: string[]) {
-            return likesBeef !== undefined && (!likesBeef || value.length > 0); 
+            return likesBeef !== undefined && (!likesBeef || (value !== null && value.length > 0)); 
         }),
         chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value: string[]) {
-            return likesChicken !== undefined && (!likesChicken || value.length > 0); 
+            return likesChicken !== undefined && (!likesChicken || (value !== null && value.length > 0)); 
         }),
         likesTurkey: boolean().required("Please indicate if you like turkey.").nullable(),
         likesLamb: boolean().required("Please indicate if you like lamb.").nullable(),
@@ -220,7 +220,9 @@ export const AssessmentWizard: React.FC = () => {
         seafoodDislikes: string().notRequired().nullable(),    
         likesVegetarian: boolean().required("Please indicate if you like vegetarian food.").nullable(),
         otherFoods: string().notRequired().nullable(),
-        spiceLikes: array().of(string()).min(1).nullable(),
+        spiceLikes: mixed().test("spiceLikes", "Please select at least one spice level you like.", function(value: string[]) {
+            return value !== null && value.length > 0;
+        }),
         fhvLikes: string().notRequired().nullable(),
         fhvDislikes: string().notRequired().nullable(),
         saladLikes: string().notRequired().nullable(),
@@ -488,7 +490,7 @@ export const AssessmentWizard: React.FC = () => {
                                     </label>
                                     <label>
                                         <span>State</span>
-                                        <select name={"address.state"} className="form-select" {...bindState}>
+                                        <select name={"address.state"} {...bindState}>
                                             <option></option>
                                         {
                                             States.map(state => (<option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>))
@@ -531,7 +533,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div className={`field conditional${hasAllergies ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea name="allergies" className="form-textarea" rows={10} cols={96} {...bindAllergies}></textarea>
+                                            <textarea name="allergies" rows={10} cols={96} {...bindAllergies}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -539,7 +541,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are you lactose intolerant?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} name={"islactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ lactoseInt: JSON.parse(values[0])}})); }} />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"lactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ lactoseInt: JSON.parse(values[0])}})); }} />
                                     </div>
                                 </div>
 
@@ -551,7 +553,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div className={`field conditional${hasMedCondition ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea name="medical" className="form-textarea" rows={10} cols={96} {...bindMedical}></textarea>
+                                            <textarea name="medical" rows={10} cols={96} {...bindMedical}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -564,7 +566,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div className={`field conditional${hasDietPlan ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea name="dietplan" className="form-textarea" rows={10} cols={96} {...bindDietPlan}></textarea>
+                                            <textarea name="dietplan" rows={10} cols={96} {...bindDietPlan}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -577,7 +579,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div>How should your meals be packaged?</div>
                                     <div className="field">
                                         <InputList type={InputTypeEnum.RadioButton}
-                                                    name={"packagetype"}
+                                                    name={"packaging"}
                                                     items={AssessmentPackagingTypes}
                                                     values={assessment.packaging ? [assessment.packaging] : []}
                                                     onChange={(values: string[]) => {
@@ -609,7 +611,7 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-                            <div className={ getStepClass("beef") }>
+                            <div className={ getStepClass("beefPrep") }>
                                 <div className="field">
                                     <InputList type={InputTypeEnum.RadioButton} name={"beef"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesBeef(JSON.parse(values[0])) }} />
                                 </div>
@@ -628,7 +630,7 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-                            <div className={ getStepClass("chicken") }>
+                            <div className={ getStepClass("chickenPrep") }>
                                 <div className="field">
                                     <InputList type={InputTypeEnum.RadioButton} name={"chicken"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesChicken(JSON.parse(values[0])) }} />
                                 </div>
@@ -647,60 +649,60 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-                            <div className={ getStepClass("turkey") }>
+                            <div className={ getStepClass("likesTurkey") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"turkey"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesTurkey: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likesturkey"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesTurkey: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("lamb") }>
+                            <div className={ getStepClass("likesLamb") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"lamb"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesLamb: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likeslamb"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesLamb: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("pork") }>
+                            <div className={ getStepClass("likesPork") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"pork"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesPork: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likespork"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesPork: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("seafood") }>
+                            <div className={ getStepClass("likesSeafood") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"seafood"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesSeafood: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likesseafood"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesSeafood: JSON.parse(values[0])}})); }} />
                                 </div>
                                 <div className={`field conditional${assessment.likesSeafood ? " active" : ""}`}>
                                     <div>What types of fish/shellfish don't you like?</div>
-                                    <textarea name={"seafooddislikes"} className="form-textarea" rows={10} cols={96} {...bindSeafoodDislikes}></textarea>
+                                    <textarea name={"seafooddislikes"} rows={10} cols={96} {...bindSeafoodDislikes}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("veggie") }>
+                            <div className={ getStepClass("likesVegetarian") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"likevegmeals"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesVegetarian: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likesvegetarian"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesVegetarian: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("otherfoods") }>
+                            <div className={ getStepClass("otherFoods") }>
                                 <div className="field">
                                     <div>Is there anything else that you like that I haven't covered?</div>
-                                    <textarea name={"othermeat"} className="form-textarea" rows={10} cols={96} {...bindOtherFoods}></textarea>
+                                    <textarea name={"otherfoods"} rows={10} cols={96} {...bindOtherFoods}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("spicy") }>
+                            <div className={ getStepClass("spiceLikes") }>
                                 <div className="field">
                                     <InputList type={InputTypeEnum.Checkbox}
                                         name={"spicelikes"}
@@ -713,25 +715,25 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-                            <div className={ getStepClass("fhvlikes") }>
+                            <div className={ getStepClass("fhvLikes") }>
                                 <div className="field">
-                                    <textarea name="fhvlikes" className="form-textarea" rows={10} cols={96} {...bindFHVLikes}></textarea>
+                                    <textarea name="fhvlikes" rows={10} cols={96} {...bindFHVLikes}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("fhvdislikes") }>
+                            <div className={ getStepClass("fhvDislikes") }>
                                 <div className="field">
-                                    <textarea name="fhvdislikes" className="form-textarea" rows={10} cols={96} {...bindFHVDislikes}></textarea>
+                                    <textarea name="fhvdislikes" rows={10} cols={96} {...bindFHVDislikes}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("greens") }>
+                            <div className={ getStepClass("saladLikes") }>
                                 <div className="field">
-                                    <textarea name="greens" className="form-textarea" rows={10} cols={96} {...bindSaladLikes}></textarea>
+                                    <textarea name="saladlikes" rows={10} cols={96} {...bindSaladLikes}></textarea>
                                 </div>
                             </div>
 
@@ -739,7 +741,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("appliances") }>
                                 <div className="field">
-                                    <textarea name="appliances" className="form-textarea" rows={10} cols={96} {...bindAppliances}></textarea>
+                                    <textarea name="appliances" rows={10} cols={96} {...bindAppliances}></textarea>
                                 </div>
                             </div>
 
@@ -747,7 +749,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("recipes") }>
                                 <div className="field">
-                                    <textarea name="recipes" className="form-textarea" rows={10} cols={96} {...bindRecipes}></textarea>
+                                    <textarea name="recipes" rows={10} cols={96} {...bindRecipes}></textarea>
                                 </div>
                             </div>
 
@@ -755,31 +757,31 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("restaurants") }>
                                 <div className="field">
-                                    <textarea name="restaurants" className="form-textarea" rows={10} cols={96} {...bindRestaurants}></textarea>
+                                    <textarea name="restaurants" rows={10} cols={96} {...bindRestaurants}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("addlfridge") }>
+                            <div className={ getStepClass("hasAddlFridge") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"addlfridge"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ hasAddlFridge: JSON.parse(values[0])}})); }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"hasaddlfridge"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ hasAddlFridge: JSON.parse(values[0])}})); }} />
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("groceries") }>
+                            <div className={ getStepClass("groceryStores") }>
                                 <div className="field">
-                                    <textarea name="groceries" className="form-textarea" rows={10} cols={96} {...bindGroceryStores}></textarea>
+                                    <textarea name="groceryStores" rows={10} cols={96} {...bindGroceryStores}></textarea>
                                 </div>
                             </div>
 
 
 
-                            <div className={ getStepClass("fusebox") }>
+                            <div className={ getStepClass("fuseboxLocation") }>
                                 <div className="field">
-                                    <textarea name="fusebox" className="form-textarea" rows={10} cols={96} {...bindFuseboxLocation}></textarea>
+                                    <textarea name="fuseboxlocation" rows={10} cols={96} {...bindFuseboxLocation}></textarea>
                                 </div>
                             </div>
 
@@ -805,7 +807,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("comments") }>
                                 <div className="field">
-                                    <textarea name="comments" className="form-textarea" rows={10} cols={96} {...bindComments}></textarea>
+                                    <textarea name="comments" rows={10} cols={96} {...bindComments}></textarea>
                                 </div>
                             </div>
                         </form>

@@ -135,6 +135,7 @@
     @apply text-gray-700;
 }
 
+.step .field textarea,
 .step .field input[type=text],
 .step .field input[type=email] {
     @apply px-4;
@@ -146,10 +147,18 @@
     @apply text-gray-600;
 }
 
+.step .field textarea,
 .step .field input[type=text]:focus,
 .step .field input[type=email]:focus {
     @apply outline-none;
     @apply shadow-outline;
+}
+
+.step .field textarea.error,
+.step .field input[type=text].error,
+.step .field input[type=email].error,
+.step .field input[type=radio].error {
+    @apply bg-red-300;
 }
 
 .assessment .button {

@@ -11,7 +11,7 @@ interface IPetProp extends IIndexedControlProp {
 }
 
 export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
-    const namePrefix = (index ? `pets[${index}]` : "pet") + ".";
+    const namePrefix = (index !== undefined ? `pets[${index}]` : "pet") + ".";
     const [pet, updatePet] = useState<CustomerPet>(animal);
     
     const { value:type, bind:bindType } = useInput(pet.type ?? "", () => { updateTextFields(); });
@@ -48,7 +48,7 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
             <div className='field row'>
                 <label title="Friendly?">
                     <span>Friendly?</span>
-                    <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}isfriendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
+                    <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}friendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
                 </label>
                 <label title="Normall Stays">
                     <span>Normally stays</span>

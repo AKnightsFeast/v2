@@ -9,7 +9,7 @@ interface IContactProp extends IIndexedControlProp {
 }
 
 export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate }) => {
-    const namePrefix = (index ? `people[${index}]` : "contact") + ".";
+    const namePrefix = (index !== undefined ? `people[${index}]` : "contact") + ".";
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
