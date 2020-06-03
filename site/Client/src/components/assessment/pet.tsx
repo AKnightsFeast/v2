@@ -11,7 +11,7 @@ interface IPetProp extends IIndexedControlProp {
 }
 
 export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
-    const namePrefix = (index ? `Pets[${index}]` : "Pet") + ".";
+    const namePrefix = (index ? `pets[${index}]` : "pet") + ".";
     const [pet, updatePet] = useState<CustomerPet>(animal);
     
     const { value:type, bind:bindType } = useInput(pet.type ?? "", () => { updateTextFields(); });
@@ -35,25 +35,25 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
 
     return (
         <>
-            <div className='field'>
+            <div className='field row'>
                 <label title="Name">
                     <span>Name</span>
-                    <input title='Name' type='text' name={`${namePrefix}.Name`} maxLength={30} style={{width: '250px'}} {...bindName} />
+                    <input title='Name' type='text' name={`${namePrefix}name`} maxLength={30} style={{width: '250px'}} {...bindName} />
                 </label>
                 <label title="Type/Breed">
                     <span>Type/Breed</span>
-                    <input title='Type/Breed' type='text' name={`${namePrefix}.Breed`} maxLength={50} style={{width: '380px'}} {...bindType} />
+                    <input title='Type/Breed' type='text' name={`${namePrefix}breed`} maxLength={50} style={{width: '380px'}} {...bindType} />
                 </label>
             </div>
-            <div className='field'>
-                <div className='field'>
+            <div className='field row'>
+                <label title="Friendly?">
                     <span>Friendly?</span>
-                    <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}.IsFriendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
-                </div>
-                <div className='field'>
+                    <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}isfriendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
+                </label>
+                <label title="Normall Stays">
                     <span>Normally stays</span>
-                    <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}.Location`} values={pet.location ?? []} items={AssessmentPetLocation} onChange={updateLocation} />
-                </div>
+                    <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}location`} values={pet.location ?? []} items={AssessmentPetLocation} onChange={updateLocation} />
+                </label>
             </div>
         </>
     );

@@ -5,19 +5,11 @@ import { Person, IIndexedControlProp } from '../../modules/types';
 
 interface IContactProp extends IIndexedControlProp {
     person: Person,
-    contactInfoOptional?: boolean,
     onContactUpdate?: (person: Person) => void,
 }
 
-type InputAttributes = {
-    type: string,
-    name: string,
-    placeholder: string,
-    binding: InputBinding,
-};
-
-export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOptional = true, onContactUpdate }) => {
-    const namePrefix = (index ? `People[${index}]` : "Contact") + ".";
+export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate }) => {
+    const namePrefix = (index ? `people[${index}]` : "contact") + ".";
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
@@ -32,20 +24,6 @@ export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOpti
     const { value:email, bind:bindEmail } = useInput(contact.email ?? "", () => { updateAssessment(); });
     const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
     const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname ?? "", () => { updateAssessment(); });
-
-    const emailAttributes: InputAttributes = {
-        type: "text",
-        name: `${namePrefix}Email`,
-        placeholder: "Email",
-        binding: bindEmail,
-    }
-
-    const phoneAttributes: InputAttributes = {
-        type: "text",
-        name: `${namePrefix}Phone`,
-        placeholder: "Phone #",
-        binding: bindPhone,
-    }
 
     const formatDOB = (e: FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
@@ -62,31 +40,31 @@ export const Contact: React.FC<IContactProp> = ({ index, person, contactInfoOpti
             <div className="field row">
                 <label>
                     <span>First Name</span>
-                    <input type="text" name={`${namePrefix}FirstName`} placeholder="First Name" {...bindFName} />
+                    <input type="text" name={`${namePrefix}fname`} placeholder="First Name" {...bindFName} />
                 </label>
                 <label title="Middle Initial">
                     <span>MI</span>
-                    <input type="text" name={`${namePrefix}MiddleInitial`} placeholder="MI" maxLength={1} {...bindMI} />
+                    <input type="text" name={`${namePrefix}mi`} placeholder="MI" maxLength={1} {...bindMI} />
                 </label>
                 <label>
                     <span>Last Name</span>
-                    <input type="text" name={`${namePrefix}LastName`} placeholder="Last Name" {...bindLName} />
+                    <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" {...bindLName} />
                 </label>
             </div>
             <div className="field">
                 <label title="Date of Birth">
                     <span>DOB</span>
-                    <input type="text" name={`${namePrefix}DOB`} placeholder="MM/DD/YYYY" {...bindDOB} onKeyUp={formatDOB} maxLength={10} />
+                    <input type="text" name={`${namePrefix}dob`} placeholder="MM/DD/YYYY" {...bindDOB} onKeyUp={formatDOB} maxLength={10} />
                 </label>
             </div>
             <div className="field col">
                 <label>
                     <span>Email</span>
-                    <input type="email" name={`${namePrefix}Email`} placeholder="Email" {...bindEmail} />
+                    <input type="email" name={`${namePrefix}email`} placeholder="Email" {...bindEmail} />
                 </label>
                 <label>
                     <span>Phone #</span>
-                    <input type="text" name={`${namePrefix}Phone`} placeholder="Phone" {...bindPhone} />
+                    <input type="text" name={`${namePrefix}phone`} placeholder="Phone" {...bindPhone} />
                 </label>
             </div>
         </>

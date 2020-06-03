@@ -18,11 +18,22 @@
     @apply py-10;
     @apply w-full;
     @apply mx-auto;
-    @apply max-w-3xl;
+    @apply max-w-6xl;
 }
 
 .assessment a {
     @apply cursor-pointer;
+}
+
+.assessment .nav {
+    @apply z-90;
+    @apply fixed;
+    @apply h-full;
+    @apply w-full;
+    @apply hidden;
+    @apply inset-0;
+    @apply border-b;
+    @apply bg-gray-100;
 }
 
 .assessment .nav .nav-wrapper {
@@ -80,6 +91,7 @@
 }
 
 .assessment .steps {
+    @apply p-4;
     @apply bg-gray-100;
 }
 

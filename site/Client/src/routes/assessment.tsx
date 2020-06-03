@@ -1,4 +1,4 @@
-import React, { useRef, createRef, useState, useEffect, MouseEvent, FormEvent } from 'react';
+import React, { useRef, createRef, useState, MouseEvent, FormEvent } from 'react';
 import { string, object, date, array, boolean, mixed, ValidationError } from 'yup';
 import libphonenumber from 'google-libphonenumber';
 import { NavLink } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { States } from  '../modules/data';
 import { Pet } from '../components/assessment/pet';
 import { Contact } from '../components/assessment/contact';
 
-import { useInput } from '../utils';
+import { useInput, useIsomorphicLayoutEffect } from '../utils';
 import { InputTypeEnum, InputList } from '../components/inputlist';
 import {
     YesNoBoolTypes,
@@ -28,9 +28,8 @@ import { Person, CustomerPet, Assessment } from '../modules/types';
 
 type WizardStep = {
     title: string,
-    valid?: boolean,
     menutitle: string,
-    errors?: ValidationError[],
+    errors?: Map<string, string>,
 };
 
 export const AssessmentWizard: React.FC = () => {
@@ -97,7 +96,7 @@ export const AssessmentWizard: React.FC = () => {
         restaurants: null,
         hasAddlFridge: null,
         groceryStores: null,
-        fuseboxLocation: "",
+        fuseboxLocation: null,
         pets: null,
         comments: null,
     });
@@ -114,31 +113,47 @@ export const AssessmentWizard: React.FC = () => {
     const { value:state, bind:bindState } = useInput(assessment.address.state ?? "", () => { onUpdateAddress(); });
     const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode ?? "", () => { onUpdateAddress(); });
 
-    const { value:allergies, bind:bindAllergies } = useInput(assessment.allergies ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{allergies: allergies}}))});
-    const { value:medical, bind:bindMedical } = useInput(assessment.medical ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{medical: medical}}))});
-    const { value:dietPlan, bind:bindDietPlan } = useInput(assessment.dietPlan ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{dietPlan: dietPlan}}))});
-    const { value:seafoodDislikes, bind:bindSeafoodDislikes } = useInput(assessment.seafoodDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{seafoodDislikes: seafoodDislikes}}))});
-    const { value:otherFoods, bind:bindOtherFoods } = useInput(assessment.otherFoods ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{otherFoods: otherFoods}}))});
-    const { value:fhvLikes, bind:bindFHVLikes } = useInput(assessment.fhvLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvLikes: fhvLikes}}))});
-    const { value:fhvDislikes, bind:bindFHVDislikes } = useInput(assessment.fhvDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvDislikes: fhvDislikes}}))});
-    const { value:saladLikes, bind:bindSaladLikes } = useInput(assessment.saladLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{saladLikes: saladLikes}}))});
-    const { value:appliances, bind:bindAppliances } = useInput(assessment.appliances ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{appliances: appliances}}))});
-    const { value:recipes, bind:bindRecipes } = useInput(assessment.recipes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{recipes: recipes}}))});
-    const { value:restaurants, bind:bindRestaurants } = useInput(assessment.restaurants ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{restaurants: restaurants}}))});
-    const { value:groceryStores, bind:bindGroceryStores } = useInput(assessment.groceryStores ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{groceryStores: groceryStores}}))});
-    const { value:comments, bind:bindComments } = useInput(assessment.comments ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{comments: comments}}))});
-    const { value:fuseboxLocation, bind:bindFuseboxLocation } = useInput(assessment.fuseboxLocation ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fuseboxLocation: fuseboxLocation}}))});
+    const { value:allergies, bind:bindAllergies } = useInput(assessment.allergies ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{allergies}}))});
+    const { value:medical, bind:bindMedical } = useInput(assessment.medical ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{medical}}))});
+    const { value:dietPlan, bind:bindDietPlan } = useInput(assessment.dietPlan ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{dietPlan}}))});
+    const { value:seafoodDislikes, bind:bindSeafoodDislikes } = useInput(assessment.seafoodDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{seafoodDislikes}}))});
+    const { value:otherFoods, bind:bindOtherFoods } = useInput(assessment.otherFoods ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{otherFoods}}))});
+    const { value:fhvLikes, bind:bindFHVLikes } = useInput(assessment.fhvLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvLikes}}))});
+    const { value:fhvDislikes, bind:bindFHVDislikes } = useInput(assessment.fhvDislikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fhvDislikes}}))});
+    const { value:saladLikes, bind:bindSaladLikes } = useInput(assessment.saladLikes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{saladLikes}}))});
+    const { value:appliances, bind:bindAppliances } = useInput(assessment.appliances ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{appliances}}))});
+    const { value:recipes, bind:bindRecipes } = useInput(assessment.recipes ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{recipes}}))});
+    const { value:restaurants, bind:bindRestaurants } = useInput(assessment.restaurants ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{restaurants}}))});
+    const { value:groceryStores, bind:bindGroceryStores } = useInput(assessment.groceryStores ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{groceryStores}}))});
+    const { value:comments, bind:bindComments } = useInput(assessment.comments ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{comments}}))});
+    const { value:fuseboxLocation, bind:bindFuseboxLocation } = useInput(assessment.fuseboxLocation ?? "", () => { updateAssessment(oldAssessment => ({...oldAssessment, ...{fuseboxLocation}}))});
 
     const totalSteps = steps.size;
     const stepOrder: string[] = Array.from(steps.keys());
-        
-    const [stepIdx, setStepIdx] = useState(0);
-    const getPctDone = () => ((stepIdx + 1) / totalSteps) * 100;
+    
+    const [stepIndex, setStepIndex] = useState(0);
+    const getPctDone = () => ((stepIndex + 1) / totalSteps) * 100;
     const pctDone = useRef(getPctDone());
 
     const formRef = createRef<HTMLFormElement>();
 
-    useEffect(() => { pctDone.current = getPctDone(); }, [stepIdx]);
+    useIsomorphicLayoutEffect(() => {
+        pctDone.current = getPctDone();
+
+        const currentStep = steps.get(stepOrder[stepIndex]);
+    
+        if (currentStep && currentStep.errors) {
+            Array.from(currentStep.errors.entries()).map(entry => {
+                const inputs = document.getElementsByName(entry[0].toLowerCase());
+                if (inputs) {
+                    inputs.forEach(element => {
+                        element.className = "error";
+                        element.title = entry[1];
+                    });
+                }
+            });
+        }
+    }, [stepIndex]);
 
     const getPersonSchema = (isRequired: boolean) => {
         const phoneValidator = mixed().test("phone", "Please enter a valid phone #.",
@@ -220,37 +235,19 @@ export const AssessmentWizard: React.FC = () => {
     }).noUnknown();
 
     const getStepTitle = (): string => {
-        const step: WizardStep | undefined = steps.get(stepOrder[stepIdx]);
+        const step: WizardStep | undefined = steps.get(stepOrder[stepIndex]);
         if (step) return step.title;
         return '';
-    }
+    };
 
-    const moveNext = async (e: FormEvent<HTMLButtonElement>) => {
+    const moveToStep = (e: FormEvent<HTMLButtonElement | HTMLAnchorElement>, invalidIndexCondition: boolean, moveToIndex: number) => {
         e.preventDefault();
 
-        if (stepIdx === totalSteps - 1 || stepIdx < 0) return;
+        if (invalidIndexCondition) return;
 
         validateCurrentStep();
 
-        setStepIdx(stepIdx + 1);
-    };
-
-    const movePrev = (e: FormEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        if (stepIdx === 0) return;
-        pctDone.current = getPctDone();
-        setStepIdx(stepIdx - 1);
-    };
-
-    const moveTo = (e: MouseEvent<HTMLAnchorElement>,  idx: number) => {
-        e.preventDefault();
-
-        if (idx < 0 || idx > totalSteps - 1) return;
-
-        validateCurrentStep();
-
-        setStepIdx(idx);
+        setStepIndex(moveToIndex);
     };
 
     const onAddPerson = (e: MouseEvent<HTMLButtonElement>) => {
@@ -274,16 +271,16 @@ export const AssessmentWizard: React.FC = () => {
 
     const onUpdatePerson = (person: Person) => {
         if (assessment.people) {
-            const newPeople = [...assessment.people];
-            const index = newPeople.findIndex(oldPerson => oldPerson.id === person.id);
+            const people = [...assessment.people];
+            const index = people.findIndex(oldPerson => oldPerson.id === person.id);
 
             if (index < 0) return;
             
-            newPeople[index] = person;
+            people[index] = person;
 
             updateAssessment(oldAssessment => ({
                 ...oldAssessment,
-                ...{ people: newPeople }
+                ...{ people }
             }));
         }
     };
@@ -323,10 +320,10 @@ export const AssessmentWizard: React.FC = () => {
         }
     };
 
-    const onUpdateContact = (person: Person) => {
+    const onUpdateContact = (contact: Person) => {
         updateAssessment(oldAssessment => ({
             ...oldAssessment,
-            ...{ contact: person }
+            ...{ contact }
         }));
     };
 
@@ -338,20 +335,33 @@ export const AssessmentWizard: React.FC = () => {
     }
 
     const complete = () => {
-        setStepIdx(totalSteps);
+        setStepIndex(totalSteps);
 
     //    formRef.current && formRef.current.submit();
     };
 
-    const getStepClass = (stepName: string): string => `step${stepOrder[stepIdx] === stepName ? " active" : ""}`
+    const getStepClass = (stepName: string): string => `step${stepOrder[stepIndex] === stepName ? " active" : ""}`;
 
     const validateCurrentStep = () => {
-        const sectionName = stepOrder[stepIdx];
+        const sectionName = stepOrder[stepIndex];
         const currentStep = steps.get(sectionName);
 
         if (!currentStep) return;
 
-        let errors: ValidationError[];
+        // clear the error states from the step's inputs
+        if (currentStep.errors) {
+            Array.from(currentStep.errors.entries()).map(entry => {
+                const inputs = document.getElementsByName(entry[0].toLowerCase());
+                if (inputs) {
+                    inputs.forEach(element => {
+                        element.removeAttribute("class");
+                        element.removeAttribute("title");
+                    });
+                }
+            });
+        }
+
+        let errors: Map<string, string> | undefined;
 
         switch (sectionName) {
             case "health":
@@ -365,17 +375,27 @@ export const AssessmentWizard: React.FC = () => {
                 break;
         }
 
-        updateSteps(oldSteps => oldSteps.set(sectionName, {...currentStep, ...{errors: errors, valid: errors.length === 0}}));
+        updateSteps(oldSteps => oldSteps.set(sectionName, {...currentStep, ...{errors}}));
     };
 
-    const isStepValid = (paths: string[]): ValidationError[] => {
-        let errors: ValidationError[] = [];
+    const isStepValid = (paths: string[]): (Map<string, string>) | undefined => {
+        let errors: (Map<string, string>) | undefined;
 
         paths.map((path) => {
             try {
                 assessmentValidator.validateSyncAt(path, assessment, {abortEarly: false});
-            } catch (err) {
-                errors = errors.concat((err as ValidationError).inner);
+            } catch (e) {
+                const vErr = e as ValidationError;
+
+                if (vErr.inner) {
+                    vErr.inner.map(ve => {
+                        if (errors === undefined) errors = new Map<string, string>();
+                        errors.set(ve.path, ve.message);
+                    });
+                } else {
+                    if (errors === undefined) errors = new Map<string, string>();
+                    errors.set(vErr.path, vErr.message);                    
+                }
             }
         });
 
@@ -384,18 +404,18 @@ export const AssessmentWizard: React.FC = () => {
 
     return (
         <div className="assessment">
-            <div className="nav fixed inset-0 h-full pt-24 bg-gray-100 z-90 w-full border-b -mb-16 lg:-mb-0 lg:static lg:h-auto lg:bg-transparent lg:overflow-y-visible lg:border-b-0 lg:pt-0 lg:w-1/4 lg:block lg:border-0 xl:w-1/5 hidden">
+            <div className="nav lg:-mb-0 lg:static lg:h-auto lg:bg-transparent lg:overflow-y-visible lg:border-b-0 lg:pt-0 lg:w-1/4 lg:block lg:border-0 xl:w-1/5">
                 <div className="nav-wrapper">
                     <div className="nav-title">Sections</div>
                     <ul className="nav-items">
                     {
                         Array.from(steps.entries()).map((entry: [string, WizardStep], index) => {
-                            let className = stepOrder[stepIdx] === entry[0] ? "active" : "";
-                            className += (entry[1].valid !== undefined && !entry[1].valid ? " invalid" : "").trim();
+                            let className = stepOrder[stepIndex] === entry[0] ? "active" : "";
+                            className += (entry[1].errors ? " invalid" : "");
 
                             return (
-                                <li key={entry[0]} className={className}>
-                                    <a onClick={ (e) => { moveTo(e, index); } }>{entry[1].menutitle}</a>
+                                <li key={entry[0]} className={className.trim()}>
+                                    <a onClick={ (e) => { moveToStep(e, index < 0 || index > totalSteps - 1, index); } }>{entry[1].menutitle}</a>
                                 </li>
                             )
                         })
@@ -406,9 +426,9 @@ export const AssessmentWizard: React.FC = () => {
 
 
 
-            <div className="steps">
+            <div className="steps w-3/4">
                 {/*<!-- Completion Step -->*/}
-                <div className={`flex-col items-center bg-white rounded-lg p-10 shadow justify-between step${stepIdx === totalSteps ? " active" : ""}`}>
+                <div className={`flex-col items-center bg-white rounded-lg p-10 shadow justify-between step${stepIndex === totalSteps ? " active" : ""}`}>
                     <svg className="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                     </svg>
@@ -421,10 +441,10 @@ export const AssessmentWizard: React.FC = () => {
                     <NavLink to="/" className="button">Back to home</NavLink>
                 </div>
 
-                <div className={`${stepIdx === totalSteps ? "hidden" : ""}`}>
+                <div className={`${stepIndex === totalSteps ? "hidden" : ""}`}>
                     {/*<!-- Top Navigation -->*/}
                     <div className="border-b-2 py-4">
-                        <div className="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {stepIdx + 1} of {totalSteps}</div>
+                        <div className="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {stepIndex + 1} of {totalSteps}</div>
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                             <div className="flex-1">
                                 <div>
@@ -445,7 +465,7 @@ export const AssessmentWizard: React.FC = () => {
                     <div className="py-10">	
                         <form ref={formRef}>
                             <div className={getStepClass("contact")}>
-                                <Contact person={assessment.contact} contactInfoOptional={false} onContactUpdate={onUpdateContact} />
+                                <Contact person={assessment.contact} onContactUpdate={onUpdateContact} />
                             </div>
 
 
@@ -469,6 +489,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <label>
                                         <span>State</span>
                                         <select name={"address.state"} className="form-select" {...bindState}>
+                                            <option></option>
                                         {
                                             States.map(state => (<option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>))
                                         }
@@ -487,15 +508,15 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <button className="button" onClick={onAddPerson}>Add Person</button>
                                 </div>
-                                <div className="field">
-                                    {
-                                        (assessment.people ?? []).map((person, index) => (
-                                            <div key={person.id}>
-                                                <div><button value={person.id} onClick={onRemovePerson}>Remove Person</button></div>
-                                                <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
-                                            </div>
-                                        ))
-                                    }
+                                <div>
+                                {
+                                    (assessment.people ?? []).map((person, index) => (
+                                        <div key={person.id}>
+                                            <div><button value={person.id} onClick={onRemovePerson}>Remove Person</button></div>
+                                            <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
+                                        </div>
+                                    ))
+                                }
                                 </div>
                             </div>
 
@@ -530,7 +551,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div className={`field conditional${hasMedCondition ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea className="form-textarea" rows={10} cols={96} {...bindMedical}></textarea>
+                                            <textarea name="medical" className="form-textarea" rows={10} cols={96} {...bindMedical}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -543,7 +564,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <div className={`field conditional${hasDietPlan ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
-                                            <textarea className="form-textarea" rows={10} cols={96} {...bindDietPlan}></textarea>
+                                            <textarea name="dietplan" className="form-textarea" rows={10} cols={96} {...bindDietPlan}></textarea>
                                         </label>
                                     </div>
                                 </div>
@@ -694,7 +715,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fhvlikes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFHVLikes}></textarea>
+                                    <textarea name="fhvlikes" className="form-textarea" rows={10} cols={96} {...bindFHVLikes}></textarea>
                                 </div>
                             </div>
 
@@ -702,7 +723,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fhvdislikes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFHVDislikes}></textarea>
+                                    <textarea name="fhvdislikes" className="form-textarea" rows={10} cols={96} {...bindFHVDislikes}></textarea>
                                 </div>
                             </div>
 
@@ -710,7 +731,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("greens") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindSaladLikes}></textarea>
+                                    <textarea name="greens" className="form-textarea" rows={10} cols={96} {...bindSaladLikes}></textarea>
                                 </div>
                             </div>
 
@@ -718,7 +739,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("appliances") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindAppliances}></textarea>
+                                    <textarea name="appliances" className="form-textarea" rows={10} cols={96} {...bindAppliances}></textarea>
                                 </div>
                             </div>
 
@@ -726,7 +747,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("recipes") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindRecipes}></textarea>
+                                    <textarea name="recipes" className="form-textarea" rows={10} cols={96} {...bindRecipes}></textarea>
                                 </div>
                             </div>
 
@@ -734,7 +755,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("restaurants") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindRestaurants}></textarea>
+                                    <textarea name="restaurants" className="form-textarea" rows={10} cols={96} {...bindRestaurants}></textarea>
                                 </div>
                             </div>
 
@@ -750,7 +771,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("groceries") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindGroceryStores}></textarea>
+                                    <textarea name="groceries" className="form-textarea" rows={10} cols={96} {...bindGroceryStores}></textarea>
                                 </div>
                             </div>
 
@@ -758,7 +779,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("fusebox") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindFuseboxLocation}></textarea>
+                                    <textarea name="fusebox" className="form-textarea" rows={10} cols={96} {...bindFuseboxLocation}></textarea>
                                 </div>
                             </div>
 
@@ -768,15 +789,15 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <button className="button" onClick={ onAddPet }>Add Pet</button>
                                 </div>
-                                <div className="field">
-                                    {
-                                        (assessment.pets ?? []).map((pet, index) => (
-                                            <div key={pet.id}>
-                                                <div><button value={pet.id} onClick={onRemovePet}>Remove Pet</button></div>
-                                                <Pet animal={pet} onPetUpdate={onUpdatePet} />
-                                            </div>
-                                        ))
-                                    }
+                                <div>
+                                {
+                                    (assessment.pets ?? []).map((pet, index) => (
+                                        <div key={pet.id}>
+                                            <div><button value={pet.id} onClick={onRemovePet}>Remove Pet</button></div>
+                                            <Pet index={index} animal={pet} onPetUpdate={onUpdatePet} />
+                                        </div>
+                                    ))
+                                }
                                 </div>
                             </div>
 
@@ -784,7 +805,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("comments") }>
                                 <div className="field">
-                                    <textarea className="form-textarea" rows={10} cols={96} {...bindComments}></textarea>
+                                    <textarea name="comments" className="form-textarea" rows={10} cols={96} {...bindComments}></textarea>
                                 </div>
                             </div>
                         </form>
@@ -796,20 +817,20 @@ export const AssessmentWizard: React.FC = () => {
                             <div className="flex justify-between">
                                 <div className="w-1/2">
                                     <button
-                                        onClick={movePrev}
-                                        className={`w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border${stepIdx === 0 ? " hidden" : ""}`}
+                                        onClick={(e) => moveToStep(e, stepIndex === 0, stepIndex - 1)}
+                                        className={`w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border${stepIndex === 0 ? " hidden" : ""}`}
                                     >Previous</button>
                                 </div>
 
                                 <div className="w-1/2 text-right">
                                     <button
-                                        onClick={moveNext}
-                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIdx >= totalSteps - 1 ? " hidden" : ""}`}
+                                        onClick={(e) => moveToStep(e, stepIndex === totalSteps - 1 || stepIndex < 0, stepIndex + 1)}
+                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIndex >= totalSteps - 1 ? " hidden" : ""}`}
                                     >Next</button>
 
                                     <button
                                         onClick={complete}
-                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIdx < totalSteps - 1 ? " hidden" : ""}`}
+                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIndex < totalSteps - 1 ? " hidden" : ""}`}
                                     >Complete</button>
                                 </div>
                             </div>

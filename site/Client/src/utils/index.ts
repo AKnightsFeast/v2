@@ -1,4 +1,5 @@
-import { useState, useEffect, useLayoutEffect, FormEvent } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect, FormEvent } from 'react';
+//import { throttle } from 'throttle-debounce';
 
 import { Month } from '../modules/types';
 import { Months } from '../modules/data';
@@ -323,8 +324,12 @@ export type InputBinding = {
 // https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
 export const useInput = (initialValue: string, onChange: () => void): { value: string, bind: InputBinding } => {
     const [value, setValue] = useState(initialValue);
+    const timeoutId = useRef<any | undefined>();
 
-    useEffect(() => { onChange(); }, [value]);
+    useIsomorphicLayoutEffect(() => {
+        clearTimeout(timeoutId.current);
+        timeoutId.current = setTimeout(() => { onChange(); }, 800);
+    }, [value]);
 
     return {
         value,

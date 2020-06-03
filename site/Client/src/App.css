@@ -3027,7 +3027,7 @@ text-decoration: none
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 48rem;
+  max-width: 72rem;
 }
 
 .assessment a {
@@ -3096,6 +3096,7 @@ text-decoration: none
 }
 
 .assessment .steps {
+  padding: 1rem;
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
