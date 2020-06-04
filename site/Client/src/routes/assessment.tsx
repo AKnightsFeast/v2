@@ -219,7 +219,7 @@ export const AssessmentWizard: React.FC = () => {
         container: string().required("Please select what type of containers to use.").nullable(),
         beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value: string[]) {
             if (likesBeef === undefined) return this.createError({ path: "likesbeef", message: "Please indicate if you like beef."});
-            return (likesBeef === false || (value !== null && value.length > 0)); 
+            return likesBeef === false || (value !== null && value.length > 0); 
         }),
         chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value: string[]) {
             if (likesChicken === undefined) return this.createError({ path: "likeschicken", message: "Please indicate if you like chicken."});
