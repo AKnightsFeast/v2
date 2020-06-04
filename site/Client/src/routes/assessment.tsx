@@ -102,7 +102,7 @@ export const AssessmentWizard: React.FC = () => {
     });
 
     const [ hasAllergies, setHasAllergies ] = useState<boolean>();
-    const [ hasMedCondition, setHasMedCondition ] = useState<boolean>();
+    const [ hasMedConditions, setHasMedCondition ] = useState<boolean>();
     const [ hasDietPlan, setHasDietPlan ] = useState<boolean>();
     const [ likesBeef, setLikesBeef ] = useState<Boolean>();
     const [ likesChicken, setLikesChicken ] = useState<Boolean>();
@@ -149,6 +149,13 @@ export const AssessmentWizard: React.FC = () => {
                     inputs.forEach(element => {
                         element.className = "error";
                         element.title = entry[1];
+
+                        const typeName = element.getAttribute("type")?.toLowerCase();
+
+                        if (typeName === "radio" || typeName === "checkbox") {
+                            let inputContainer: HTMLElement | null | undefined;
+                            (inputContainer = element.parentElement?.parentElement) && (inputContainer.className += " error");
+                        }
                     });
                 }
             });
@@ -195,23 +202,28 @@ export const AssessmentWizard: React.FC = () => {
             zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required().nullable(),
         }).required(),
         people: array().of(getPersonSchema(false)).notRequired().nullable(),
-        allergies: mixed().test("allergies", "Please enter any allergies.", function(value: string) {
-            return hasAllergies !== undefined && (!hasAllergies || value !== "");
+        allergies: mixed().test("allergies", "Please enter any food allergies.", function(value: string) {
+            if (hasAllergies === undefined) return this.createError({ path: "hasallergies", message: "Please indicate if you currently have any food allergies."});
+            return hasAllergies === false || (value || "") !== "";
         }),
         lactoseInt: boolean().required("Please indicate if anyone is lactose intolerant.").nullable(),
         medical: mixed().test("medical", "Please enter any current medical conditions.", function(value: string) {
-            return hasMedCondition !== undefined && (!hasMedCondition || value !== "");
+            if (hasMedConditions === undefined) return this.createError({ path: "hasmedconditions", message: "Please indicate if you currently have any medical conditions."});
+            return hasMedConditions === false || (value || "") !== "";
         }),
         dietPlan: mixed().test("dietPlan", "Please enter any current diet plans.", function(value: string) {
-            return hasDietPlan !== undefined && (!hasDietPlan || value !== "");
+            if (hasDietPlan === undefined) return this.createError({ path: "hasdietplan", message: "Please indicate if you are currently on a diet plan."});
+            return hasDietPlan === false || (value || "") !== "";
         }),
         packaging: string().required("Please select how your food should be packaged.").nullable(),
         container: string().required("Please select what type of containers to use.").nullable(),
         beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value: string[]) {
-            return likesBeef !== undefined && (!likesBeef || (value !== null && value.length > 0)); 
+            if (likesBeef === undefined) return this.createError({ path: "likesbeef", message: "Please indicate if you like beef."});
+            return (likesBeef === false || (value !== null && value.length > 0)); 
         }),
         chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value: string[]) {
-            return likesChicken !== undefined && (!likesChicken || (value !== null && value.length > 0)); 
+            if (likesChicken === undefined) return this.createError({ path: "likeschicken", message: "Please indicate if you like chicken."});
+            return likesChicken === false || (value !== null && value.length > 0); 
         }),
         likesTurkey: boolean().required("Please indicate if you like turkey.").nullable(),
         likesLamb: boolean().required("Please indicate if you like lamb.").nullable(),
@@ -358,6 +370,13 @@ export const AssessmentWizard: React.FC = () => {
                     inputs.forEach(element => {
                         element.removeAttribute("class");
                         element.removeAttribute("title");
+
+                        const typeName = element.getAttribute("type")?.toLowerCase();
+
+                        if (typeName === "radio" || typeName === "checkbox") {
+                            let inputContainer: HTMLElement | null | undefined;
+                            (inputContainer = element.parentElement?.parentElement) && (inputContainer.className = inputContainer.className.replace(" error", ""));
+                        }
                     });
                 }
             });
@@ -406,7 +425,7 @@ export const AssessmentWizard: React.FC = () => {
 
     return (
         <div className="assessment">
-            <div className="nav lg:-mb-0 lg:static lg:h-auto lg:bg-transparent lg:overflow-y-visible lg:border-b-0 lg:pt-0 lg:w-1/4 lg:block lg:border-0 xl:w-1/5">
+            <div className="nav xl:w-1/5">
                 <div className="nav-wrapper">
                     <div className="nav-title">Sections</div>
                     <ul className="nav-items">
@@ -528,7 +547,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are there any allergies in your family?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} name={"haveallergies"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasAllergies(JSON.parse(values[0])); }} />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"hasallergies"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasAllergies(JSON.parse(values[0])); }} />
                                     </div>
                                     <div className={`field conditional${hasAllergies ? " active" : ""}`}>
                                         <label>
@@ -548,9 +567,9 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are there any medical conditions in your family?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} name={"havemedconditions"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasMedCondition(JSON.parse(values[0])) }} />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"hasmedconditions"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasMedCondition(JSON.parse(values[0])) }} />
                                     </div>
-                                    <div className={`field conditional${hasMedCondition ? " active" : ""}`}>
+                                    <div className={`field conditional${hasMedConditions ? " active" : ""}`}>
                                         <label>
                                             <span>Please explain</span>
                                             <textarea name="medical" rows={10} cols={96} {...bindMedical}></textarea>
@@ -561,7 +580,7 @@ export const AssessmentWizard: React.FC = () => {
                                 <div>
                                     <div>Are you planning to follow or currently following any specific diet plan?</div>
                                     <div className="field">
-                                        <InputList type={InputTypeEnum.RadioButton} name={"havedietplan"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasDietPlan(JSON.parse(values[0])) }} />
+                                        <InputList type={InputTypeEnum.RadioButton} name={"hasdietplan"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasDietPlan(JSON.parse(values[0])) }} />
                                     </div>
                                     <div className={`field conditional${hasDietPlan ? " active" : ""}`}>
                                         <label>
@@ -613,7 +632,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("beefPrep") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"beef"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesBeef(JSON.parse(values[0])) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likesbeef"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesBeef(JSON.parse(values[0])) }} />
                                 </div>
                                 <div className={`field conditional${likesBeef ? " active" : ""}`}>
                                     <div>How do you like it prepared?</div>
@@ -632,7 +651,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("chickenPrep") }>
                                 <div className="field">
-                                    <InputList type={InputTypeEnum.RadioButton} name={"chicken"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesChicken(JSON.parse(values[0])) }} />
+                                    <InputList type={InputTypeEnum.RadioButton} name={"likeschicken"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesChicken(JSON.parse(values[0])) }} />
                                 </div>
                                 <div className={`field conditional${likesChicken ? " active" : ""}`}>
                                     <div>How do you like it prepared?</div>

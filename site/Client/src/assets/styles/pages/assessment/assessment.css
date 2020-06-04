@@ -26,11 +26,10 @@
 }
 
 .assessment .nav {
-    @apply z-90;
+    @apply z-50;
     @apply fixed;
     @apply h-full;
     @apply w-full;
-    @apply hidden;
     @apply inset-0;
     @apply border-b;
     @apply bg-gray-100;
@@ -60,9 +59,9 @@
 
 .assessment .nav .nav-wrapper .nav-title {
     @apply pb-1;
+    @apply border-b;
     @apply font-bold;
     @apply border-pink-600;
-    border-bottom-width: 1px;
 }
 
 .assessment .nav .nav-wrapper .nav-items {
@@ -71,7 +70,7 @@
 
 .assessment .nav .nav-wrapper .nav-items li {
     @apply pl-2;
-    border-left-width: 1px;
+    @apply border-l;
     @apply border-transparent;
 }
 
@@ -135,6 +134,7 @@
     @apply text-gray-700;
 }
 
+.step .field select,
 .step .field textarea,
 .step .field input[type=text],
 .step .field input[type=email] {
@@ -154,11 +154,40 @@
     @apply shadow-outline;
 }
 
+.step .field .inputlist {
+    @apply flex;
+    @apply items-center;
+    @apply justify-start;
+}
+
+.step .field .inputlist-item {
+    @apply mr-4;
+    @apply pl-4;
+    @apply pr-6;
+    @apply py-3;
+    @apply bg-white;
+    @apply shadow-sm;
+    @apply rounded-lg;
+}
+
+.step .field select.error,
 .step .field textarea.error,
+.step .field .inputlist-item.error,
 .step .field input[type=text].error,
-.step .field input[type=email].error,
-.step .field input[type=radio].error {
-    @apply bg-red-300;
+.step .field input[type=email].error {
+    @apply bg-pink-200;
+}
+
+.step .field textarea.error::placeholder,
+.step .field textarea.error:-ms-input-placeholder,
+.step .field textarea.error::-ms-input-placeholder,
+.step .field input[type=text].error::placeholder,
+.step .field input[type=text].error:-ms-input-placeholder,
+.step .field input[type=text].error::-ms-input-placeholder,
+.step .field input[type=email].error::placeholder,
+.step .field input[type=email].error:-ms-input-placeholder,
+.step .field input[type=email].error::-ms-input-placeholder {
+    @apply text-gray-500;
 }
 
 .assessment .button {
@@ -182,4 +211,19 @@
 
 .assessment .button:hover {
     @apply bg-gray-100;
+}
+
+@screen lg {
+    .assessment .nav {
+        @apply mb-0;
+        @apply static;
+        @apply h-auto;
+        @apply bg-transparent;
+        @apply overflow-y-visible;
+        @apply border-b-0;
+        @apply pt-0;
+        @apply w-1/4;
+        @apply block;
+        @apply border-0;
+    }
 }

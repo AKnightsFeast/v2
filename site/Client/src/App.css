@@ -3034,6 +3034,21 @@ text-decoration: none
   cursor: pointer;
 }
 
+.assessment .nav {
+  z-index: 50;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
 .assessment .nav .nav-wrapper {
   /* @apply h-full;
     /* @apply overflow-y-auto;
@@ -3058,11 +3073,11 @@ text-decoration: none
 
 .assessment .nav .nav-wrapper .nav-title {
   padding-bottom: 0.25rem;
+  border-bottom-width: 1px;
   font-weight: 700;
   --border-opacity: 1;
   border-color: #d53f8c;
   border-color: rgba(213, 63, 140, var(--border-opacity));
-  border-bottom-width: 1px;
 }
 
 .assessment .nav .nav-wrapper .nav-items {
@@ -3144,6 +3159,8 @@ text-decoration: none
   color: rgba(74, 85, 104, var(--text-opacity));
 }
 
+.step .field select,
+.step .field textarea,
 .step .field input[type=text],
 .step .field input[type=email] {
   padding-left: 1rem;
@@ -3159,10 +3176,60 @@ text-decoration: none
   color: rgba(113, 128, 150, var(--text-opacity));
 }
 
+.step .field textarea,
 .step .field input[type=text]:focus,
 .step .field input[type=email]:focus {
   outline: 0;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.step .field .inputlist {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.step .field .inputlist-item {
+  margin-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}
+
+.step .field select.error,
+.step .field textarea.error,
+.step .field .inputlist-item.error,
+.step .field input[type=text].error,
+.step .field input[type=email].error {
+  --bg-opacity: 1;
+  background-color: #fed7e2;
+  background-color: rgba(254, 215, 226, var(--bg-opacity));
+}
+
+.step .field textarea.error:-ms-input-placeholder, .step .field input[type=text].error:-ms-input-placeholder, .step .field input[type=email].error:-ms-input-placeholder {
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
+}
+
+.step .field textarea.error::placeholder,
+.step .field textarea.error:-ms-input-placeholder,
+.step .field textarea.error::-ms-input-placeholder,
+.step .field input[type=text].error::placeholder,
+.step .field input[type=text].error:-ms-input-placeholder,
+.step .field input[type=text].error::-ms-input-placeholder,
+.step .field input[type=email].error::placeholder,
+.step .field input[type=email].error:-ms-input-placeholder,
+.step .field input[type=email].error::-ms-input-placeholder {
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
 }
 
 .assessment .button {
@@ -3195,6 +3262,21 @@ text-decoration: none
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+@media (min-width: 1024px) {
+  .assessment .nav {
+    margin-bottom: 0;
+    position: static;
+    height: auto;
+    background-color: transparent;
+    overflow-y: visible;
+    border-bottom-width: 0;
+    padding-top: 0;
+    width: 25%;
+    display: block;
+    border-width: 0;
+  }
 }
 
 /**

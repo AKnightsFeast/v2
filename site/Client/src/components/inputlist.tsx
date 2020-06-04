@@ -74,10 +74,10 @@ export const InputList: React.FC<InputListProp> = ({ name, values = [], items, t
     }
 
     return (
-        <div className="flex justify-start items-center text-truncate">
+        <div className="inputlist text-truncate">
         {
             inputOptions.map(io => (
-                <div key={`${name}_${io.value}`} className="rounded-lg bg-white shadow-sm mr-4 pl-4 pr-6 py-3">
+                <div key={`${name}_${io.value}`} className="inputlist-item">
                     <div className={`${rbClassName} `}>
                         <input type={inputType} name={name} value={io.value} checked={io.value ? selectedValues.indexOf(io.value) > -1 : undefined} onChange={onItemClick} />
                         <div className="state p-primary-o">
