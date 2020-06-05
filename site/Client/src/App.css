@@ -3017,7 +3017,7 @@ text-decoration: none
 }
 
 .assessment {
-  display: flex;
+  /*@apply flex;*/
   margin-top: 1.5rem;
   margin-bottom: 10rem;
   padding-left: 1rem;
@@ -3056,11 +3056,11 @@ text-decoration: none
     /* @apply scrolling-touch;
 
     /* @apply bg-gray-100; */
-  top: 97px;
-  height: auto;
+  /*top: 97px;*/
   display: block;
-  position: relative;
+  height: auto;
   position: sticky;
+  position: relative;
   background-color: transparent;
 }
 
@@ -3100,21 +3100,82 @@ text-decoration: none
   border-color: rgba(213, 63, 140, var(--border-opacity));
 }
 
-.assessment .nav .nav-wrapper .nav-items li.invalid {
+.assessment .nav .nav-wrapper .nav-items li.error {
   --text-opacity: 1;
-  color: #f56565;
-  color: rgba(245, 101, 101, var(--text-opacity));
+  color: #d53f8c;
+  color: rgba(213, 63, 140, var(--text-opacity));
 }
 
 .assessment .nav .nav-wrapper .nav-items li ~ li {
   margin-top: 0.25rem;
 }
 
-.assessment .steps {
+.steps {
   padding: 1rem;
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.steps .buttons {
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  bottom: 0;
+  max-width: 48rem;
+  justify-content: space-between;
+}
+
+.steps .buttons .button {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 8rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  outline: 0;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.steps .buttons .button:hover {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.steps .buttons .button.hidden {
+  display: none;
+}
+
+.steps .buttons .button.color {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #ed64a6;
+  background-color: rgba(237, 100, 166, var(--bg-opacity));
+  border-color: transparent;
+}
+
+.steps .buttons .button.color:hover {
+  --bg-opacity: 1;
+  background-color: #d53f8c;
+  background-color: rgba(213, 63, 140, var(--bg-opacity));
 }
 
 .step,
@@ -3267,15 +3328,15 @@ text-decoration: none
 @media (min-width: 1024px) {
   .assessment .nav {
     margin-bottom: 0;
-    position: static;
-    height: auto;
-    background-color: transparent;
-    overflow-y: visible;
-    border-bottom-width: 0;
     padding-top: 0;
     width: 25%;
     display: block;
+    position: static;
+    height: auto;
     border-width: 0;
+    border-bottom-width: 0;
+    background-color: transparent;
+    overflow-y: visible;
   }
 }
 

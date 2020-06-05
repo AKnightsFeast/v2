@@ -10,7 +10,7 @@
 }
 
 .assessment {
-    @apply flex;
+    /*@apply flex;*/
     @apply mt-6;
     @apply mb-40;
 
@@ -42,12 +42,12 @@
     /* @apply scrolling-touch;
 
     /* @apply bg-gray-100; */
-    top: 97px;
+    /*top: 97px;*/
 
-    @apply h-auto;
     @apply block;
-    @apply relative;
+    @apply h-auto;
     @apply sticky;
+    @apply relative;
     @apply bg-transparent;
 }
 
@@ -81,17 +81,61 @@
     @apply border-pink-600;
 }
 
-.assessment .nav .nav-wrapper .nav-items li.invalid {
-    @apply text-red-500;
+.assessment .nav .nav-wrapper .nav-items li.error {
+    @apply text-pink-600;
 }
 
 .assessment .nav .nav-wrapper .nav-items li ~ li {
     @apply mt-1;
 }
 
-.assessment .steps {
+.steps {
     @apply p-4;
     @apply bg-gray-100;
+}
+
+.steps .buttons {
+    @apply flex;
+    @apply px-4;
+    @apply py-5;
+    @apply left-0;
+    @apply right-0;
+    @apply mx-auto;
+    @apply absolute;
+    @apply bottom-0;
+    @apply max-w-3xl;
+    @apply justify-between;
+}
+
+.steps .buttons .button {
+    @apply px-5;
+    @apply py-2;
+    @apply w-32;
+    @apply bg-white;
+    @apply shadow-sm;
+    @apply rounded-lg;
+    @apply font-medium;
+    @apply text-center;
+    @apply outline-none;
+    @apply text-gray-600;
+}
+
+.steps .buttons .button:hover {
+    @apply bg-gray-100;
+}
+
+.steps .buttons .button.hidden {
+    @apply hidden;
+}
+
+.steps .buttons .button.color {
+    @apply text-white;
+    @apply bg-pink-500;
+    @apply border-transparent;
+}
+
+.steps .buttons .button.color:hover {
+    @apply bg-pink-600;
 }
 
 .step,
@@ -216,14 +260,14 @@
 @screen lg {
     .assessment .nav {
         @apply mb-0;
-        @apply static;
-        @apply h-auto;
-        @apply bg-transparent;
-        @apply overflow-y-visible;
-        @apply border-b-0;
         @apply pt-0;
         @apply w-1/4;
         @apply block;
+        @apply static;
+        @apply h-auto;
         @apply border-0;
+        @apply border-b-0;
+        @apply bg-transparent;
+        @apply overflow-y-visible;
     }
 }

@@ -42,12 +42,12 @@ export const AssessmentWizard: React.FC = () => {
             ["people", { menutitle: "Members in Party", title: "Will there be additional people?" }],
             ["health", { menutitle: "Health Info", title: "Just need to gather some health info..." }],
             ["packaging", { menutitle: "Food Packaging", title: "How should I deliver the meals?" }],
-            ["beefPrep", { menutitle: "Beef", title: "Do you like beef?" }],
+            ["beefPrep", { menutitle: "Beef", title: "Does your family like beef?" }],
             ["chickenPrep", { menutitle: "Chicken", title: "How about chicken?" }],
-            ["likesTurkey", { menutitle: "Turkey", title: "Do you like turkey?" }],
-            ["likesLamb", { menutitle: "Lamb", title: "Are you okay with lamb?" }],
-            ["likesPork", { menutitle: "Pork", title: "Do you enjoy pork?" }],
-            ["likesSeafood", { menutitle: "Seafood", title: "How about seafood?" }],
+            ["likesTurkey", { menutitle: "Turkey", title: "Does your family like turkey?" }],
+            ["likesLamb", { menutitle: "Lamb", title: "Would your family be okay with lamb?" }],
+            ["likesPork", { menutitle: "Pork", title: "How about pork?" }],
+            ["likesSeafood", { menutitle: "Seafood", title: "Is seafood something that would be desired?" }],
             ["likesVegetarian", { menutitle: "Vegetarian", title: "Would you like any vegetarian meals?" }],
             ["otherFoods", { menutitle: "Other Foods", title: "Additional foods..." }],
             ["spiceLikes", { menutitle: "Spice Tolerance", title: "How spicy do you like your meals?" }],
@@ -59,7 +59,7 @@ export const AssessmentWizard: React.FC = () => {
             ["restaurants", { menutitle: "Restaurants", title: "What are some of your favorite restaurants?" }],
             ["hasAddlFridge", { menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
             ["groceryStores", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?" }],
-            ["fuseboxLocation", { menutitle: "Fuse/Breaker Box", title: "Where is your fuse/breaker box?" }],
+            ["fuseboxLocation", { menutitle: "Fuse/Breaker Box", title: "Where is the fuse/breaker box located?" }],
             ["pets", { menutitle: "Pets", title: "Are there pets are in the household?" }],
             ["comments", { menutitle: "Comments", title: "Any comments/concerns?" }]
         ])
@@ -425,46 +425,45 @@ export const AssessmentWizard: React.FC = () => {
 
     return (
         <div className="assessment">
-            <div className="nav xl:w-1/5">
-                <div className="nav-wrapper">
-                    <div className="nav-title">Sections</div>
-                    <ul className="nav-items">
-                    {
-                        Array.from(steps.entries()).map((entry: [string, WizardStep], index) => {
-                            let className = stepOrder[stepIndex] === entry[0] ? "active" : "";
-                            className += (entry[1].errors ? " invalid" : "");
+            {/*<!-- Completion Step -->*/}
+            <div className={`flex-col items-center bg-gray-100 rounded-lg p-10 shadow justify-between step${stepIndex === totalSteps ? " active" : ""}`}>
+                <svg className="mb-4 h-20 w-20 text-pink-600 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                </svg>
 
-                            return (
-                                <li key={entry[0]} className={className.trim()}>
-                                    <a onClick={ (e) => { moveToStep(e, index < 0 || index > totalSteps - 1, index); } }>{entry[1].menutitle}</a>
-                                </li>
-                            )
-                        })
-                    }
-                    </ul>
-                </div>
+                <h2 className="text-2xl mb-4 text-gray-800 text-center font-bold">Assessment Complete!</h2>
+
+                <div className="text-gray-600 mb-8 text-center">Your assessment has been submitted successfully!</div>
+                <div className="text-gray-600 mb-8 text-center">Once Chef Laura has reviewed it she will get back to you shortly!</div>
+
+                <NavLink to="/" className="button">Back to home</NavLink>
             </div>
 
 
+            <div className={`flex ${stepIndex === totalSteps ? "hidden" : ""}`}>
+                <div className="nav xl:w-1/5">
+                    <div className="nav-wrapper">
+                        <div className="nav-title">Sections</div>
+                        <ul className="nav-items">
+                        {
+                            Array.from(steps.entries()).map((entry: [string, WizardStep], index) => {
+                                let className = stepOrder[stepIndex] === entry[0] ? "active" : "";
+                                className += (entry[1].errors ? " error" : "");
 
-            <div className="steps w-3/4">
-                {/*<!-- Completion Step -->*/}
-                <div className={`flex-col items-center bg-white rounded-lg p-10 shadow justify-between step${stepIndex === totalSteps ? " active" : ""}`}>
-                    <svg className="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                    </svg>
-
-                    <h2 className="text-2xl mb-4 text-gray-800 text-center font-bold">Assessment Complete!</h2>
-
-                    <div className="text-gray-600 mb-8 text-center">Your assessment has been submitted successfully!</div>
-                    <div className="text-gray-600 mb-8 text-center">Once Chef Laura has reviewed it she will get back to you shortly!</div>
-
-                    <NavLink to="/" className="button">Back to home</NavLink>
+                                return (
+                                    <li key={entry[0]} className={className.trim()}>
+                                        <a onClick={ (e) => { moveToStep(e, index < 0 || index > totalSteps - 1, index); } }>{entry[1].menutitle}</a>
+                                    </li>
+                                )
+                            })
+                        }
+                        </ul>
+                    </div>
                 </div>
 
-                <div className={`${stepIndex === totalSteps ? "hidden" : ""}`}>
-                    {/*<!-- Top Navigation -->*/}
-                    <div className="border-b-2 py-4">
+                <div className="steps w-3/4 relative">
+                    {/*<!-- Top Section -->*/}
+                    <div className="border-b-2 py-2">
                         <div className="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {stepIndex + 1} of {totalSteps}</div>
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                             <div className="flex-1">
@@ -475,7 +474,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className="flex items-center md:w-64">
                                 <div className="w-full bg-white rounded-full mr-2">
-                                    <div className="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" style={{ width: `${getPctDone()}%` }}></div>
+                                    <div className="rounded-full bg-pink-600 text-xs leading-none h-2 text-center text-white" style={{ width: `${getPctDone()}%` }}></div>
                                 </div>
                                 <div className="text-xs w-10 text-gray-600">{ `${parseInt(getPctDone().toString())}` }%</div>
                             </div>
@@ -545,7 +544,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("health") }>
                                 <div>
-                                    <div>Are there any allergies in your family?</div>
+                                    <div>Are there any food allergies in your family?</div>
                                     <div className="field">
                                         <InputList type={InputTypeEnum.RadioButton} name={"hasallergies"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasAllergies(JSON.parse(values[0])); }} />
                                     </div>
@@ -558,7 +557,7 @@ export const AssessmentWizard: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <div>Are you lactose intolerant?</div>
+                                    <div>Is anyone lactose intolerant?</div>
                                     <div className="field">
                                         <InputList type={InputTypeEnum.RadioButton} name={"lactoseint"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ lactoseInt: JSON.parse(values[0])}})); }} />
                                     </div>
@@ -578,7 +577,7 @@ export const AssessmentWizard: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <div>Are you planning to follow or currently following any specific diet plan?</div>
+                                    <div>Is anyone planning to follow or currently following any specific diet plan?</div>
                                     <div className="field">
                                         <InputList type={InputTypeEnum.RadioButton} name={"hasdietplan"} items={YesNoBoolTypes} onChange={(values: string[]) => { setHasDietPlan(JSON.parse(values[0])) }} />
                                     </div>
@@ -595,7 +594,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("packaging") }>
                                 <div>
-                                    <div>How should your meals be packaged?</div>
+                                    <div>How should the meals be packaged?</div>
                                     <div className="field">
                                         <InputList type={InputTypeEnum.RadioButton}
                                                     name={"packaging"}
@@ -635,7 +634,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <InputList type={InputTypeEnum.RadioButton} name={"likesbeef"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesBeef(JSON.parse(values[0])) }} />
                                 </div>
                                 <div className={`field conditional${likesBeef ? " active" : ""}`}>
-                                    <div>How do you like it prepared?</div>
+                                    <div>How would you like it prepared?</div>
                                     <div>
                                         <InputList type={InputTypeEnum.Checkbox}
                                             name={"beefprep"}
@@ -654,7 +653,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <InputList type={InputTypeEnum.RadioButton} name={"likeschicken"} items={YesNoBoolTypes} onChange={(values: string[]) => { setLikesChicken(JSON.parse(values[0])) }} />
                                 </div>
                                 <div className={`field conditional${likesChicken ? " active" : ""}`}>
-                                    <div>How do you like it prepared?</div>
+                                    <div>How would you like it prepared?</div>
                                     <div>
                                         <InputList type={InputTypeEnum.Checkbox}
                                             name={"chickenprep"}
@@ -697,7 +696,7 @@ export const AssessmentWizard: React.FC = () => {
                                     <InputList type={InputTypeEnum.RadioButton} name={"likesseafood"} items={YesNoBoolTypes} onChange={(values: string[]) => { updateAssessment(oldAssessment => ({...oldAssessment, ...{ likesSeafood: JSON.parse(values[0])}})); }} />
                                 </div>
                                 <div className={`field conditional${assessment.likesSeafood ? " active" : ""}`}>
-                                    <div>What types of fish/shellfish don't you like?</div>
+                                    <div>What types of fish/shellfish doesn't your family like?</div>
                                     <textarea name={"seafooddislikes"} rows={10} cols={96} {...bindSeafoodDislikes}></textarea>
                                 </div>
                             </div>
@@ -714,7 +713,7 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("otherFoods") }>
                                 <div className="field">
-                                    <div>Is there anything else that you like that I haven't covered?</div>
+                                    <div>Is there anything else that your family likes that I haven't covered?</div>
                                     <textarea name={"otherfoods"} rows={10} cols={96} {...bindOtherFoods}></textarea>
                                 </div>
                             </div>
@@ -832,29 +831,18 @@ export const AssessmentWizard: React.FC = () => {
                         </form>
                     </div>
 
-                    {/*<!-- Bottom Navigation -->*/}
-                    <div className={`fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md`}>
-                        <div className="max-w-3xl mx-auto px-4">
-                            <div className="flex justify-between">
-                                <div className="w-1/2">
-                                    <button
-                                        onClick={(e) => moveToStep(e, stepIndex === 0, stepIndex - 1)}
-                                        className={`w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border${stepIndex === 0 ? " hidden" : ""}`}
-                                    >Previous</button>
-                                </div>
+                    {/*<!-- Bottom Section -->*/}
+                    <div className="buttons">
+                        <div className="w-1/2">
+                            <button onClick={(e) => moveToStep(e, stepIndex === 0, stepIndex - 1)}
+                                    className={`button${stepIndex === 0 ? " hidden" : ""}`}>Previous</button>
+                        </div>
 
-                                <div className="w-1/2 text-right">
-                                    <button
-                                        onClick={(e) => moveToStep(e, stepIndex === totalSteps - 1 || stepIndex < 0, stepIndex + 1)}
-                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIndex >= totalSteps - 1 ? " hidden" : ""}`}
-                                    >Next</button>
+                        <div className="w-1/2 text-right">
+                            <button onClick={(e) => moveToStep(e, stepIndex === totalSteps - 1 || stepIndex < 0, stepIndex + 1)}
+                                    className={`button color${stepIndex >= totalSteps - 1 ? " hidden" : ""}`}>Next</button>
 
-                                    <button
-                                        onClick={complete}
-                                        className={`w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium${stepIndex < totalSteps - 1 ? " hidden" : ""}`}
-                                    >Complete</button>
-                                </div>
-                            </div>
+                            <button onClick={complete} className={`button color${stepIndex < totalSteps - 1 ? " hidden" : ""}`}>Complete</button>
                         </div>
                     </div>
                     {/*<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->*/}
