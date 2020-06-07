@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useLayoutEffect, FormEvent } from 'react';
-//import { throttle } from 'throttle-debounce';
 
 import { Month } from '../modules/types';
 import { Months } from '../modules/data';
@@ -317,8 +316,8 @@ export const isUsingBrowser = typeof window != 'undefined';
 export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export type InputBinding = {
-    value: string,
-    onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
+    defaultValue: string,
+    onBlur: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
 }
 
 // https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
@@ -326,17 +325,14 @@ export const useInput = (initialValue: string, onChange: () => void): { value: s
     const [value, setValue] = useState(initialValue);
     const timeoutId = useRef<any | undefined>();
 
-    useIsomorphicLayoutEffect(() => {
-        clearTimeout(timeoutId.current);
-        timeoutId.current = setTimeout(() => { onChange(); }, 800);
-    }, [value]);
+    useIsomorphicLayoutEffect(() => { onChange(); }, [value]);
 
     return {
         value,
         //reset: () => setValue(""),
         bind: {
-            value,
-            onChange: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => { setValue(e.currentTarget.value); }
+            defaultValue: initialValue,
+            onBlur: (e: FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => { setValue(e.currentTarget.value); }
         }
     };
 };

@@ -234,6 +234,32 @@
     @apply text-gray-500;
 }
 
+.step .person,
+.step .pet {
+    @apply flex;
+}
+
+.step .person ~ .person,
+.step .pet ~ .pet {
+    @apply mt-16;
+}
+
+.step .person .remove,
+.step .pet .remove {
+    width: 24px;
+    height: 24px;
+    @apply shadow;
+    @apply bg-white;
+    @apply rounded-full;
+    @apply text-pink-600;
+}
+
+.step .person .remove:hover,
+.step .pet .remove:hover {
+    @apply text-white;
+    @apply bg-pink-600;
+}
+
 .assessment .button {
     @apply px-5;
     @apply py-2;

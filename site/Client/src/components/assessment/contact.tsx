@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from 'react';
+import InputMask from 'react-input-mask';
 
-import { useInput, InputBinding } from '../../utils';
+import { useInput } from '../../utils';
 import { Person, IIndexedControlProp } from '../../modules/types';
 
 interface IContactProp extends IIndexedControlProp {
@@ -13,7 +14,16 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
     const [contact, updateContact] = useState<Person>(person);
 
     const updateAssessment = () => {
-        const newPerson = { id: person.id, fname: fname, mi: mi, lname: lname, dob: new Date(dob), email: email, phone: phone };
+        const newPerson = {
+            id: person.id,
+            fname: (fname === "" ? null : fname),
+            mi: (mi === "" ? null : mi),
+            lname: (lname === "" ? null : lname),
+            dob: (dob === "" ? null : new Date(dob)),
+            email: (email === "" ? null : email),
+            phone: (phone === "" ? null : phone)
+        };
+
         updateContact(newPerson);
         onContactUpdate && onContactUpdate(newPerson);
     };
@@ -25,46 +35,34 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
     const { value:phone, bind:bindPhone } = useInput(contact.phone ?? "", () => { updateAssessment(); });
     const { value:fname, bind:bindFName, /*reset:resetFName*/ } = useInput(contact.fname ?? "", () => { updateAssessment(); });
 
-    const formatDOB = (e: FormEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value;
-
-        if (value.match(/^\d{2}$/) !== null) {
-            e.currentTarget.value = value + "/";
-        } else if (value.match(/^\d{2}\/\d{2}$/) !== null) {
-            e.currentTarget.value = value + "/";
-        }
-    };
-
     return (
         <>
             <div className="field row">
                 <label>
                     <span>First Name</span>
-                    <input type="text" name={`${namePrefix}fname`} placeholder="First Name" {...bindFName} />
+                    <input type="text" name={`${namePrefix}fname`} placeholder="First Name" maxLength={30} style={{width: `${index === undefined ? "250" : "150"}px`}} {...bindFName} />
                 </label>
                 <label title="Middle Initial">
                     <span>MI</span>
-                    <input type="text" name={`${namePrefix}mi`} placeholder="MI" maxLength={1} {...bindMI} />
+                    <input type="text" name={`${namePrefix}mi`} placeholder="MI" maxLength={1} style={{width: "50px"}} {...bindMI} />
                 </label>
                 <label>
                     <span>Last Name</span>
-                    <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" {...bindLName} />
+                    <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" maxLength={50} style={{width: `${index === undefined ? "250" : "150"}px`}} {...bindLName} />
                 </label>
-            </div>
-            <div className="field">
                 <label title="Date of Birth">
                     <span>DOB</span>
-                    <input type="text" name={`${namePrefix}dob`} placeholder="MM/DD/YYYY" {...bindDOB} onKeyUp={formatDOB} maxLength={10} />
+                    <InputMask type="text" name={`${namePrefix}dob`} placeholder="DOB" style={{width: `${index === undefined ? "150" : "120"}px`}} {...bindDOB} mask="99/99/9999" />
                 </label>
             </div>
-            <div className="field col">
+            <div className="field row">
                 <label>
                     <span>Email</span>
-                    <input type="email" name={`${namePrefix}email`} placeholder="Email" {...bindEmail} />
+                    <input type="email" name={`${namePrefix}email`} placeholder="Email" maxLength={70} style={{width: `${index === undefined ? "350" : "250"}px`}} {...bindEmail} />
                 </label>
                 <label>
                     <span>Phone #</span>
-                    <input type="text" name={`${namePrefix}phone`} placeholder="Phone" {...bindPhone} />
+                    <InputMask type="text" name={`${namePrefix}phone`} placeholder="Phone #" style={{width: `${index === undefined ? "200" : "150"}px`}} {...bindPhone} mask="999-999-9999" />
                 </label>
             </div>
         </>

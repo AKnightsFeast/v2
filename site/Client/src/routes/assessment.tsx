@@ -3,6 +3,7 @@ import { string, object, date, array, boolean, mixed, ValidationError } from 'yu
 import libphonenumber from 'google-libphonenumber';
 import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
+import InputMask from 'react-input-mask';
 
 import { States } from  '../modules/data';
 import { Pet } from '../components/assessment/pet';
@@ -166,6 +167,8 @@ export const AssessmentWizard: React.FC = () => {
         const phoneValidator = mixed().test("phone", "Please enter a valid phone #.",
             (value: string) => {
                 try {
+                    if (value === null && !isRequired) return true;
+
                     const phone = phoneUtil.parse(value, 'US');
                     return phoneUtil.isValidNumber(phone);
                 } catch {
@@ -179,19 +182,21 @@ export const AssessmentWizard: React.FC = () => {
             fname: string().required("Please enter a first name.").nullable(),
             mi: string().matches(/^[a-zA-z]{1}$/, "Please enter a valid middle initial.").notRequired().nullable(),
             lname: string().required("Please enter a last name.").nullable(),
-            dob: date().nullable().notRequired(),
-            email: isRequired ? emailValidator.nullable().required("Please enter an email address.") : emailValidator.notRequired(),
-            phone: isRequired ? phoneValidator.nullable().required() : phoneValidator.notRequired(),
+            dob: date().notRequired().nullable(),
+            email: isRequired ? emailValidator.required("Please enter an email address.").nullable() : emailValidator.notRequired().nullable(),
+            phone: isRequired ? phoneValidator.required("Please enter a valid phone number.").nullable() : phoneValidator.notRequired().nullable(),
         });
     };
-    
+
     const PetSchema = object().shape({
         name: string().required().nullable(),
         type: string().required().nullable(),
         friendly: boolean().required().nullable(),
-        location: array().of(string()).min(1).nullable(),
+        location: mixed().test("location", "Please indicate where the pet normally stays.", function(value: string[]) {
+            return value !== null && value.length > 0;
+        }),
     });
-    
+
     const assessmentValidator = object().shape({
         contact: getPersonSchema(true).required(),
         address: object().shape({
@@ -273,13 +278,11 @@ export const AssessmentWizard: React.FC = () => {
         }));
     };
 
-    const onRemovePerson = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
+    const onRemovePerson = (personId: string) => {
         window.confirm("Are you sure you want to remove this person?") &&
             updateAssessment(oldAssessment => ({
                 ...oldAssessment,
-                ...{ people: [...oldAssessment.people ?? []].filter(person => person.id !== e.currentTarget.value) }
+                ...{ people: [...oldAssessment.people ?? []].filter(person => person.id !== personId) }
             }));
     };
 
@@ -308,13 +311,11 @@ export const AssessmentWizard: React.FC = () => {
         }));
     };
 
-    const onRemovePet = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
+    const onRemovePet = (petId: string) => {
         window.confirm("Are you sure you want to remove this pet?") &&
             updateAssessment(oldAssessment => ({
                 ...oldAssessment,
-                ...{ pets: [...oldAssessment.pets ?? []].filter(pet => pet.id !== e.currentTarget.value) }
+                ...{ pets: [...oldAssessment.pets ?? []].filter(pet => pet.id !== petId) }
             }));
     };
 
@@ -443,7 +444,7 @@ export const AssessmentWizard: React.FC = () => {
             <div className={`flex ${stepIndex === totalSteps ? "hidden" : ""}`}>
                 <div className="nav xl:w-1/5">
                     <div className="nav-wrapper">
-                        <div className="nav-title">Sections</div>
+                        <div className="nav-title">Assessment Areas</div>
                         <ul className="nav-items">
                         {
                             Array.from(steps.entries()).map((entry: [string, WizardStep], index) => {
@@ -494,17 +495,17 @@ export const AssessmentWizard: React.FC = () => {
                                 <div className="field col">
                                     <label>
                                         <span>Address1</span>
-                                        <input type="text" name={"address.address1"} placeholder="Address1" {...bindAddress1}></input>
+                                        <input type="text" name={"address.address1"} placeholder="Address1" maxLength={100} {...bindAddress1}></input>
                                     </label>
                                     <label>
                                         <span>Address2</span>
-                                        <input type="text" name={"address.address2"} placeholder="Address2" {...bindAddress2}></input>
+                                        <input type="text" name={"address.address2"} placeholder="Address2" maxLength={100} {...bindAddress2}></input>
                                     </label>
                                 </div>
                                 <div className="field row">
                                     <label>
                                         <span>City</span>
-                                        <input type="text" name={"address.city"} placeholder="City" {...bindCity}></input>
+                                        <input type="text" name={"address.city"} placeholder="City" maxLength={100} style={{width: "320px"}} {...bindCity}></input>
                                     </label>
                                     <label>
                                         <span>State</span>
@@ -517,7 +518,7 @@ export const AssessmentWizard: React.FC = () => {
                                     </label>
                                     <label>
                                         <span>Zip Code</span>
-                                        <input type="text" name={"address.zipcode"} placeholder="Zip Code" maxLength={5} {...bindZipcode}></input>
+                                        <InputMask type="text" name={"address.zipcode"} placeholder="Zip Code" style={{width: "120px"}} {...bindZipcode} mask="99999" />
                                     </label>
                                 </div>
                             </div>
@@ -526,17 +527,23 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("people") }>
                                 <div>
-                                    <button className="button" onClick={onAddPerson}>Add Person</button>
-                                </div>
-                                <div>
                                 {
                                     (assessment.people ?? []).map((person, index) => (
-                                        <div key={person.id}>
-                                            <div><button value={person.id} onClick={onRemovePerson}>Remove Person</button></div>
-                                            <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
+                                        <div className="person" key={person.id}>
+                                            <div className="w-5/6">
+                                                <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
+                                            </div>
+                                            <div className="w-1/6 text-center">
+                                                <button className="remove" title="Remove" value={person.id} onClick={(e) => {e.preventDefault(); onRemovePerson(e.currentTarget.value);}}>
+                                                    <span className="material-icons">remove</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     ))
                                 }
+                                </div>
+                                <div>
+                                    <button className="button" onClick={onAddPerson}>Add Person</button>
                                 </div>
                             </div>
 
@@ -807,17 +814,23 @@ export const AssessmentWizard: React.FC = () => {
 
                             <div className={ getStepClass("pets") }>
                                 <div>
-                                    <button className="button" onClick={ onAddPet }>Add Pet</button>
-                                </div>
-                                <div>
                                 {
                                     (assessment.pets ?? []).map((pet, index) => (
-                                        <div key={pet.id}>
-                                            <div><button value={pet.id} onClick={onRemovePet}>Remove Pet</button></div>
-                                            <Pet index={index} animal={pet} onPetUpdate={onUpdatePet} />
+                                        <div className="pet" key={pet.id}>
+                                            <div className="w-5/6">
+                                                <Pet index={index} animal={pet} onPetUpdate={onUpdatePet} />
+                                            </div>
+                                            <div className="w-1/6 text-center">
+                                                <button className="remove" title="Remove" value={pet.id} onClick={(e) => {e.preventDefault(); onRemovePet(pet.id)}}>
+                                                    <span className="material-icons">remove</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     ))
                                 }
+                                </div>
+                                <div>
+                                    <button className="button" onClick={onAddPet}>Add Pet</button>
                                 </div>
                             </div>
 
