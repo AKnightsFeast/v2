@@ -40,7 +40,7 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
             <div className="field row">
                 <label>
                     <span>First Name</span>
-                    <input type="text" name={`${namePrefix}fname`} placeholder="First Name" maxLength={30} style={{width: `${index === undefined ? "250" : "150"}px`}} {...bindFName} />
+                    <input type="text" name={`${namePrefix}fname`} placeholder="First Name" maxLength={30} style={{width: `${index === undefined ? "250" : "180"}px`}} {...bindFName} />
                 </label>
                 <label title="Middle Initial">
                     <span>MI</span>
@@ -48,7 +48,7 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
                 </label>
                 <label>
                     <span>Last Name</span>
-                    <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" maxLength={50} style={{width: `${index === undefined ? "250" : "150"}px`}} {...bindLName} />
+                    <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" maxLength={50} style={{width: `${index === undefined ? "250" : "180"}px`}} {...bindLName} />
                 </label>
                 <label title="Date of Birth">
                     <span>DOB</span>
@@ -58,7 +58,7 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
             <div className="field row">
                 <label>
                     <span>Email</span>
-                    <input type="email" name={`${namePrefix}email`} placeholder="Email" maxLength={70} style={{width: `${index === undefined ? "350" : "250"}px`}} {...bindEmail} />
+                    <input type="email" name={`${namePrefix}email`} placeholder="Email" maxLength={70} style={{width: `${index === undefined ? "350" : "320"}px`}} {...bindEmail} />
                 </label>
                 <label>
                     <span>Phone #</span>

@@ -3112,9 +3112,16 @@ text-decoration: none
 
 .steps {
   padding: 1rem;
+  position: relative;
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.steps .areas {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  height: 100%;
 }
 
 .steps .buttons {
@@ -3158,24 +3165,9 @@ text-decoration: none
   background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
-.steps .buttons .button.hidden {
-  display: none;
-}
-
-.steps .buttons .button.color {
-  --text-opacity: 1;
-  color: #fff;
-  color: rgba(255, 255, 255, var(--text-opacity));
-  --bg-opacity: 1;
-  background-color: #ed64a6;
-  background-color: rgba(237, 100, 166, var(--bg-opacity));
-  border-color: transparent;
-}
-
-.steps .buttons .button.color:hover {
-  --bg-opacity: 1;
-  background-color: #d53f8c;
-  background-color: rgba(213, 63, 140, var(--bg-opacity));
+.step {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .step,
@@ -3189,8 +3181,8 @@ text-decoration: none
   animation: showIn 300ms ease-in forwards;
 }
 
-.step > div {
-  margin-bottom: 1.25rem;
+.step .field ~ .field {
+  margin-top: 1.25rem;
 }
 
 .step .field.col,
@@ -3244,14 +3236,10 @@ text-decoration: none
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
-.step .field .inputlist {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.step .field .inputlist-item {
+.step .field .inputlist .inputlist-item {
   margin-right: 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
   padding-left: 1rem;
   padding-right: 1.5rem;
   padding-top: 0.75rem;
@@ -3296,11 +3284,14 @@ text-decoration: none
 .step .person,
 .step .pet {
   display: flex;
+  padding-bottom: 1.25rem;
 }
 
 .step .person ~ .person,
 .step .pet ~ .pet {
-  margin-top: 4rem;
+  margin-top: 1.25rem;
+  padding-top: 2rem;
+  border-top-width: 2px;
 }
 
 .step .person .remove,
@@ -3357,6 +3348,41 @@ text-decoration: none
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.assessment .button.color {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #ed64a6;
+  background-color: rgba(237, 100, 166, var(--bg-opacity));
+  border-color: transparent;
+}
+
+.assessment .button.color:hover {
+  --bg-opacity: 1;
+  background-color: #d53f8c;
+  background-color: rgba(213, 63, 140, var(--bg-opacity));
+}
+
+.assessment .button:disabled,
+.assessment .button:disabled:hover {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.assessment .button.hidden {
+  display: none;
+}
+
+.assessment .button.add {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
 @media (min-width: 1024px) {

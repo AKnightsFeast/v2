@@ -22,15 +22,15 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
     }, [pet]);
 
     const updateTextFields = () => {
-        updatePet({ ...pet, ...{ name: name, type: type } });
+        updatePet(oldPet => ({...oldPet, ...{ name: name, type: type } }));
     };
 
     const updateFriendly = (values: string[]) => {
-        updatePet({ ...pet, ...{ friendly: values[0] === YesNoBoolTypes.true }});
+        updatePet(oldPet => ({ ...oldPet, ...{ friendly: values[0] === YesNoBoolTypes.true }}));
     };
 
     const updateLocation = (values: string[]) => {
-        updatePet({ ...pet, ...{ location: values.map(value => value as AssessmentPetLocationKeyTypes) }});
+        updatePet(oldPet => ({ ...oldPet, ...{ location: values.map(value => value as AssessmentPetLocationKeyTypes) }}));
     }
 
     return (
@@ -42,7 +42,7 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
                 </label>
                 <label title="Type/Breed">
                     <span>Type/Breed</span>
-                    <input title='Type/Breed' type='text' name={`${namePrefix}breed`} maxLength={50} style={{width: '380px'}} {...bindType} />
+                    <input title='Type/Breed' type='text' name={`${namePrefix}type`} maxLength={50} style={{width: '300px'}} {...bindType} />
                 </label>
             </div>
             <div className='field row'>
@@ -50,7 +50,7 @@ export const Pet: React.FC<IPetProp> = ({ index, animal, onPetUpdate }) => {
                     <span>Friendly?</span>
                     <InputList type={InputTypeEnum.RadioButton} name={`${namePrefix}friendly`} values={pet.friendly ? [ pet.friendly.toString() ] : []} items={YesNoBoolTypes} onChange={updateFriendly} />
                 </label>
-                <label title="Normall Stays">
+                <label title="Normally Stays">
                     <span>Normally stays</span>
                     <InputList type={InputTypeEnum.Checkbox} name={`${namePrefix}location`} values={pet.location ?? []} items={AssessmentPetLocation} onChange={updateLocation} />
                 </label>

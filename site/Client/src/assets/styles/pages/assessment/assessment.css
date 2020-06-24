@@ -91,7 +91,13 @@
 
 .steps {
     @apply p-4;
+    @apply relative;
     @apply bg-gray-100;
+}
+
+.steps .areas {
+    @apply py-10;
+    @apply h-full;
 }
 
 .steps .buttons {
@@ -124,18 +130,8 @@
     @apply bg-gray-100;
 }
 
-.steps .buttons .button.hidden {
-    @apply hidden;
-}
-
-.steps .buttons .button.color {
-    @apply text-white;
-    @apply bg-pink-500;
-    @apply border-transparent;
-}
-
-.steps .buttons .button.color:hover {
-    @apply bg-pink-600;
+.step {
+    @apply px-8;
 }
 
 .step,
@@ -149,8 +145,8 @@
     animation: showIn 300ms ease-in forwards;
 }
 
-.step > div {
-    @apply mb-5;
+.step .field ~ .field {
+    @apply mt-5;
 }
 
 .step .field.col,
@@ -198,14 +194,9 @@
     @apply shadow-outline;
 }
 
-.step .field .inputlist {
-    @apply flex;
-    @apply items-center;
-    @apply justify-start;
-}
-
-.step .field .inputlist-item {
+.step .field .inputlist .inputlist-item {
     @apply mr-4;
+    @apply my-3;
     @apply pl-4;
     @apply pr-6;
     @apply py-3;
@@ -237,11 +228,14 @@
 .step .person,
 .step .pet {
     @apply flex;
+    @apply pb-5;
 }
 
 .step .person ~ .person,
 .step .pet ~ .pet {
-    @apply mt-16;
+    @apply mt-5;
+    @apply pt-8;
+    @apply border-t-2;
 }
 
 .step .person .remove,
@@ -281,6 +275,31 @@
 
 .assessment .button:hover {
     @apply bg-gray-100;
+}
+
+.assessment .button.color {
+    @apply text-white;
+    @apply bg-pink-500;
+    @apply border-transparent;
+}
+
+.assessment .button.color:hover {
+    @apply bg-pink-600;
+}
+
+.assessment .button:disabled,
+.assessment .button:disabled:hover {
+    @apply bg-gray-300;
+    @apply text-gray-600;
+}
+
+.assessment .button.hidden {
+    @apply hidden;
+}
+
+.assessment .button.add {
+    @apply mt-8;
+    @apply mb-12;
 }
 
 @screen lg {
