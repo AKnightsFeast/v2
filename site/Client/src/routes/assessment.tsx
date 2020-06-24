@@ -319,9 +319,10 @@ export const AssessmentWizard: React.FC = () => {
         if (isAssessmentValid()) {
             stepIndex.current = totalSteps;
         } else {
-
+            
         }
-
+        
+        refresh();
     //    formRef.current && formRef.current.submit();
     };
 
