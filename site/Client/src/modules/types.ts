@@ -24,8 +24,13 @@ export type MonthlyMenuState = {
     SelectedMonth?: Month | null | undefined
 };    
 
+export type AssessmentState = {
+    IsSubmitting: boolean,
+}
+
 export type ApplicationState = {
-    MonthlyMenu: MonthlyMenuState
+    MonthlyMenu: MonthlyMenuState,
+    Assessment: AssessmentState,
 };    
 
 export type ScrollToTopProp = {

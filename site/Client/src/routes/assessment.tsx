@@ -1,4 +1,5 @@
 import React, { useRef, createRef, useState, MouseEvent, FormEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { string, object, date, array, boolean, mixed, ValidationError } from 'yup';
 import libphonenumber from 'google-libphonenumber';
 import { NavLink } from 'react-router-dom';
@@ -25,7 +26,10 @@ import {
     AssessmentSpiceRanges
 } from '../modules/records';
 
-import { Person, CustomerPet, Assessment } from '../modules/types';
+import { InitialAssessmentState, InitialPersonState, InitialPetState } from '../modules/states';
+import { Person, CustomerPet, Assessment, ApplicationState } from '../modules/types';
+
+import { submitAssessmentAsync } from '../store/assessment/actions';
 
 type WizardStep = {
     title: string,
@@ -40,6 +44,10 @@ type StepAttribute = {
 }
 
 export const AssessmentWizard: React.FC = () => {
+    const dispatch = useDispatch();
+
+    const isSubmitting = useSelector((state: ApplicationState) => state.Assessment.IsSubmitting);
+
     const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
     const steps = useRef<Map<string, WizardStep>>(
@@ -72,41 +80,10 @@ export const AssessmentWizard: React.FC = () => {
         ])
     );
 
-    const createPerson = (): Person => ({ id: getUuid(), fname: null, mi: null, lname: null,  dob: null, email: null, phone: null });
-    const createPet = (): CustomerPet => ({ id: getUuid(), name: null, type: null, friendly: null, location: null });
+    const createPerson = (): Person => (InitialPersonState);
+    const createPet = (): CustomerPet => (InitialPetState);
 
-    const [ assessment, updateAssessment ] = useState<Assessment>({
-        contact: createPerson(),
-        address: { address1: null, address2: null, city: null, state: null, zipcode: null },
-        people: null,
-        allergies: null,
-        lactoseInt: null,
-        medical: null,
-        dietPlan: null,
-        packaging: null,
-        container: null,
-        beefPrep: null,
-        chickenPrep: null,
-        likesTurkey: null,
-        likesLamb: null,
-        likesPork: null,
-        likesSeafood: null,
-        seafoodDislikes: null,
-        likesVegetarian: null,
-        otherFoods: null,
-        spiceLikes: null,
-        fhvLikes: null,
-        fhvDislikes: null,
-        saladLikes: null,
-        appliances: null,
-        recipes: null,
-        restaurants: null,
-        hasAddlFridge: null,
-        groceryStores: null,
-        fuseboxLocation: null,
-        pets: null,
-        comments: null,
-    });
+    const [ assessment, updateAssessment ] = useState<Assessment>(InitialAssessmentState);
 
     const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1 ?? "", () => { onUpdateAddress(); });
     const { value:address2, bind:bindAddress2 } = useInput(assessment.address.address2 ?? "", () => { onUpdateAddress(); });
@@ -318,8 +295,7 @@ export const AssessmentWizard: React.FC = () => {
     const complete = () => {
         if (isAssessmentValid()) {
             stepIndex.current = totalSteps;
-        } else {
-            
+            submitAssessmentAsync.request(assessment);
         }
         
         refresh();
@@ -515,7 +491,7 @@ export const AssessmentWizard: React.FC = () => {
                         {
                             Array.from(steps.current.entries()).map((entry: [string, WizardStep], index) => {
                                 let className = stepOrder[stepIndex.current] === entry[0] ? "active" : "";
-                                className += (entry[1].errors ? " error" : "");
+                                className += (entry[1].isValid !== true ? " error" : "");
 
                                 return (
                                     <li key={entry[0]} className={className.trim()}>
