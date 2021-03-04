@@ -79,6 +79,7 @@ export type Assessment = {
     contact: Person,
     address: Address,
     people: Person[] | null,
+    hiringGoal: string | null,
     allergies: string | null,
     lactoseInt: boolean | null,
     medical: string | null,

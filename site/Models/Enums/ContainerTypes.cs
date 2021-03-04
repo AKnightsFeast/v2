@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text.Json.Serialization;
+
+using Newtonsoft.Json.Converters;
 
 using site.Attributes;
 
 namespace site.Models.Enums
 {
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ContainerType : short
     {
         [EnumDisplay(Label = "Microwave safe plastic")] Plastic = 1,

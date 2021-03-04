@@ -26,7 +26,7 @@ import {
     AssessmentSpiceRanges
 } from '../modules/records';
 
-import { InitialAssessmentState, InitialPersonState, InitialPetState } from '../modules/states';
+import { getInitialAssessmentState, getInitialPersonState, getInitialPetState } from '../modules/states';
 import { Person, CustomerPet, Assessment, ApplicationState } from '../modules/types';
 
 import { submitAssessmentAsync } from '../store/assessment/actions';
@@ -53,6 +53,7 @@ export const AssessmentWizard: React.FC = () => {
     const steps = useRef<Map<string, WizardStep>>(
         new Map([
             ["contact", { menutitle: "* Contact Info", title: "What is your contact information?" }],
+            ["hiringGoal", { menutitle: "* Hiring Goals", title: "What is your goal with hiring a personal chef?" }],
             ["address", { menutitle: "* Cook Address", title: "At what address will the chef be cooking?" }],
             ["people", { menutitle: "Members in Party", title: "Will there be additional people?", isValid: true }],
             ["health", { menutitle: "* Health Info", title: "Just need to gather some health info..." }],
@@ -80,10 +81,10 @@ export const AssessmentWizard: React.FC = () => {
         ])
     );
 
-    const createPerson = (): Person => (InitialPersonState);
-    const createPet = (): CustomerPet => (InitialPetState);
+    const createPerson = (): Person => (getInitialPersonState());
+    const createPet = (): CustomerPet => (getInitialPetState());
 
-    const [ assessment, updateAssessment ] = useState<Assessment>(InitialAssessmentState);
+    const [ assessment, updateAssessment ] = useState<Assessment>(getInitialAssessmentState);
 
     const { value:address1, bind:bindAddress1 } = useInput(assessment.address.address1 ?? "", () => { onUpdateAddress(); });
     const { value:address2, bind:bindAddress2 } = useInput(assessment.address.address2 ?? "", () => { onUpdateAddress(); });
@@ -91,6 +92,7 @@ export const AssessmentWizard: React.FC = () => {
     const { value:state, bind:bindState } = useInput(assessment.address.state ?? "", () => { onUpdateAddress(); });
     const { value:zipcode, bind:bindZipcode } = useInput(assessment.address.zipcode ?? "", () => { onUpdateAddress(); });
 
+    const { value:hiringGoal, bind:bindHiringGoal } = useInput(assessment.hiringGoal ?? "", () => {onUpdateAssessment({hiringGoal})});
     const { value:allergies, bind:bindAllergies } = useInput(assessment.allergies ?? "", () => {onUpdateAssessment({allergies})});
     const { value:medical, bind:bindMedical } = useInput(assessment.medical ?? "", () => {onUpdateAssessment({medical})});
     const { value:dietPlan, bind:bindDietPlan } = useInput(assessment.dietPlan ?? "", () => {onUpdateAssessment({dietPlan})});
@@ -158,6 +160,7 @@ export const AssessmentWizard: React.FC = () => {
 
     const AssessmentSchema = object().shape({
         contact: getPersonSchema(true).required(),
+        hiringGoal: string().required("Please specify your goal for hiring a personal chef").nullable(),
         address: object().shape({
             address1: string().required().nullable(),
             address2: string().notRequired().nullable(),
@@ -295,9 +298,13 @@ export const AssessmentWizard: React.FC = () => {
     const complete = () => {
         if (isAssessmentValid()) {
             stepIndex.current = totalSteps;
-            submitAssessmentAsync.request(assessment);
+            dispatch(submitAssessmentAsync.request(assessment));
         }
         
+        //while (!isSubmitting) {
+        //    console.log("Waiting...");
+        //}
+
         refresh();
     //    formRef.current && formRef.current.submit();
     };
@@ -529,6 +536,14 @@ export const AssessmentWizard: React.FC = () => {
                         <form ref={formRef}>
                             <div {...getStepAttributes("contact")}>
                                 <Contact person={assessment.contact} onContactUpdate={onUpdateContact} />
+                            </div>
+
+
+
+                            <div {...getStepAttributes("hiringGoal")}>
+                                <div className="field">
+                                    <textarea name="hiringgoal" rows={10} cols={96} {...bindHiringGoal}></textarea>
+                                </div>
                             </div>
 
 

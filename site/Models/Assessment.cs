@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.AspNetCore.Mvc;
+
 using site.Models.Enums;
+using site.Models.Binders;
 
 namespace site.Models
 {
@@ -49,8 +52,13 @@ namespace site.Models
 
         public Address CookingAddress { get; set; }
 
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
         public SpiceType SpiceLikes { get; set; }
+
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
         public ContainerType Container { get; set; }
+
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
         public PackageType PackageStyle { get; set; }
 
         [InverseProperty("Assessment")] public virtual ICollection<Person> People { get; set; }

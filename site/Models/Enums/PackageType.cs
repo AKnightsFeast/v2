@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text.Json.Serialization;
+
+using Newtonsoft.Json.Converters;
 
 using site.Attributes;
 
 namespace site.Models.Enums
 {
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum PackageType : short
     {
         Individual = 1,
-        [EnumDisplay(Label = "Family Style")] Family = 2
+        [EnumDisplay(Label = "Family Style")] FamilyStyle = 2
     }
 }

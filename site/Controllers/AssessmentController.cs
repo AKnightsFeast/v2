@@ -22,9 +22,10 @@ using site.Models;
 
 namespace site.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     [Produces("application/json")]
-    [Route("api/assessment")]
-    public class AssessmentController
+    public class AssessmentController: ControllerBase
     {
         AssessmentDbContext AssessmentDb { get; set; }
 
@@ -34,8 +35,8 @@ namespace site.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult Create(Assessment form)
+        //[ValidateAntiForgeryToken]
+        public JsonResult Index(Assessment form)
         {
             try
             {
@@ -95,7 +96,7 @@ namespace site.Controllers
         [HttpGet]
         [Authorize]
         [ResponseCache(CacheProfileName = "No-Cache")]
-        public Assessment Details(int id)
+        public Assessment Index(int id)
         {
             var assessment = new Assessment();
 

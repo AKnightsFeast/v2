@@ -6,7 +6,7 @@ namespace site.Data
 {
     public class AssessmentDbContext : DbContext
     {
-        public AssessmentDbContext(DbContextOptions options) : base(options) { }
+        public AssessmentDbContext(DbContextOptions<AssessmentDbContext> options) : base(options) { }
         public DbSet<Assessment> Assessments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

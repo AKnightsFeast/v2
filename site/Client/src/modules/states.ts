@@ -1,7 +1,7 @@
 import { v4 as getUuid } from 'uuid';
 
 import { MonthlyMenuState, ApplicationState, Assessment, Person, CustomerPet} from './types';
-import { boolean } from 'yup';
+//import { boolean } from 'yup';
 
 export const InitialMonthlyMenuState : MonthlyMenuState = {
     IsLoading: false,
@@ -12,15 +12,16 @@ export const InitialMonthlyMenuState : MonthlyMenuState = {
 
 export const InitialApplicationState : ApplicationState = {
     MonthlyMenu: InitialMonthlyMenuState,
-    Assessment: { IsSubmitting: false },
+    Assessment: { IsSubmitting: false }
 };
 
-export const InitialPetState: CustomerPet = { id: getUuid(), name: null, type: null, friendly: null, location: null };
+export const getInitialPetState = (): CustomerPet => ({ id: getUuid(), name: null, type: null, friendly: null, location: null });
 
-export const InitialPersonState: Person = { id: getUuid(), fname: null, mi: null, lname: null,  dob: null, email: null, phone: null };
+export const getInitialPersonState = (): Person => ({ id: getUuid(), fname: null, mi: null, lname: null,  dob: null, email: null, phone: null });
 
-export const InitialAssessmentState: Assessment = {
-    contact: InitialPersonState,
+export const getInitialAssessmentState: Assessment = {
+    contact: getInitialPersonState(),
+    hiringGoal: null,
     address: { address1: null, address2: null, city: null, state: null, zipcode: null },
     people: null,
     allergies: null,

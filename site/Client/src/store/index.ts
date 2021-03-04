@@ -15,13 +15,13 @@ export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootR
 const middlewares = [epicMiddleware];
 
 // compose enhancers
-const enhancer = compose(applyMiddleware(...middlewares));
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // rehydrate state on app start
 const initialState = InitialApplicationState;
 
 // create store
-const store = createStore(rootReducer, initialState, enhancer);
+const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
 
 epicMiddleware.run(rootEpic);
 

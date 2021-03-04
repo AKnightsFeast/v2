@@ -33,10 +33,12 @@ namespace site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")))
-                    .AddDbContext<AssessmentDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")))
-                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")))
-                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            string connString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connString))
+                    .AddDbContext<AssessmentDbContext>(options => options.UseSqlite(connString))
+                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(connString))
+                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(connString));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -47,7 +49,9 @@ namespace site
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddMvcCore();
+            services.AddMvcCore()
+                    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
             // services.AddMvc(options =>
             // {
             //     options.CacheProfiles.Add("No-Cache", new CacheProfile()

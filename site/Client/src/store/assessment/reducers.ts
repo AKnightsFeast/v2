@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
 
-import { SubmitAssessmentAsync } from './actions';
+import { submitAssessmentAsync } from './actions';
 
 export const IsSubmitting = createReducer(false as boolean)
-    .handleAction([SubmitAssessmentAsync.request], (state : any, action : any) => true)
-    .handleAction([SubmitAssessmentAsync.success, SubmitAssessmentAsync.failure], (state : any, action : any) => false);
+    .handleAction([submitAssessmentAsync.request], (state : any, action : any) => true)
+    .handleAction([submitAssessmentAsync.success, submitAssessmentAsync.failure], (state : any, action : any) => false);
 
 const Assessment = combineReducers({ IsSubmitting });
 
