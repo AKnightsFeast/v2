@@ -52,13 +52,13 @@ namespace site.Models
 
         public Address CookingAddress { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder<SpiceType>))]
         public SpiceType SpiceLikes { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder<ContainerType>))]
         public ContainerType Container { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder))]
+        [ModelBinder(BinderType = typeof(EnumPropertyBinder<PackageType>))]
         public PackageType PackageStyle { get; set; }
 
         [InverseProperty("Assessment")] public virtual ICollection<Person> People { get; set; }

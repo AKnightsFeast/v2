@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace site.Models.Binders
 {
-    IModelBinder _baseBinder;
-
-    public class EnumPropertyBinder<T> : IModelBinder where T : struct
-    {
+     public class EnumPropertyBinder<T> : IModelBinder where T : struct
+     {
         public EnumPropertyBinder()
         {
-            _baseBinder = SimpleTypeModelBinder()
         }
+
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext == null) throw new ArgumentNullException(nameof(bindingContext));
@@ -21,11 +19,11 @@ namespace site.Models.Binders
 
             if (value != ValueProviderResult.None)
             {
-
+                bindingContext.Result = ModelBindingResult.Success(0);
                 return Task.CompletedTask;
             }
 
-            return baseBinder
+            return Task.CompletedTask;
         }
     }
 /*
