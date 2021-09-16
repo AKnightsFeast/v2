@@ -12,11 +12,12 @@ namespace site.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Owned<Address>();
+
             modelBuilder.Entity<Assessment>().Property(x => x.Container).HasColumnType("smallint");
             modelBuilder.Entity<Assessment>().Property(x => x.PackageStyle).HasColumnType("smallint");
-            modelBuilder.Entity<Assessment>().Property(x => x.BeefPrep).HasColumnType("decimal");
-            modelBuilder.Entity<Assessment>().Property(x => x.ChickenPrep).HasColumnType("decimal");
-            modelBuilder.Entity<Assessment>().Property(x => x.SpiceLikes).HasColumnType("decimal");
+            modelBuilder.Entity<Assessment>().Property(x => x.BeefPrep).HasConversion(typeof(decimal)).HasColumnType("decimal");
+            modelBuilder.Entity<Assessment>().Property(x => x.ChickenPrep).HasConversion(typeof(decimal)).HasColumnType("decimal");
+            modelBuilder.Entity<Assessment>().Property(x => x.SpiceLikes).HasConversion(typeof(decimal)).HasColumnType("decimal");
         }
     }
 }

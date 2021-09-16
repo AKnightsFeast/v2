@@ -6,6 +6,7 @@ import { Person, IIndexedControlProp } from '../../modules/types';
 
 interface IContactProp extends IIndexedControlProp {
     person: Person,
+    contactInfoOptional: boolean,
     onContactUpdate?: (person: Person) => void,
 }
 

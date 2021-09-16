@@ -40,13 +40,16 @@ namespace site.Controllers
         {
             try
             {
+                    form.Contact.IsContact = true;
+                    form.People = new List<Person>(){ form.Contact };
+
                     using (AssessmentDb)
                     {
                         AssessmentDb.Assessments.Add(form);
                         AssessmentDb.SaveChanges();
                     }
 
-                    Email.Send("New Assessment", "system@aknightsfeast.com", "A new assessment form has been submitted!");
+                    //Email.Send("New Assessment", "system@aknightsfeast.com", "A new assessment form has been submitted!");
 
                     return new JsonResult(new {
                         Success = true,

@@ -35,10 +35,10 @@ namespace site
         {
             string connString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connString))
-                    .AddDbContext<AssessmentDbContext>(options => options.UseSqlite(connString))
-                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(connString))
-                    .AddDbContext<PersonDbContext>(options => options.UseSqlite(connString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connString))
+                    .AddDbContext<AssessmentDbContext>(options => options.UseSqlServer(connString))
+                    .AddDbContext<PersonDbContext>(options => options.UseSqlServer(connString))
+                    .AddDbContext<PersonDbContext>(options => options.UseSqlServer(connString));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -110,6 +110,7 @@ namespace site
 
                 if (env.IsDevelopment())
                 {
+                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });

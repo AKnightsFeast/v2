@@ -1,0 +1,52 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "DatabaseContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": "Data",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "AKF.Database",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[lknight1].[Assessments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[lknight1].[People]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[lknight1].[Pets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[lknight1].[States]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[lknight1].[Users]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "desktop-jkoab87.aknightsfeast.dbo",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": true,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

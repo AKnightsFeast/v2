@@ -11,15 +11,31 @@ namespace site.Models.Converters
 
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
             JsonTokenType token = reader.TokenType;
-
+ 
             if (token == JsonTokenType.String)
             {
-                return default(T);
+                return GetEnumValue(reader.GetString());
+            }
+            else if (token == JsonTokenType.StartArray)
+            {
+                Int64 enums = 0;
+
+                reader.Read();
+
+                while (reader.TokenType != JsonTokenType.EndArray)
+                {
+                    T enumValue = GetEnumValue(reader.GetString());
+
+                    enums |= Convert.ToInt64(enumValue);
+
+                    reader.Read();
+                }
+
+                return (T)Enum.ToObject(typeof(T), enums);
             }
 
-            if (token == JsonTokenType.StartArray)
-            {
-                return default(T);
+            //if (token == JsonTokenType.StartArray)
+            //{
                 /*
                 string[] values;
                 //Enum propertyValue = null;
@@ -35,7 +51,7 @@ namespace site.Models.Converters
                 //return enumValue;
                 return Enum.Parse(typeof(Type), reader.Value.ToString());
                 */
-            }
+            //}
 
             return default(T);
         }
@@ -48,6 +64,11 @@ namespace site.Models.Converters
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
+        }
+
+        T GetEnumValue(string enumString) {
+            T enumValue = (T)Enum.Parse(typeof(T), enumString, true);
+            return (Enum.IsDefined(typeof(T), enumValue)) ? enumValue : default(T);
         }
     }
 }

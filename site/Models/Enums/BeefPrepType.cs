@@ -8,15 +8,15 @@ namespace site.Models.Enums
     {
         Rare = 1,
         [EnumMember(Value = "MediumRare")]
-        MedRare = 2,
+        MediumRare = 2,
         Medium = 4,
         [EnumMember(Value = "MediumWell")]
-        MedWell = 16,
+        MediumWell = 16,
         [EnumMember(Value = "WellDone")]
         WellDone = 32,
         [EnumMember(Value = "Any")]
-        Any = Rare | MedRare | Medium | MedWell | WellDone,
+        Any = Rare | MediumRare | Medium | MediumWell | WellDone,
         [EnumMember(Value = "All")]
-        All = Rare & MedRare & Medium & MedWell & WellDone
+        All = Rare & MediumRare & Medium & MediumWell & WellDone
     }
 }

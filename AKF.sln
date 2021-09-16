@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AKF.Database", "AKF.Database\AKF.Database.csproj", "{C2DF1A5E-83A8-4635-B67A-C69DF5313BFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AKF.WebAPI", "AKF.WebAPI\AKF.WebAPI.csproj", "{210D60F1-FCDE-4659-B080-686B8C8CE86D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2DF1A5E-83A8-4635-B67A-C69DF5313BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2DF1A5E-83A8-4635-B67A-C69DF5313BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2DF1A5E-83A8-4635-B67A-C69DF5313BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2DF1A5E-83A8-4635-B67A-C69DF5313BFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210D60F1-FCDE-4659-B080-686B8C8CE86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210D60F1-FCDE-4659-B080-686B8C8CE86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210D60F1-FCDE-4659-B080-686B8C8CE86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210D60F1-FCDE-4659-B080-686B8C8CE86D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {103C4371-1C06-4A36-884F-6BE46237F772}
+	EndGlobalSection
+EndGlobal

@@ -4,10 +4,7 @@ using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Microsoft.AspNetCore.Mvc;
-
 using site.Models.Enums;
-using site.Models.Binders;
 using site.Models.Converters;
 
 namespace site.Models
@@ -56,6 +53,7 @@ namespace site.Models
         public string Comments { get; set; }
         public DateTime CreationDate { get; private set; }
 
+        [JsonPropertyName("address")]
         public Address CookingAddress { get; set; }
 
         //[ModelBinder(BinderType = typeof(EnumPropertyBinder<SpiceType>))]
@@ -69,6 +67,9 @@ namespace site.Models
         //[ModelBinder(BinderType = typeof(EnumPropertyBinder<PackageType>))]
         [JsonConverter(typeof(JSONEnumConverter<PackageType>))]
         public PackageType PackageStyle { get; set; }
+
+        [JsonPropertyName("contact")]
+        public Person Contact { get; set; }
 
         [InverseProperty("Assessment")] public virtual ICollection<Person> People { get; set; }
         [InverseProperty("Assessment")] public virtual ICollection<Pet> Pets { get; set; }

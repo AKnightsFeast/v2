@@ -126,7 +126,7 @@ export const AssessmentWizard: React.FC = () => {
 
     const getPersonSchema = (isRequired: boolean) => {
         const phoneValidator = mixed().test("phone", "Please enter a valid phone #.",
-            (value: string) => {
+            (value) => {
                 try {
                     if (value === null && !isRequired) return true;
 
@@ -153,9 +153,7 @@ export const AssessmentWizard: React.FC = () => {
         name: string().required().nullable(),
         type: string().required().nullable(),
         friendly: boolean().required().nullable(),
-        location: mixed().test("location", "Please indicate where the pet normally stays.", function(value: string[]) {
-            return value !== null && value.length > 0;
-        }),
+        location: mixed().test("location", "Please indicate where the pet normally stays.", (value) => value !== null && value.length > 0),
     });
 
     const AssessmentSchema = object().shape({
@@ -169,26 +167,26 @@ export const AssessmentWizard: React.FC = () => {
             zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required().nullable(),
         }).required(),
         people: array().of(getPersonSchema(false)).notRequired().nullable(),
-        allergies: mixed().test("allergies", "Please enter any food allergies.", function(value: string) {
+        allergies: mixed().test("allergies", "Please enter any food allergies.", function(value) {
             if (hasAllergies.current === undefined) return this.createError({ path: "hasallergies", message: "Please indicate if you currently have any food allergies."});
             return hasAllergies.current === false || (value || "") !== "";
         }),
         lactoseInt: boolean().required("Please indicate if anyone is lactose intolerant.").nullable(),
-        medical: mixed().test("medical", "Please enter any current medical conditions.", function(value: string) {
+        medical: mixed().test("medical", "Please enter any current medical conditions.", function(value) {
             if (hasMedConditions.current === undefined) return this.createError({ path: "hasmedconditions", message: "Please indicate if you currently have any medical conditions."});
             return hasMedConditions.current === false || (value || "") !== "";
         }),
-        dietPlan: mixed().test("dietPlan", "Please enter any current diet plans.", function(value: string) {
+        dietPlan: mixed().test("dietPlan", "Please enter any current diet plans.", function(value) {
             if (hasDietPlan.current === undefined) return this.createError({ path: "hasdietplan", message: "Please indicate if you are currently on a diet plan."});
             return hasDietPlan.current === false || (value || "") !== "";
         }),
         packaging: string().required("Please select how your food should be packaged.").nullable(),
         container: string().required("Please select what type of containers to use.").nullable(),
-        beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value: string[]) {
+        beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value) {
             if (likesBeef.current === undefined) return this.createError({ path: "likesbeef", message: "Please indicate if you like beef."});
             return likesBeef.current === false || (value !== null && value.length > 0); 
         }),
-        chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value: string[]) {
+        chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value) {
             if (likesChicken.current === undefined) return this.createError({ path: "likeschicken", message: "Please indicate if you like chicken."});
             return likesChicken.current === false || (value !== null && value.length > 0); 
         }),
@@ -199,7 +197,7 @@ export const AssessmentWizard: React.FC = () => {
         seafoodDislikes: string().notRequired().nullable(),    
         likesVegetarian: boolean().required("Please indicate if you like vegetarian food.").nullable(),
         otherFoods: string().notRequired().nullable(),
-        spiceLikes: mixed().test("spiceLikes", "Please select at least one spice level you like.", function(value: string[]) {
+        spiceLikes: mixed().test("spiceLikes", "Please select at least one spice level you like.", function(value) {
             return value !== null && value.length > 0;
         }),
         fhvLikes: string().notRequired().nullable(),
