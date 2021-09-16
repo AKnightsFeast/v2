@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using site.Models.Enums;
+using site.Models.Converters;
 
 namespace site.Models
 {
@@ -18,6 +20,8 @@ namespace site.Models
         [Required] public string Breed { get; set; }
 
         public bool IsFriendly { get; set; }
+
+        [JsonConverter(typeof(JSONEnumConverter<PetLocation>))]
         public PetLocation Location { get; set; }
 
         [ForeignKey("AID")]

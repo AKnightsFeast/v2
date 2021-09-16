@@ -1,24 +1,23 @@
 ﻿using System;
-
-using site.Attributes;
+using System.Runtime.Serialization;
 
 namespace site.Models.Enums
 {
     [Flags]
     public enum ChickenPrepType
     {
-        [EnumDisplay(Label = "Dark Meat")]
+        [EnumMember(Value = "DarkMeat")]
         DarkMeat = 1,
-        [EnumDisplay(Label = "White Meat")]
+        [EnumMember(Value = "WhiteMeat")]
         WhiteMeat = 2,
-        [EnumDisplay(Label = "Bone In")]
+        [EnumMember(Value = "BoneIn")]
         BoneIn = 4,
         Boneless = 16,
-        [EnumDisplay(Label = "Whole Roasts")]
+        [EnumMember(Value = "WholeRoasts")]
         WholeRoasts = 32,
-        [EnumDisplay(IsVisible = false)]
+        [EnumMember(Value = "Any")]
         Any = DarkMeat | WhiteMeat | BoneIn | Boneless | WholeRoasts,
-        [EnumDisplay(IsVisible = false)]
+        [EnumMember(Value = "All")]
         All = DarkMeat & WhiteMeat & BoneIn & Boneless & WholeRoasts
     }
 }

@@ -10,10 +10,10 @@ export const AssessmentPackagingTypes: Record<AssessmentPackagingKeyTypes, strin
     FamilyStyle: "Family Style"
 }
 
-export type AssessmentContainerKeyTypes = "YourOwn" | "Microwave" | "Pyrex";
+export type AssessmentContainerKeyTypes = "YourOwn" | "Plastic" | "Pyrex";
 export const AssessmentContainerTypes: Record<AssessmentContainerKeyTypes, string> = {
     YourOwn: "Your own",
-    Microwave: "Microwave safe plastic",
+    Plastic: "Microwave safe plastic",
     Pyrex: "Freezer, oven, and microwave safe Pyrex"
 }
 

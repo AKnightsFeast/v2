@@ -25,7 +25,7 @@ namespace site.Controllers
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class AssessmentController: ControllerBase
+    public class AssessmentController : ControllerBase
     {
         AssessmentDbContext AssessmentDb { get; set; }
 

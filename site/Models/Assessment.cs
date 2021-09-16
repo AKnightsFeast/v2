@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using site.Models.Enums;
 using site.Models.Binders;
+using site.Models.Converters;
 
 namespace site.Models
 {
@@ -24,9 +26,13 @@ namespace site.Models
         public string Medical { get; set; }
         public string DietPlan { get; set; }
 
+        //[ModelBinder(BinderType = typeof(EnumPropertyBinder<BeefPrepType>))]
+        [JsonConverter(typeof(JSONEnumConverter<BeefPrepType>))]
         public BeefPrepType BeefPrep { get; set; }
         [NotMapped] public bool Beef { get { return (BeefPrep & BeefPrepType.Any) != 0; } }
 
+        //[ModelBinder(BinderType = typeof(EnumPropertyBinder<ChickenPrepType>))]
+        [JsonConverter(typeof(JSONEnumConverter<ChickenPrepType>))]
         public ChickenPrepType ChickenPrep { get; set; }
         [NotMapped] public bool Chicken { get { return (ChickenPrep & ChickenPrepType.Any) != 0; } }
 
@@ -52,13 +58,16 @@ namespace site.Models
 
         public Address CookingAddress { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder<SpiceType>))]
+        //[ModelBinder(BinderType = typeof(EnumPropertyBinder<SpiceType>))]
+        [JsonConverter(typeof(JSONEnumConverter<SpiceType>))]
         public SpiceType SpiceLikes { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder<ContainerType>))]
+        //[ModelBinder(BinderType = typeof(EnumPropertyBinder<ContainerType>))]
+        [JsonConverter(typeof(JSONEnumConverter<ContainerType>))]
         public ContainerType Container { get; set; }
 
-        [ModelBinder(BinderType = typeof(EnumPropertyBinder<PackageType>))]
+        //[ModelBinder(BinderType = typeof(EnumPropertyBinder<PackageType>))]
+        [JsonConverter(typeof(JSONEnumConverter<PackageType>))]
         public PackageType PackageStyle { get; set; }
 
         [InverseProperty("Assessment")] public virtual ICollection<Person> People { get; set; }

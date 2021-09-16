@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Runtime.Serialization;
 
 namespace site.Models.Enums
 {
     public enum GiftCertificateDestination
     {
-        ToPurchaser = 1,
-        ToRecipient = 2
+        [EnumMember(Value = "From")]
+        Purchaser = 1,
+        [EnumMember(Value = "To")]
+        Recipient = 2
     }
 }

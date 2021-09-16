@@ -1,6 +1,5 @@
 ﻿using System;
-
-using site.Attributes;
+using System.Runtime.Serialization;
 
 namespace site.Models.Enums
 {
@@ -8,16 +7,16 @@ namespace site.Models.Enums
     public enum BeefPrepType
     {
         Rare = 1,
-        [EnumDisplay(Label = "Medium Rare")]
+        [EnumMember(Value = "MediumRare")]
         MedRare = 2,
         Medium = 4,
-        [EnumDisplay(Label = "Medium Well")]
+        [EnumMember(Value = "MediumWell")]
         MedWell = 16,
-        [EnumDisplay(Label = "Well Done")]
+        [EnumMember(Value = "WellDone")]
         WellDone = 32,
-        [EnumDisplay(IsVisible = false)]
+        [EnumMember(Value = "Any")]
         Any = Rare | MedRare | Medium | MedWell | WellDone,
-        [EnumDisplay(IsVisible = false)]
+        [EnumMember(Value = "All")]
         All = Rare & MedRare & Medium & MedWell & WellDone
     }
 }
