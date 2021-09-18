@@ -9,7 +9,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 
-namespace site.Controllers
+namespace AKF.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -12,12 +12,11 @@ using Microsoft.AspNetCore.Authorization;
 //using MigraDoc.Rendering;
 //using MigraDoc.DocumentObjectModel;
 
-using AKF.Database.Context;
-using AKF.Database.Models;
+using AKF.Common.Models;
 using AKF.Database.Interfaces;
 //using site.Models.Enums;
 
-namespace site.Controllers
+namespace AKF.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -43,7 +42,6 @@ namespace site.Controllers
                     using (_dbContext)
                     {
                         await _dbContext.AddAssessment(form);
-                        //AssessmentDb.SaveChanges();
                     }
 
                     //Email.Send("New Assessment", "system@aknightsfeast.com", "A new assessment form has been submitted!");

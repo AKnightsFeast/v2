@@ -6,3 +6,14 @@ obj
 bin
 node_modules
 site/package-lock.json
+.vs/AKF/DesignTimeBuild/.dtbcache.v2
+.vs/AKF/v16/.suo
+.vs/AKF.WebAPI/DesignTimeBuild/.dtbcache.v2
+.vs/AKF.WebAPI/v16/.suo
+.vs/v2/v16/.suo
+.vs/v2/v16/TestStore/0/000.testlog
+.vs/v2/v16/TestStore/0/testlog.manifest
+AKF.Web/.vs/AKF.Web/DesignTimeBuild/.dtbcache.v2
+AKF.Web/.vs/AKF.Web/v16/.suo
+AKF.WebAPI/.vs/AKF.WebAPI/DesignTimeBuild/.dtbcache.v2
+AKF.WebAPI/.vs/AKF.WebAPI/v16/.suo

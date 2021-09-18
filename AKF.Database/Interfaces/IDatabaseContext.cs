@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using AKF.Database.Models;
+using AKF.Common.Models;
 
 namespace AKF.Database.Interfaces
 {

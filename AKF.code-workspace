@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "AKF.Common",
+			"path": "AKF.Common"
+		},
+		{
+			"name": "AKF.Database",
+			"path": "AKF.Database"
+		},
+		{
+			"path": "AKF.Web"
+		}
+	],
+	"settings": {}
+}

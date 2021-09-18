@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKF.Database", ".\AKF.Database\AKF.Database.csproj", "{021EEB6C-CDEE-4B2D-B492-DDB5EFE5EF26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKF.Database", "AKF.Database.csproj", "{EE74F875-8758-4491-B0E6-B513D23766A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,10 @@ Global
 		{021EEB6C-CDEE-4B2D-B492-DDB5EFE5EF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{021EEB6C-CDEE-4B2D-B492-DDB5EFE5EF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{021EEB6C-CDEE-4B2D-B492-DDB5EFE5EF26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE74F875-8758-4491-B0E6-B513D23766A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE74F875-8758-4491-B0E6-B513D23766A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE74F875-8758-4491-B0E6-B513D23766A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE74F875-8758-4491-B0E6-B513D23766A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

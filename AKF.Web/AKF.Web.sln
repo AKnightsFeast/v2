@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKF.WebAPI", ".\AKF.WebAPI\AKF.WebAPI.csproj", "{67D211BA-925C-4184-81D2-C1A444B9D6D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKF.Web", "AKF.Web.csproj", "{DA2C1D5E-DBF7-41D1-91EA-69E5304E9436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,10 @@ Global
 		{67D211BA-925C-4184-81D2-C1A444B9D6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67D211BA-925C-4184-81D2-C1A444B9D6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67D211BA-925C-4184-81D2-C1A444B9D6D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA2C1D5E-DBF7-41D1-91EA-69E5304E9436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA2C1D5E-DBF7-41D1-91EA-69E5304E9436}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA2C1D5E-DBF7-41D1-91EA-69E5304E9436}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA2C1D5E-DBF7-41D1-91EA-69E5304E9436}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

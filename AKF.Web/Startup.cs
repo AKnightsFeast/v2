@@ -1,6 +1,6 @@
 using System;
 
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authentication;
@@ -16,10 +16,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 
-using site.Data;
-using site.Models;
+using AKF.Common.Models;
+using AKF.Database.Context;
+using AKF.Database.Interfaces;
 
-namespace site
+namespace AKF.Web
 {
     public class Startup
     {
@@ -33,16 +34,16 @@ namespace site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
+
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DatabaseContext>();
 
-            services.AddIdentityServer().AddApiAuthorization<ApplicationUser, DatabaseContext>();
+            services.AddIdentityServer().AddApiAuthorization<AppUser, AuthorizationContext>();
 
             services.AddAuthentication().AddIdentityServerJwt();
-
-            services.AddMvcCore().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             // services.AddMvc(options =>
             // {
@@ -62,6 +63,8 @@ namespace site
             {
                 configuration.RootPath = "Client/public";
             });
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,22 +82,18 @@ namespace site
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseHttpsRedirection()
+                .UseStaticFiles()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseIdentityServer()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+
             app.UseSpaStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                //endpoints.MapControllerRoute(name: "defaultapi", pattern: "api/{controller}/{id?}");
-                //endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapControllers();
-                //endpoints.MapRazorPages();
-            });
 
             app.UseSpa(spa =>
             {

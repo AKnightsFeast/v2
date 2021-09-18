@@ -27,11 +27,11 @@ namespace site.Controllers
     [Produces("application/json")]
     public class AssessmentController : ControllerBase
     {
-        AssessmentDbContext AssessmentDb { get; set; }
+        DatabaseContext _dbContext;
 
-        public AssessmentController(AssessmentDbContext context)
+        public AssessmentController(DatabaseContext context)
         {
-            AssessmentDb = context;
+            _dbContext = context;
         }
 
         [HttpPost]
@@ -43,10 +43,10 @@ namespace site.Controllers
                     form.Contact.IsContact = true;
                     form.People = new List<Person>(){ form.Contact };
 
-                    using (AssessmentDb)
+                    using (_dbContext)
                     {
-                        AssessmentDb.Assessments.Add(form);
-                        AssessmentDb.SaveChanges();
+                        _dbContext.Assessments.Add(form);
+                        _dbContext.SaveChanges();
                     }
 
                     //Email.Send("New Assessment", "system@aknightsfeast.com", "A new assessment form has been submitted!");
@@ -88,9 +88,9 @@ namespace site.Controllers
         {
             var assessments = new List<Assessment>();
 
-            using (AssessmentDb)
+            using (_dbContext)
             {
-                assessments = AssessmentDb.Assessments.Include("People").OrderByDescending(a => a.CreationDate).ToList();
+                assessments = _dbContext.Assessments.Include("People").OrderByDescending(a => a.CreationDate).ToList();
             }
 
             return assessments;
@@ -103,9 +103,9 @@ namespace site.Controllers
         {
             var assessment = new Assessment();
 
-            using (AssessmentDb)
+            using (_dbContext)
             {
-                assessment = AssessmentDb.Assessments.Include("People").Include("Pets").FirstOrDefault(a => a.AID == id);
+                assessment = _dbContext.Assessments.Include("People").Include("Pets").FirstOrDefault(a => a.AID == id);
             }
 
             return assessment;

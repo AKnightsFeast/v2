@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable enable
 
-namespace AKF.Database.Models
+namespace AKF.Common.Models
 {
     [Table("Assessments", Schema = "lknight1")]
     public partial class Assessment
