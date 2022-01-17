@@ -28,32 +28,23 @@ export const Home: React.FC = () => {
                         We create meals that meet your specific dietary and nutritional needs and appeal to your personal tastes.
                     </p>
                 </div>
-                {/*
-                <div className="">
-                <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <polygon points="50,0 100,0 50,100 0,100" fill="currentColor" />
-                <defs>
-                <pattern id="bg-svg" x="0" y="0">
-                                <image className="bg-hero" />
-                            </pattern>
-                            </defs>
-                            </svg>
-                            </div>
-*/}
                 <div className="hero-bg"></div>
             </section>
 
 
 
+{/*
+*/}
             <section className="foodquote">
                 <div className="overlay"></div>
-                <Parallax className="parallax" bgImage="/img/bgfishstew.jpg" strength={700}>
+                <Parallax className="parallax" bgImage="/assets/img/home/bgfishstew.jpg" strength={700}>
                     <blockquote>
                         One cannot think well, love well, sleep well, if one has not dined well.
                         <span>Virginia Woolf</span>
                     </blockquote>
                 </Parallax>
             </section>
+
 
 
 
@@ -140,7 +131,7 @@ export const Home: React.FC = () => {
 
             <section className="chefquote">
                 <div className="overlay"></div>
-                <Parallax className="parallax" bgImage="/img/bgsangria.jpg" strength={-100}>
+                <Parallax className="parallax" bgImage="/assets/img/home/bgsangria.jpg" strength={-100}>
                     <blockquote>
                         A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
                         <span>Chef Laura</span>
@@ -214,7 +205,7 @@ export const Home: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden" style={{ height: "70px", transform: "translateZ(0px)" }}>
+                <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden" style={{ height: "1080px", transform: "translateZ(0px)" }}>
                     <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
                         <polygon className="text-gray-900 fill-current" points="2560 0 2560 100 0 100"></polygon>
                     </svg>
@@ -223,7 +214,8 @@ export const Home: React.FC = () => {
 
 
 
-            <section className="relative block py-24 bg-gray-900">
+            <section className="contactchef py-24">
+                <div className="overlay"></div>
                 <div className="container mx-auto px-4">
                     <div className="flex flex-wrap justify-center">
                         <div className="w-full lg:w-6/12 px-4">
