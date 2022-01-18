@@ -38,7 +38,7 @@ export const Header: React.FC = () => {
 
                 <ul className="link-container">
                     {/* Login */}
-                    <li>
+                    <li className="assessment-button">
                         <NavLink to="/assessment" className="link-button">Complete an assessment</NavLink>
                     </li>
 
@@ -208,10 +208,10 @@ export const Header: React.FC = () => {
                         </div>
                     </li>
 
-                    {/* Login */}
+                    {/* Login
                     <li className="link">
                         <span className="link-text">Login</span>
-                    </li>
+                    </li> */}
 
                     <li className="nav-right-item">
                         <div className="flex justify-between text-pink-600 fill-current">

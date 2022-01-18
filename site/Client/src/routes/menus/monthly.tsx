@@ -1,12 +1,13 @@
 import React, { useRef, useState, useCallback, ChangeEvent, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout } from '@phuocng/react-pdf-viewer';
-
+//import Viewer, { Worker, ToolbarSlot, Slot, RenderToolbar, defaultLayout } from '@phuocng/react-pdf-viewer';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import { Months } from '../../modules/data';
 import { YearArray, getMonthByNumber } from '../../utils';
 import { ApplicationState, Month } from '../../modules/types';
 import { setMenuYear, setMenuMonth, LoadMenuDatesAsync } from '../../store/menus/monthly/actions';
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 
 export const Monthly: React.FC = () => {
     const dispatch = useDispatch();
@@ -17,10 +18,17 @@ export const Monthly: React.FC = () => {
     const menuMonth = useSelector((state: ApplicationState) => state.MonthlyMenu.SelectedMonth);
 
     const menuYearRef = useRef(menuYear);
-    const [, refreshMenuYear] = useState();
+    const [, refreshMenuYear] = useState<any>();
 
     const pdfName = useRef('');
 
+    const [numPages, setNumPages] = useState<number>(0);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+  
+    function onDocumentLoadSuccess({ numPages }: PDFDocumentProxy) {
+      setNumPages(numPages);
+    }
+  
     const setSelectedMonth = useCallback((e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         
@@ -40,22 +48,6 @@ export const Monthly: React.FC = () => {
 
         refreshMenuYear({});
     }, [menuYearRef.current]);
-
-    const renderToolbar = (toolbarSlot: ToolbarSlot): React.ReactElement => {
-        return (
-            <div className="menu-pager">
-                <div>
-                    <div style={{ padding: '0 2px' }}>{toolbarSlot.previousPageButton}</div>
-                    <div style={{ padding: '0 2px' }}>{toolbarSlot.currentPage + 1} / {toolbarSlot.numPages}</div>
-                    <div style={{ padding: '0 2px' }}>{toolbarSlot.nextPageButton}</div>
-                </div>
-            </div>
-        );
-    };
-
-    const layout = (isSidebarOpened: boolean, container: Slot, main: Slot, toolbar: RenderToolbar, sidebar: Slot): React.ReactElement => {
-        return defaultLayout(isSidebarOpened, container, main, toolbar(renderToolbar), sidebar);
-    };
 
     const setPdfUrl = (year: number, moNumber: number): void => {
         pdfName.current = `../../../assets/menus/${year + moNumber.toLocaleString(navigator.language, { minimumIntegerDigits: 2, useGrouping: false })}.pdf`;
@@ -102,9 +94,14 @@ export const Monthly: React.FC = () => {
                         <>
                             <div className="menu-title">Menu for {menuMonth.Name} {menuYear}</div>
                             <div className="menu-viewer">
-                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.3.200/build/pdf.worker.min.js">
-                                    <Viewer key={ pdfName.current } fileUrl={ pdfName.current } defaultScale={1.3} layout={layout} />
-                                </Worker>
+                                <Document file={pdfName.current} onLoadSuccess={onDocumentLoadSuccess}>
+                                {
+                                    Array.from(new Array(numPages), (el, index) => (
+                                            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+                                        )
+                                    )
+                                }
+                                </Document>
                             </div>
                         </>
                 }

@@ -223,3 +223,7 @@
         @apply text-base;
     }
 }
+
+.assessment-button {
+    margin-right: 10px;
+}

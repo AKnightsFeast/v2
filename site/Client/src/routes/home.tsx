@@ -48,7 +48,7 @@ export const Home: React.FC = () => {
 
 
 
-            <section className="how-it-works">
+            <section className="how-it-works jagged-top">
                 <h2>How It Works</h2>
 
                 <div className="timeline">

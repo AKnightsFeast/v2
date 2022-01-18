@@ -1,3 +1,6 @@
+.timeline {
+  --main-color: #f7f7f7;
+}
 
 .timeline .timeline-item::after, .timeline .timeline-item::before {
     clear: both;
@@ -15,7 +18,7 @@
   }
   
   .timeline::before {
-    background: #fefefe;
+    background: var(--main-color);
     content: '';
     height: 100%;
     left: 50%;
@@ -37,7 +40,7 @@
   }
   
   .timeline .timeline-item .timeline-icon {
-    background: #fefefe;
+    background: var(--main-color);
     border-radius: 50%;
     height: 50px;
     left: 50%;
@@ -46,6 +49,7 @@
     position: absolute;
     top: 0;
     width: 50px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
   
   .timeline .timeline-item .timeline-icon img,
@@ -107,7 +111,7 @@
     }
     .timeline .timeline-item .timeline-content::before, .timeline .timeline-item .timeline-content.right::before {
       border-left: 0;
-      border-right: 7px solid #fefefe;
+      border-right: 7px solid var(--main-color);
       left: 10%;
       margin-left: -6px;
     }

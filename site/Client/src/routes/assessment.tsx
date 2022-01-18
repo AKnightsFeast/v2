@@ -533,7 +533,7 @@ export const AssessmentWizard: React.FC = () => {
                     <div className="areas">
                         <form ref={formRef}>
                             <div {...getStepAttributes("contact")}>
-                                <Contact person={assessment.contact} onContactUpdate={onUpdateContact} />
+                                <Contact person={assessment.contact} onContactUpdate={onUpdateContact} contactInfoOptional={false} />
                             </div>
 
 
@@ -585,7 +585,7 @@ export const AssessmentWizard: React.FC = () => {
                                     (assessment.people ?? []).map((person, index) => (
                                         <div className="person" key={person.id}>
                                             <div className="w-5/6">
-                                                <Contact index={index} person={person} onContactUpdate={onUpdatePerson} />
+                                                <Contact index={index} person={person} onContactUpdate={onUpdatePerson} contactInfoOptional={true} />
                                             </div>
                                             <div className="w-1/6 text-center">
                                                 <button className="remove" title="Remove" value={person.id} onClick={(e) => {e.preventDefault(); onRemovePerson(e.currentTarget.value);}}>
