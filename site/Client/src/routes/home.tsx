@@ -150,7 +150,7 @@ export const Home: React.FC = () => {
                             <div className="plan-inner">
                                 <div className="entry-title">
                                     <h3>Meal Service</h3>
-                                    <div className="price">$475</div>
+                                    <div className="price">$575</div>
                                 </div>
                                 <ul className="entry-content">
                                     <li>5 meals with up to 4-6 servings of any selection.</li>
@@ -164,7 +164,7 @@ export const Home: React.FC = () => {
                             <div className="plan-inner">
                                 <div className="entry-title">
                                     <h3>Quick Service</h3>
-                                    <div className="price">$350</div>
+                                    <div className="price">$425</div>
                                 </div>
                                 <ul className="entry-content">
                                     <li>3 Meals with up to 4-6 servings of any selection.</li>
