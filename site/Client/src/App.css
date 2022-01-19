@@ -1401,7 +1401,14 @@ bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 
 }
 
 .menu-special .menus {
+  margin-left: 1.25rem;
   flex: 1;
+}
+
+@media (min-width: 1024px) {
+  .menu-special .menus {
+    margin-left: 0;
+  }
 }
 
 .menu-special .menus > .menu ~ .menu {

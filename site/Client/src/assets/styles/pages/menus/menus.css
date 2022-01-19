@@ -102,7 +102,14 @@
 }
 
 .menu-special .menus {
+    @apply ml-5;
     flex: 1;
+}
+
+@screen lg {
+    .menu-special .menus {
+        @apply ml-0;
+    }
 }
 
 .menu-special .menus > .menu ~ .menu {
