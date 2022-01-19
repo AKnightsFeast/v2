@@ -31,8 +31,6 @@ export const Home: React.FC = () => {
                 <div className="hero-bg"></div>
             </section>
 
-
-
 {/*
 */}
             <section className="foodquote">
@@ -67,7 +65,7 @@ export const Home: React.FC = () => {
                                         <li>What international foods do you enjoy?</li>
                                     </ul>
                                     <p>
-                                        You can also complete a <NavLink to="/Assessment" className="is-underline">Client Assessment Form</NavLink> online so I can come up with a menu for you quicker!
+                                        You can also complete a <NavLink to="/Assessment">Client Assessment Form</NavLink> online so I can come up with a menu for you quicker!
                                     </p>
                                 </div>
                             </div>

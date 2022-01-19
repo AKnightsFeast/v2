@@ -16,6 +16,41 @@
     @apply border-pink-600;
 }
 
+.menu-special .menu-nav {
+    @apply fixed;
+    @apply -mb-16;
+    @apply h-full;
+    @apply hidden;
+    @apply inset-0;
+    @apply border-b;
+
+    z-index: -10;
+}
+
+@screen sm {
+    .menu-special .menu-nav {
+    }
+}
+
+@screen md {
+    .menu-special .menu-nav {
+    }
+}
+
+@screen lg {
+    .menu-special .menu-nav {
+        @apply pt-0;
+        @apply -mb-1;
+        @apply block;
+        @apply static;
+        @apply h-auto;
+        @apply border-0;
+        @apply overflow-y-visible;
+
+        flex: 0 0 300px;
+    }
+}
+
 .menu-special .menu-nav .menu-nav-wrapper {
     /* @apply h-full;
     /* @apply overflow-y-auto;
@@ -64,6 +99,10 @@
 
 .menu-special .menu-nav .menu-nav-wrapper .menu-nav-items li ~ li {
     @apply mt-1;
+}
+
+.menu-special .menus {
+    flex: 1;
 }
 
 .menu-special .menus > .menu ~ .menu {

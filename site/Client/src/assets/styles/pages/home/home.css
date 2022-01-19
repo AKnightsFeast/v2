@@ -272,12 +272,12 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
     @apply px-1;
     border-width: 1px;
     @apply border-dotted;
-    @apply border-red-100;
+    border-color: currentColor;
 }
 
 .how-it-works a:hover {
-    @apply text-pink-900;
-    @apply border-pink-900;
+    @apply text-pink-600;
+    @apply border-pink-600;
 }
 
 .timeline-content h2 {
@@ -300,11 +300,6 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 .timeline-content p ~ p,
 .timeline-content li ~ li {
     @apply mt-4;
-}
-
-.timeline a.is-underline:hover
-{
-    color: rgba(20, 1, 7, 1);
 }
 
 .timeline-content-container.left

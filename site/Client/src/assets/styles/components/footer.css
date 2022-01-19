@@ -43,9 +43,21 @@
     @apply justify-between;
 }
 
-.cozymeal {
-    width: 33px;
-    height: 24px;
+/*
+bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1
+*/
+.footer .link-button {
+    @apply my-3;
+    @apply shadow-md;
+    @apply rounded-lg;
+    @apply text-white;
+    @apply bg-pink-600;
+    @apply font-semibold;
+    @apply leading-tight;
+}
+
+.footer .link-button:hover {
+    @apply bg-pink-700;
 }
 
 @screen sm {

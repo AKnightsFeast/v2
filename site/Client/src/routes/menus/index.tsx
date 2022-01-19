@@ -16,7 +16,7 @@ type MenuSections = {
 const MenuTemplate = ({ Nav, Menus, Title }: MenuSections) => {
     const [menuId, setMenuId] = useState(1);
     const menus = useRef<HTMLElement[]>([]);
-    const [, refreshNav] = useState();
+    const [, refreshNav] = useState<any>();
 
     useIsomorphicLayoutEffect(() => {
         if (!isUsingBrowser) return;
@@ -57,7 +57,7 @@ const MenuTemplate = ({ Nav, Menus, Title }: MenuSections) => {
 
     return (
         <div className="menu-special">
-            <div className="menu-nav fixed inset-0 h-full pt-24 bg-gray-100 z-90 w-full border-b -mb-16 lg:-mb-0 lg:static lg:h-auto lg:bg-transparent lg:overflow-y-visible lg:border-b-0 lg:pt-0 lg:w-1/4 lg:block lg:border-0 xl:w-1/5 hidden">
+            <div className="menu-nav">
                 <div className="menu-nav-wrapper">
                     <div className="menu-nav-title">{ Title }</div>
                     <ul className="menu-nav-items">

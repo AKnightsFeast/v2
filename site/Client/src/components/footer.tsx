@@ -51,8 +51,8 @@ export const Footer: React.FC = () => {
                     <div className="footer-title">Newsletter</div>
                     <p className="text-grey-darker leading-normal w-full">Sign up for Chef Laura's newsletter!</p>
                     <div className="mt-4 flex">
-                        <input type="text" className="p-2 border border-grey-light round text-grey-dark text-sm h-auto" placeholder="Your email address" />
-                        <button className="bg-orange text-white rounded-sm h-auto text-xs p-3">Subscribe</button>
+                        <input type="text" disabled={true} className="p-2 border border-grey-light round text-grey-dark text-sm h-auto" title={"Coming soon!"} placeholder="Your email address" />
+                        <button disabled={true} title={"Coming soon!"} className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-3 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ml-2">Subscribe</button>
                     </div>
                 </div>
             </div>
