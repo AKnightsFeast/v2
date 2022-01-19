@@ -27,16 +27,6 @@
     z-index: -10;
 }
 
-@screen sm {
-    .menu-special .menu-nav {
-    }
-}
-
-@screen md {
-    .menu-special .menu-nav {
-    }
-}
-
 @screen lg {
     .menu-special .menu-nav {
         @apply pt-0;
@@ -142,6 +132,20 @@
 
 .menu-special .menus .menu ul {
     @apply ml-5;
+}
+
+@screen lg {
+    .menu-special .menus .menu .header + div > ul {
+        column-count: 4;
+        column-gap: 20px;
+    }
+}
+
+@screen md {
+    .menu-special .menus .menu .header + div > ul {
+        column-count: 2;
+        column-gap: 20px;
+    }
 }
 
 .menu-special .menus .menu > * ~ * {
