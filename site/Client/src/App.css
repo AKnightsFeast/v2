@@ -980,8 +980,12 @@ blockquote span
   padding-right: 1rem;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  display: block;
   position: relative;
+}
+
+.nav .link-text,
+.nav .nav-right-item {
+  display: block;
 }
 
 .nav .link-text,
@@ -1003,11 +1007,11 @@ blockquote span
   background-color: rgba(42, 67, 101, var(--bg-opacity));
 }
 
-.nav .link-button {
+.nav .link-button,
+.nav .sm-link-button {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border-radius: 0.5rem;
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
@@ -1018,10 +1022,51 @@ blockquote span
   line-height: 1.25;
 }
 
-.nav .link-button:hover {
+.nav .link-button {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  display: none;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+}
+
+.nav .link-button:hover,
+.nav .sm-link-button:hover {
   --bg-opacity: 1;
-  background-color: #b83280;
-  background-color: rgba(184, 50, 128, var(--bg-opacity));
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #d53f8c;
+  color: rgba(213, 63, 140, var(--text-opacity));
+}
+
+.nav .sm-link-button {
+  top: 0;
+  display: block;
+  font-size: 1rem;
+  overflow: hidden;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.nav .sm-link-button i {
+  position: relative;
+  top: 13px;
+  left: 13px;
+}
+
+@media (min-width: 640px) {
+  .nav .link-button {
+    display: block;
+  }
+
+  .nav .sm-link-button {
+    display: none;
+  }
 }
 
 .nav .mega-menu {
@@ -1151,14 +1196,6 @@ blockquote span
   .nav .mega-menu-item {
     border-top-width: 0;
   }
-
-  .nav .link-button {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-size: 1.125rem;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1180,16 +1217,6 @@ blockquote span
   .nav .mega-menu-item ~ .mega-menu-item {
     border-left-width: 1px;
     border-top-width: 0;
-  }
-}
-
-@media (min-width: 1280px) {
-  .nav .link-button {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    font-size: 1rem;
   }
 }
 
@@ -1835,7 +1862,7 @@ h2 {
 .how-it-works h2,
 .prices h2 {
   padding-bottom: 3rem;
-  letter-spacing: .4em;
+  letter-spacing: .2em;
   font-family: 'Quicksand', Arial;
 }
 

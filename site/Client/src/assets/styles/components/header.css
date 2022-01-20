@@ -47,8 +47,12 @@
 .nav .nav-right-item {
     @apply px-4;
     @apply py-6;
-    @apply block;
     @apply relative;
+}
+
+.nav .link-text,
+.nav .nav-right-item {
+    @apply block;
 }
 
 .nav .link-text,
@@ -66,18 +70,55 @@
     @apply bg-blue-900;
 }
 
-.nav .link-button {
+.nav .link-button,
+.nav .sm-link-button {
     @apply my-3;
     @apply shadow-md;
-    @apply rounded-lg;
     @apply text-white;
     @apply bg-pink-600;
     @apply font-semibold;
     @apply leading-tight;
 }
 
-.nav .link-button:hover {
-    @apply bg-pink-700;
+.nav .link-button {
+    @apply px-3;
+    @apply py-3;
+    @apply hidden;
+    @apply text-base;
+    @apply rounded-md;
+}
+
+.nav .link-button:hover,
+.nav .sm-link-button:hover {
+    @apply bg-white;
+    @apply text-pink-600;
+}
+
+.nav .sm-link-button {
+    @apply top-0;
+    @apply block;
+    @apply text-base;
+    @apply overflow-hidden;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.nav .sm-link-button i {
+    @apply relative;
+    top: 13px;
+    left: 13px;
+}
+
+@screen sm {
+    .nav .link-button {
+        @apply block;
+    }
+
+    .nav .sm-link-button {
+        @apply hidden;
+    }
 }
 
 .nav .mega-menu {
@@ -186,12 +227,6 @@
     .nav .mega-menu-item {
         @apply border-t-0;
     }
-
-    .nav .link-button {
-        @apply px-5;
-        @apply py-4;
-        @apply text-lg;
-    }
 }
 
 @screen lg {
@@ -213,14 +248,6 @@
     .nav .mega-menu-item ~ .mega-menu-item {
         @apply border-l;
         @apply border-t-0;
-    }
-}
-
-@screen xl {
-    .nav .link-button {
-        @apply px-4;
-        @apply py-3;
-        @apply text-base;
     }
 }
 

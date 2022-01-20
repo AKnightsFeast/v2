@@ -39,7 +39,8 @@ export const Header: React.FC = () => {
                 <ul className="link-container">
                     {/* Login */}
                     <li className="assessment-button">
-                        <NavLink to="/assessment" className="link-button">Complete an assessment</NavLink>
+                        <NavLink to="/assessment" className="link-button" title="Fill out an online assessment!">Complete an assessment!</NavLink>
+                        <NavLink to="/assessment" className="sm-link-button" title="Complete an online assessment!"><i className="material-icons md-18">content_paste</i></NavLink>
                     </li>
 
                     {/* Menus Hoverable Link */}
