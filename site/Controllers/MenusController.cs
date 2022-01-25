@@ -1,10 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Net.Mime;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +11,7 @@ namespace site.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MenusController: ControllerBase
+    public class MenusController : ControllerBase
     {
         IWebHostEnvironment _env;
 

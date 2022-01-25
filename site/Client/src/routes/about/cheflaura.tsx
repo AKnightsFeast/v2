@@ -31,7 +31,7 @@ export const ChefLaura: React.FC = () => {
                                 </div>
                             </div>
                             <div className="text-center mt-32">
-                                <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
+                                <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800">
                                     Laura Knight
                                 </h3>
                                 <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">

@@ -59,3 +59,9 @@ export enum AssessmentActions {
     LOAD_ASSESSMENTS_OK = "LOAD_ASSESSMENTS_OK",
     LOAD_ASSESSMENTS_ERR = "LOAD_ASSESSMENTS_ERR",
 }
+
+export enum SendMessageActions {
+    SEND_MESSAGE = "SEND_MESSAGE",
+    SEND_MESSAGE_OK = "SEND_MESSAGE_OK",
+    SEND_MESSAGE_ERR = "SEND_MESSGE_ERR"
+}

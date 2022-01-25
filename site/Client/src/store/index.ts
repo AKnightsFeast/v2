@@ -1,13 +1,12 @@
 import { createEpicMiddleware } from 'redux-observable';
 import { compose, createStore, applyMiddleware } from 'redux';
 
-import services from '../services';
 import { RootAction, RootReducer, Services } from '../modules/types';
 import { InitialApplicationState } from '../modules/states';
 
 import rootEpic from './epic';
 import rootReducer from './reducer';
-//import services from '../services';
+import services from '../services';
 
 export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootReducer, Services>({ dependencies: services });
 

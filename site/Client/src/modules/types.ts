@@ -25,12 +25,17 @@ export type MonthlyMenuState = {
 };    
 
 export type AssessmentState = {
-    IsSubmitting: boolean,
+    IsSubmitting: boolean
+}
+
+export type ContactMessageState = {
+    IsSendingMessage: boolean
 }
 
 export type ApplicationState = {
     MonthlyMenu: MonthlyMenuState,
     Assessment: AssessmentState,
+    ContactMessage: ContactMessageState
 };    
 
 export type ScrollToTopProp = {
@@ -108,6 +113,12 @@ export type Assessment = {
     pets: CustomerPet[] | null,
     comments: string | null,
 }
+
+export type Message = {
+    sender: string,
+    email: string,
+    text: string
+};
 
 export type Services = typeof import ('../services').default;
 

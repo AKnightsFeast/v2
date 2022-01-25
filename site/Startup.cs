@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 
 using site.Data;
 using site.Models;
+using site.Utilities;
+using site.Configuration;
 
 namespace site
 {
@@ -62,6 +64,10 @@ namespace site
             {
                 configuration.RootPath = "Client/public";
             });
+            
+            services.AddConfiguration<EmailSettings>(Configuration, "MailSettings");
+
+            services.AddTransient<Email>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+//import { Parallax } from 'react-parallax';
+import { animated } from 'react-spring';
 import { NavLink } from 'react-router-dom';
-import { Parallax } from 'react-parallax';
+import { useDispatch, useSelector } from 'react-redux';
+
 //import { Transition } from 'react-transition-group';
+
+import { Message } from '../modules/types';
+import WaitButton from '../components/waitbutton';
+import { ApplicationState } from '../modules/types';
+import { sendMessageAsync } from '../store/contact/actions';
 
 import "../assets/styles/pages/home/timeline.css";
 //import "../assets/styles/transition.css";
@@ -10,6 +18,23 @@ const calc = (o: number) => `translateY(${o * 0.1}px)`;
 
 export const Home: React.FC = () => {
     //const [showNav, setShowNav] = useState(false);
+    const dispatch = useDispatch();
+
+    const isSendingMessage = useSelector((state: ApplicationState) => state.ContactMessage.IsSendingMessage);
+    const [message, setMessage] = useState<Message>({ sender: "", email: "", text: "" });
+
+    const updateMessage = (attrObj: any) => {
+        setMessage(oldMessage => ({...oldMessage, ...attrObj}));
+    };
+
+    const sendMessage = () => {
+        dispatch(sendMessageAsync.request(message));
+        
+        //while (!isSubmitting) {
+        //    console.log("Waiting...");
+        //}
+    //    formRef.current && formRef.current.submit();
+    };
 
     return (
         <>
@@ -31,16 +56,18 @@ export const Home: React.FC = () => {
                 <div className="hero-bg"></div>
             </section>
 
-{/*
-*/}
             <section className="foodquote">
                 <div className="overlay"></div>
-                <Parallax className="parallax" bgImage="/assets/img/home/bgfishstew.jpg" strength={700}>
+                <animated.div style={{backgroundImage: "/assets/img/home/bgfishstew.jpg"}}>
                     <blockquote>
                         One cannot think well, love well, sleep well, if one has not dined well.
                         <span>Virginia Woolf</span>
                     </blockquote>
+                </animated.div>
+{/*
+                <Parallax className="parallax" bgImage="/assets/img/home/bgfishstew.jpg" strength={700}>
                 </Parallax>
+*/}
             </section>
 
 
@@ -129,12 +156,16 @@ export const Home: React.FC = () => {
 
             <section className="chefquote">
                 <div className="overlay"></div>
-                <Parallax className="parallax" bgImage="/assets/img/home/bgsangria.jpg" strength={-100}>
+                <animated.div style={{backgroundImage: "/assets/img/home/bgsangria.jpg"}}>
                     <blockquote>
                         A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
                         <span>Chef Laura</span>
                     </blockquote>
+                </animated.div>
+{/*
+                <Parallax className="parallax" bgImage="/assets/img/home/bgsangria.jpg" strength={-100}>
                 </Parallax>
+*/}
             </section>
 
 
@@ -225,21 +256,21 @@ export const Home: React.FC = () => {
 
                                     <div className="relative w-full mb-3 mt-8">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="full-name">Full Name</label>
-                                        <input type="text" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Full Name" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                        <input type="text" onBlur={(e) => { updateMessage({ sender: e.target.value }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Full Name" style={{ transition: "all 0.15s ease 0s" }} required={true} />
                                     </div>
                                     
                                     <div className="relative w-full mb-3">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="email">Email</label>
-                                        <input type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                        <input type="email" onBlur={(e) => { updateMessage({ email: e.target.value }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ transition: "all 0.15s ease 0s" }} required={true} />
                                     </div>
                                     
                                     <div className="relative w-full mb-3">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="message">Message</label>
-                                        <textarea rows={4} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
+                                        <textarea rows={4} onBlur={(e) => { updateMessage({ text: e.target.value }); }} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
                                     </div>
                                     
                                     <div className="text-center mt-6">
-                                        <button className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all 0.15s ease 0s" }}>Send Message</button>
+                                        <WaitButton isLoading={isSendingMessage} onClick={sendMessage} className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" style={{ transition: "all 0.15s ease 0s" }}>Send Message</WaitButton>
                                     </div>
                                 </div>
                             </div>
