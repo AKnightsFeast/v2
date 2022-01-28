@@ -7,8 +7,8 @@ export const IsSendingMessage = createReducer(false as boolean)
     .handleAction([sendMessageAsync.request], (state : any, action : any) => true)
     .handleAction([sendMessageAsync.success, sendMessageAsync.failure], (state : any, action : any) => false);
 
-const Message = combineReducers({ IsSendingMessage });
+const ContactMessage = combineReducers({ IsSendingMessage });
 
-export default Message;
+export default ContactMessage;
 
-export type SendMessageReducerState = ReturnType<typeof Message>;
+export type SendMessageReducerState = ReturnType<typeof ContactMessage>;

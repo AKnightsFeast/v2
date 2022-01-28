@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 //import { Parallax } from 'react-parallax';
-import { animated } from 'react-spring';
+//import { animated } from 'react-spring';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 //import { Transition } from 'react-transition-group';
 
 import { Message } from '../modules/types';
-import WaitButton from '../components/waitbutton';
 import { ApplicationState } from '../modules/types';
+import WaitButton from '../components/waitbutton';
 import { sendMessageAsync } from '../store/contact/actions';
 
 import "../assets/styles/pages/home/timeline.css";
@@ -58,13 +58,15 @@ export const Home: React.FC = () => {
 
             <section className="foodquote">
                 <div className="overlay"></div>
-                <animated.div style={{backgroundImage: "/assets/img/home/bgfishstew.jpg"}}>
+{/*                <div>
+                <animated.div>
                     <blockquote>
                         One cannot think well, love well, sleep well, if one has not dined well.
                         <span>Virginia Woolf</span>
                     </blockquote>
                 </animated.div>
-{/*
+                </div>
+
                 <Parallax className="parallax" bgImage="/assets/img/home/bgfishstew.jpg" strength={700}>
                 </Parallax>
 */}
@@ -156,13 +158,15 @@ export const Home: React.FC = () => {
 
             <section className="chefquote">
                 <div className="overlay"></div>
-                <animated.div style={{backgroundImage: "/assets/img/home/bgsangria.jpg"}}>
+{/*                <div>
+                <animated.div>
                     <blockquote>
                         A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
                         <span>Chef Laura</span>
                     </blockquote>
                 </animated.div>
-{/*
+                </div>
+
                 <Parallax className="parallax" bgImage="/assets/img/home/bgsangria.jpg" strength={-100}>
                 </Parallax>
 */}

@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect, ReactNode, ButtonHTMLAttributes } from 'react';
-import { useSpring, animated } from "react-spring";
+import React, { useRef, useState, useEffect, ButtonHTMLAttributes } from 'react';
+import { useSpring, animated } from "@react-spring/web";
 import { ClipLoader } from "react-spinners";
 
 interface WaitButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,7 +9,7 @@ interface WaitButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default ({ isLoading, children, ...props }: WaitButtonProperties) => {
     /* showLoader is used to stay in the "isLoading state" a bit longer to avoid loading flashes
     if the loading state is too short. */
-    const [showLoader, setShowLoader] = React.useState(false);
+    const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
         if (isLoading) setShowLoader(true);

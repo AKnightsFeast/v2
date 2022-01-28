@@ -5,5 +5,5 @@ import * as SendMessageActions from './contact/actions';
 export default {
   Assessment: AssessmentActions,
   MonthlyMenu: MonthlyMenuActions,
-  Message: SendMessageActions
+  ContactMessage: SendMessageActions
 };
