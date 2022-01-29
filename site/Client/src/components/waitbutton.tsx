@@ -44,7 +44,7 @@ export default ({ isLoading, children, ...props }: WaitButtonProperties) => {
     const fadeInProps = useSpring({ opacity: showLoader ? 0 : 1 });
 
     return (
-        <button className="button" ref={ref} style={showLoader ? {width: `${width}px`, height: `${height}px`} : {}} {...props}>
+        <>
             {
                 showLoader ? (
                     <animated.div style={fadeOutProps}>
@@ -52,10 +52,12 @@ export default ({ isLoading, children, ...props }: WaitButtonProperties) => {
                     </animated.div>
                 ) : (
                     <animated.div style={fadeInProps}>
-                        {children}
+                        <button ref={ref} style={showLoader ? {width: `${width}px`, height: `${height}px`} : {}} {...props}>
+                            {children}
+                        </button>
                     </animated.div>
                 )
             }
-        </button>
+        </>
     );
 }

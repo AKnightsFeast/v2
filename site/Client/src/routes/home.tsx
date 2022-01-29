@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 //import { Parallax } from 'react-parallax';
 //import { animated } from 'react-spring';
+import { string, object } from 'yup';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-//import { Transition } from 'react-transition-group';
 
 import { Message } from '../modules/types';
 import { ApplicationState } from '../modules/types';
@@ -15,6 +14,12 @@ import "../assets/styles/pages/home/timeline.css";
 //import "../assets/styles/transition.css";
 
 const calc = (o: number) => `translateY(${o * 0.1}px)`;
+
+const contactMessageSchema = object().shape({
+    sender: string().required("Please provide your name."),
+    email: string().email("Please provide a valid email address."),
+    text: string().required("Please include your message to Chef Laura.")
+}).noUnknown();
 
 export const Home: React.FC = () => {
     //const [showNav, setShowNav] = useState(false);
@@ -28,8 +33,12 @@ export const Home: React.FC = () => {
     };
 
     const sendMessage = () => {
-        dispatch(sendMessageAsync.request(message));
-        
+        contactMessageSchema
+            .validate(message)
+            .catch(err => console.log(err.message))
+            .then(valid => valid && dispatch(sendMessageAsync.request(message)));      
+
+            
         //while (!isSubmitting) {
         //    console.log("Waiting...");
         //}
@@ -174,7 +183,7 @@ export const Home: React.FC = () => {
 
 
 
-            <section className="prices">
+            <section className="prices jagged-top">
                 <h2>Prices</h2>
 
                 <div className="plans">
@@ -260,21 +269,21 @@ export const Home: React.FC = () => {
 
                                     <div className="relative w-full mb-3 mt-8">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="full-name">Full Name</label>
-                                        <input type="text" onBlur={(e) => { updateMessage({ sender: e.target.value }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Full Name" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                        <input type="text" onBlur={(e) => { updateMessage({ sender: e.target.value.trim() }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Full Name" style={{ transition: "all 0.15s ease 0s" }} required={true} />
                                     </div>
                                     
                                     <div className="relative w-full mb-3">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="email">Email</label>
-                                        <input type="email" onBlur={(e) => { updateMessage({ email: e.target.value }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ transition: "all 0.15s ease 0s" }} required={true} />
+                                        <input type="email" onBlur={(e) => { updateMessage({ email: e.target.value.trim() }); }} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ transition: "all 0.15s ease 0s" }} required={true} />
                                     </div>
                                     
                                     <div className="relative w-full mb-3">
                                         <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="message">Message</label>
-                                        <textarea rows={4} onBlur={(e) => { updateMessage({ text: e.target.value }); }} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
+                                        <textarea rows={4} onBlur={(e) => { updateMessage({ text: e.target.value.trim() }); }} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
                                     </div>
                                     
                                     <div className="text-center mt-6">
-                                        <WaitButton isLoading={isSendingMessage} onClick={sendMessage} className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" style={{ transition: "all 0.15s ease 0s" }}>Send Message</WaitButton>
+                                        <WaitButton isLoading={isSendingMessage} onClick={sendMessage} className="sendmessage">Send Message</WaitButton>
                                     </div>
                                 </div>
                             </div>
