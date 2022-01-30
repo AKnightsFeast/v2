@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import { Parallax } from 'react-parallax';
 //import { animated } from 'react-spring';
 import { string, object } from 'yup';
 import { NavLink } from 'react-router-dom';
@@ -11,7 +10,6 @@ import WaitButton from '../components/waitbutton';
 import { sendMessageAsync } from '../store/contact/actions';
 
 import "../assets/styles/pages/home/timeline.css";
-//import "../assets/styles/transition.css";
 
 const calc = (o: number) => `translateY(${o * 0.1}px)`;
 
@@ -22,28 +20,18 @@ const contactMessageSchema = object().shape({
 }).noUnknown();
 
 export const Home: React.FC = () => {
-    //const [showNav, setShowNav] = useState(false);
     const dispatch = useDispatch();
 
-    const isSendingMessage = useSelector((state: ApplicationState) => state.ContactMessage.IsSendingMessage);
     const [message, setMessage] = useState<Message>({ sender: "", email: "", text: "" });
+    const isSendingMessage = useSelector((state: ApplicationState) => state.ContactMessage.IsSendingMessage);
 
-    const updateMessage = (attrObj: any) => {
-        setMessage(oldMessage => ({...oldMessage, ...attrObj}));
-    };
+    const updateMessage = (attrObj: any) => setMessage(oldMessage => ({...oldMessage, ...attrObj}));
 
-    const sendMessage = () => {
+    const sendMessage = () =>
         contactMessageSchema
             .validate(message)
             .catch(err => console.log(err.message))
-            .then(valid => valid && dispatch(sendMessageAsync.request(message)));      
-
-            
-        //while (!isSubmitting) {
-        //    console.log("Waiting...");
-        //}
-    //    formRef.current && formRef.current.submit();
-    };
+            .then(valid => valid && dispatch(sendMessageAsync.request(message)));
 
     return (
         <>
@@ -55,7 +43,7 @@ export const Home: React.FC = () => {
                         dinners with minimal nutritional value? Do you want to eat healthier but lack the time to plan, shop for
                         and cook meals that are good for you?
                     </p>
-                    <h2 className="text-green-900">Answer!</h2>
+                    <h2 style={{color: "#2a4365"}}>Answer!</h2>
                     <p>
                         A Knight's Feast Personal Chef Service prepares your choice of meals -
                         made fresh in your own kitchen - and packages them with easy-to-follow heating instructions.
@@ -65,20 +53,15 @@ export const Home: React.FC = () => {
                 <div className="hero-bg"></div>
             </section>
 
+
+
+
             <section className="foodquote">
                 <div className="overlay"></div>
-{/*                <div>
-                <animated.div>
-                    <blockquote>
-                        One cannot think well, love well, sleep well, if one has not dined well.
-                        <span>Virginia Woolf</span>
-                    </blockquote>
-                </animated.div>
-                </div>
-
-                <Parallax className="parallax" bgImage="/assets/img/home/bgfishstew.jpg" strength={700}>
-                </Parallax>
-*/}
+                <blockquote>
+                    One cannot think well, love well, sleep well, if one has not dined well.
+                    <span>Virginia Woolf</span>
+                </blockquote>
             </section>
 
 
@@ -165,21 +148,15 @@ export const Home: React.FC = () => {
 
 
 
+
             <section className="chefquote">
                 <div className="overlay"></div>
-{/*                <div>
-                <animated.div>
-                    <blockquote>
-                        A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
-                        <span>Chef Laura</span>
-                    </blockquote>
-                </animated.div>
-                </div>
-
-                <Parallax className="parallax" bgImage="/assets/img/home/bgsangria.jpg" strength={-100}>
-                </Parallax>
-*/}
+                <blockquote>
+                    A personal chef service is for anyone looking for a few nights off from worrying about what's for dinner.
+                    <span>Chef Laura</span>
+                </blockquote>
             </section>
+
 
 
 
@@ -253,6 +230,7 @@ export const Home: React.FC = () => {
                     </svg>
                 </div>
             </section>
+
 
 
 
