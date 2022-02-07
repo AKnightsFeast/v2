@@ -1,9 +1,7 @@
 // https://github.com/milosjanda/react-scroll-up
 
-'use strict';
-
 import React, { useState, useCallback, CSSProperties } from 'react';
-import detectPassiveEvents from 'detect-passive-events';
+import { supportsPassiveEvents } from 'detect-passive-events';
 
 import { ScrollToTopProp } from '../modules/types';
 import { TweenFunctionEnum } from '../modules/enums';
@@ -32,8 +30,8 @@ export const ScrollToTop: React.FC<ScrollToTopProp> = ({ children, duration = 25
 
         // Add all listeners which can start scroll
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener("wheel", stopScrolling, detectPassiveEvents.hasSupport ? {passive: true} : false);
-        window.addEventListener("touchstart", stopScrolling, detectPassiveEvents.hasSupport ? {passive: true} : false);
+        window.addEventListener("wheel", stopScrolling, supportsPassiveEvents ? {capture: false, passive: true} : false);
+        window.addEventListener("touchstart", stopScrolling, supportsPassiveEvents ? {capture: false, passive: true} : false);
 
         return () => {
             // Remove all listeners which was registered

@@ -260,9 +260,7 @@ export const Home: React.FC = () => {
                                         <textarea rows={4} onBlur={(e) => { updateMessage({ text: e.target.value.trim() }); }} cols={80} className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Type a message..." required={true}></textarea>
                                     </div>
                                     
-                                    <div className="text-center mt-6">
-                                        <WaitButton isLoading={isSendingMessage} onClick={sendMessage} className="sendmessage">Send Message</WaitButton>
-                                    </div>
+                                    <WaitButton wrapperClass="text-center mt-6" isLoading={isSendingMessage} onClick={sendMessage} className="sendmessage">Send Message</WaitButton>
                                 </div>
                             </div>
                         </div>

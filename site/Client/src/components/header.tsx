@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { isUsingBrowser,useIsomorphicLayoutEffect } from '../utils';
+import { isUsingBrowser, useIsomorphicLayoutEffect } from '../utils';
 
 export const Header: React.FC = () => {
     const [isAtTop, setIsAtTop] = useState(true)

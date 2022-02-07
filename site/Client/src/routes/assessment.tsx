@@ -6,10 +6,10 @@ import { NavLink } from 'react-router-dom';
 import { v4 as getUuid } from 'uuid';
 import InputMask from 'react-input-mask';
 
-import { States } from  '../modules/data';
 import { Pet } from '../components/assessment/pet';
 import { Contact } from '../components/assessment/contact';
 
+import Waitbutton from '../components/waitbutton';
 import { useInput, useIsomorphicLayoutEffect } from '../utils';
 import { InputTypeEnum, InputList } from '../components/inputlist';
 import {
@@ -26,6 +26,7 @@ import {
     AssessmentSpiceRanges
 } from '../modules/records';
 
+import { States } from '../modules/data';
 import { getInitialAssessmentState, getInitialPersonState, getInitialPetState } from '../modules/states';
 import { Person, CustomerPet, Assessment, ApplicationState } from '../modules/types';
 
@@ -126,7 +127,7 @@ export const AssessmentWizard: React.FC = () => {
 
     const getPersonSchema = (isRequired: boolean) => {
         const phoneValidator = mixed().test("phone", "Please enter a valid phone #.",
-            (value) => {
+            (value: string) => {
                 try {
                     if (value === null && !isRequired) return true;
 
@@ -153,7 +154,7 @@ export const AssessmentWizard: React.FC = () => {
         name: string().required().nullable(),
         type: string().required().nullable(),
         friendly: boolean().required().nullable(),
-        location: mixed().test("location", "Please indicate where the pet normally stays.", (value) => value !== null && value.length > 0),
+        location: mixed().test("location", "Please indicate where the pet normally stays.", (value: string) => value !== null && value.length > 0),
     });
 
     const AssessmentSchema = object().shape({
@@ -167,26 +168,26 @@ export const AssessmentWizard: React.FC = () => {
             zipcode: string().matches(/^[0-9]{5}$/, "Please enter a valid zipcode.").required().nullable(),
         }).required(),
         people: array().of(getPersonSchema(false)).notRequired().nullable(),
-        allergies: mixed().test("allergies", "Please enter any food allergies.", function(value) {
+        allergies: mixed().test("allergies", "Please enter any food allergies.", function(value: string) {
             if (hasAllergies.current === undefined) return this.createError({ path: "hasallergies", message: "Please indicate if you currently have any food allergies."});
             return hasAllergies.current === false || (value || "") !== "";
         }),
         lactoseInt: boolean().required("Please indicate if anyone is lactose intolerant.").nullable(),
-        medical: mixed().test("medical", "Please enter any current medical conditions.", function(value) {
+        medical: mixed().test("medical", "Please enter any current medical conditions.", function(value: string) {
             if (hasMedConditions.current === undefined) return this.createError({ path: "hasmedconditions", message: "Please indicate if you currently have any medical conditions."});
             return hasMedConditions.current === false || (value || "") !== "";
         }),
-        dietPlan: mixed().test("dietPlan", "Please enter any current diet plans.", function(value) {
+        dietPlan: mixed().test("dietPlan", "Please enter any current diet plans.", function(value: string) {
             if (hasDietPlan.current === undefined) return this.createError({ path: "hasdietplan", message: "Please indicate if you are currently on a diet plan."});
             return hasDietPlan.current === false || (value || "") !== "";
         }),
         packaging: string().required("Please select how your food should be packaged.").nullable(),
         container: string().required("Please select what type of containers to use.").nullable(),
-        beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value) {
+        beefPrep: mixed().test("beefPrep", "Please select at least one type of beef preperation.", function(value: string[]) {
             if (likesBeef.current === undefined) return this.createError({ path: "likesbeef", message: "Please indicate if you like beef."});
             return likesBeef.current === false || (value !== null && value.length > 0); 
         }),
-        chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value) {
+        chickenPrep: mixed().test("chickenPrep", "Please select at least one type of chicken preperation.", function(value: string[]) {
             if (likesChicken.current === undefined) return this.createError({ path: "likeschicken", message: "Please indicate if you like chicken."});
             return likesChicken.current === false || (value !== null && value.length > 0); 
         }),
@@ -197,7 +198,7 @@ export const AssessmentWizard: React.FC = () => {
         seafoodDislikes: string().notRequired().nullable(),    
         likesVegetarian: boolean().required("Please indicate if you like vegetarian food.").nullable(),
         otherFoods: string().notRequired().nullable(),
-        spiceLikes: mixed().test("spiceLikes", "Please select at least one spice level you like.", function(value) {
+        spiceLikes: mixed().test("spiceLikes", "Please select at least one spice level you like.", function(value: string[]) {
             return value !== null && value.length > 0;
         }),
         fhvLikes: string().notRequired().nullable(),
@@ -288,7 +289,7 @@ export const AssessmentWizard: React.FC = () => {
     };
 
     const onUpdateAssessment = (attrObj: any) => {
-        updateAssessment(oldAssessment => ({...oldAssessment, ...attrObj}));
+        updateAssessment((oldAssessment: Assessment) => ({...oldAssessment, ...attrObj}));
 
         refresh();
     };
@@ -344,11 +345,11 @@ export const AssessmentWizard: React.FC = () => {
                 if (vErr.inner) {
                     vErr.inner.map(ve => {
                         if (errors === undefined) errors = new Map<string, string>();
-                        errors.set(ve.path, ve.message);
+                        ve.path && errors.set(ve.path, ve.message);
                     });
                 } else {
                     if (errors === undefined) errors = new Map<string, string>();
-                    errors.set(vErr.path, vErr.message);                    
+                    vErr.path && errors.set(vErr.path, vErr.message);                    
                 }
             }
         });
@@ -368,46 +369,50 @@ export const AssessmentWizard: React.FC = () => {
 
                 vErr.inner.map(ve => {
                     let path = "";
-        
+                    let errorPath = ve.path ?? "";
+
                     switch (true) {
-                        case ve.path.startsWith("allergies"):
-                        case ve.path.startsWith("lactoseInt"):
-                        case ve.path.startsWith("medical"):
-                        case ve.path.startsWith("dietPlan"):
+                        case errorPath.startsWith("allergies"):
+                        case errorPath.startsWith("lactoseInt"):
+                        case errorPath.startsWith("medical"):
+                        case errorPath.startsWith("dietPlan"):
                             path = "health";
                             break;
-                        case ve.path.startsWith("packaging"):
-                        case ve.path.startsWith("container"):
+                        case errorPath.startsWith("packaging"):
+                        case errorPath.startsWith("container"):
                             path = "packaging";
                             break;
-                        case ve.path.startsWith("contact."):
+                        case errorPath.startsWith("contact."):
                             path = "contact";
                             break;
-                        case ve.path.startsWith("address."):
+                        case errorPath.startsWith("address."):
                             path = "address";
                             break;
-                        case ve.path.startsWith("likesbeef"):
+                        case errorPath.startsWith("likesbeef"):
                             path = "beefPrep";
                             break;
-                        case ve.path.startsWith("likeschicken"):
+                        case errorPath.startsWith("likeschicken"):
                             path = "chickenPrep";
                             break;
-                        case ve.path.startsWith("people"):
+                        case errorPath.startsWith("people"):
                             path = "people";
                             break;
-                        case ve.path.startsWith("pets"):
+                        case errorPath.startsWith("pets"):
                             path = "pets";
                             break;
                         default:
-                            path = ve.path;
+                            path = errorPath;
                             break;
                     }
 
-                    step = steps.current.get(path);
+                    if (path !== "")
+                    {
+                        step = steps.current.get(path);
 
-                    if (step) {
-                        if (step.errors === undefined) step.errors = new Map<string, string>();
-                        step.errors.set(ve.path, ve.message);
+                        if (step) {
+                            if (step.errors === undefined) step.errors = new Map<string, string>();
+                            step.errors.set(errorPath, ve.message);
+                        }
                     }
                 });
 
@@ -494,7 +499,7 @@ export const AssessmentWizard: React.FC = () => {
                         <div className="nav-title">Assessment Areas (* Required)</div>
                         <ul className="nav-items">
                         {
-                            Array.from(steps.current.entries()).map((entry: [string, WizardStep], index) => {
+                            Array.from(steps.current.entries())?.map((entry: [string, WizardStep], index) => {
                                 let className = stepOrder[stepIndex.current] === entry[0] ? "active" : "";
                                 className += (entry[1].isValid !== true ? " error" : "");
 
@@ -567,7 +572,7 @@ export const AssessmentWizard: React.FC = () => {
                                         <select name={"address.state"} {...bindState}>
                                             <option></option>
                                             {
-                                                States.map(state => (<option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>))
+                                                States?.map(state => (<option key={state.Abbr} value={state.Abbr}>{state.Abbr}</option>))
                                             }
                                         </select>
                                     </label>
@@ -692,7 +697,7 @@ export const AssessmentWizard: React.FC = () => {
                                             name={"beefprep"}
                                             items={AssessmentBeefPrep}
                                             onChange={(values: string[]) => {
-                                                onUpdateAssessment({ beefPrep: values.map(value => value as AssessmentBeefKeyTypes) });
+                                                onUpdateAssessment({ beefPrep: values?.map(value => value as AssessmentBeefKeyTypes) });
                                             }} />
                                     </div>
                                 </div>
@@ -711,7 +716,7 @@ export const AssessmentWizard: React.FC = () => {
                                             name={"chickenprep"}
                                             items={AssessmentChickenPrep}
                                             onChange={(values: string[]) => {
-                                                onUpdateAssessment({ chickenPrep: values.map(value => value as AssessmentChickenKeyTypes) });
+                                                onUpdateAssessment({ chickenPrep: values?.map(value => value as AssessmentChickenKeyTypes) });
                                             }} />
                                     </div>
                                 </div>
@@ -778,7 +783,7 @@ export const AssessmentWizard: React.FC = () => {
                                         name={"spicelikes"}
                                         items={AssessmentSpiceRanges}
                                         onChange={(values: string[]) => {
-                                            onUpdateAssessment({ spiceLikes: values.map(value => value as AssessmentSpiceKeyTypes) });
+                                            onUpdateAssessment({ spiceLikes: values?.map(value => value as AssessmentSpiceKeyTypes) });
                                         }} />
                                 </div>
                             </div>
@@ -907,7 +912,10 @@ export const AssessmentWizard: React.FC = () => {
 
 
             <div className="pt-5 float-right">
+                {/*
                 <button onClick={complete} disabled={pctDone.current !== 100} className={`button color${stepIndex.current === totalSteps ? " hidden" : ""}`}>Submit</button>
+                */}
+                <Waitbutton onClick={complete} className="sendmessage" isLoading={isSubmitting}>Submit</Waitbutton>
             </div>
         </div>
     );

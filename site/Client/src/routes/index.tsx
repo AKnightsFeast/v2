@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import { SiteWrapper } from "../components";
 
@@ -28,30 +28,30 @@ function ScrollToTopOnMount() {
   return null;
 }
 
-const Pages = () => {
+const Pages: React.FC = () => {
   return (
     <>
       <ScrollToTopOnMount />
-      <Switch>
-          <SiteWrapper path="/" exact={true} component={Home} />
-          <SiteWrapper path="/about/friends" exact={true} component={Friends} />
-          <SiteWrapper path="/about/policies" exact={true} component={Policies} />
-          <SiteWrapper path="/about/cheflaura" exact={true} component={ChefLaura} />
-          <SiteWrapper path="/about/testimonials" exact={true} component={Testimonials} />
-          
-          <SiteWrapper path="/menus/events" exact={true} component={Events} />
-          <SiteWrapper path="/menus/freezer" exact={true} component={Freezer} />
-          <SiteWrapper path="/menus/monthly" exact={true} component={Monthly} />
-          <SiteWrapper path="/menus/personal" exact={true} component={Personal} />
+      <Routes>
+        <Route path="/" element={<SiteWrapper component={Home} />} />
+        <Route path="/about/friends" element={<SiteWrapper component={Friends} />} />
+        <Route path="/about/policies" element={<SiteWrapper component={Policies} />} />
+        <Route path="/about/cheflaura" element={<SiteWrapper component={ChefLaura} />} />
+        <Route path="/about/testimonials" element={<SiteWrapper component={Testimonials} />} />
 
-          <Route path="/assessment" exact={true} component={Assessment} />
-          {/*
-              <LoggedOutRoute path="/" exact={true} component={Landing} />
-              <LoggedOutRoute path="/about" exact={true} component={About} />
-              <LoggedOutRoute path="/log-in" exact={true} component={LogIn} />
-              <LoggedInRoute path="/log-out" exact={true} component={LogOut} />
-          */}
-      </Switch>
+        <Route path="/menus/events" element={<SiteWrapper component={Events} />} />
+        <Route path="/menus/freezer" element={<SiteWrapper component={Freezer} />} />
+        <Route path="/menus/monthly" element={<SiteWrapper component={Monthly} />} />
+        <Route path="/menus/personal" element={<SiteWrapper component={Personal} />} />
+
+        <Route path="/assessment" element={<Assessment />} />
+        {/*
+            <LoggedOutRoute path="/" exact={true} component={Landing} />
+            <LoggedOutRoute path="/about" exact={true} component={About} />
+            <LoggedOutRoute path="/log-in" exact={true} component={LogIn} />
+            <LoggedInRoute path="/log-out" exact={true} component={LogOut} />
+        */}
+      </Routes>
     </>
   );
 };

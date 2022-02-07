@@ -1,7 +1,7 @@
 const isDev = !(/production/i).test(process.env.NODE_ENV);
-const isProd = (/production/i).test(process.env.NODE_ENV);
+//const isProd = (/production/i).test(process.env.NODE_ENV);
 
-getPlugins = () => {
+const getPlugins = () => {
     const result = [
         require('postcss-import'),
         require('tailwindcss'),

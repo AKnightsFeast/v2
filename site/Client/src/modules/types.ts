@@ -1,5 +1,5 @@
 import { Epic } from 'redux-observable';
-import { CSSProperties, MutableRefObject } from 'react';
+import { CSSProperties } from 'react';
 import { StateType, ActionType } from 'typesafe-actions';
 
 import Services from '../services';

@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
+import { combineReducers } from 'redux';
 
 import { submitAssessmentAsync } from './actions';
 

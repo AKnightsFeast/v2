@@ -3,10 +3,11 @@ import { useSpring, animated } from "@react-spring/web";
 import { ClipLoader } from "react-spinners";
 
 interface WaitButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
-    isLoading: boolean
+    isLoading: boolean,
+    wrapperClass?: string
 }
 
-export default ({ isLoading, children, ...props }: WaitButtonProperties) => {
+export default ({ isLoading, wrapperClass = "", children, ...props }: WaitButtonProperties) => {
     /* showLoader is used to stay in the "isLoading state" a bit longer to avoid loading flashes
     if the loading state is too short. */
     const [showLoader, setShowLoader] = useState(false);
@@ -47,12 +48,12 @@ export default ({ isLoading, children, ...props }: WaitButtonProperties) => {
         <>
             {
                 showLoader ? (
-                    <animated.div style={fadeOutProps}>
+                    <animated.div className={wrapperClass} style={fadeOutProps}>
                         <ClipLoader />
                     </animated.div>
                 ) : (
-                    <animated.div style={fadeInProps}>
-                        <button ref={ref} style={showLoader ? {width: `${width}px`, height: `${height}px`} : {}} {...props}>
+                    <animated.div className={wrapperClass} style={fadeInProps}>
+                        <button ref={ref} {...props}>
                             {children}
                         </button>
                     </animated.div>

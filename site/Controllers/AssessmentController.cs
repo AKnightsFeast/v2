@@ -65,7 +65,7 @@ namespace site.Controllers
                 //     }
                 // });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return new JsonResult(new
                 {

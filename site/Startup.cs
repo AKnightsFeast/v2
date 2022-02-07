@@ -102,16 +102,18 @@ namespace site
                 //endpoints.MapRazorPages();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "Client";
-
-                if (env.IsDevelopment())
+            app.Map("", site => 
+                site.UseSpa(spa =>
                 {
-                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                    spa.Options.SourcePath = "Client";
+
+                    if (env.IsDevelopment())
+                    {
+                        spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
+                        spa.UseReactDevelopmentServer(npmScript: "start");
+                    }
+                })
+            );
         }
     }
 }

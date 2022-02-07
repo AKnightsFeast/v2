@@ -60,7 +60,7 @@ export const Monthly: React.FC = () => {
                     <div className="years">
                         <select value={ `${menuYearRef.current}` } onChange={ getMonthsForYear }>
                         {
-                            YearArray.map((year: number, index: number) => (
+                            YearArray?.map((year: number, index: number) => (
                                 <option key={ index } value={ year }>{ year }</option>
                             ))
                         }
@@ -68,7 +68,7 @@ export const Monthly: React.FC = () => {
                     </div>
                     <div className="months">
                     {
-                        Array.from(Months.entries()).map((entry: [number, Month]) => {
+                        Array.from(Months.entries())?.map((entry: [number, Month]) => {
                             let key = entry[0];
                             let month = entry[1];
 
