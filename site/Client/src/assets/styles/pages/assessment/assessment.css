@@ -74,6 +74,11 @@
     @apply border-transparent;
 }
 
+.assessment .nav .nav-wrapper .nav-items li.required::before {
+    content: "*";
+    @apply mr-1;
+}
+
 .assessment .nav .nav-wrapper .nav-items li:hover,
 .assessment .nav .nav-wrapper .nav-items li.active {
     @apply italic;

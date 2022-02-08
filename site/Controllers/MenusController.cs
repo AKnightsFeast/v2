@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 namespace site.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MenusController : ControllerBase
     {
         IWebHostEnvironment _env;

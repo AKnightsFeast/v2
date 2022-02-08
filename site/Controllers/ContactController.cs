@@ -9,7 +9,7 @@ using site.Utilities;
 namespace site.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
         Email _email;

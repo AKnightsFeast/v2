@@ -21,7 +21,7 @@ using site.Models;
 namespace site.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Produces("application/json")]
     public class AssessmentController : ControllerBase
     {

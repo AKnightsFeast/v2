@@ -2452,6 +2452,11 @@ button:hover.sendmessage
   border-color: transparent;
 }
 
+.assessment .nav .nav-wrapper .nav-items li.required::before {
+  content: "*";
+  margin-right: 0.25rem;
+}
+
 .assessment .nav .nav-wrapper .nav-items li:hover,
 .assessment .nav .nav-wrapper .nav-items li.active {
   font-style: italic;

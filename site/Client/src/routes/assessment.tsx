@@ -36,6 +36,7 @@ type WizardStep = {
     title: string,
     isValid?: boolean,
     menutitle: string,
+    isRequired: boolean,
     errors?: Map<string, string>,
 };
 
@@ -53,32 +54,32 @@ export const AssessmentWizard: React.FC = () => {
 
     const steps = useRef<Map<string, WizardStep>>(
         new Map([
-            ["contact", { menutitle: "* Contact Info", title: "What is your contact information?" }],
-            ["hiringGoal", { menutitle: "* Hiring Goals", title: "What is your goal with hiring a personal chef?" }],
-            ["address", { menutitle: "* Cook Address", title: "At what address will the chef be cooking?" }],
-            ["people", { menutitle: "Members in Party", title: "Will there be additional people?", isValid: true }],
-            ["health", { menutitle: "* Health Info", title: "Just need to gather some health info..." }],
-            ["packaging", { menutitle: "* Food Packaging", title: "How should I deliver the meals?" }],
-            ["beefPrep", { menutitle: "* Beef", title: "Does your family like beef?" }],
-            ["chickenPrep", { menutitle: "* Chicken", title: "How about chicken?" }],
-            ["likesTurkey", { menutitle: "* Turkey", title: "Does your family like turkey?" }],
-            ["likesLamb", { menutitle: "* Lamb", title: "Would your family be okay with lamb?" }],
-            ["likesPork", { menutitle: "* Pork", title: "How about pork?" }],
-            ["likesSeafood", { menutitle: "* Seafood", title: "Is seafood something that would be desired?" }],
-            ["likesVegetarian", { menutitle: "* Vegetarian", title: "Would you like any vegetarian meals?" }],
-            ["otherFoods", { menutitle: "Other Foods", title: "Additional foods...", isValid: true }],
-            ["spiceLikes", { menutitle: "* Spice Tolerance", title: "How spicy do you like your meals?" }],
-            ["fhvLikes", { menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?", isValid: true }],
-            ["fhvDislikes", { menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?", isValid: true }],
-            ["saladLikes", { menutitle: "Salads", title: "What are your favorite greens for salads?", isValid: true }],
-            ["appliances", { menutitle: "* Appliances", title: "Are there any kitchen appliances the chef can't use?" }],
-            ["recipes", { menutitle: "Recipes", title: "Are there any recipes you'd like the chef to prepare?", isValid: true }],
-            ["restaurants", { menutitle: "Restaurants", title: "What are some of your favorite restaurants?", isValid: true }],
-            ["hasAddlFridge", { menutitle: "* Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
-            ["groceryStores", { menutitle: "Grocery Stores", title: "Where do you shop for groceries?", isValid: true }],
-            ["fuseboxLocation", { menutitle: "* Fuse/Breaker Box", title: "Where is the fuse/breaker box located?" }],
-            ["pets", { menutitle: "Pets", title: "Are there pets are in the household?", isValid: true }],
-            ["comments", { menutitle: "Comments", title: "Any comments/concerns?", isValid: true }]
+            ["contact", { isRequired: true, menutitle: "Contact Info", title: "What is your contact information?" }],
+            ["hiringGoal", { isRequired: true, menutitle: "Hiring Goals", title: "What is your goal with hiring a personal chef?" }],
+            ["address", { isRequired: true, menutitle: "Cook Address", title: "At what address will the chef be cooking?" }],
+            ["people", { isRequired: false, menutitle: "Members in Party", title: "Will there be additional people?", isValid: true }],
+            ["health", { isRequired: true, menutitle: "Health Info", title: "Just need to gather some health info..." }],
+            ["packaging", { isRequired: true, menutitle: "Food Packaging", title: "How should I deliver the meals?" }],
+            ["beefPrep", { isRequired: true, menutitle: "Beef", title: "Does your family like beef?" }],
+            ["chickenPrep", { isRequired: true, menutitle: "Chicken", title: "How about chicken?" }],
+            ["likesTurkey", { isRequired: true, menutitle: "Turkey", title: "Does your family like turkey?" }],
+            ["likesLamb", { isRequired: true, menutitle: "Lamb", title: "Would your family be okay with lamb?" }],
+            ["likesPork", { isRequired: true, menutitle: "Pork", title: "How about pork?" }],
+            ["likesSeafood", { isRequired: true, menutitle: "Seafood", title: "Is seafood something that would be desired?" }],
+            ["likesVegetarian", { isRequired: true, menutitle: "Vegetarian", title: "Would you like any vegetarian meals?" }],
+            ["otherFoods", { isRequired: false, menutitle: "Other Foods", title: "Additional foods...", isValid: true }],
+            ["spiceLikes", { isRequired: true, menutitle: "Spice Tolerance", title: "How spicy do you like your meals?" }],
+            ["fhvLikes", { isRequired: false, menutitle: "Produce Likes", title: "What are your favorite fruits, herbs, and veggies?", isValid: true }],
+            ["fhvDislikes", { isRequired: false, menutitle: "Produce Dislikes", title: "What fruits, herbs, and veggies do you dislike?", isValid: true }],
+            ["saladLikes", { isRequired: false, menutitle: "Salads", title: "What are your favorite greens for salads?", isValid: true }],
+            ["appliances", { isRequired: true, menutitle: "Appliances", title: "Are there any kitchen appliances the chef can't use?" }],
+            ["recipes", { isRequired: false, menutitle: "Recipes", title: "Are there any recipes you'd like the chef to prepare?", isValid: true }],
+            ["restaurants", { isRequired: false, menutitle: "Restaurants", title: "What are some of your favorite restaurants?", isValid: true }],
+            ["hasAddlFridge", { isRequired: true, menutitle: "Fridge/Freezer", title: "Do you have an additional freezer or refrigerator?" }],
+            ["groceryStores", { isRequired: false, menutitle: "Grocery Stores", title: "Where do you shop for groceries?", isValid: true }],
+            ["fuseboxLocation", { isRequired: true, menutitle: "Fuse/Breaker Box", title: "Where is the fuse/breaker box located?" }],
+            ["pets", { isRequired: false, menutitle: "Pets", title: "Are there pets are in the household?", isValid: true }],
+            ["comments", { isRequired: false, menutitle: "Comments", title: "Any comments/concerns?", isValid: true }]
         ])
     );
 
@@ -502,6 +503,7 @@ export const AssessmentWizard: React.FC = () => {
                             Array.from(steps.current.entries())?.map((entry: [string, WizardStep], index) => {
                                 let className = stepOrder[stepIndex.current] === entry[0] ? "active" : "";
                                 className += (entry[1].isValid !== true ? " error" : "");
+                                className += (entry[1].isRequired === true ? " required" : "");
 
                                 return (
                                     <li key={entry[0]} className={className.trim()}>
@@ -915,7 +917,7 @@ export const AssessmentWizard: React.FC = () => {
                 {/*
                 <button onClick={complete} disabled={pctDone.current !== 100} className={`button color${stepIndex.current === totalSteps ? " hidden" : ""}`}>Submit</button>
                 */}
-                <Waitbutton onClick={complete} className="sendmessage" isLoading={isSubmitting}>Submit</Waitbutton>
+                <Waitbutton onClick={complete} className={`button color${stepIndex.current !== totalSteps ? " hidden" : ""}`} isLoading={isSubmitting}>Submit</Waitbutton>
             </div>
         </div>
     );
