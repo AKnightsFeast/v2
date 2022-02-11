@@ -67,7 +67,6 @@ export type Person = {
     fname: string | null,
     mi: string | null,
     lname: string | null,
-    dob: Date | null,
     email: string | null,
     phone: string | null,
 };

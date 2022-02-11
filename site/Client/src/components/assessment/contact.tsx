@@ -20,7 +20,6 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
             fname: (fname === "" ? null : fname),
             mi: (mi === "" ? null : mi),
             lname: (lname === "" ? null : lname),
-            dob: (dob === "" ? null : new Date(dob)),
             email: (email === "" ? null : email),
             phone: (phone === "" ? null : phone)
         };
@@ -29,7 +28,6 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
         onContactUpdate && onContactUpdate(newPerson);
     };
 
-    const { value:dob, bind:bindDOB } = useInput(contact.dob ? contact.dob.toString() : "", () => { updateAssessment(); });
     const { value:mi, bind:bindMI } = useInput(contact.mi ?? "", () => { updateAssessment(); });
     const { value:lname, bind:bindLName } = useInput(contact.lname ?? "", () => { updateAssessment(); });
     const { value:email, bind:bindEmail } = useInput(contact.email ?? "", () => { updateAssessment(); });
@@ -50,10 +48,6 @@ export const Contact: React.FC<IContactProp> = ({ index, person, onContactUpdate
                 <label>
                     <span>Last Name</span>
                     <input type="text" name={`${namePrefix}lname`} placeholder="Last Name" maxLength={50} style={{width: `${index === undefined ? "250" : "180"}px`}} {...bindLName} />
-                </label>
-                <label title="Date of Birth">
-                    <span>DOB</span>
-                    <InputMask type="text" name={`${namePrefix}dob`} placeholder="DOB" style={{width: `${index === undefined ? "150" : "120"}px`}} {...bindDOB} mask="99/99/9999" />
                 </label>
             </div>
             <div className="field row">

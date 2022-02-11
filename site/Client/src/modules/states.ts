@@ -18,7 +18,7 @@ export const InitialApplicationState : ApplicationState = {
 
 export const getInitialPetState = (): CustomerPet => ({ id: getUuid(), name: null, type: null, friendly: null, location: null });
 
-export const getInitialPersonState = (): Person => ({ id: getUuid(), fname: null, mi: null, lname: null,  dob: null, email: null, phone: null });
+export const getInitialPersonState = (): Person => ({ id: getUuid(), fname: null, mi: null, lname: null, email: null, phone: null });
 
 export const getInitialAssessmentState: Assessment = {
     contact: getInitialPersonState(),
